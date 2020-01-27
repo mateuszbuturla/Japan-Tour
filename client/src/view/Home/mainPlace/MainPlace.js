@@ -17,7 +17,7 @@ function MainPlace(props) {
         <Link to={`/${name}`}>
             <Container>
                 <p>{name}</p>
-                <Img src={process.env.PUBLIC_URL + `/upload/${imgsrc}`} />;
+                <Img src={process.env.PUBLIC_URL + `/upload/${imgsrc}`} />
             </Container>
         </Link>
     );

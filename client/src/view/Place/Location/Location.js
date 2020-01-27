@@ -15,7 +15,7 @@ function Location(props) {
     return (
         <Container>
             <p>{name}</p>
-            <Img src={process.env.PUBLIC_URL + `/upload/${imgsrc}`} />;
+            <Img src={process.env.PUBLIC_URL + `/upload/${imgsrc}`} />
             <p>{description}</p>
         </Container>
     );

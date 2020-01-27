@@ -3,9 +3,10 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
 import './reset.css';
 
-import Home from './view/Home';
-import NoMatch from './view/NoMatch';
-import Place from './view/Place';
+import Home from './view/Home/Home';
+import NoMatch from './view/NoMatch/NoMatch';
+import Place from './view/Place/Place';
+import Footer from './view/Footer/Footer';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           <Route component={NoMatch} />
         </Switch>
       </BrowserRouter>
+      <Footer />
     </div>
   );
 }
