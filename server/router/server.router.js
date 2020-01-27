@@ -10,6 +10,8 @@ module.exports = (app) => {
 
     app.post('/api/mainplace/add', mainPositionController.addPlace);
 
+    app.post('/api/attraction/add', placeController.addAttraction);
+
     app.post('/api/getmainplacebyname/:name', mainPositionController.getMainPlaceByName);
 
     app.post('/api/getplacebyparentplaceid/:id', placeController.getPlaceByPatentPlaceId);

@@ -5,6 +5,7 @@ import Cookies from 'universal-cookie';
 import AdminMainPlaces from '../AdminMainPlaces/AdminMainPlaces';
 import AdminAttractions from '../AdminAttractions/AdminAttractions';
 import AdminAddPlace from '../AdminAddPlace/AdminAddPlace';
+import AdminAddAttractions from '../AdminAddAttraction/AdminAddAttraction';
 
 import './adminPanel.sass';
 
@@ -33,11 +34,13 @@ class AdminPanel extends React.Component {
                         <li><Link className="admin-panel-nav__link" to={`/adminpanel/mainplaces`}>Miejsca</Link></li>
                         <li><Link className="admin-panel-nav__link" to={`/adminpanel/attractions`}>Atrakcje</Link></li>
                         <li><Link className="admin-panel-nav__link" to={`/adminpanel/mainplaces/add`}>Dodaj miejsce</Link></li>
+                        <li><Link className="admin-panel-nav__link" to={`/adminpanel/attractions/add`}>Dodaj Atrakcje</Link></li>
                         <li><p className="admin-panel-nav__link" onClick={this.logout.bind(this)}>Wyloguj</p></li>
                     </ul>
                 </nav>
                 <section className="admin-panel">
                     <Switch>
+                        <Route path="/adminpanel/attractions/add" component={() => <AdminAddAttractions user={user} />} exact />
                         <Route path="/adminpanel/mainplaces/add" component={() => <AdminAddPlace user={user} />} exact />
                         <Route path="/adminpanel/mainplaces" component={() => <AdminMainPlaces user={user} />} exact />
                         <Route path="/adminpanel/attractions" component={() => <AdminAttractions user={user} />} exact />} />
