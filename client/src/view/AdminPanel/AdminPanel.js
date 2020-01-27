@@ -2,9 +2,11 @@ import React from 'react';
 import { Redirect, Link, Switch, Route } from 'react-router-dom';
 import Cookies from 'universal-cookie';
 
-import AdminMainPlaces from './AdminMainPlaces/AdminMainPlaces';
-import AdminAttractions from './AdminAttractions/AdminAttractions';
-import AdminAddPlace from './AdminAddPlace/AdminAddPlace';
+import AdminMainPlaces from '../AdminMainPlaces/AdminMainPlaces';
+import AdminAttractions from '../AdminAttractions/AdminAttractions';
+import AdminAddPlace from '../AdminAddPlace/AdminAddPlace';
+
+import './adminPanel.sass';
 
 class AdminPanel extends React.Component {
 
@@ -26,11 +28,15 @@ class AdminPanel extends React.Component {
             <>
                 {user === undefined && <Redirect to="/admin" />}
                 {logout === true && <Redirect to="/admin" />}
+                <nav className="admin-panel-nav">
+                    <ul className="admin-panel-nav__list">
+                        <li><Link className="admin-panel-nav__link" to={`/adminpanel/mainplaces`}>Miejsca</Link></li>
+                        <li><Link className="admin-panel-nav__link" to={`/adminpanel/attractions`}>Atrakcje</Link></li>
+                        <li><Link className="admin-panel-nav__link" to={`/adminpanel/mainplaces/add`}>Dodaj miejsce</Link></li>
+                        <li><p className="admin-panel-nav__link" onClick={this.logout.bind(this)}>Wyloguj</p></li>
+                    </ul>
+                </nav>
                 <section className="admin-panel">
-                    <h2>Admin panel</h2>
-                    <Link to={`/adminpanel/mainplaces`}>Miejsca</Link><br />
-                    <Link to={`/adminpanel/attractions`}>Atrakcje</Link>
-                    <p onClick={this.logout.bind(this)}>Wyloguj</p>
                     <Switch>
                         <Route path="/adminpanel/mainplaces/add" component={() => <AdminAddPlace user={user} />} exact />
                         <Route path="/adminpanel/mainplaces" component={() => <AdminMainPlaces user={user} />} exact />

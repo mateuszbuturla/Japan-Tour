@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+import './adminMainPlaces.sass';
 
 class AdminMainPlaces extends React.Component {
 
@@ -35,22 +36,21 @@ class AdminMainPlaces extends React.Component {
             <td>{mainPlace._id}</td>
             <td>{mainPlace.name}</td>
             <td>{mainPlace.description}</td>
-            <td><button id={mainPlace._id} onClick={this.removeMainPlace.bind(this)}>Usuń</button></td>
+            <td><button id={mainPlace._id} onClick={this.removeMainPlace.bind(this)} className="admin-panel__remove-button">Usuń</button></td>
         </tr>)
         return (
-            <div>
-                <p>Admin main places</p>
-                <Link to={`/adminpanel/mainplaces/add`}>Dodaj miejsce</Link>
+            <div className="admin-panel-places-list">
+                <p className="admin-panel__header">Lista miejsc:</p>
                 {message !== '' &&
                     <div>
                         <p>{message}</p>
                     </div>
                 }
-                <table border="1">
-                    <tr>
-                        <td>ID</td>
-                        <td>Nazwa</td>
-                        <td>Opis</td>
+                <table className="admin-panel-places-list__table">
+                    <tr className="admin-panel-places-list__row">
+                        <td className="admin-panel-places-list__collumn">ID</td>
+                        <td className="admin-panel-places-list__collumn">Nazwa</td>
+                        <td className="admin-panel-places-list__collumn">Opis</td>
                     </tr>
                     {_mainPlaces}
                 </table>
