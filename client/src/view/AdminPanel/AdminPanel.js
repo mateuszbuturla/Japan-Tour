@@ -4,6 +4,7 @@ import Cookies from 'universal-cookie';
 
 import AdminMainPlaces from './AdminMainPlaces/AdminMainPlaces';
 import AdminAttractions from './AdminAttractions/AdminAttractions';
+import AdminAddPlace from './AdminAddPlace/AdminAddPlace';
 
 class AdminPanel extends React.Component {
 
@@ -31,6 +32,7 @@ class AdminPanel extends React.Component {
                     <Link to={`/adminpanel/attractions`}>Atrakcje</Link>
                     <p onClick={this.logout.bind(this)}>Wyloguj</p>
                     <Switch>
+                        <Route path="/adminpanel/mainplaces/add" component={() => <AdminAddPlace user={user} />} exact />
                         <Route path="/adminpanel/mainplaces" component={() => <AdminMainPlaces user={user} />} exact />
                         <Route path="/adminpanel/attractions" component={() => <AdminAttractions user={user} />} exact />} />
                     </Switch>

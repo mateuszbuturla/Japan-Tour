@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { Link } from 'react-router-dom';
 
 
 class AdminMainPlaces extends React.Component {
@@ -25,6 +25,7 @@ class AdminMainPlaces extends React.Component {
             .then(r => r.json())
             .then(r => {
                 this.setState({ message: r.message })
+                this.getData();
             })
     }
 
@@ -39,6 +40,7 @@ class AdminMainPlaces extends React.Component {
         return (
             <div>
                 <p>Admin main places</p>
+                <Link to={`/adminpanel/mainplaces/add`}>Dodaj miejsce</Link>
                 {message !== '' &&
                     <div>
                         <p>{message}</p>

@@ -1,5 +1,7 @@
 const mainPositionModel = require('../models/mainPositionModel');
 const userModel = require('../models/userModel');
+const uuid = require('uuid');
+const mongoose = require('mongoose');
 
 exports.getMainPosition = async (req, res) => {
     try {
@@ -36,3 +38,38 @@ exports.removePlace = async (req, res) => {
         res.status(500).json(err);
     }
 }
+
+exports.addPlace = async (req, res) => {
+    const { name, description, userid, usertoken } = req.body;
+
+    if (req.files === null && name !== '' && description !== '') {
+        return res.status(400).json({ message: 'Brak zdjęcia lub nie uzupełniowo wszystkich pól' });
+    }
+
+    try {
+        const user = await userModel.find({ _id: userid, token: usertoken })
+        if (user.length > 0) {
+            const file = req.files.file;
+            const fileuuid = uuid();
+
+            file.mv(`${__dirname}/../../client/public/upload/${fileuuid}.jpg`, err => {
+                if (err) {
+                    console.error(err);
+                    return res.status(500).send(err);
+                }
+
+                mainPositionModel.create({ _id: mongoose.Types.ObjectId(), name: name, description: description, imgsrc: `${fileuuid}.jpg` }, (err) => {
+                    if (err)
+                        return console.log(err)
+
+                    res.status(200).json({ message: 'Miejsce zostało dodane' });
+                })
+            });
+        }
+        else {
+            res.status(200).json({ message: 'Nie poprawny token użytkownika' });
+        }
+    } catch (err) {
+        res.status(500).json(err);
+    }
+};
