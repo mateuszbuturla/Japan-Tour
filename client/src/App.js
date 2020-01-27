@@ -23,7 +23,7 @@ class App extends React.Component {
           <ScrollToTop />
           <Switch>
             <Route path="/admin" component={AdminLogin} exact />
-            <Route path="/AdminPanel" component={() => <AdminPanel user={cookies.get('user')} />} exact />
+            <Route path="/AdminPanel" component={() => <AdminPanel user={cookies.get('user')} />} />
             <Route path="/:name" component={Place} exact />
             <Route path="/" exact>
               <Home />
