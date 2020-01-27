@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
 import './reset.css';
+import './main.sass';
 
 import Home from './view/Home/Home';
 import NoMatch from './view/NoMatch/NoMatch';
