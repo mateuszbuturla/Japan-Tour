@@ -8,9 +8,13 @@ module.exports = (app) => {
 
     app.post('/api/mainplace/remove/:mainplaceid/:userid/:usertoken', mainPositionController.removePlace);
 
+    app.post('/api/attraction/remove/:attractionid/:userid/:usertoken', placeController.removeAttraction);
+
     app.post('/api/mainplace/add', mainPositionController.addPlace);
 
     app.post('/api/attraction/add', placeController.addAttraction);
+
+    app.post('/api/getattractions', placeController.getAttractions);
 
     app.post('/api/getmainplacebyname/:name', mainPositionController.getMainPlaceByName);
 

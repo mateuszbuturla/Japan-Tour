@@ -24,7 +24,6 @@ class AdminLogin extends React.Component {
         fetch(`http://localhost:4000/api/login/${login}/${password}`, { method: 'POST' })
             .then(r => r.json())
             .then(r => {
-                console.log(r)
                 if (r.status === 'correct') {
                     const cookies = new Cookies();
                     cookies.set('user', r.user, { maxAge: 9000 });

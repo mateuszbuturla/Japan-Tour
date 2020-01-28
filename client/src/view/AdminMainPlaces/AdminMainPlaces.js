@@ -32,26 +32,19 @@ class AdminMainPlaces extends React.Component {
 
     render() {
         const { mainPlaces, message } = this.state;
-        const _mainPlaces = mainPlaces.map(mainPlace => <tr key={mainPlace._id}>
-            <td>{mainPlace._id}</td>
-            <td>{mainPlace.name}</td>
-            <td>{mainPlace.description}</td>
-            <td><button id={mainPlace._id} onClick={this.removeMainPlace.bind(this)} className="admin-panel__remove-button">Usuń</button></td>
-        </tr>)
+        const _mainPlaces = mainPlaces.map(mainPlace => <div key={mainPlace._id} className="main-place-data">
+            <p className="main-place-data__p">{mainPlace.name}</p>
+            <p className="main-place-data__p">{mainPlace.description}</p>
+            <button id={mainPlace._id} onClick={this.removeMainPlace.bind(this)} className="main-place-data__remove-button">Usuń</button>
+        </div>)
         return (
             <div className="admin-panel-places-list">
-                <p className="admin-panel__header">Lista miejsc:</p>
                 {message !== '' &&
-                    <div>
+                    <div className="admin-panel-places-list__message">
                         <p>{message}</p>
                     </div>
                 }
-                <table className="admin-panel-places-list__table">
-                    <tr className="admin-panel-places-list__row">
-                        <td className="admin-panel-places-list__collumn">ID</td>
-                        <td className="admin-panel-places-list__collumn">Nazwa</td>
-                        <td className="admin-panel-places-list__collumn">Opis</td>
-                    </tr>
+                <table className="admin-panel-places-list__container">
                     {_mainPlaces}
                 </table>
             </div>

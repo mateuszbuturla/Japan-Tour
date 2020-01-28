@@ -59,7 +59,6 @@ class AdminAddPlace extends React.Component {
                 })
 
         } catch (err) {
-            console.log(err)
             this.setState({ message: 'Wystąpił nieoczekiwany błąd' })
         }
     };
