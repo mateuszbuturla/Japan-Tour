@@ -40,10 +40,10 @@ class AdminPanel extends React.Component {
                 </nav>
                 <section className="admin-panel">
                     <Switch>
-                        <Route path="/adminpanel/attractions/add" component={() => <AdminAddAttractions user={user} />} exact />
-                        <Route path="/adminpanel/mainplaces/add" component={() => <AdminAddPlace user={user} />} exact />
-                        <Route path="/adminpanel/mainplaces" component={() => <AdminMainPlaces user={user} />} exact />
-                        <Route path="/adminpanel/attractions" component={() => <AdminAttractions user={user} />} exact />} />
+                        <Route path="/adminpanel/attractions/add" component={() => <AdminAddAttractions user={user} config={this.props.config} />} exact />
+                        <Route path="/adminpanel/mainplaces/add" component={() => <AdminAddPlace user={user} config={this.props.config} />} exact />
+                        <Route path="/adminpanel/mainplaces" component={() => <AdminMainPlaces user={user} config={this.props.config} />} exact />
+                        <Route path="/adminpanel/attractions" component={() => <AdminAttractions user={user} config={this.props.config} />} exact />} />
                     </Switch>
                 </section>
             </>

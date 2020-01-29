@@ -21,7 +21,7 @@ class AdminLogin extends React.Component {
         e.preventDefault();
         const { login, password } = this.state;
 
-        fetch(`http://localhost:4000/api/login/${login}/${password}`, { method: 'POST' })
+        fetch(`${this.props.config.api}/api/login/${login}/${password}`, { method: 'POST' })
             .then(r => r.json())
             .then(r => {
                 if (r.status === 'correct') {
@@ -29,7 +29,7 @@ class AdminLogin extends React.Component {
                     cookies.set('user', r.user, { maxAge: 9000 });
                     this.getCookie()
                 }
-                else if (r.state === 'incorrect') {
+                else if (r.status === 'incorrect') {
                     this.setState({ message: 'Nie prawidłowe dane logowania' })
                 }
             })
@@ -49,7 +49,7 @@ class AdminLogin extends React.Component {
 
         return (
             <>
-                {user !== undefined && <Redirect to="/adminpanel" />}
+                {user !== undefined && <Redirect to="/adminpanel/mainplaces" />}
                 <section className="login-form">
                     <div className="login-form__container">
                         {message !== '' &&

@@ -15,7 +15,7 @@ global.db = db;
 app.use(fileUpload());
 app.use(cookieParser());
 app.use((req, res, next) => {
-    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
+    res.setHeader('Access-Control-Allow-Origin', config.client);
     next();
 })
 
@@ -23,29 +23,6 @@ db.once('open', () => {
     console.log('Connected to the database');
 });
 db.on('error', (err) => console.log('Error ' + err));
-
-app.get('/', function (req, res) {
-    res.send('japan tour api')
-})
-
-app.post('/upload', (req, res) => {
-    if (req.files === null) {
-        return res.status(400).json({ msg: 'No file uploaded' });
-    }
-
-    const file = req.files.file;
-
-    console.log(req.body)
-
-    file.mv(`${__dirname}/../client/public/upload/dasdas.jpg`, err => {
-        if (err) {
-            console.error(err);
-            return res.status(500).send(err);
-        }
-
-        res.json({ fileName: file.name, filePath: `/uploads/${file.name}` });
-    });
-});
 
 serverRouter(app);
 

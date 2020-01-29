@@ -32,7 +32,7 @@ class AdminAddPlace extends React.Component {
         formData.append('usertoken', user.token);
 
         try {
-            const res = await axios.post('http://localhost:4000/api/mainplace/add', formData, {
+            const res = await axios.post(`${this.props.config.api}/api/mainplace/add`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 },

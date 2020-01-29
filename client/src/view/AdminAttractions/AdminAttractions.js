@@ -14,14 +14,14 @@ class AdminAttractions extends React.Component {
     }
 
     getData() {
-        fetch('http://localhost:4000/api/getattractions', { method: 'POST' })
+        fetch(`${this.props.config.api}/api/getattractions`, { method: 'POST' })
             .then(r => r.json())
             .then(r => this.setState({ attractions: r }))
     }
 
     removeAttraction(e) {
         const { user } = this.props;
-        fetch(`http://localhost:4000/api/attraction/remove/${e.target.id}/${user._id}/${user.token}`, { method: 'POST' })
+        fetch(`${this.props.config.api}/api/attraction/remove/${e.target.id}/${user._id}/${user.token}`, { method: 'POST' })
             .then(r => r.json())
             .then(r => {
                 this.setState({ message: r.message })

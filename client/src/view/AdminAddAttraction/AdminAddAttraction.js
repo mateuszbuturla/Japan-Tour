@@ -19,7 +19,7 @@ class AdminAddPlace extends React.Component {
     }
 
     getData() {
-        fetch('http://localhost:4000/api/getmainposition', { method: 'POST' })
+        fetch(`${this.props.config.api}/api/getmainposition`, { method: 'POST' })
             .then(r => r.json())
             .then(r => {
                 this.setState({ mainPlaces: r })
@@ -49,7 +49,7 @@ class AdminAddPlace extends React.Component {
         formData.append('parentPlace', parentPlace);
 
         try {
-            const res = await axios.post('http://localhost:4000/api/attraction/add', formData, {
+            const res = await axios.post(`${this.props.config.api}/api/attraction/add`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 },

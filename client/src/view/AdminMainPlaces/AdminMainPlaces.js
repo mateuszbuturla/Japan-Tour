@@ -15,14 +15,14 @@ class AdminMainPlaces extends React.Component {
     }
 
     getData() {
-        fetch('http://localhost:4000/api/getmainposition', { method: 'POST' })
+        fetch(`${this.props.config.api}/api/getmainposition`, { method: 'POST' })
             .then(r => r.json())
             .then(r => this.setState({ mainPlaces: r }))
     }
 
     removeMainPlace(e) {
         const { user } = this.props;
-        fetch(`http://localhost:4000/api/mainplace/remove/${e.target.id}/${user._id}/${user.token}`, { method: 'POST' })
+        fetch(`${this.props.config.api}/api/mainplace/remove/${e.target.id}/${user._id}/${user.token}`, { method: 'POST' })
             .then(r => r.json())
             .then(r => {
                 this.setState({ message: r.message })
