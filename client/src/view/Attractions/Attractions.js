@@ -4,7 +4,7 @@ import './place.sass';
 
 import Attraction from './Attraction/Attraction';
 import NoMatch from '../NoMatch/NoMatch';
-
+import Nav from '../Nav/Nav';
 import config from '../../config';
 
 class Attractions extends React.Component {
@@ -13,10 +13,12 @@ class Attractions extends React.Component {
         mainPlace: {},
         err: false,
         attractions: [],
+        prevousLocation: ''
     }
 
-    componentDidMount() {
+    getData() {
         const name = this.props.match.params.name;
+        this.setState({ prevousLocation: name })
         fetch(`${config.api}/api/getmainplacebyname/${name}`, { method: 'POST' })
             .then(r => r.json())
             .then(r => {
@@ -24,6 +26,7 @@ class Attractions extends React.Component {
                     this.setState({ err: true })
                 else {
                     this.setState({ mainPlace: r[0] })
+                    document.title = `Japan Tour - ${r[0].name}`
                     fetch(`${config.api}/api/getattractionbymainplaceid/${r[0]._id}`, { method: 'POST' })
                         .then(r => r.json())
                         .then(r => {
@@ -33,9 +36,22 @@ class Attractions extends React.Component {
             })
     }
 
+    componentDidMount() {
+        this.getData();
+    }
+
+    //Function responsible for force getData() if url was changed
+    componentDidUpdate() {
+        const curentLocation = this.props.match.params.name;
+        const { prevousLocation } = this.state;
+        if (curentLocation !== prevousLocation) {
+            this.getData();
+        }
+    }
+
     render() {
         const { mainPlace, err, attractions } = this.state;
-        const _attractions = attractions.map(attraction => <Attraction name={attraction.name} imgsrc={attraction.imgsrc} description={attraction.description} key={attraction._id} />)
+        const _attractions = attractions.map((attraction, index) => <Attraction name={attraction.name} index={index} imgsrc={attraction.imgsrc} description={attraction.description} key={attraction._id} />)
 
         const bgUrl = ` ${process.env.PUBLIC_URL + '/upload/' + `${mainPlace.imgsrc}`}`;
 
@@ -49,6 +65,7 @@ class Attractions extends React.Component {
 
         return (
             <>
+                <Nav config={config} />
                 {err === true ?
                     <NoMatch />
                     :

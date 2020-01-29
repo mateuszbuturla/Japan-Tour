@@ -1,5 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
+import config from '../../config';
+import Nav from '../Nav/Nav';
+
+import bg from './img/bg.jpg';
 
 const H2 = styled.h2`
     color: red;
@@ -7,7 +11,8 @@ const H2 = styled.h2`
 `;
 
 const P = styled.p`
-    font-size: 20px
+    font-size: 20px;
+    color: #fff;
 `;
 
 const Container = styled.div`
@@ -20,11 +25,15 @@ const Container = styled.div`
 class NoMatch extends React.Component {
 
     render() {
+        document.title = 'Japan Tour - Brak strony'
         return (
-            <Container>
-                <H2>404</H2>
-                <P>Strona nie została odnaleziona</P>
-            </Container>
+            <>
+                <Nav config={config} />
+                <Container style={{ background: `linear-gradient(rgba(0,0,0,0.70),rgba(0,0,0,0.70)), url(${bg}) fixed` }}>
+                    <H2>404</H2>
+                    <P>Strona nie została odnaleziona</P>
+                </Container>
+            </>
         );
     }
 }

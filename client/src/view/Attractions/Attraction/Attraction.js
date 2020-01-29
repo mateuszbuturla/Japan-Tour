@@ -33,10 +33,10 @@ const Description = styled.p`
 `;
 
 function Location(props) {
-    const { name, imgsrc, description } = props;
+    const { name, imgsrc, description, index } = props;
     return (
         <Container>
-            <h3>{name}</h3>
+            <h3>{index + 1}. <span className="pink">{name}</span></h3>
             <Img src={process.env.PUBLIC_URL + `/upload/${imgsrc}`} />
             <Description>{description}</Description>
         </Container>

@@ -5,6 +5,7 @@ import Cookies from 'universal-cookie';
 import './reset.css';
 import './main.sass';
 
+import Nav from './view/Nav/Nav';
 import Home from './view/Home/Home';
 import NoMatch from './view/NoMatch/NoMatch';
 import Attractions from './view/Attractions/Attractions';
@@ -22,6 +23,7 @@ class App extends React.Component {
     return (
       <div className="App">
         <BrowserRouter>
+
           <ScrollToTop />
           <Switch>
             <Route path="/admin" component={() => <AdminLogin config={config} />} exact />

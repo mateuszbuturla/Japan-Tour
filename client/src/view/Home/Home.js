@@ -2,7 +2,10 @@ import React from 'react';
 
 import './home.sass';
 
+import Nav from '../Nav/Nav';
 import MainPlace from './mainPlace/MainPlace';
+
+import config from '../../config';
 
 class Home extends React.Component {
 
@@ -11,6 +14,7 @@ class Home extends React.Component {
     }
 
     componentDidMount() {
+        document.title = 'Japan Tour - Home'
         fetch(`${this.props.config.api}/api/getmainposition`, { method: 'POST' })
             .then(r => r.json())
             .then(r => this.setState({ mainPlaces: r }))
@@ -18,10 +22,11 @@ class Home extends React.Component {
 
     render() {
         const { mainPlaces } = this.state;
-        const _mainPlaces = mainPlaces.map(mainPlace => <MainPlace name={mainPlace.name} imgsrc={mainPlace.imgsrc} />)
+        const _mainPlaces = mainPlaces.map(mainPlace => <MainPlace key={mainPlace._id} name={mainPlace.name} imgsrc={mainPlace.imgsrc} />)
 
         return (
             <>
+                <Nav config={config} />
                 <header className="home-header">
                     <div className="home-header__container">
                         <h1 className="home-header__h1">Japonia</h1>
