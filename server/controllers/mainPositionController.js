@@ -20,6 +20,14 @@ exports.getMainPlaceByName = async (req, res) => {
     }
 }
 
+exports.getMainPlaceById = async (req, res) => {
+    try {
+        res.status(200).json(await mainPositionModel.find({ _id: req.params.id }))
+    } catch (err) {
+        res.status(500).json(err);
+    }
+}
+
 exports.removePlace = async (req, res) => {
     if (config.allowEditData) {
         const { mainplaceid, userid, usertoken } = req.params;
