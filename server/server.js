@@ -9,6 +9,8 @@ const path = require('path');
 const config = require('./config');
 const serverRouter = require('./router/server.router');
 
+const port = process.env.PORT || 4000;
+
 mongoose.connect(config.db, { useNewUrlParser: true });
 const db = mongoose.connection;
 global.db = db;
@@ -33,4 +35,4 @@ db.on('error', (err) => console.log('Error ' + err));
 
 serverRouter(app);
 
-app.listen(4000)
+app.listen(port)

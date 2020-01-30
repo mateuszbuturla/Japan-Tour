@@ -21,18 +21,23 @@ class AdminLogin extends React.Component {
         e.preventDefault();
         const { login, password } = this.state;
 
-        fetch(`${this.props.config.api}/api/login/${login}/${password}`, { method: 'POST' })
-            .then(r => r.json())
-            .then(r => {
-                if (r.status === 'correct') {
-                    const cookies = new Cookies();
-                    cookies.set('user', r.user, { maxAge: 9000 });
-                    this.getCookie()
-                }
-                else if (r.status === 'incorrect') {
-                    this.setState({ message: 'Nie prawidłowe dane logowania' })
-                }
-            })
+        try {
+            fetch(`${this.props.config.api}/api/login/${login}/${password}`, { method: 'POST' })
+                .then(r => r.json())
+                .then(r => {
+                    if (r.status === 'correct') {
+                        const cookies = new Cookies();
+                        cookies.set('user', r.user, { maxAge: 9000 });
+                        this.getCookie()
+                    }
+                    else if (r.status === 'incorrect') {
+                        this.setState({ message: 'Nie prawidłowe dane logowania' })
+                    }
+                })
+        }
+        catch {
+            this.setState({ message: 'Wystąpił problem spróbuj ponownie później' })
+        }
     }
 
     getCookie() {
@@ -58,9 +63,29 @@ class AdminLogin extends React.Component {
                             </div>
                         }
                         <form onSubmit={this.submitLoginForm.bind(this)}>
-                            <input type="text" id="login" className="login-form__input" placeholder="Login" onChange={this.handleInputChange.bind(this)} value={login} /><br />
-                            <input type="password" id="password" className="login-form__input" placeholder="Hasło" onChange={this.handleInputChange.bind(this)} value={password} /> <br />
-                            <input type="submit" value="Zaloguj" className="login-form__submit-input" />
+                            <input
+                                type="text"
+                                id="login"
+                                className="login-form__input"
+                                placeholder="Login"
+                                onChange={this.handleInputChange.bind(this)}
+                                value={login}
+                            /><br />
+
+                            <input
+                                type="password"
+                                id="password"
+                                className="login-form__input"
+                                placeholder="Hasło"
+                                onChange={this.handleInputChange.bind(this)}
+                                value={password}
+                            /> <br />
+
+                            <input
+                                type="submit"
+                                value="Zaloguj"
+                                className="login-form__submit-input"
+                            />
                         </form>
                     </div>
                 </section>

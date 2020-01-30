@@ -19,21 +19,26 @@ class Attractions extends React.Component {
     getData() {
         const name = this.props.match.params.name;
         this.setState({ prevousLocation: name })
-        fetch(`${config.api}/api/getmainplacebyname/${name}`, { method: 'POST' })
-            .then(r => r.json())
-            .then(r => {
-                if (r.length === 0)
-                    this.setState({ err: true })
-                else {
-                    this.setState({ mainPlace: r[0] })
-                    document.title = `Japan Tour - ${r[0].name}`
-                    fetch(`${config.api}/api/getattractionbymainplaceid/${r[0]._id}`, { method: 'POST' })
-                        .then(r => r.json())
-                        .then(r => {
-                            this.setState({ attractions: r })
-                        })
-                }
-            })
+        try {
+            fetch(`${config.api}/api/getmainplacebyname/${name}`, { method: 'POST' })
+                .then(r => r.json())
+                .then(r => {
+                    if (r.length === 0)
+                        this.setState({ err: true })
+                    else {
+                        this.setState({ mainPlace: r[0] })
+                        document.title = `Japan Tour - ${r[0].name}`
+                        fetch(`${config.api}/api/getattractionbymainplaceid/${r[0]._id}`, { method: 'POST' })
+                            .then(r => r.json())
+                            .then(r => {
+                                this.setState({ attractions: r })
+                            })
+                    }
+                })
+        }
+        catch {
+
+        }
     }
 
     componentDidMount() {

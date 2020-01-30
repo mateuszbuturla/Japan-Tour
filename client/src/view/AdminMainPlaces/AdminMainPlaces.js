@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 
 import './adminMainPlaces.sass';
 
@@ -15,19 +14,29 @@ class AdminMainPlaces extends React.Component {
     }
 
     getData() {
-        fetch(`${this.props.config.api}/api/getmainposition`, { method: 'POST' })
-            .then(r => r.json())
-            .then(r => this.setState({ mainPlaces: r }))
+        try {
+            fetch(`${this.props.config.api}/api/getmainposition`, { method: 'POST' })
+                .then(r => r.json())
+                .then(r => this.setState({ mainPlaces: r }))
+        }
+        catch {
+            this.setState({ message: 'Wystąpił problem spróbuj ponownie później' })
+        }
     }
 
     removeMainPlace(e) {
-        const { user } = this.props;
-        fetch(`${this.props.config.api}/api/mainplace/remove/${e.target.id}/${user._id}/${user.token}`, { method: 'POST' })
-            .then(r => r.json())
-            .then(r => {
-                this.setState({ message: r.message })
-                this.getData();
-            })
+        try {
+            const { user } = this.props;
+            fetch(`${this.props.config.api}/api/mainplace/remove/${e.target.id}/${user._id}/${user.token}`, { method: 'POST' })
+                .then(r => r.json())
+                .then(r => {
+                    this.setState({ message: r.message })
+                    this.getData();
+                })
+        }
+        catch {
+            this.setState({ message: 'Wystąpił problem spróbuj ponownie później' })
+        }
     }
 
     render() {
@@ -44,9 +53,9 @@ class AdminMainPlaces extends React.Component {
                         <p>{message}</p>
                     </div>
                 }
-                <table className="admin-panel-places-list__container">
+                <div className="admin-panel-places-list__container">
                     {_mainPlaces}
-                </table>
+                </div>
             </div>
         );
     }

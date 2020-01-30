@@ -31,18 +31,26 @@ class AdminAddPlace extends React.Component {
         formData.append('userid', user._id);
         formData.append('usertoken', user.token);
 
-        try {
-            const res = await axios.post(`${this.props.config.api}/api/mainplace/add`, formData, {
-                headers: {
-                    'Content-Type': 'multipart/form-data'
-                },
-            })
-                .then(r => {
-                    this.setState({ message: r.data.message, file: '', name: '', description: '' })
+        if (name.length > 0 && description.length > 0 && file !== '') {
+            try {
+                const res = await axios.post(`${this.props.config.api}/api/mainplace/add`, formData, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    },
                 })
+                    .then(r => {
+                        if (r.status === 200)
+                            this.setState({ message: r.data.message, file: '', name: '', description: '' })
+                        else
+                            this.setState({ message: r.message })
+                    })
 
-        } catch (err) {
-            this.setState({ message: 'Wystąpił nieoczekiwany błąd' })
+            } catch (err) {
+                this.setState({ message: 'Wystąpił nieoczekiwany błąd' })
+            }
+        }
+        else {
+            this.setState({ message: 'Uzupełnij wszystkie pola' })
         }
     };
 
@@ -57,10 +65,34 @@ class AdminAddPlace extends React.Component {
                         </div>
                     }
                     <form onSubmit={this.onSubmit.bind(this)}>
-                        <input className="admin-panel-add-place__input" type="text" id="name" value={name} placeholder="Nazwa" onChange={this.handleInputChange.bind(this)} /><br />
-                        <textarea className="admin-panel-add-place__input" id="description" value={description} placeholder="Opis" onChange={this.handleInputChange.bind(this)}></textarea><br />
-                        <input className="admin-panel-add-place__select-image-input" type='file' onChange={this.handleImageChange.bind(this)} /><br />
-                        <input className="admin-panel-add-place__submit-input" type='submit' value='Upload' />
+                        <input
+                            className="admin-panel-add-place__input"
+                            type="text"
+                            id="name"
+                            value={name}
+                            placeholder="Nazwa"
+                            onChange={this.handleInputChange.bind(this)}
+                        /><br />
+
+                        <textarea
+                            className="admin-panel-add-place__input"
+                            id="description"
+                            value={description}
+                            placeholder="Opis"
+                            onChange={this.handleInputChange.bind(this)}
+                        ></textarea><br />
+
+                        <input
+                            className="admin-panel-add-place__select-image-input"
+                            type='file'
+                            onChange={this.handleImageChange.bind(this)}
+                        /><br />
+
+                        <input
+                            className="admin-panel-add-place__submit-input"
+                            type='submit'
+                            value='Upload'
+                        />
                     </form>
                 </div>
             </div>

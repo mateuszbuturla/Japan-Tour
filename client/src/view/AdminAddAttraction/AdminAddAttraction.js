@@ -19,13 +19,20 @@ class AdminAddPlace extends React.Component {
     }
 
     getData() {
-        fetch(`${this.props.config.api}/api/getmainposition`, { method: 'POST' })
-            .then(r => r.json())
-            .then(r => {
-                this.setState({ mainPlaces: r })
-                if (r.length > 0)
-                    this.setState({ parentPlace: r[0]._id })
-            })
+        try {
+            fetch(`${this.props.config.api}/api/getmainposition`, { method: 'POST' })
+                .then(r => r.json())
+                .then(r => {
+                    this.setState({ mainPlaces: r })
+                    if (r.length > 0)
+                        this.setState({ parentPlace: r[0]._id })
+                })
+        }
+        catch
+        {
+            this.setState({ message: 'Wystąpił problem spróbuj ponownie później' })
+        }
+
     }
 
     handleImageChange(e) {
@@ -48,25 +55,37 @@ class AdminAddPlace extends React.Component {
         formData.append('usertoken', user.token);
         formData.append('parentPlace', parentPlace);
 
-        try {
-            const res = await axios.post(`${this.props.config.api}/api/attraction/add`, formData, {
-                headers: {
-                    'Content-Type': 'multipart/form-data'
-                },
-            })
-                .then(r => {
-                    this.setState({ message: r.data.message, file: '', name: '', description: '' })
+        if (name.length > 0 && description.length > 0 && file !== '') {
+            try {
+                const res = await axios.post(`${this.props.config.api}/api/attraction/add`, formData, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    },
                 })
+                    .then(r => {
+                        if (r.status === 200)
+                            this.setState({ message: r.data.message, file: '', name: '', description: '' })
+                        else
+                            this.setState({ message: 'Wystąpił błąd proszę spróbować później' })
+                    })
 
-        } catch (err) {
-            this.setState({ message: 'Wystąpił nieoczekiwany błąd' })
+            } catch (err) {
+                this.setState({ message: 'Wystąpił nieoczekiwany błąd' })
+            }
+        }
+        else {
+            this.setState({ message: 'Uzupełnij wszystkie pola' })
         }
     };
 
     render() {
         const { name, description, message, mainPlaces, parentPlace } = this.state;
 
-        const _mainPlaces = mainPlaces.map(mainPlace => <option value={mainPlace._id}>{mainPlace.name}</option>)
+        const _mainPlaces = mainPlaces.map(mainPlace =>
+            <option key={mainPlaces._id} value={mainPlace._id}>
+                {mainPlace.name}
+            </option>)
+
         return (
             <div className="admin-panel-add-attraction">
                 <div className="admin-panel-add-attraction__container">
@@ -76,13 +95,43 @@ class AdminAddPlace extends React.Component {
                         </div>
                     }
                     <form onSubmit={this.onSubmit.bind(this)}>
-                        <input className="admin-panel-add-attraction__input" type="text" id="name" value={name} placeholder="Nazwa" onChange={this.handleInputChange.bind(this)} /><br />
-                        <textarea className="admin-panel-add-attraction__input" id="description" value={description} placeholder="Opis" onChange={this.handleInputChange.bind(this)}></textarea><br />
-                        <select className="admin-panel-add-attraction__list-input" value={parentPlace} id="parentPlace" onChange={this.handleInputChange.bind(this)}>
+                        <input
+                            className="admin-panel-add-attraction__input"
+                            type="text"
+                            id="name"
+                            value={name}
+                            placeholder="Nazwa"
+                            onChange={this.handleInputChange.bind(this)}
+                        /><br />
+
+                        <textarea
+                            className="admin-panel-add-attraction__input"
+                            id="description"
+                            value={description}
+                            placeholder="Opis"
+                            onChange={this.handleInputChange.bind(this)}
+                        ></textarea><br />
+
+                        <select
+                            className="admin-panel-add-attraction__list-input"
+                            value={parentPlace}
+                            id="parentPlace"
+                            onChange={this.handleInputChange.bind(this)}
+                        >
                             {_mainPlaces}
                         </select>
-                        <input className="admin-panel-add-attraction__select-image-input" type='file' onChange={this.handleImageChange.bind(this)} /><br />
-                        <input className="admin-panel-add-attraction__submit-input" type='submit' value='Upload' />
+
+                        <input
+                            className="admin-panel-add-attraction__select-image-input"
+                            type='file'
+                            onChange={this.handleImageChange.bind(this)}
+                        /><br />
+
+                        <input
+                            className="admin-panel-add-attraction__submit-input"
+                            type='submit'
+                            value='Upload'
+                        />
                     </form>
                 </div>
             </div>

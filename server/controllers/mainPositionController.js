@@ -65,19 +65,24 @@ exports.addPlace = async (req, res) => {
             if (user.length > 0) {
                 const file = req.files.file;
                 const fileuuid = uuid();
-
                 file.mv(`${__dirname}/../../client/public/upload/${fileuuid}.jpg`, err => {
                     if (err) {
                         console.error(err);
                         return res.status(500).send(err);
                     }
+                    file.mv(`${__dirname}/../../client/public/upload/${fileuuid}.jpg`, err => {
+                        if (err) {
+                            console.error(err);
+                            return res.status(500).send(err);
+                        }
 
-                    mainPositionModel.create({ _id: mongoose.Types.ObjectId(), name: name, description: description, imgsrc: `${fileuuid}.jpg` }, (err) => {
-                        if (err)
-                            return console.log(err)
+                        mainPositionModel.create({ _id: mongoose.Types.ObjectId(), name: name, description: description, imgsrc: `${fileuuid}.jpg` }, (err) => {
+                            if (err)
+                                return console.log(err)
 
-                        res.status(200).json({ message: 'Miejsce zostało dodane' });
-                    })
+                            res.status(200).json({ message: 'Miejsce zostało dodane' });
+                        })
+                    });
                 });
             }
             else {

@@ -15,9 +15,15 @@ class Nav extends React.Component {
         window.addEventListener('scroll', () => {
             this.setState({ onTop: window.scrollY === 0 })
         });
-        fetch(`${this.props.config.api}/api/getmainposition`, { method: 'POST' })
-            .then(r => r.json())
-            .then(r => this.setState({ mainPlaces: r }))
+
+        try {
+            fetch(`${this.props.config.api}/api/getmainposition`, { method: 'POST' })
+                .then(r => r.json())
+                .then(r => this.setState({ mainPlaces: r }))
+        }
+        catch {
+
+        }
     }
 
     componentWillUnmount() {

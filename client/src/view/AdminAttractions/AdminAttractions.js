@@ -37,13 +37,18 @@ class AdminAttractions extends React.Component {
     }
 
     removeAttraction(e) {
-        const { user } = this.props;
-        fetch(`${this.props.config.api}/api/attraction/remove/${e.target.id}/${user._id}/${user.token}`, { method: 'POST' })
-            .then(r => r.json())
-            .then(r => {
-                this.setState({ message: r.message })
-                this.getData();
-            })
+        try {
+            const { user } = this.props;
+            fetch(`${this.props.config.api}/api/attraction/remove/${e.target.id}/${user._id}/${user.token}`, { method: 'POST' })
+                .then(r => r.json())
+                .then(r => {
+                    this.setState({ message: r.message })
+                    this.getData();
+                })
+        }
+        catch{
+            this.setState({ message: 'Wystąpił problem spróbuj ponownie później' })
+        }
     }
 
     render() {
@@ -52,8 +57,17 @@ class AdminAttractions extends React.Component {
             <p className="attraction-data__p">{attraction.name}</p>
             <p className="attraction-data__p">{attraction.description}</p>
             <div className="attraction-data__button-container">
-                <Link className="attraction-data__button" to={`/adminpanel/attractions/edit/${attraction._id}`}>Edytuj</Link>
-                <button id={attraction._id} onClick={this.removeAttraction.bind(this)} className="attraction-data__button">Usuń</button>
+                <Link
+                    className="attraction-data__button"
+                    to={`/adminpanel/attractions/edit/${attraction._id}`}>
+                    Edytuj
+                </Link>
+                <button
+                    id={attraction._id}
+                    onClick={this.removeAttraction.bind(this)}
+                    className="attraction-data__button">
+                    Usuń
+                </button>
             </div>
         </div>);
         return (

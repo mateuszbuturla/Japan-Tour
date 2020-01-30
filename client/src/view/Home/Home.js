@@ -15,9 +15,14 @@ class Home extends React.Component {
 
     componentDidMount() {
         document.title = 'Japan Tour - Home'
-        fetch(`${this.props.config.api}/api/getmainposition`, { method: 'POST' })
-            .then(r => r.json())
-            .then(r => this.setState({ mainPlaces: r }))
+        try {
+            fetch(`${this.props.config.api}/api/getmainposition`, { method: 'POST' })
+                .then(r => r.json())
+                .then(r => this.setState({ mainPlaces: r }))
+        }
+        catch {
+
+        }
     }
 
     render() {
@@ -37,7 +42,7 @@ class Home extends React.Component {
                     <div className="section-header">
                         <h2 className="section-header__h2">Ruszaj <span className="pink">w drogę</span></h2>
                         <hr className="section-header__line" />
-                        <p className="section-header__description">Czytasz jeden z nielicznych przewodników po Japonii. Pokarzemy ci gdzie pojechać i co warto zobaczyć w Japonii.</p>
+                        <p className="section-header__description">Czytasz jeden z nielicznych przewodników po Japonii. Pokażemy ci gdzie pojechać i co warto zobaczyć w Japonii.</p>
                     </div>
                     <div className="home__main-place-container">
                         {_mainPlaces}

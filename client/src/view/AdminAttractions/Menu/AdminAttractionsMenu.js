@@ -25,9 +25,9 @@ class AdminAttractionsMenu extends React.Component {
             </li>
         </Link>)
         return (
-            <div>
+            <ul>
                 {mainPlacesSelectors}
-            </div>
+            </ul>
         );
     }
 }

@@ -24,20 +24,24 @@ exports.addAttraction = async (req, res) => {
             if (user.length > 0) {
                 const file = req.files.file;
                 const fileuuid = uuid();
-
-
                 file.mv(`${__dirname}/../../client/public/upload/${fileuuid}.jpg`, err => {
                     if (err) {
                         console.error(err);
                         return res.status(500).send(err);
                     }
+                    file.mv(`${__dirname}/../../client/public/upload/${fileuuid}.jpg`, err => {
+                        if (err) {
+                            console.error(err);
+                            return res.status(500).send(err);
+                        }
 
-                    attractionModel.create({ _id: mongoose.Types.ObjectId(), name: name, description: description, imgsrc: `${fileuuid}.jpg`, parentPlaceId: parentPlace }, (err) => {
-                        if (err)
-                            return console.log(err)
+                        attractionModel.create({ _id: mongoose.Types.ObjectId(), name: name, description: description, imgsrc: `${fileuuid}.jpg`, parentPlaceId: parentPlace }, (err) => {
+                            if (err)
+                                return console.log(err)
 
-                        res.status(200).json({ message: 'Atrakcja została dodana' });
-                    })
+                            res.status(200).json({ message: 'Atrakcja została dodana' });
+                        })
+                    });
                 });
             }
             else {
@@ -102,11 +106,25 @@ exports.editAttraction = async (req, res) => {
         try {
             const user = await userModel.find({ _id: userid, token: usertoken })
             if (user.length > 0) {
-                attractionModel.updateOne({ _id: id }, { name: name, description: description }, (err) => {
-                    if (err)
-                        return console.log(err)
+                const file = req.files.file;
+                const fileuuid = uuid();
+                file.mv(`${__dirname}/../../client/public/upload/${fileuuid}.jpg`, err => {
+                    if (err) {
+                        console.error(err);
+                        return res.status(500).send(err);
+                    }
+                    file.mv(`${__dirname}/../../client/public/upload/${fileuuid}.jpg`, err => {
+                        if (err) {
+                            console.error(err);
+                            return res.status(500).send(err);
+                        }
+                        attractionModel.updateOne({ _id: id }, { name: name, description: description, imgsrc: `${fileuuid}.jpg` }, (err) => {
+                            if (err)
+                                return console.log(err)
 
-                    res.status(200).json({ message: 'Atrakcja została zaktualizowana' });
+                            res.status(200).json({ message: 'Atrakcja została zaktualizowana' });
+                        })
+                    })
                 })
             }
             else {
