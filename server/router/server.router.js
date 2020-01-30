@@ -20,6 +20,10 @@ module.exports = (app) => {
 
     app.post('/api/getattractionbymainplaceid/:id', attractionController.getAttractionByMainPlaceId);
 
+    app.post('/api/getattractionsbyid/:id', attractionController.getAttractionsById);
+
+    app.post('/api/attraction/edit', attractionController.editAttraction);
+
     app.post('/api/login/:login/:password', userController.login);
 
 }

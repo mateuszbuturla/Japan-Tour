@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import './adminAttractions.sass';
 
@@ -34,7 +35,10 @@ class AdminAttractions extends React.Component {
         const _attractions = attractions.map(attraction => <div key={attraction._id} className="attraction-data">
             <p className="attraction-data__p">{attraction.name}</p>
             <p className="attraction-data__p">{attraction.description}</p>
-            <button id={attraction._id} onClick={this.removeAttraction.bind(this)} className="attraction-data__remove-button">Usuń</button>
+            <div className="attraction-data__button-container">
+                <Link className="attraction-data__button" to={`/adminpanel/attractions/edit/${attraction._id}`}>Edytuj</Link>
+                <button id={attraction._id} onClick={this.removeAttraction.bind(this)} className="attraction-data__button">Usuń</button>
+            </div>
         </div>)
         return (
             <div className="admin-panel-attractions-list">

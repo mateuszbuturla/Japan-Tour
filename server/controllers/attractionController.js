@@ -82,3 +82,40 @@ exports.removeAttraction = async (req, res) => {
     else
         res.status(200).json({ message: 'Administrator zablokował możliwość edytowania strony' });
 }
+
+exports.getAttractionsById = async (req, res) => {
+    const { id } = req.params;
+    try {
+        res.status(200).json(await attractionModel.find({ _id: id }))
+    } catch (err) {
+        res.status(500).json(err);
+    }
+}
+
+exports.editAttraction = async (req, res) => {
+    const { id, name, description, userid, usertoken } = req.body;
+
+    if (config.allowEditData) {
+        if (!Boolean(name) || !Boolean(description))
+            return res.status(200).json({ message: 'Nie uzupełniowo wszystkich pól' });
+
+        try {
+            const user = await userModel.find({ _id: userid, token: usertoken })
+            if (user.length > 0) {
+                attractionModel.updateOne({ _id: id }, { name: name, description: description }, (err) => {
+                    if (err)
+                        return console.log(err)
+
+                    res.status(200).json({ message: 'Atrakcja została zaktualizowana' });
+                })
+            }
+            else {
+                res.status(200).json({ message: 'Nie poprawny token użytkownika' });
+            }
+        } catch (err) {
+            res.status(500).json(err);
+        }
+    }
+    else
+        res.status(200).json({ message: 'Administrator zablokował możliwość edytowania strony' });
+}
