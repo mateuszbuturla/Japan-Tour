@@ -106,26 +106,38 @@ exports.editAttraction = async (req, res) => {
         try {
             const user = await userModel.find({ _id: userid, token: usertoken })
             if (user.length > 0) {
-                const file = req.files.file;
-                const fileuuid = uuid();
-                file.mv(`${__dirname}/../../client/public/upload/${fileuuid}.jpg`, err => {
-                    if (err) {
-                        console.error(err);
-                        return res.status(500).send(err);
-                    }
+                const files = req.files;
+                if (files !== null) {
+                    const fileuuid = uuid();
+                    const file = req.files.file;
                     file.mv(`${__dirname}/../../client/public/upload/${fileuuid}.jpg`, err => {
                         if (err) {
                             console.error(err);
                             return res.status(500).send(err);
                         }
-                        attractionModel.updateOne({ _id: id }, { name: name, description: description, imgsrc: `${fileuuid}.jpg` }, (err) => {
-                            if (err)
-                                return console.log(err)
+                        file.mv(`${__dirname}/../../client/public/upload/${fileuuid}.jpg`, err => {
+                            if (err) {
+                                console.error(err);
+                                return res.status(500).send(err);
+                            }
 
-                            res.status(200).json({ message: 'Atrakcja została zaktualizowana' });
+                            attractionModel.updateOne({ _id: id }, { name: name, description: description, imgsrc: `${fileuuid}.jpg` }, (err) => {
+                                if (err)
+                                    return console.log(err)
+
+                                res.status(200).json({ message: 'Atrakcja została zaktualizowana' });
+                            })
                         })
                     })
-                })
+                }
+                else {
+                    attractionModel.updateOne({ _id: id }, { name: name, description: description }, (err) => {
+                        if (err)
+                            return console.log(err)
+
+                        res.status(200).json({ message: 'Atrakcja została zaktualizowana' });
+                    })
+                }
             }
             else {
                 res.status(200).json({ message: 'Nie poprawny token użytkownika' });

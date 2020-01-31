@@ -57,7 +57,7 @@ class AdminAttractions extends React.Component {
                     },
                 })
                     .then(r => {
-                        this.setState({ message: r.data.message, name: '', description: '' })
+                        this.setState({ message: r.data.message })
                     })
 
             } catch (err) {
