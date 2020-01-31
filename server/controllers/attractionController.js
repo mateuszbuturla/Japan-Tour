@@ -24,7 +24,7 @@ exports.addAttraction = async (req, res) => {
             if (user.length > 0) {
                 const file = req.files.file;
                 const fileuuid = uuid();
-                file.mv(`${__dirname}/../../client/public/upload/${fileuuid}.jpg`, err => {
+                file.mv(`${__dirname}/../../client/build/upload/${fileuuid}.jpg`, err => {
                     if (err) {
                         console.error(err);
                         return res.status(500).send(err);
