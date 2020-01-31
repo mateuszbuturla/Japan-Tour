@@ -14,6 +14,8 @@ module.exports = (app) => {
 
     app.post('/api/getmainplacebyid/:id', mainPositionController.getMainPlaceById);
 
+    app.post('/api/mainplace/edit', mainPositionController.editMainPlace);
+
     app.post('/api/attraction/remove/:attractionid/:userid/:usertoken', attractionController.removeAttraction);
 
     app.post('/api/attraction/add', attractionController.addAttraction);

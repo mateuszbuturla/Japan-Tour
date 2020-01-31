@@ -7,6 +7,7 @@ import AdminAttractions from '../AdminAttractions/AdminAttractions';
 import AdminAddPlace from '../AdminAddPlace/AdminAddPlace';
 import AdminAddAttractions from '../AdminAddAttraction/AdminAddAttraction';
 import AdminEditAttraction from '../AdminEditAttractions/AdminEditAttractions';
+import AdminEditMainPlaces from '../AdminEditMainPlaces/AdminEditMainPlaces';
 
 import './adminPanel.sass';
 
@@ -41,6 +42,7 @@ class AdminPanel extends React.Component {
                 </nav>
                 <section className="admin-panel">
                     <Switch>
+                        <Route path="/adminpanel/mainplaces/edit/:id" component={props => <AdminEditMainPlaces {...props} user={user} config={this.props.config} />} exact />
                         <Route path="/adminpanel/attractions/edit/:id" component={props => <AdminEditAttraction {...props} user={user} config={this.props.config} />} exact />
                         <Route path="/adminpanel/attractions/add" component={() => <AdminAddAttractions user={user} config={this.props.config} />} exact />
                         <Route path="/adminpanel/mainplaces/add" component={() => <AdminAddPlace user={user} config={this.props.config} />} exact />

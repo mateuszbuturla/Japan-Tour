@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import './adminMainPlaces.sass';
 
@@ -44,7 +45,14 @@ class AdminMainPlaces extends React.Component {
         const _mainPlaces = mainPlaces.map(mainPlace => <div key={mainPlace._id} className="main-place-data">
             <p className="main-place-data__p">{mainPlace.name}</p>
             <p className="main-place-data__p">{mainPlace.description}</p>
-            <button id={mainPlace._id} onClick={this.removeMainPlace.bind(this)} className="main-place-data__remove-button">Usuń</button>
+            <div className="main-place-data__button-container">
+                <Link
+                    className="main-place-data__button"
+                    to={`/adminpanel/mainplaces/edit/${mainPlace._id}`}>
+                    Edytuj
+                </Link>
+                <button id={mainPlace._id} onClick={this.removeMainPlace.bind(this)} className="main-place-data__button">Usuń</button>
+            </div>
         </div>)
         return (
             <div className="admin-panel-places-list">

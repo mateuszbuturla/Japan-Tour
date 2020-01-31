@@ -27,20 +27,23 @@
                     background-color: #ccc
                 &:nth-child(2)
                     padding: 0px 15px
-            .main-place-data__remove-button
-                border: 0
-                position: relative
-                left: 50%
-                transform: translateX(-50%)
-                background-color: #32a838
-                padding: 10px
-                width: calc(100% - 30px)
-                margin-bottom: 20px
-                color: #f0f0f0
-                transition: .3s
-                &:hover
-                    background-color: #fff
-                    color: #000
+            .main-place-data__button-container
+                display: flex
+                justify-content: space-around
+                .main-place-data__button
+                    border: 0
+                    background-color: #32a838
+                    padding: 10px
+                    width: 40%
+                    margin-bottom: 20px
+                    color: #f0f0f0
+                    transition: .3s
+                    font-size: 18px
+                    text-align: center
+                    text-decoration: none
+                    &:hover
+                        background-color: #fff
+                        color: #000
                     
                 
 
