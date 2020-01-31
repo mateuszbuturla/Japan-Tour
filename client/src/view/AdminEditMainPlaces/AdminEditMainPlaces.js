@@ -51,16 +51,30 @@ class AdminAttractions extends React.Component {
 
         if (name.length > 0 && description.length > 0) {
             try {
-                const res = await axios.post(`${this.props.config.api}/api/mainplace/edit`, formData, {
-                    headers: {
-                        'Content-Type': 'multipart/form-data'
-                    },
-                })
+                fetch(`${this.props.config.api}/api/getmainplacebyname/${name}`, { method: 'POST' })
+                    .then(r => r.json())
                     .then(r => {
-                        this.setState({ message: r.data.message })
-                    })
+                        if (r.length === 0 || (r.length !== 0 && r[0]._id === id)) {
+                            try {
+                                axios.post(`${this.props.config.api}/api/mainplace/edit`, formData, {
+                                    headers: {
+                                        'Content-Type': 'multipart/form-data'
+                                    },
+                                })
+                                    .then(r => {
+                                        this.setState({ message: r.data.message })
+                                    })
 
-            } catch (err) {
+                            } catch (err) {
+                                this.setState({ message: 'Wystąpił nieoczekiwany błąd' })
+                            }
+                        }
+                        else
+                            this.setState({ message: 'Podana nazwa jest już zajęta' })
+                    })
+            }
+            catch
+            {
                 this.setState({ message: 'Wystąpił nieoczekiwany błąd' })
             }
         }
