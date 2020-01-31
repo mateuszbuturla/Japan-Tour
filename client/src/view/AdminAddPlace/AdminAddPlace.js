@@ -31,22 +31,41 @@ class AdminAddPlace extends React.Component {
         formData.append('userid', user._id);
         formData.append('usertoken', user.token);
 
-        if (name.length > 0 && description.length > 0 && file !== '') {
-            try {
-                const res = await axios.post(`${this.props.config.api}/api/mainplace/add`, formData, {
-                    headers: {
-                        'Content-Type': 'multipart/form-data'
-                    },
-                })
-                    .then(r => {
-                        if (r.status === 200)
-                            this.setState({ message: r.data.message, file: '', name: '', description: '' })
-                        else
-                            this.setState({ message: r.message })
-                    })
+        if (name.length > 0 && description.length > 0) {
+            if (file !== '') {
+                try {
+                    fetch(`${this.props.config.api}/api/getmainplacebyname/${name}`, { method: 'POST' })
+                        .then(r => r.json())
+                        .then(r => {
+                            if (r.length === 0) {
+                                try {
+                                    axios.post(`${this.props.config.api}/api/mainplace/add`, formData, {
+                                        headers: {
+                                            'Content-Type': 'multipart/form-data'
+                                        },
+                                    })
+                                        .then(r => {
+                                            if (r.status === 200)
+                                                this.setState({ message: r.data.message, file: '', name: '', description: '' })
+                                            else
+                                                this.setState({ message: r.message })
+                                        })
 
-            } catch (err) {
-                this.setState({ message: 'Wystąpił nieoczekiwany błąd' })
+                                } catch (err) {
+                                    this.setState({ message: 'Wystąpił nieoczekiwany błąd' })
+                                }
+                            }
+                            else
+                                this.setState({ message: 'Podana nazwa jest już zajęta' })
+                        })
+                }
+                catch
+                {
+                    this.setState({ message: 'Wystąpił nieoczekiwany błąd' })
+                }
+            }
+            else {
+                this.setState({ message: 'Wybierz zdjęcie' })
             }
         }
         else {
