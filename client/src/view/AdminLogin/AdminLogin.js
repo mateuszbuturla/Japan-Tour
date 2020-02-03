@@ -9,7 +9,6 @@ class AdminLogin extends React.Component {
     state = {
         login: '',
         password: '',
-        user: undefined,
         message: '',
     }
 
@@ -20,7 +19,7 @@ class AdminLogin extends React.Component {
     submitLoginForm(e) {
         e.preventDefault();
         const { login, password } = this.state;
-
+        const { getUser } = this.props;
         try {
             fetch(`${this.props.config.api}/api/login/${login}/${password}`, { method: 'POST' })
                 .then(r => r.json())
@@ -28,7 +27,7 @@ class AdminLogin extends React.Component {
                     if (r.status === 'correct') {
                         const cookies = new Cookies();
                         cookies.set('user', r.user, { maxAge: 9000 });
-                        this.getCookie()
+                        getUser();
                     }
                     else if (r.status === 'incorrect') {
                         this.setState({ message: 'Nie prawidłowe dane logowania' })
@@ -40,17 +39,9 @@ class AdminLogin extends React.Component {
         }
     }
 
-    getCookie() {
-        const cookies = new Cookies();
-        this.setState({ user: cookies.get('user') })
-    }
-
-    componentDidMount() {
-        this.getCookie();
-    }
-
     render() {
-        const { login, password, message, user } = this.state;
+        const { user } = this.props;
+        const { login, password, message } = this.state;
 
         return (
             <>

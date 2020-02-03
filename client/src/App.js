@@ -18,16 +18,35 @@ import config from './config';
 
 class App extends React.Component {
 
-  render() {
+  state = {
+    user: undefined
+  }
+
+  logout() {
     const cookies = new Cookies();
+    cookies.remove('user');
+    this.setState({ user: undefined })
+  }
+
+  componentDidMount() {
+    this.getUser();
+  }
+
+  getUser() {
+    const cookies = new Cookies();
+    this.setState({ user: cookies.get('user') })
+  }
+
+  render() {
+    const { user } = this.state;
     return (
       <div className="App">
         <BrowserRouter>
 
           <ScrollToTop />
           <Switch>
-            <Route path="/admin" component={() => <AdminLogin config={config} />} exact />
-            <Route path="/AdminPanel" component={() => <AdminPanel user={cookies.get('user')} config={config} />} />
+            <Route path="/admin" component={() => <AdminLogin user={user} config={config} getUser={() => this.getUser()} />} exact />
+            <Route path="/AdminPanel" component={() => <AdminPanel user={user} config={config} logout={() => this.logout()} />} />
             <Route path="/:name" component={Attractions} config={config} exact />
             <Route path="/" exact>
               <Home config={config} />
