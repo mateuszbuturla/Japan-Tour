@@ -8,29 +8,29 @@ interface Props {
   description: string;
 }
 
+const Container = styled.div`
+  margin: ${(props: StyledInterface) => props.config.margin} auto;
+`;
+
 const H2 = styled.h2`
   color: ${(props: StyledInterface) => props.config.mainColor};
-  font-size: ${(props: StyledInterface) => props.config.pageHeader.fontSize.xs};
   text-align: center;
+  font-size: 30px;
   @media (min-width: ${(props: StyledInterface) =>
       props.config.breakPoints.sm}) {
-    font-size: ${(props: StyledInterface) =>
-      props.config.pageHeader.fontSize.sm};
+    font-size: 35px;
   }
   @media (min-width: ${(props: StyledInterface) =>
       props.config.breakPoints.md}) {
-    font-size: ${(props: StyledInterface) =>
-      props.config.pageHeader.fontSize.md};
+    font-size: 40px;
   }
   @media (min-width: ${(props: StyledInterface) =>
       props.config.breakPoints.lg}) {
-    font-size: ${(props: StyledInterface) =>
-      props.config.pageHeader.fontSize.lg};
+    font-size: 40px;
   }
   @media (min-width: ${(props: StyledInterface) =>
       props.config.breakPoints.xl}) {
-    font-size: ${(props: StyledInterface) =>
-      props.config.pageHeader.fontSize.xl};
+    font-size: 50px;
   }
 `;
 
@@ -46,24 +46,24 @@ const Hr = styled.hr`
   position: relative;
   left: 50%;
   transform: translateX(-50%);
-  margin: ${(props: StyledInterface) => props.config.pageHeader.margin.xs} 0px;
+  margin: 5px 0px;
   @media (min-width: ${(props: StyledInterface) =>
       props.config.breakPoints.sm}) {
     width: 400px;
-    margin: ${(props: StyledInterface) => props.config.pageHeader.margin.sm} 0px;
+    margin: 10px 0px;
   }
   @media (min-width: ${(props: StyledInterface) =>
       props.config.breakPoints.md}) {
-    margin: ${(props: StyledInterface) => props.config.pageHeader.margin.md} 0px;
+    margin: 10px 0px;
   }
   @media (min-width: ${(props: StyledInterface) =>
       props.config.breakPoints.lg}) {
     width: 500px;
-    margin: ${(props: StyledInterface) => props.config.pageHeader.margin.lg} 0px;
+    margin: 10px 0px;
   }
   @media (min-width: ${(props: StyledInterface) =>
       props.config.breakPoints.xl}) {
-    margin: ${(props: StyledInterface) => props.config.pageHeader.margin.xl} 0px;
+    margin: 10px 0px;
   }
 `;
 
@@ -100,14 +100,14 @@ function PageHeader({ header, description }: Props) {
   ];
 
   return (
-    <>
+    <Container config={styledConfig}>
       <H2 config={styledConfig}>
         {textToShow[0]}
         <Color2 config={styledConfig}>{textToShow[1]}</Color2>
       </H2>
       <Hr config={styledConfig} />
       <Description config={styledConfig}>{description}</Description>
-    </>
+    </Container>
   );
 }
 
