@@ -34,6 +34,12 @@ const styleConfig = {
       xl: "10px",
     },
   },
+  pageContainer: {
+    maxWidth: {
+      lg: "1400px",
+      xl: "1700px",
+    },
+  },
 };
 
 export default styleConfig;
