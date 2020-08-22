@@ -13,6 +13,9 @@ const GlobalStyle = createGlobalStyle`
     padding: 0;
     font-family: arial;
   }
+  body {
+    overflow-x: hidden;
+  }
 `;
 
 ReactDOM.render(
