@@ -5,14 +5,12 @@ import StyledInterface from "../../../interfaces/styledInterface";
 
 interface Props {
   children: any;
+  flex?: boolean;
 }
 
 const Container = styled.div`
   width: 90vw;
-  margin: 0 auto;
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
+  margin: ${(props: StyledInterface) => props.config.margin} auto;
   @media (min-width: ${(props: StyledInterface) =>
       props.config.breakPoints.lg}) {
     max-width: ${(props: StyledInterface) =>
@@ -25,8 +23,22 @@ const Container = styled.div`
   }
 `;
 
-function HomeContainer({ children }: Props) {
-  return <Container config={styledConfig}>{children}</Container>;
+const ContainerFlex = styled(Container)`
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+`;
+
+function PageContainer({ children, flex }: Props) {
+  return (
+    <>
+      {flex ? (
+        <ContainerFlex config={styledConfig}>{children}</ContainerFlex>
+      ) : (
+        <Container config={styledConfig}>{children}</Container>
+      )}
+    </>
+  );
 }
 
-export default HomeContainer;
+export default PageContainer;

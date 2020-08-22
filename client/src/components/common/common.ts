@@ -1,6 +1,6 @@
 import PageHeader from "./PageHeader/pageHeader";
-import HomeContainer from "./HomeContainer/homeContainer";
+import PageContainer from "./PageContainer/pageContainer";
 import PlaceTile from "./PlaceTile/placeTile";
 import Header from "./Header/header";
 
-export { PageHeader, HomeContainer, PlaceTile, Header };
+export { PageHeader, PageContainer, PlaceTile, Header };
