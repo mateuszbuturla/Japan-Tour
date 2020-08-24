@@ -1,10 +1,7 @@
 import React from "react";
 import { Switch, Route } from "react-router-dom";
 
-import Home from "./view/Home/home";
-import AttractionsGroup from "./view/AttractionsGroup/attractionsGroup";
-import Attraction from "./view/Attraction/attraction";
-import NotFound from "./view/NotFound/notFound";
+import { Home, AttractionsGroup, Attraction, NotFound } from "./view/view";
 
 import Footer from "./components/layout/footer/footer";
 
