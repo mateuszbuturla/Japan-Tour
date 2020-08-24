@@ -1,21 +1,18 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import styled from "styled-components";
 import styledConfig from "../../../config/styledConfig";
 import StyledInterface from "../../../interfaces/styledInterface";
-
 import bg from "../../../assets/bg.jpg";
 
 interface Props {
   name: string;
+  index: number;
 }
 
-const Tile = styled(Link)`
+const Container = styled.div`
   width: 100%;
-  position: relative;
-  overflow: hidden;
-  width: 90%;
   margin: 10px 0px;
+  overflow: hidden;
 
   :hover img {
     transform: scale(1.2) rotateZ(5deg);
@@ -38,47 +35,56 @@ const Tile = styled(Link)`
   }
 `;
 
+const H3 = styled.h3`
+  color: ${(props: StyledInterface) => props.config.themeColor};
+
+  @media (min-width: ${(props: StyledInterface) =>
+      props.config.breakPoints.sm}) {
+    font-size: 22px;
+  }
+  @media (min-width: ${(props: StyledInterface) =>
+      props.config.breakPoints.md}) {
+    font-size: 24px;
+  }
+  @media (min-width: ${(props: StyledInterface) =>
+      props.config.breakPoints.lg}) {
+    font-size: 26px;
+  }
+  @media (min-width: ${(props: StyledInterface) =>
+      props.config.breakPoints.xl}) {
+    font-size: 28px;
+  }
+`;
+
+const Index = styled.span`
+  color: ${(props: StyledInterface) => props.config.mainColor};
+`;
+
+const ImgContainer = styled.div`
+  width: 100%;
+  overflow: hidden;
+  margin-top: 10px;
+`;
+
 const Img = styled.img`
   width: 100%;
   transition: 0.7s;
 `;
 
-const Name = styled.p`
-  position: absolute;
-  bottom: 15%;
-  left: -1px;
-  transform: translateY(-50%);
-  background-color: #fff;
-  padding: 5px 10px;
-  font-size: 18px;
-  color: #000;
-  @media (min-width: ${(props: StyledInterface) =>
-      props.config.breakPoints.sm}) {
-    font-size: 20px;
-  }
-  @media (min-width: ${(props: StyledInterface) =>
-      props.config.breakPoints.md}) {
-    font-size: 22px;
-  }
-  @media (min-width: ${(props: StyledInterface) =>
-      props.config.breakPoints.lg}) {
-    padding: 7px 14px;
-    font-size: 24px;
-  }
-  @media (min-width: ${(props: StyledInterface) =>
-      props.config.breakPoints.xl}) {
-    padding: 9px 18px;
-    font-size: 30px;
-  }
-`;
-
-function PlaceTile({ name }: Props) {
+function AttractionTile({ name, index }: Props) {
   return (
-    <Tile config={styledConfig} to={`/${name}`}>
-      <Img src={bg} alt={name} />
-      <Name config={styledConfig}>{name}</Name>
-    </Tile>
+    <>
+      <Container config={styledConfig}>
+        <H3 config={styledConfig}>
+          <Index config={styledConfig}>{index + 1 + ". "} </Index>
+          {name}
+        </H3>
+        <ImgContainer>
+          <Img src={bg} />
+        </ImgContainer>
+      </Container>
+    </>
   );
 }
 
-export default PlaceTile;
+export default AttractionTile;
