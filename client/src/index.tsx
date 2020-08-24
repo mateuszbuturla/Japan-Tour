@@ -7,6 +7,7 @@ import store from "./store";
 import { Provider } from "react-redux";
 import { createGlobalStyle } from "styled-components";
 import "react-image-lightbox/style.css";
+import ScrollTop from "./utils/scrollTop";
 
 const GlobalStyle = createGlobalStyle`
   * {
@@ -24,6 +25,7 @@ ReactDOM.render(
     <Provider store={store}>
       <BrowserRouter>
         <App />
+        <ScrollTop />
       </BrowserRouter>
       <GlobalStyle />
     </Provider>
