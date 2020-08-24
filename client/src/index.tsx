@@ -6,6 +6,7 @@ import * as serviceWorker from "./serviceWorker";
 import store from "./store";
 import { Provider } from "react-redux";
 import { createGlobalStyle } from "styled-components";
+import "react-image-lightbox/style.css";
 
 const GlobalStyle = createGlobalStyle`
   * {

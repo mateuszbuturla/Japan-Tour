@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import styledConfig from "../../../config/styledConfig";
 import StyledInterface from "../../../interfaces/styledInterface";
@@ -9,10 +10,11 @@ interface Props {
   index: number;
 }
 
-const Container = styled.div`
+const Container = styled(Link)`
   width: 100%;
   margin: 10px 0px;
   overflow: hidden;
+  text-decoration: none;
 
   :hover img {
     transform: scale(1.2) rotateZ(5deg);
@@ -74,7 +76,7 @@ const Img = styled.img`
 function AttractionTile({ name, index }: Props) {
   return (
     <>
-      <Container config={styledConfig}>
+      <Container config={styledConfig} to={`/attraction/${name}`}>
         <H3 config={styledConfig}>
           <Index config={styledConfig}>{index + 1 + ". "} </Index>
           {name}
