@@ -22,7 +22,7 @@ function Attraction() {
   const images = [img1, img2, img3, img4];
 
   return (
-    <>
+    <div>
       <Header name={name} small />
       <main>
         <PageHeader header={name} description={`opis ${name}`} />
@@ -60,7 +60,7 @@ function Attraction() {
           )}
         </PageContainer>
       </main>
-    </>
+    </div>
   );
 }
 

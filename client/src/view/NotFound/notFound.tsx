@@ -15,13 +15,13 @@ const Description = styled.p`
 
 function NotFound() {
   return (
-    <>
+    <div>
       <Header name="Japonia" small />
       <PageContainer>
         <H2>404</H2>
         <Description>Podana stronia nie została znaleziona</Description>
       </PageContainer>
-    </>
+    </div>
   );
 }
 

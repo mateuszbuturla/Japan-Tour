@@ -9,7 +9,7 @@ import {
 
 function Home() {
   return (
-    <>
+    <div>
       <Header name="Japonia" />
       <main>
         <PageHeader
@@ -26,7 +26,7 @@ function Home() {
           <PlaceTile name="place7" />
         </PageContainer>
       </main>
-    </>
+    </div>
   );
 }
 

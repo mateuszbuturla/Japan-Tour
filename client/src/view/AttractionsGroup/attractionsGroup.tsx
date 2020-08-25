@@ -12,7 +12,7 @@ function AttractionsGroup() {
   const { name } = useParams();
 
   return (
-    <>
+    <div>
       <Header name={name} small />
       <main>
         <PageHeader
@@ -31,7 +31,7 @@ function AttractionsGroup() {
           ))}
         </PageContainer>
       </main>
-    </>
+    </div>
   );
 }
 
