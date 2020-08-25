@@ -65,7 +65,7 @@ function App() {
           </>
         </Transition>
       </TransitionGroup>
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 }

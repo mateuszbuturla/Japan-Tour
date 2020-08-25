@@ -8,6 +8,8 @@ import bg from "../../../assets/bg.jpg";
 
 interface Props {
   name: string;
+  to: string;
+  noHover?: boolean;
 }
 
 const Tile = styled(Link)`
@@ -16,10 +18,6 @@ const Tile = styled(Link)`
   overflow: hidden;
   width: 90%;
   margin: 10px 0px;
-
-  :hover img {
-    transform: scale(1.2) rotateZ(5deg);
-  }
 
   @media (min-width: ${(props: StyledInterface) =>
     props.config.breakPoints.sm}) {
@@ -35,6 +33,12 @@ const Tile = styled(Link)`
     props.config.breakPoints.xl}) {
           width: calc(30% - 10px)
     margin: 30px 30px;
+  }
+`;
+
+const TileHover = styled(Tile)`
+  :hover img {
+    transform: scale(1.2) rotateZ(5deg);
   }
 `;
 
@@ -72,12 +76,21 @@ const Name = styled.p`
   }
 `;
 
-function PlaceTile({ name }: Props) {
+function PlaceTile({ name, to, noHover }: Props) {
   return (
-    <Tile config={styledConfig} to={`/${name}`}>
-      <Img src={bg} alt={name} />
-      <Name config={styledConfig}>{name}</Name>
-    </Tile>
+    <>
+      {noHover === true ? (
+        <Tile config={styledConfig} to={to}>
+          <Img src={bg} alt={name} />
+          <Name config={styledConfig}>{name}</Name>
+        </Tile>
+      ) : (
+        <TileHover config={styledConfig} to={to}>
+          <Img src={bg} alt={name} />
+          <Name config={styledConfig}>{name}</Name>
+        </TileHover>
+      )}
+    </>
   );
 }
 

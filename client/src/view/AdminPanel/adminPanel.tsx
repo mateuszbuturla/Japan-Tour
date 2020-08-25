@@ -1,9 +1,12 @@
 import React from "react";
+import { Switch, Route } from "react-router-dom";
 import styled from "styled-components";
 import styledConfig from "../../config/styledConfig";
 import StyledInterface from "../../interfaces/styledInterface";
 
 import { AdminPanelAside } from "../../components/common/common";
+
+import { AdminPanelHome } from "../../components/layout/layout";
 
 const AdminPanelContainer = styled.div`
   display: flex;
@@ -30,7 +33,11 @@ function AdminPanel() {
   return (
     <AdminPanelContainer config={styledConfig}>
       <AdminPanelAside />
-      <ContentContainer config={styledConfig}></ContentContainer>
+      <ContentContainer config={styledConfig}>
+        <Switch>
+          <Route exact path="/admin/home" component={AdminPanelHome} />
+        </Switch>
+      </ContentContainer>
     </AdminPanelContainer>
   );
 }
