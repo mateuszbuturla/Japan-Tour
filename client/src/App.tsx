@@ -65,7 +65,7 @@ function App() {
           </>
         </Transition>
       </TransitionGroup>
-      {/* <Footer /> */}
+      {location.pathname.split("/")[1] !== "admin" && <Footer />}
     </div>
   );
 }
