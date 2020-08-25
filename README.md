@@ -27,6 +27,8 @@ $ npm start
 - Redux
 - Styled Components
 - React hook form
+- GSAP
+- React Transition Group
 - Node.JS
 - Nest.JS
 - Mongo DB
