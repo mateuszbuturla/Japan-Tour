@@ -27,7 +27,12 @@ function AttractionsGroup() {
             "Atrakcja 4",
             "Atrakcja 5",
           ].map((attraction: string, index: number) => (
-            <AttractionTile name={attraction} index={index} key={index} />
+            <AttractionTile
+              name={attraction}
+              index={index}
+              key={index}
+              to={`/attraction/${attraction}`}
+            />
           ))}
         </PageContainer>
       </main>

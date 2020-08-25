@@ -6,7 +6,10 @@ import StyledInterface from "../../interfaces/styledInterface";
 
 import { AdminPanelAside } from "../../components/common/common";
 
-import { AdminPanelHome } from "../../components/layout/layout";
+import {
+  AdminPanelHome,
+  AdminPanelAttractionsGroup,
+} from "../../components/layout/layout";
 
 const AdminPanelContainer = styled.div`
   display: flex;
@@ -36,6 +39,11 @@ function AdminPanel() {
       <ContentContainer config={styledConfig}>
         <Switch>
           <Route exact path="/admin/home" component={AdminPanelHome} />
+          <Route
+            exact
+            path="/admin/attractiongroups"
+            component={AdminPanelAttractionsGroup}
+          />
         </Switch>
       </ContentContainer>
     </AdminPanelContainer>

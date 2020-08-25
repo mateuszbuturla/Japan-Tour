@@ -7,7 +7,9 @@ import bg from "../../../assets/bg.jpg";
 
 interface Props {
   name: string;
-  index: number;
+  index?: number;
+  to: string;
+  noHover?: boolean;
 }
 
 const Container = styled(Link)`
@@ -15,10 +17,6 @@ const Container = styled(Link)`
   margin: 10px 0px;
   overflow: hidden;
   text-decoration: none;
-
-  :hover img {
-    transform: scale(1.2) rotateZ(5deg);
-  }
 
   @media (min-width: ${(props: StyledInterface) =>
     props.config.breakPoints.sm}) {
@@ -34,6 +32,12 @@ const Container = styled(Link)`
     props.config.breakPoints.xl}) {
           width: calc(30% - 10px)
     margin: 30px 30px;
+  }
+`;
+
+const ContainerHover = styled(Container)`
+  :hover img {
+    transform: scale(1.2) rotateZ(5deg);
   }
 `;
 
@@ -73,18 +77,34 @@ const Img = styled.img`
   transition: 0.7s;
 `;
 
-function AttractionTile({ name, index }: Props) {
+function AttractionTile({ name, index, to, noHover }: Props) {
   return (
     <>
-      <Container config={styledConfig} to={`/attraction/${name}`}>
-        <H3 config={styledConfig}>
-          <Index config={styledConfig}>{index + 1 + ". "} </Index>
-          {name}
-        </H3>
-        <ImgContainer>
-          <Img src={bg} />
-        </ImgContainer>
-      </Container>
+      {noHover === true ? (
+        <Container config={styledConfig} to={to}>
+          <H3 config={styledConfig}>
+            {index !== undefined && (
+              <Index config={styledConfig}>{index + 1 + ". "} </Index>
+            )}
+            {name}
+          </H3>
+          <ImgContainer>
+            <Img src={bg} />
+          </ImgContainer>
+        </Container>
+      ) : (
+        <ContainerHover config={styledConfig} to={to}>
+          <H3 config={styledConfig}>
+            {index !== undefined && (
+              <Index config={styledConfig}>{index + 1 + ". "} </Index>
+            )}
+            {name}
+          </H3>
+          <ImgContainer>
+            <Img src={bg} />
+          </ImgContainer>
+        </ContainerHover>
+      )}
     </>
   );
 }
