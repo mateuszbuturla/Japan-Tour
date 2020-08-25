@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-const Footer = styled.footer`
+const FooterContainer = styled.footer`
   width: 100vw;
   padding: 15px 0px;
   display: flex;
@@ -11,8 +11,8 @@ const Footer = styled.footer`
   border-top: 1px solid #000;
 `;
 
-function footer() {
-  return <Footer>Mateusz Buturla 2020</Footer>;
+function Footer() {
+  return <FooterContainer>Mateusz Buturla 2020</FooterContainer>;
 }
 
-export default footer;
+export default Footer;

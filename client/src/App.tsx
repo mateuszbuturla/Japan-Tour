@@ -13,7 +13,7 @@ import {
   AdminPanel,
 } from "./view/view";
 
-import Footer from "./components/layout/footer/footer";
+import { Footer } from "./components/layout/layout";
 
 function App() {
   const location = useLocation();
@@ -65,7 +65,7 @@ function App() {
           </>
         </Transition>
       </TransitionGroup>
-      {/* <Footer /> */}
+      <Footer />
     </div>
   );
 }
