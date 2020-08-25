@@ -6,6 +6,7 @@ import AttractionTile from "./AttractionTile/attractionTile";
 import ImageGallery from "./ImageGallery/imageGallery";
 import ImageGalleryElement from "./ImageGalleryElement/imageGalleryElement";
 import PageTransitionEffect from "./PageTransitionEffect/pageTransitionEffect";
+import AdminPanelAside from "./AdminPanelAside/adminPanelAside";
 
 export {
   PageHeader,
@@ -16,4 +17,5 @@ export {
   ImageGallery,
   ImageGalleryElement,
   PageTransitionEffect,
+  AdminPanelAside,
 };
