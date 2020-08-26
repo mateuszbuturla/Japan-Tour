@@ -10,6 +10,7 @@ import AdminPanelAside from "./AdminPanelAside/adminPanelAside";
 import Input from "./Input/input";
 import Textarea from "./Textarea/textarea";
 import AdminPanelButton from "./AdminPanelButton/adminPanelButton";
+import Select from "./Select/select";
 
 export {
   PageHeader,
@@ -24,4 +25,5 @@ export {
   Input,
   Textarea,
   AdminPanelButton,
+  Select,
 };

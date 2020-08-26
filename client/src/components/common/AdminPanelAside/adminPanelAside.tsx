@@ -6,6 +6,7 @@ import StyledInterface from "../../../interfaces/styledInterface";
 
 interface Props {
   openAddAttractionsGroupModal: Function;
+  openAddAttractionModal: Function;
 }
 
 const Aside = styled.aside`
@@ -56,14 +57,19 @@ const ButtonTile = styled.button`
   }
 `;
 
-function AdminPanelAside({ openAddAttractionsGroupModal }: Props) {
+function AdminPanelAside({
+  openAddAttractionsGroupModal,
+  openAddAttractionModal,
+}: Props) {
   return (
     <Aside config={styledConfig}>
       <Tile>Witaj Admin</Tile>
       <ButtonTile onClick={() => openAddAttractionsGroupModal()}>
         Dodaj zbiór atrakcji
       </ButtonTile>
-      <ButtonTile>Dodaj atrakcję</ButtonTile>
+      <ButtonTile onClick={() => openAddAttractionModal()}>
+        Dodaj atrakcję
+      </ButtonTile>
       <ButtonTile>Grupy atrakcji</ButtonTile>
       <ButtonTile>Wyloguj</ButtonTile>
     </Aside>

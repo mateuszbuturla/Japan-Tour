@@ -10,6 +10,7 @@ import {
   AdminPanelHome,
   AdminPanelAttractionsGroup,
   AdminPanelAddAttractionsGroup,
+  AdminPanelAddAttraction,
 } from "../../components/layout/layout";
 
 const AdminPanelContainer = styled.div`
@@ -37,12 +38,14 @@ function AdminPanel() {
   const [addAttractionsGroupModal, setAddAttractionsGroupModal] = useState(
     false
   );
+  const [addAttraction, setAddAttraction] = useState(false);
 
   return (
     <>
       <AdminPanelContainer config={styledConfig}>
         <AdminPanelAside
           openAddAttractionsGroupModal={() => setAddAttractionsGroupModal(true)}
+          openAddAttractionModal={() => setAddAttraction(true)}
         />
         <ContentContainer config={styledConfig}>
           <Switch>
@@ -58,6 +61,10 @@ function AdminPanel() {
       <AdminPanelAddAttractionsGroup
         isOpen={addAttractionsGroupModal}
         closeModal={() => setAddAttractionsGroupModal(false)}
+      />
+      <AdminPanelAddAttraction
+        isOpen={addAttraction}
+        closeModal={() => setAddAttraction(false)}
       />
     </>
   );
