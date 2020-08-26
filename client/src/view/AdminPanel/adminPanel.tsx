@@ -7,7 +7,6 @@ import StyledInterface from "../../interfaces/styledInterface";
 import { AdminPanelAside } from "../../components/common/common";
 
 import {
-  AdminPanelHome,
   AdminPanelAttractionsGroup,
   AdminPanelAddAttractionsGroup,
   AdminPanelAddAttraction,
@@ -49,10 +48,9 @@ function AdminPanel() {
         />
         <ContentContainer config={styledConfig}>
           <Switch>
-            <Route exact path="/admin/home" component={AdminPanelHome} />
             <Route
               exact
-              path="/admin/attractiongroups"
+              path="/admin/attractiongroups/:id"
               component={AdminPanelAttractionsGroup}
             />
           </Switch>

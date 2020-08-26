@@ -92,11 +92,71 @@ function AdminPanelAside({
       </ButtonTile>
       {attractionsGroupList && (
         <AttractionsGroupList>
-          <li> - group1</li>
-          <li> - group2</li>
-          <li> - group3</li>
-          <li> - group4</li>
-          <li> - group5</li>
+          <li>
+            <Link
+              to={`/admin/attractiongroups/group1`}
+              style={{
+                color: "#a1a1a1",
+                textDecoration: "none",
+                width: "100%",
+              }}
+            >
+              {" "}
+              - group1
+            </Link>
+          </li>
+          <li>
+            <Link
+              to={`/admin/attractiongroups/group2`}
+              style={{
+                color: "#a1a1a1",
+                textDecoration: "none",
+                width: "100%",
+              }}
+            >
+              {" "}
+              - group2
+            </Link>
+          </li>
+          <li>
+            <Link
+              to={`/admin/attractiongroups/group3`}
+              style={{
+                color: "#a1a1a1",
+                textDecoration: "none",
+                width: "100%",
+              }}
+            >
+              {" "}
+              - group3
+            </Link>
+          </li>
+          <li>
+            <Link
+              to={`/admin/attractiongroups/group4`}
+              style={{
+                color: "#a1a1a1",
+                textDecoration: "none",
+                width: "100%",
+              }}
+            >
+              {" "}
+              - group4
+            </Link>
+          </li>
+          <li>
+            <Link
+              to={`/admin/attractiongroups/group5`}
+              style={{
+                color: "#a1a1a1",
+                textDecoration: "none",
+                width: "100%",
+              }}
+            >
+              {" "}
+              - group5
+            </Link>
+          </li>
         </AttractionsGroupList>
       )}
       <ButtonTile>Wyloguj</ButtonTile>
