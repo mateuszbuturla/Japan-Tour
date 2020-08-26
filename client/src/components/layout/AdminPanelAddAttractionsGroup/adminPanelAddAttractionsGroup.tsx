@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { useForm } from "react-hook-form";
 import Modal from "react-modal";
 
-import { Input } from "../../common/common";
+import { Input, Textarea, AdminPanelButton } from "../../common/common";
 
 interface Props {
   isOpen: boolean;
@@ -18,12 +18,22 @@ const customStyles = {
     bottom: "auto",
     marginRight: "-50%",
     transform: "translate(-50%, -50%)",
+    boxShadow: "0px 0px 18px 1px rgba(0,0,0,0.5)",
+    width: "90vw",
+    maxWidth: "300px",
+    padding: 0,
+    maxHeight: "90vh",
+    borderRadius: "0px",
+    border: "none",
+  },
+  overlay: {
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
   },
 };
 
 const Form = styled.form`
-  display: flex;
-  flex-direction: column;
+  margin: 30px;
+  color: #2b2b2b;
 `;
 
 function AdminPanelAddAttractionsGroup({ isOpen, closeModal }: Props) {
@@ -47,17 +57,15 @@ function AdminPanelAddAttractionsGroup({ isOpen, closeModal }: Props) {
           placeholder="nazwa groupy"
           id="groupname"
           name="groupname"
-          ref={register}
+          ref={register({ required: true })}
         />
-        <Input
-          type="textarea"
+        <Textarea
           placeholder="opsi grupy"
           id="groupdescription"
           name="groupdescription"
-          ref={register}
+          ref={register({ required: true })}
         />
-
-        <input type="submit" value="Dodaj" />
+        <AdminPanelButton text="Dodaj" />
       </Form>
     </Modal>
   );

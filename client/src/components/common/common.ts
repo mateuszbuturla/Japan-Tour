@@ -8,6 +8,8 @@ import ImageGalleryElement from "./ImageGalleryElement/imageGalleryElement";
 import PageTransitionEffect from "./PageTransitionEffect/pageTransitionEffect";
 import AdminPanelAside from "./AdminPanelAside/adminPanelAside";
 import Input from "./Input/input";
+import Textarea from "./Textarea/textarea";
+import AdminPanelButton from "./AdminPanelButton/adminPanelButton";
 
 export {
   PageHeader,
@@ -20,4 +22,6 @@ export {
   PageTransitionEffect,
   AdminPanelAside,
   Input,
+  Textarea,
+  AdminPanelButton,
 };
