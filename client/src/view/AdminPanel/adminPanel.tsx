@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Switch, Route } from "react-router-dom";
 import styled from "styled-components";
 import styledConfig from "../../config/styledConfig";
@@ -9,6 +9,7 @@ import { AdminPanelAside } from "../../components/common/common";
 import {
   AdminPanelHome,
   AdminPanelAttractionsGroup,
+  AdminPanelAddAttractionsGroup,
 } from "../../components/layout/layout";
 
 const AdminPanelContainer = styled.div`
@@ -33,20 +34,32 @@ const ContentContainer = styled.div`
 `;
 
 function AdminPanel() {
+  const [addAttractionsGroupModal, setAddAttractionsGroupModal] = useState(
+    false
+  );
+
   return (
-    <AdminPanelContainer config={styledConfig}>
-      <AdminPanelAside />
-      <ContentContainer config={styledConfig}>
-        <Switch>
-          <Route exact path="/admin/home" component={AdminPanelHome} />
-          <Route
-            exact
-            path="/admin/attractiongroups"
-            component={AdminPanelAttractionsGroup}
-          />
-        </Switch>
-      </ContentContainer>
-    </AdminPanelContainer>
+    <>
+      <AdminPanelContainer config={styledConfig}>
+        <AdminPanelAside
+          openAddAttractionsGroupModal={() => setAddAttractionsGroupModal(true)}
+        />
+        <ContentContainer config={styledConfig}>
+          <Switch>
+            <Route exact path="/admin/home" component={AdminPanelHome} />
+            <Route
+              exact
+              path="/admin/attractiongroups"
+              component={AdminPanelAttractionsGroup}
+            />
+          </Switch>
+        </ContentContainer>
+      </AdminPanelContainer>
+      <AdminPanelAddAttractionsGroup
+        isOpen={addAttractionsGroupModal}
+        closeModal={() => setAddAttractionsGroupModal(false)}
+      />
+    </>
   );
 }
 

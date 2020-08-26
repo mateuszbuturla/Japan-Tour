@@ -7,6 +7,7 @@ import ImageGallery from "./ImageGallery/imageGallery";
 import ImageGalleryElement from "./ImageGalleryElement/imageGalleryElement";
 import PageTransitionEffect from "./PageTransitionEffect/pageTransitionEffect";
 import AdminPanelAside from "./AdminPanelAside/adminPanelAside";
+import Input from "./Input/input";
 
 export {
   PageHeader,
@@ -18,4 +19,5 @@ export {
   ImageGalleryElement,
   PageTransitionEffect,
   AdminPanelAside,
+  Input,
 };

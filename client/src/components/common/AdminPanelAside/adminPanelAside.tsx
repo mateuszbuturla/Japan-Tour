@@ -4,6 +4,10 @@ import styled from "styled-components";
 import styledConfig from "../../../config/styledConfig";
 import StyledInterface from "../../../interfaces/styledInterface";
 
+interface Props {
+  openAddAttractionsGroupModal: Function;
+}
+
 const Aside = styled.aside`
   width: 100vw;
   background-color: #2b2b2b;
@@ -37,16 +41,30 @@ const LinkTile = styled(Link)`
   }
 `;
 
-const ButtonTile = styled(Tile)`
+const ButtonTile = styled.button`
   cursor: pointer;
+  color: #a1a1a1;
+  text-align: center;
+  width: 100%;
+  padding: 30px 0px;
+  background-color: transparent;
+  border: none;
+  outline: none;
+
+  &:hover {
+    background-color: #1c1c1c;
+  }
 `;
 
-function AdminPanelAside() {
+function AdminPanelAside({ openAddAttractionsGroupModal }: Props) {
   return (
     <Aside config={styledConfig}>
       <Tile>Witaj Admin</Tile>
-      <LinkTile to="/admin/home">Strona główna</LinkTile>
-      <LinkTile to="/admin/attractiongroups">Grupy atrakcji</LinkTile>
+      <ButtonTile onClick={() => openAddAttractionsGroupModal()}>
+        Dodaj zbiór atrakcji
+      </ButtonTile>
+      <ButtonTile>Dodaj atrakcję</ButtonTile>
+      <ButtonTile>Grupy atrakcji</ButtonTile>
       <ButtonTile>Wyloguj</ButtonTile>
     </Aside>
   );
