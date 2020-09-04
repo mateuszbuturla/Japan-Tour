@@ -20,6 +20,7 @@ const theme = {
   colors: {
     bg: '#fff',
     grey: '#6e6e6e',
+    subPageHeader: '#fff',
   },
   breakPoints: {
     xs: '0xp',
