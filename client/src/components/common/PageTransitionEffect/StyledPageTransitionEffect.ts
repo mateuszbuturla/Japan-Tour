@@ -6,7 +6,7 @@ const StyledPageTransitionEffect = styled.div`
   right: 100%;
   top: 0;
   bottom: 0;
-  background-color: red;
+  background-color: ${(props) => props.theme.colors.mainColor};
   z-index: 4;
 `;
 
