@@ -1,15 +1,18 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, useLocation } from 'react-router-dom';
 
 import { Home, Category } from './views';
 import { PageTransitionEffect } from './components/common';
+import { Footer } from './components/layout';
 
 interface Props {
   categories?: any;
 }
 
 function App({ categories }: Props) {
+  const location = useLocation();
+
   return (
     <div className="App">
       <Switch>
@@ -24,6 +27,7 @@ function App({ categories }: Props) {
           />
         ))}
       </Switch>
+      {location.pathname !== '/' && <Footer />}
       <PageTransitionEffect />
     </div>
   );
