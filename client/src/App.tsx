@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Switch, Route } from 'react-router-dom';
 
 import { Home, Category } from './views';
+import { PageTransitionEffect } from './components/common';
 
 interface Props {
   categories?: any;
@@ -23,6 +24,7 @@ function App({ categories }: Props) {
           />
         ))}
       </Switch>
+      <PageTransitionEffect />
     </div>
   );
 }

@@ -22,17 +22,29 @@ import GreateWave from '../../../assets/kanagawaTheGreatWave.jpg';
 import SawyearsLog from '../../../assets/sawyers-log-cutting-katsushika-hokusai.jpg';
 import SojoHenjo from '../../../assets/sojoHenjoKatsushika.jpg';
 
+import { PageTransitionEffect } from '../../../animations';
+
 function HomeHeader() {
   return (
     <StyledHomeHeader>
       <StyledCategoriesContainer>
         <HomeCategory
+          url="/architektura"
           header="Architektura"
           images={[ToriGate, TokyoSkytree, TokyoSkytower]}
         />
-        <HomeCategory header="Kultura" images={[Anime, Obon, Tanabata]} />
-        <HomeCategory header="Jedzenie" images={[Sushi, Ramen, Onigiri]} />
         <HomeCategory
+          url="/kultura"
+          header="Kultura"
+          images={[Anime, Obon, Tanabata]}
+        />
+        <HomeCategory
+          url="/jedzenie"
+          header="Jedzenie"
+          images={[Sushi, Ramen, Onigiri]}
+        />
+        <HomeCategory
+          url="/sztuka-i-rozrywka"
           header="Sztuka i rozrywka"
           images={[GreateWave, SawyearsLog, SojoHenjo]}
         />
