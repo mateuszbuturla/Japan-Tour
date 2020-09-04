@@ -1,11 +1,11 @@
-import React from "react";
-import { ThemeProvider, createGlobalStyle } from "styled-components";
+import React from 'react';
+import { ThemeProvider, createGlobalStyle } from 'styled-components';
 
 const GlobalStyle = createGlobalStyle`
   * {
     margin: 0;
     padding: 0;
-    font-family: arial;
+    font-family: 'Roboto', sans-serif;
   }
   body {
     overflow-x: hidden;
@@ -18,14 +18,15 @@ interface Props {
 
 const theme = {
   colors: {
-    red: "red",
+    bg: '#fff',
+    grey: '#6e6e6e',
   },
   breakPoints: {
-    xs: "0xp",
-    sm: "600px",
-    md: "960px",
-    lg: "1280px",
-    xl: "1920px",
+    xs: '0xp',
+    sm: '600px',
+    md: '960px',
+    lg: '1280px',
+    xl: '1920px',
   },
 };
 
