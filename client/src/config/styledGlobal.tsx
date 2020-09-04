@@ -21,6 +21,7 @@ const theme = {
     bg: '#fff',
     grey: '#6e6e6e',
     subPageHeader: '#fff',
+    mainColor: '#b73ebd',
   },
   breakPoints: {
     xs: '0xp',
