@@ -20,6 +20,7 @@ const theme = {
   colors: {
     bg: '#fff',
     grey: '#6e6e6e',
+    lightGrey: '#d9d9d9',
     subPageHeader: '#fff',
     mainColor: '#b73ebd',
   },
