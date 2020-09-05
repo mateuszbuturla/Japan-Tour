@@ -12,9 +12,10 @@ import { connect } from 'react-redux';
 interface Props {
   cityUrl: string;
   cities: any;
+  attractions: any;
 }
 
-function City({ cityUrl, cities }: Props) {
+function City({ cityUrl, cities, attractions }: Props) {
   const thisCity = cities.find((item: any) => item.url === cityUrl);
 
   return (
@@ -23,17 +24,31 @@ function City({ cityUrl, cities }: Props) {
       <StyledPageContainer>
         <StyledText>{thisCity.description}</StyledText>
         <StyledSubHeader>Najciekawsze atrakcje</StyledSubHeader>
-        {/* <StyledAttractionTilesContainer>
+        <StyledAttractionTilesContainer>
           {attractions
             .filter(
               (item: any) =>
-                item.region.toLowerCase() === thisRegion.name.toLowerCase(),
+                item.region.toLowerCase() === thisCity.region.toLowerCase() &&
+                item.city.toLowerCase() === thisCity.name.toLowerCase() &&
+                item.bestAttractions,
             )
             .map((item: any) => (
               <AttractionTile attraction={item} />
             ))}
-        </StyledAttractionTilesContainer> */}
+        </StyledAttractionTilesContainer>
         <StyledSubHeader>Pozostałe atrakcje</StyledSubHeader>
+        <StyledAttractionTilesContainer>
+          {attractions
+            .filter(
+              (item: any) =>
+                item.region.toLowerCase() === thisCity.region.toLowerCase() &&
+                item.city.toLowerCase() === thisCity.name.toLowerCase() &&
+                !item.bestAttractions,
+            )
+            .map((item: any) => (
+              <AttractionTile attraction={item} />
+            ))}
+        </StyledAttractionTilesContainer>
       </StyledPageContainer>
     </>
   );
@@ -41,6 +56,7 @@ function City({ cityUrl, cities }: Props) {
 
 const mapStateToProps = (state: any) => ({
   cities: state.cities,
+  attractions: state.attractions,
 });
 
 export default connect(mapStateToProps, null)(City);

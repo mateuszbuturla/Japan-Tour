@@ -28,7 +28,8 @@ function Region({ regionUrl, regions, attractions }: Props) {
           {attractions
             .filter(
               (item: any) =>
-                item.region.toLowerCase() === thisRegion.name.toLowerCase(),
+                item.region.toLowerCase() === thisRegion.key.toLowerCase() &&
+                item.bestAttractions,
             )
             .map((item: any) => (
               <AttractionTile attraction={item} />
