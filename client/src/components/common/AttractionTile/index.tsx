@@ -1,4 +1,5 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom'
 import {
   StyledAttractionTile,
   StyledAttractionTileImage,
@@ -11,8 +12,14 @@ interface Props {
 }
 
 function AttractionTile({ attraction }: Props) {
+  const history = useHistory();
+
+  const handleTileClick = () => {
+      history.push(`/podroze/${attraction.region}/${attraction.city}${attraction.url}`);
+  };
+
   return (
-    <StyledAttractionTile>
+    <StyledAttractionTile onClick={handleTileClick}>
       <StyledAttractionTileImage src={attraction.img} />
       <StyledAttractionTileTitle>{attraction.name}</StyledAttractionTileTitle>
       <StyledAttractionTileDescription>
