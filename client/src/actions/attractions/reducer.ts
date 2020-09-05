@@ -118,7 +118,7 @@ const INITIAL_STATE = [
     shortDescription: 'Lorem Ipsum is simply dummy text',
     region: 'kanto',
     city: 'tokyo',
-    bestAttractions: false,
+    bestAttractions: true,
     description:
       'Lorem Ipsum is simply dummy text of the printing and typesetting industry. ',
   },

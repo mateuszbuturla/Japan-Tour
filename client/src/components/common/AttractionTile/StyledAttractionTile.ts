@@ -10,18 +10,18 @@ const StyledAttractionTile = styled.div`
 
   @media (min-width: ${(props) => props.theme.breakPoints.sm}) {
     width: 45%;
-  }
-
-  @media (min-width: ${(props) => props.theme.breakPoints.sm}) {
-    width: 45%;
+    margin-top: 5%;
   }
 
   @media (min-width: ${(props) => props.theme.breakPoints.md}) {
-    width: 33%;
+    width: 30%;
+    margin-right: 3%;
+    margin-top: 3%;
   }
 
   @media (min-width: ${(props) => props.theme.breakPoints.lg}) {
     width: 23%;
+    margin-right: 2%;
   }
 `;
 

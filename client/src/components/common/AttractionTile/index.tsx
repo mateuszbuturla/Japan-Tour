@@ -1,5 +1,5 @@
 import React from 'react';
-import { useHistory } from 'react-router-dom'
+import { useHistory } from 'react-router-dom';
 import {
   StyledAttractionTile,
   StyledAttractionTileImage,
@@ -15,7 +15,9 @@ function AttractionTile({ attraction }: Props) {
   const history = useHistory();
 
   const handleTileClick = () => {
-      history.push(`/podroze/${attraction.region}/${attraction.city}${attraction.url}`);
+    history.push(
+      `/podroze/${attraction.region}/${attraction.city}${attraction.url}`,
+    );
   };
 
   return (
