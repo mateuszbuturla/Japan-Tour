@@ -7,7 +7,7 @@ const StyledJapanMap = styled(Map)`
   margin: 50px auto 0px;
 
   @media (min-width: ${(props) => props.theme.breakPoints.lg}) {
-    width: 50%;
+    width: 70%;
   }
 
   .japanMap__region {
@@ -39,6 +39,7 @@ const StyledJapanMap = styled(Map)`
       transition: 0.5s;
       cursor: pointer;
     }
+
     &:hover {
       path {
         fill: ${(props) => props.theme.colors.mainColor};
