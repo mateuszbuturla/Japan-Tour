@@ -2,16 +2,17 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Switch, Route, useLocation } from 'react-router-dom';
 
-import { Home, Category, Travel, Region } from './views';
+import { Home, Category, Travel, Region, City } from './views';
 import { PageTransitionEffect } from './components/common';
 import { Footer } from './components/layout';
 
 interface Props {
   categories?: any;
   regions?: any;
+  cities?: any;
 }
 
-function App({ categories, regions }: Props) {
+function App({ categories, regions, cities }: Props) {
   const location = useLocation();
   console.log(regions);
   return (
@@ -43,6 +44,13 @@ function App({ categories, regions }: Props) {
             exact
           />
         ))}
+        {cities.map((item: any) => (
+          <Route
+            path={`/podroze/${item.region.toLowerCase()}${item.url}`}
+            component={(props: any) => <City {...props} cityUrl={item.url} />}
+            exact
+          />
+        ))}
       </Switch>
       {location.pathname !== '/' && <Footer />}
       <PageTransitionEffect />
@@ -53,6 +61,7 @@ function App({ categories, regions }: Props) {
 const mapStateToProps = (state: any) => ({
   categories: state.categories,
   regions: state.regions,
+  cities: state.cities,
 });
 
 export default connect(mapStateToProps, null)(App);
