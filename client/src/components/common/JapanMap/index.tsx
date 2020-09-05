@@ -38,7 +38,6 @@ function JapanMap({ regions, cities }: Props) {
         const name = e.target.parentElement.parentElement
           .getAttribute('id')
           .toLowerCase();
-        console.log(name);
         const city = cities.find(
           (item: any) => item.name.toLowerCase() === name,
         );
