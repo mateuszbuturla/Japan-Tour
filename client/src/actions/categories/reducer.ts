@@ -16,8 +16,8 @@ import SojoHenjo from '../../assets/sojoHenjoKatsushika.jpg';
 
 const INITIAL_STATE = [
   {
-    name: 'Architektura',
-    url: 'architektura',
+    name: 'Podróże',
+    url: 'podroze',
     images: [ToriGate, TokyoSkytree, TokyoSkytower],
   },
   {
@@ -26,8 +26,8 @@ const INITIAL_STATE = [
     images: [Anime, Obon, Tanabata],
   },
   {
-    name: 'Jedzenie',
-    url: 'jedzenie',
+    name: 'Kuchnia',
+    url: 'kuchnia',
     images: [Sushi, Ramen, Onigiri],
   },
   {

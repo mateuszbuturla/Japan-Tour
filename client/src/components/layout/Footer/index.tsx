@@ -42,6 +42,16 @@ function Footer() {
           <StyledFooterListElement>Onses</StyledFooterListElement>
           <StyledFooterListElement>Ogrody</StyledFooterListElement>
         </StyledFooterList>
+        <StyledFooterList>
+          <StyledFooterListElement header>Kuchnia</StyledFooterListElement>
+          <StyledFooterListElement>Zupy</StyledFooterListElement>
+          <StyledFooterListElement>Sushi</StyledFooterListElement>
+          <StyledFooterListElement>Takoyaki</StyledFooterListElement>
+          <StyledFooterListElement>Yakitori</StyledFooterListElement>
+          <StyledFooterListElement>Tonkatsu</StyledFooterListElement>
+          <StyledFooterListElement>Dango</StyledFooterListElement>
+          <StyledFooterListElement>Onigiri</StyledFooterListElement>
+        </StyledFooterList>
       </StyledFooterContainer>
       <StyledFooterCopyright>
         Copyright © 2020-2020 Japan Tour Mateusz Buturla All Rights Reserved.

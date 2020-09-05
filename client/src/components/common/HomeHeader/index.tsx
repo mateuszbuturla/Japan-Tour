@@ -29,8 +29,8 @@ function HomeHeader() {
     <StyledHomeHeader>
       <StyledCategoriesContainer>
         <HomeCategory
-          url="/architektura"
-          header="Architektura"
+          url="/podroze"
+          header="Podróże"
           images={[ToriGate, TokyoSkytree, TokyoSkytower]}
         />
         <HomeCategory
@@ -39,8 +39,8 @@ function HomeHeader() {
           images={[Anime, Obon, Tanabata]}
         />
         <HomeCategory
-          url="/jedzenie"
-          header="Jedzenie"
+          url="/kuchnia"
+          header="Kuchnia"
           images={[Sushi, Ramen, Onigiri]}
         />
         <HomeCategory
