@@ -9,6 +9,7 @@ const INITIAL_STATE = [
     region: 'hokkaido',
     city: 'furano',
     bestAttractions: true,
+    category: 'temple',
     description:
       'Lorem Ipsum is simply dummy text of the printing and typesetting industry. ',
   },
@@ -20,6 +21,7 @@ const INITIAL_STATE = [
     region: 'hokkaido',
     city: 'furano',
     bestAttractions: true,
+    category: 'temple',
     description:
       'Lorem Ipsum is simply dummy text of the printing and typesetting industry. ',
   },
@@ -31,6 +33,7 @@ const INITIAL_STATE = [
     region: 'hokkaido',
     city: 'sapporo',
     bestAttractions: true,
+    category: 'temple',
     description:
       'Lorem Ipsum is simply dummy text of the printing and typesetting industry. ',
   },
@@ -42,6 +45,7 @@ const INITIAL_STATE = [
     region: 'hokkaido',
     city: 'sapporo',
     bestAttractions: false,
+    category: 'temple',
     description:
       'Lorem Ipsum is simply dummy text of the printing and typesetting industry. ',
   },
@@ -53,6 +57,7 @@ const INITIAL_STATE = [
     region: 'tohoku',
     city: 'sendai',
     bestAttractions: false,
+    category: 'temple',
     description:
       'Lorem Ipsum is simply dummy text of the printing and typesetting industry. ',
   },
@@ -64,6 +69,7 @@ const INITIAL_STATE = [
     region: 'tohoku',
     city: 'sendai',
     bestAttractions: true,
+    category: 'garden',
     description:
       'Lorem Ipsum is simply dummy text of the printing and typesetting industry. ',
   },
@@ -75,6 +81,7 @@ const INITIAL_STATE = [
     region: 'tohoku',
     city: 'sendai',
     bestAttractions: true,
+    category: 'garden',
     description:
       'Lorem Ipsum is simply dummy text of the printing and typesetting industry. ',
   },
@@ -86,6 +93,7 @@ const INITIAL_STATE = [
     region: 'kanto',
     city: 'tokyo',
     bestAttractions: true,
+    category: 'garden',
     description:
       'Lorem Ipsum is simply dummy text of the printing and typesetting industry. ',
   },
@@ -97,6 +105,7 @@ const INITIAL_STATE = [
     region: 'kanto',
     city: 'tokyo',
     bestAttractions: true,
+    category: 'garden',
     description:
       'Lorem Ipsum is simply dummy text of the printing and typesetting industry. ',
   },
@@ -108,6 +117,7 @@ const INITIAL_STATE = [
     region: 'kanto',
     city: 'tokyo',
     bestAttractions: true,
+    category: 'garden',
     description:
       'Lorem Ipsum is simply dummy text of the printing and typesetting industry. ',
   },
@@ -119,6 +129,7 @@ const INITIAL_STATE = [
     region: 'kanto',
     city: 'tokyo',
     bestAttractions: true,
+    category: 'garden',
     description:
       'Lorem Ipsum is simply dummy text of the printing and typesetting industry. ',
   },
@@ -130,6 +141,7 @@ const INITIAL_STATE = [
     region: 'chubu',
     city: 'takayama',
     bestAttractions: false,
+    category: 'garden',
     description:
       'Lorem Ipsum is simply dummy text of the printing and typesetting industry. ',
   },
@@ -141,6 +153,7 @@ const INITIAL_STATE = [
     region: 'chubu',
     city: 'nagoya',
     bestAttractions: false,
+    category: 'garden',
     description:
       'Lorem Ipsum is simply dummy text of the printing and typesetting industry. ',
   },
@@ -152,6 +165,7 @@ const INITIAL_STATE = [
     region: 'chubu',
     city: 'nagoya',
     bestAttractions: false,
+    category: 'garden',
     description:
       'Lorem Ipsum is simply dummy text of the printing and typesetting industry. ',
   },
@@ -163,6 +177,7 @@ const INITIAL_STATE = [
     region: 'kansai',
     city: 'nara',
     bestAttractions: false,
+    category: 'garden',
     description:
       'Lorem Ipsum is simply dummy text of the printing and typesetting industry. ',
   },
@@ -174,6 +189,7 @@ const INITIAL_STATE = [
     region: 'kansai',
     city: 'nara',
     bestAttractions: false,
+    category: 'garden',
     description:
       'Lorem Ipsum is simply dummy text of the printing and typesetting industry. ',
   },
@@ -185,6 +201,7 @@ const INITIAL_STATE = [
     region: 'kansai',
     city: 'nara',
     bestAttractions: false,
+    category: 'garden',
     description:
       'Lorem Ipsum is simply dummy text of the printing and typesetting industry. ',
   },
@@ -196,6 +213,7 @@ const INITIAL_STATE = [
     region: 'chugoku',
     city: 'hiroshima',
     bestAttractions: false,
+    category: 'garden',
     description:
       'Lorem Ipsum is simply dummy text of the printing and typesetting industry. ',
   },
