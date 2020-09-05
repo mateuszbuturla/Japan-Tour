@@ -6,6 +6,8 @@ import JapanMap from './JapanMap';
 import StyledPageContainer from './StyledPageContainer';
 import StyledSubHeader from './StyledSubHeader';
 import StyledText from './StyledText';
+import AttractionTile from './AttractionTile';
+import StyledAttractionTilesContainer from './StyledAttractionTilesContainer';
 
 export {
   HomeHeader,
@@ -16,4 +18,6 @@ export {
   StyledPageContainer,
   StyledSubHeader,
   StyledText,
+  AttractionTile,
+  StyledAttractionTilesContainer,
 };
