@@ -1,12 +1,12 @@
 import styled from 'styled-components';
 
-const StyledCategoryHeader = styled.div`
+const StyledPageHeader = styled.div`
   position: relative;
   width: 100vw;
   height: 50vh;
 `;
 
-const StyledCategoryText = styled.h2`
+const StyledPageHeaderText = styled.h2`
   position: absolute;
   top: 50%;
   left: 50%;
@@ -17,12 +17,12 @@ const StyledCategoryText = styled.h2`
   color: ${(props) => props.theme.colors.subPageHeader};
 `;
 
-interface StyledCategoryImageProps {
+interface StyledPageHeaderImageProps {
   src: string;
   hidden: boolean;
 }
 
-const StyledCategoryImage = styled.div<StyledCategoryImageProps>`
+const StyledPageHeaderImage = styled.div<StyledPageHeaderImageProps>`
   background: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)),
     url(${(props) => props.src});
   background-repeat: no-repeat;
@@ -34,4 +34,4 @@ const StyledCategoryImage = styled.div<StyledCategoryImageProps>`
   opacity: ${(props) => (props.hidden === true ? 0 : 1)};
 `;
 
-export { StyledCategoryHeader, StyledCategoryText, StyledCategoryImage };
+export { StyledPageHeader, StyledPageHeaderText, StyledPageHeaderImage };

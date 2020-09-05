@@ -1,17 +1,19 @@
 import HomeHeader from './HomeHeader';
 import HomeCategory from './HomeCategory';
-import CategoryHeader from './CategoryHeader';
+import PageHeader from './PageHeader';
 import PageTransitionEffect from './PageTransitionEffect';
 import JapanMap from './JapanMap';
 import StyledPageContainer from './StyledPageContainer';
 import StyledSubHeader from './StyledSubHeader';
+import StyledText from './StyledText';
 
 export {
   HomeHeader,
   HomeCategory,
-  CategoryHeader,
+  PageHeader,
   PageTransitionEffect,
   JapanMap,
   StyledPageContainer,
   StyledSubHeader,
+  StyledText,
 };
