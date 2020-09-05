@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import {
-  StyledCategoryHeader,
-  StyledCategoryText,
-  StyledCategoryImage,
+  StyledPageHeader,
+  StyledPageHeaderText,
+  StyledPageHeaderImage,
 } from './StyledCategoryHeader';
 
 interface Props {
@@ -10,7 +10,7 @@ interface Props {
   images: string[];
 }
 
-function CategoryHeader({ text, images }: Props) {
+function PageHeader({ text, images }: Props) {
   const [currentImage, setCurrentImage] = useState(0);
 
   const changeImage = () => {
@@ -25,17 +25,17 @@ function CategoryHeader({ text, images }: Props) {
   });
 
   return (
-    <StyledCategoryHeader>
+    <StyledPageHeader>
       {images.map((item, index) => (
-        <StyledCategoryImage
+        <StyledPageHeaderImage
           src={item}
           key={index}
           hidden={index === currentImage ? false : true}
         />
       ))}
-      <StyledCategoryText>{text}</StyledCategoryText>
-    </StyledCategoryHeader>
+      <StyledPageHeaderText>{text}</StyledPageHeaderText>
+    </StyledPageHeader>
   );
 }
 
-export default CategoryHeader;
+export default PageHeader;
