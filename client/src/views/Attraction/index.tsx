@@ -3,6 +3,9 @@ import {
   StyledPageContainer,
   PageHeader,
   StyledText,
+  StyledSubHeader,
+  StyledAttractionTilesContainer,
+  AttractionTile,
 } from '../../components/common';
 import { connect } from 'react-redux';
 
@@ -21,6 +24,14 @@ function Attraction({ attractionUrl, attractions }: Props) {
       <PageHeader text={thisAttraction.name} images={thisAttraction.img} />
       <StyledPageContainer>
         <StyledText>{thisAttraction.description}</StyledText>
+        <StyledSubHeader>Polecane podobne obiekty</StyledSubHeader>
+        <StyledAttractionTilesContainer>
+          {attractions
+            .filter((item: any) => item.category === thisAttraction.category)
+            .map((item: any) => (
+              <AttractionTile attraction={item} />
+            ))}
+        </StyledAttractionTilesContainer>
       </StyledPageContainer>
     </>
   );
