@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { CategoryHeader } from '../../components/common';
+import { PageHeader } from '../../components/common';
 import { useParams } from 'react-router-dom';
 
 interface Props {
@@ -13,7 +13,7 @@ function Category({ categoryUrl, categories }: Props) {
 
   return (
     <>
-      <CategoryHeader text={thisCategory.name} images={thisCategory.images} />
+      <PageHeader text={thisCategory.name} images={thisCategory.images} />
     </>
   );
 }

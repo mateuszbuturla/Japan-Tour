@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { CategoryHeader } from '../../components/common';
+import { PageHeader } from '../../components/common';
 import { useParams } from 'react-router-dom';
 import { StyledPageContainer, JapanMap } from '../../components/common';
 
@@ -14,7 +14,7 @@ function Travel({ categoryUrl, categories }: Props) {
 
   return (
     <>
-      <CategoryHeader text={thisCategory.name} images={thisCategory.images} />
+      <PageHeader text={thisCategory.name} images={thisCategory.images} />
       <StyledPageContainer>
         <JapanMap />
       </StyledPageContainer>
