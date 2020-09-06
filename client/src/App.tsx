@@ -6,16 +6,8 @@ import { Home, Category, Travel, Region, City, Attraction } from './views';
 import { PageTransitionEffect } from './components/common';
 import { Footer } from './components/layout';
 
-interface Props {
-  categories?: any;
-  regions?: any;
-  cities?: any;
-  attractions?: any;
-}
-
-function App({ categories, regions, cities, attractions }: Props) {
+function App() {
   const location = useLocation();
-  console.log(regions);
   return (
     <div className="App">
       <Switch>
@@ -58,11 +50,4 @@ function App({ categories, regions, cities, attractions }: Props) {
   );
 }
 
-const mapStateToProps = (state: any) => ({
-  categories: state.categories,
-  regions: state.regions,
-  cities: state.cities,
-  attractions: state.attractions,
-});
-
-export default connect(mapStateToProps, null)(App);
+export default App;

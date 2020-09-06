@@ -1,18 +1,13 @@
 import React, { useEffect } from 'react';
-import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { StyledJapanMap } from './StyledJapanMap';
 import { StyledSubHeader } from '../';
+import axios from 'axios';
 
-interface Props {
-  regions?: any;
-  cities?: any;
-}
-
-function JapanMap({ regions, cities }: Props) {
+function JapanMap() {
   const history = useHistory();
 
-  const setRegionClickEvent = () => {
+  const setRegionClickEvent = (regions: any) => {
     const regionsFromSvg = document.querySelectorAll('.japanMap__region');
 
     Array.from(regionsFromSvg).map((item) => {
@@ -30,7 +25,7 @@ function JapanMap({ regions, cities }: Props) {
     });
   };
 
-  const setSityClickEvent = () => {
+  const setSityClickEvent = (cities: any) => {
     const citiesFromSvg = document.querySelectorAll('.japanMap__city');
 
     Array.from(citiesFromSvg).map((item) => {
@@ -49,8 +44,12 @@ function JapanMap({ regions, cities }: Props) {
   };
 
   useEffect(() => {
-    setRegionClickEvent();
-    setSityClickEvent();
+    axios
+      .get(`http://localhost:4000/api/getcitiesandregions`)
+      .then(function (result) {
+        setSityClickEvent(result.data.cities);
+        setRegionClickEvent(result.data.regions);
+      });
   }, []);
 
   return (
@@ -61,9 +60,4 @@ function JapanMap({ regions, cities }: Props) {
   );
 }
 
-const mapStateToProps = (state: any) => ({
-  regions: state.regions,
-  cities: state.cities,
-});
-
-export default connect(mapStateToProps, null)(JapanMap);
+export default JapanMap;
