@@ -19,7 +19,6 @@ function City() {
     axios
       .get(`http://localhost:4000/api/getcity/${cityurl}`)
       .then(function (result) {
-        console.log(result);
         setCity(result.data.city);
         setAttractions(result.data.attractions);
       });

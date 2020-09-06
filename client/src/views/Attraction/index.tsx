@@ -23,7 +23,6 @@ function Attraction({ attractionUrl }: Props) {
     axios
       .get(`http://localhost:4000/api/getattraction/${attractionurl}`)
       .then(function (result) {
-        console.log(result);
         setAttraction(result.data.attraction);
         setOtherAttractions(result.data.otherAttractions);
       });

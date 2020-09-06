@@ -41,7 +41,6 @@ function JapanMap({ regions, cities }: Props) {
         const city = cities.find(
           (item: any) => item.name.toLowerCase() === name,
         );
-        console.log(city);
         if (city) {
           history.push(`/podroze/${city.region.toLowerCase()}${city.url}`);
         }

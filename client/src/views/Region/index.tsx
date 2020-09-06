@@ -19,7 +19,6 @@ function Region() {
     axios
       .get(`http://localhost:4000/api/getregion/${regionurl}`)
       .then(function (result) {
-        console.log(result);
         setRegion(result.data.region);
         setAttractions(result.data.attractions);
       });
