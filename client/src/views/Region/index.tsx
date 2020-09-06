@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import {
   StyledPageContainer,
   PageHeader,
@@ -7,42 +8,41 @@ import {
   StyledAttractionTilesContainer,
   AttractionTile,
 } from '../../components/common';
-import { connect } from 'react-redux';
+import axios from 'axios';
 
-interface Props {
-  regionUrl: string;
-  regions: any;
-  attractions: any;
-}
+function Region() {
+  const { regionurl } = useParams();
+  const [region, setRegion] = useState();
+  const [attractions, setAttractions] = useState([]);
 
-function Region({ regionUrl, regions, attractions }: Props) {
-  const thisRegion = regions.find((item: any) => item.url === regionUrl);
+  useEffect(() => {
+    axios
+      .get(`http://localhost:4000/api/getregion/${regionurl}`)
+      .then(function (result) {
+        console.log(result);
+        setRegion(result.data.region);
+        setAttractions(result.data.attractions);
+      });
+  }, []);
 
   return (
     <>
-      <PageHeader text={thisRegion.name} images={thisRegion.img} />
-      <StyledPageContainer>
-        <StyledText>{thisRegion.description}</StyledText>
-        <StyledSubHeader>Najciekawsze atrakcje</StyledSubHeader>
-        <StyledAttractionTilesContainer>
-          {attractions
-            .filter(
-              (item: any) =>
-                item.region.toLowerCase() === thisRegion.key.toLowerCase() &&
-                item.bestAttractions,
-            )
-            .map((item: any) => (
-              <AttractionTile attraction={item} />
-            ))}
-        </StyledAttractionTilesContainer>
-      </StyledPageContainer>
+      {region && (
+        <>
+          <PageHeader text={region.name} images={region.img} />
+          <StyledPageContainer>
+            <StyledText>{region.description}</StyledText>
+            <StyledSubHeader>Najciekawsze atrakcje</StyledSubHeader>
+            <StyledAttractionTilesContainer>
+              {attractions.map((item: any) => (
+                <AttractionTile attraction={item} />
+              ))}
+            </StyledAttractionTilesContainer>
+          </StyledPageContainer>
+        </>
+      )}
     </>
   );
 }
 
-const mapStateToProps = (state: any) => ({
-  regions: state.regions,
-  attractions: state.attractions,
-});
-
-export default connect(mapStateToProps, null)(Region);
+export default Region;

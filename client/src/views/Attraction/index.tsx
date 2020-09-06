@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import {
   StyledPageContainer,
   PageHeader,
@@ -7,38 +8,45 @@ import {
   StyledAttractionTilesContainer,
   AttractionTile,
 } from '../../components/common';
-import { connect } from 'react-redux';
+import axios from 'axios';
 
 interface Props {
   attractionUrl: string;
-  attractions: any;
 }
 
-function Attraction({ attractionUrl, attractions }: Props) {
-  const thisAttraction = attractions.find(
-    (item: any) => item.url === attractionUrl,
-  );
+function Attraction({ attractionUrl }: Props) {
+  const { attractionurl } = useParams();
+  const [attraction, setAttraction] = useState();
+  const [otherAttractions, setOtherAttractions] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get(`http://localhost:4000/api/getattraction/${attractionurl}`)
+      .then(function (result) {
+        console.log(result);
+        setAttraction(result.data.attraction);
+        setOtherAttractions(result.data.otherAttractions);
+      });
+  }, []);
 
   return (
     <>
-      <PageHeader text={thisAttraction.name} images={thisAttraction.img} />
-      <StyledPageContainer>
-        <StyledText>{thisAttraction.description}</StyledText>
-        <StyledSubHeader>Polecane podobne obiekty</StyledSubHeader>
-        <StyledAttractionTilesContainer>
-          {attractions
-            .filter((item: any) => item.category === thisAttraction.category)
-            .map((item: any) => (
-              <AttractionTile attraction={item} />
-            ))}
-        </StyledAttractionTilesContainer>
-      </StyledPageContainer>
+      {attraction && (
+        <>
+          <PageHeader text={attraction.name} images={attraction.img} />
+          <StyledPageContainer>
+            <StyledText>{attraction.description}</StyledText>
+            <StyledSubHeader>Polecane podobne obiekty</StyledSubHeader>
+            <StyledAttractionTilesContainer>
+              {otherAttractions.map((item: any) => (
+                <AttractionTile attraction={item} />
+              ))}
+            </StyledAttractionTilesContainer>
+          </StyledPageContainer>
+        </>
+      )}
     </>
   );
 }
 
-const mapStateToProps = (state: any) => ({
-  attractions: state.attractions,
-});
-
-export default connect(mapStateToProps, null)(Attraction);
+export default Attraction;

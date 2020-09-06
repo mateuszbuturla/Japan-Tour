@@ -36,33 +36,21 @@ function App({ categories, regions, cities, attractions }: Props) {
           )}
           exact
         />
-        {regions.map((item: any) => (
-          <Route
-            path={`/podroze${item.url}`}
-            component={(props: any) => (
-              <Region {...props} regionUrl={item.url} />
-            )}
-            exact
-          />
-        ))}
-        {cities.map((item: any) => (
-          <Route
-            path={`/podroze/${item.region.toLowerCase()}${item.url}`}
-            component={(props: any) => <City {...props} cityUrl={item.url} />}
-            exact
-          />
-        ))}
-        {attractions.map((item: any) => (
-          <Route
-            path={`/podroze/${item.region.toLowerCase()}/${item.city.toLowerCase()}${
-              item.url
-            }`}
-            component={(props: any) => (
-              <Attraction {...props} attractionUrl={item.url} />
-            )}
-            exact
-          />
-        ))}
+        <Route
+          path={`/podroze/:regionurl`}
+          component={(props: any) => <Region {...props} />}
+          exact
+        />
+        <Route
+          path={`/podroze/:region/:cityurl`}
+          component={(props: any) => <City {...props} />}
+          exact
+        />
+        <Route
+          path={`/podroze/:region/:city/:attractionurl`}
+          component={(props: any) => <Attraction {...props} />}
+          exact
+        />
       </Switch>
       {location.pathname !== '/' && <Footer />}
       <PageTransitionEffect />
