@@ -8,9 +8,10 @@ import {
 interface Props {
   text: string;
   images: string[];
+  small?: boolean;
 }
 
-function PageHeader({ text, images }: Props) {
+function PageHeader({ text, images, small }: Props) {
   const [currentImage, setCurrentImage] = useState(0);
 
   const changeImage = () => {
@@ -25,7 +26,7 @@ function PageHeader({ text, images }: Props) {
   });
 
   return (
-    <StyledPageHeader>
+    <StyledPageHeader small={small ? true : false}>
       {images.map((item, index) => (
         <StyledPageHeaderImage
           src={item}
