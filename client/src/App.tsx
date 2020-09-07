@@ -51,7 +51,8 @@ function App() {
           component={(props: any) => <Attraction {...props} />}
           exact
         />
-        <Route component={NotFound}/>
+        <Route path="/404" component={NotFound} />
+        <Route component={NotFound} />
       </Switch>
       {location.pathname !== '/' && <Footer />}
       <PageTransitionEffect />
