@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 import {
   StyledPageContainer,
   PageHeader,
@@ -16,6 +16,7 @@ interface Props {
 
 function Attraction({ attractionUrl }: Props) {
   const { attractionurl } = useParams();
+  const history = useHistory();
   const [attraction, setAttraction] = useState();
   const [otherAttractions, setOtherAttractions] = useState([]);
 
@@ -25,6 +26,9 @@ function Attraction({ attractionUrl }: Props) {
       .then(function (result) {
         setAttraction(result.data.attraction);
         setOtherAttractions(result.data.otherAttractions);
+      })
+      .catch(() => {
+        history.push('/404');
       });
   }, []);
 

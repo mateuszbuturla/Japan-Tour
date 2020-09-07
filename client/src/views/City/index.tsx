@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 import {
   StyledPageContainer,
   PageHeader,
@@ -12,6 +12,7 @@ import axios from 'axios';
 
 function City() {
   const { cityurl } = useParams();
+  const history = useHistory();
   const [city, setCity] = useState();
   const [attractions, setAttractions] = useState([]);
 
@@ -19,8 +20,12 @@ function City() {
     axios
       .get(`http://localhost:4000/api/getcity/${cityurl}`)
       .then(function (result) {
+        if (!result.data.city) return history.push('/404');
         setCity(result.data.city);
         setAttractions(result.data.attractions);
+      })
+      .catch(() => {
+        history.push('/404');
       });
   }, []);
 

@@ -2,7 +2,15 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Switch, Route, useLocation } from 'react-router-dom';
 
-import { Home, Category, Travel, Region, City, Attraction } from './views';
+import {
+  Home,
+  Category,
+  Travel,
+  Region,
+  City,
+  Attraction,
+  NotFound,
+} from './views';
 import { PageTransitionEffect } from './components/common';
 import { Footer } from './components/layout';
 
@@ -43,6 +51,8 @@ function App() {
           component={(props: any) => <Attraction {...props} />}
           exact
         />
+        <Route path="/404" component={NotFound} />
+        <Route component={NotFound} />
       </Switch>
       {location.pathname !== '/' && <Footer />}
       <PageTransitionEffect />

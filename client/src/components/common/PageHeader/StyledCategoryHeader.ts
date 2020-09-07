@@ -1,9 +1,13 @@
 import styled from 'styled-components';
 
-const StyledPageHeader = styled.div`
+interface StyledPageHeaderTypes {
+  small?: boolean;
+}
+
+const StyledPageHeader = styled.div<StyledPageHeaderTypes>`
   position: relative;
   width: 100vw;
-  height: 50vh;
+  height: ${(props) => (props.small ? '25vh' : '50vh')};
 `;
 
 const StyledPageHeaderText = styled.h2`

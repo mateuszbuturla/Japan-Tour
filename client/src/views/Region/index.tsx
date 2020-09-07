@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 import {
   StyledPageContainer,
   PageHeader,
@@ -12,14 +12,19 @@ import axios from 'axios';
 
 function Region() {
   const { regionurl } = useParams();
+  const history = useHistory();
   const [region, setRegion] = useState();
   const [attractions, setAttractions] = useState([]);
   useEffect(() => {
     axios
       .get(`http://localhost:4000/api/getregion/${regionurl}`)
       .then(function (result) {
+        if (!result.data.region) return history.push('/404');
         setRegion(result.data.region);
         setAttractions(result.data.attractions);
+      })
+      .catch(() => {
+        history.push('/404');
       });
   }, []);
 
