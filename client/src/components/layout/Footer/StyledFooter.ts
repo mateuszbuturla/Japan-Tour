@@ -34,6 +34,7 @@ const StyledFooterListElement = styled.li<StyledFooterListElementTypes>`
   font-weight: ${(props) => (props.header ? 'bold' : 'normal')};
   font-size: ${(props) => (props.header ? '20px' : '16px')};
   margin-bottom: ${(props) => (props.header ? '20px' : '10px')};
+  cursor: pointer;
 `;
 
 const StyledFooterCopyright = styled.div`
