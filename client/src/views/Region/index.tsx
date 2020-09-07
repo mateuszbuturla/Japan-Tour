@@ -14,7 +14,6 @@ function Region() {
   const { regionurl } = useParams();
   const [region, setRegion] = useState();
   const [attractions, setAttractions] = useState([]);
-
   useEffect(() => {
     axios
       .get(`http://localhost:4000/api/getregion/${regionurl}`)
@@ -28,7 +27,10 @@ function Region() {
     <>
       {region && (
         <>
-          <PageHeader text={region.name} images={region.img} />
+          <PageHeader
+            text={region.name}
+            images={[process.env.PUBLIC_URL + '/images/' + region.img]}
+          />
           <StyledPageContainer>
             <StyledText>{region.description}</StyledText>
             <StyledSubHeader>Najciekawsze atrakcje</StyledSubHeader>

@@ -28,7 +28,10 @@ function City() {
     <>
       {city && (
         <>
-          <PageHeader text={city.name} images={city.img} />
+          <PageHeader
+            text={city.name}
+            images={[process.env.PUBLIC_URL + '/images/' + city.img]}
+          />
           <StyledPageContainer>
             <StyledText>{city.description}</StyledText>
             <StyledSubHeader>Najciekawsze atrakcje</StyledSubHeader>

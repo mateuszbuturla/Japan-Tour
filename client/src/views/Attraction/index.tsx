@@ -32,7 +32,10 @@ function Attraction({ attractionUrl }: Props) {
     <>
       {attraction && (
         <>
-          <PageHeader text={attraction.name} images={attraction.img} />
+          <PageHeader
+            text={attraction.name}
+            images={[process.env.PUBLIC_URL + '/images/' + attraction.img]}
+          />
           <StyledPageContainer>
             <StyledText>{attraction.description}</StyledText>
             <StyledSubHeader>Polecane podobne obiekty</StyledSubHeader>

@@ -22,7 +22,9 @@ function AttractionTile({ attraction }: Props) {
 
   return (
     <StyledAttractionTile onClick={handleTileClick}>
-      <StyledAttractionTileImage src={attraction.img} />
+      <StyledAttractionTileImage
+        src={process.env.PUBLIC_URL + '/images/' + attraction.img}
+      />
       <StyledAttractionTileTitle>{attraction.name}</StyledAttractionTileTitle>
       <StyledAttractionTileDescription>
         {attraction.shortDescription}
