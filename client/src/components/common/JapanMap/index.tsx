@@ -3,8 +3,14 @@ import { useHistory } from 'react-router-dom';
 import { StyledJapanMap } from './StyledJapanMap';
 import { StyledSubHeader } from '../';
 import axios from 'axios';
+import { connect } from 'react-redux';
+import { PageTransitionEffect } from '../../../animations';
 
-function JapanMap() {
+interface Props {
+  refCurtain?: any;
+}
+
+function JapanMap({ refCurtain }: Props) {
   const history = useHistory();
 
   const setRegionClickEvent = (regions: any) => {
@@ -19,7 +25,10 @@ function JapanMap() {
           (item: any) => item.key.toLowerCase() === name,
         );
         if (region) {
-          history.push(`/podroze${region.url}`);
+          PageTransitionEffect(refCurtain);
+          setTimeout(() => {
+            history.push(`/podroze${region.url}`);
+          }, 1000);
         }
       });
     });
@@ -37,7 +46,10 @@ function JapanMap() {
           (item: any) => item.name.toLowerCase() === name,
         );
         if (city) {
-          history.push(`/podroze/${city.region.toLowerCase()}${city.url}`);
+          PageTransitionEffect(refCurtain);
+          setTimeout(() => {
+            history.push(`/podroze/${city.region.toLowerCase()}${city.url}`);
+          }, 1000);
         }
       });
     });
@@ -60,4 +72,8 @@ function JapanMap() {
   );
 }
 
-export default JapanMap;
+const mapStateToProps = (state: any) => ({
+  refCurtain: state.refs.pageTransitionEffectRef,
+});
+
+export default connect(mapStateToProps, null)(JapanMap);
