@@ -5,4 +5,9 @@ const StyledText = styled.p`
   line-height: 30px;
 `;
 
-export default StyledText;
+const StyledImage = styled.img`
+  margin-top: 50px;
+  width: 100%;
+`;
+
+export { StyledText, StyledImage };

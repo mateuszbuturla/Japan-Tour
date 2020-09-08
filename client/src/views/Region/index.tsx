@@ -3,7 +3,7 @@ import { useParams, useHistory } from 'react-router-dom';
 import {
   StyledPageContainer,
   PageHeader,
-  StyledText,
+  ItemDescription,
   StyledSubHeader,
   StyledAttractionTilesContainer,
   AttractionTile,
@@ -43,7 +43,7 @@ function Region({ setTitle }: Props) {
             images={[process.env.PUBLIC_URL + '/images/' + region.img]}
           />
           <StyledPageContainer>
-            <StyledText>{region.description}</StyledText>
+            <ItemDescription description={region.description} />
             <StyledSubHeader>Najciekawsze atrakcje</StyledSubHeader>
             <StyledAttractionTilesContainer>
               {attractions.map((item: any) => (

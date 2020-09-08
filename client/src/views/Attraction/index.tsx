@@ -3,12 +3,14 @@ import { useParams, useHistory } from 'react-router-dom';
 import {
   StyledPageContainer,
   PageHeader,
-  StyledText,
+  ItemDescription,
   StyledSubHeader,
   StyledAttractionTilesContainer,
   AttractionTile,
 } from '../../components/common';
 import axios from 'axios';
+
+import ff33 from '../../assets/regions/chubu.jpg';
 
 interface Props {
   attractionUrl: string;
@@ -43,7 +45,7 @@ function Attraction({ attractionUrl, setTitle }: Props) {
             images={[process.env.PUBLIC_URL + '/images/' + attraction.img]}
           />
           <StyledPageContainer>
-            <StyledText>{attraction.description}</StyledText>
+            <ItemDescription description={attraction.description} />
             <StyledSubHeader>Polecane podobne obiekty</StyledSubHeader>
             <StyledAttractionTilesContainer>
               {otherAttractions.map((item: any) => (
