@@ -7,6 +7,7 @@ import {
   AttractionsGroup,
 } from '../../components/common';
 import axios from 'axios';
+import TypesRegion from '../../types/TypesRegion';
 
 interface Props {
   setTitle: Function;
@@ -15,7 +16,7 @@ interface Props {
 function Region({ setTitle }: Props) {
   const { regionurl } = useParams();
   const history = useHistory();
-  const [region, setRegion] = useState();
+  const [region, setRegion] = useState<TypesRegion>();
   const [attractions, setAttractions] = useState([]);
 
   useEffect(() => {
@@ -38,7 +39,7 @@ function Region({ setTitle }: Props) {
         <>
           <PageHeader
             text={region.name}
-            images={[process.env.PUBLIC_URL + '/images/' + region.img]}
+            img={[process.env.PUBLIC_URL + '/images/' + region.img]}
           />
           <StyledPageContainer>
             <ItemDescription description={region.description} />

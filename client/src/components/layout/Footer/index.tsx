@@ -10,13 +10,15 @@ import {
 import axios from 'axios';
 import { connect } from 'react-redux';
 import { PageTransitionEffect } from '../../../animations';
+import TypesFooterData from '../../../types/TypesFooterData';
+import TypesFooterDataElement from '../../../types/TypesFooterDataElement';
 
 interface Props {
   refCurtain?: any;
 }
 
 function Footer({ refCurtain }: Props) {
-  const [footerData, setFooterData] = useState();
+  const [footerData, setFooterData] = useState<TypesFooterData[]>([]);
   const history = useHistory();
 
   useEffect(() => {
@@ -36,12 +38,12 @@ function Footer({ refCurtain }: Props) {
     <StyledFooter>
       {footerData && (
         <StyledFooterContainer>
-          {footerData.map((category: any) => (
+          {footerData.map((category: TypesFooterData) => (
             <StyledFooterList>
               <StyledFooterListElement header>
                 {category.header}
               </StyledFooterListElement>
-              {category.data.map((item: any) => (
+              {category.data.map((item: TypesFooterDataElement) => (
                 <StyledFooterListElement
                   onClick={() => handleLinkClick(`/${item.url}`)}
                 >

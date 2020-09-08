@@ -12,16 +12,16 @@ import { PageTransitionEffect } from '../../../animations';
 interface Props {
   url: string;
   header: string;
-  images: string[];
+  img: string[];
   refCurtain?: any;
 }
 
-function HomeCategory({ url, header, images, refCurtain }: Props) {
+function HomeCategory({ url, header, img, refCurtain }: Props) {
   const [currentImage, setCurrentImage] = useState(0);
   const history = useHistory();
 
   const changeImage = () => {
-    if (currentImage + 1 < images.length) setCurrentImage(currentImage + 1);
+    if (currentImage + 1 < img.length) setCurrentImage(currentImage + 1);
     else setCurrentImage(0);
   };
 
@@ -40,7 +40,7 @@ function HomeCategory({ url, header, images, refCurtain }: Props) {
 
   return (
     <StyledCategory onClick={handleCategoryClick}>
-      {images.map((item, index) => (
+      {img.map((item, index) => (
         <StyledCategoryImage
           src={item}
           key={index}

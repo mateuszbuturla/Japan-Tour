@@ -7,6 +7,7 @@ import {
   AttractionsGroup,
 } from '../../components/common';
 import axios from 'axios';
+import TypesAttraction from '../../types/TypesAttraction';
 
 interface Props {
   attractionUrl: string;
@@ -16,8 +17,10 @@ interface Props {
 function Attraction({ attractionUrl, setTitle }: Props) {
   const { attractionurl } = useParams();
   const history = useHistory();
-  const [attraction, setAttraction] = useState();
-  const [otherAttractions, setOtherAttractions] = useState([]);
+  const [attraction, setAttraction] = useState<TypesAttraction>();
+  const [otherAttractions, setOtherAttractions] = useState<TypesAttraction[]>(
+    [],
+  );
 
   useEffect(() => {
     axios
@@ -38,7 +41,7 @@ function Attraction({ attractionUrl, setTitle }: Props) {
         <>
           <PageHeader
             text={attraction.name}
-            images={[process.env.PUBLIC_URL + '/images/' + attraction.img]}
+            img={[process.env.PUBLIC_URL + '/images/' + attraction.img]}
           />
           <StyledPageContainer>
             <ItemDescription description={attraction.description} />

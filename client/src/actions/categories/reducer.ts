@@ -18,22 +18,22 @@ const INITIAL_STATE = [
   {
     name: 'Podróże',
     url: 'podroze',
-    images: [ToriGate, TokyoSkytree, TokyoSkytower],
+    img: [ToriGate, TokyoSkytree, TokyoSkytower],
   },
   {
     name: 'Kultura',
     url: 'kultura',
-    images: [Anime, Obon, Tanabata],
+    img: [Anime, Obon, Tanabata],
   },
   {
     name: 'Kuchnia',
     url: 'kuchnia',
-    images: [Sushi, Ramen, Onigiri],
+    img: [Sushi, Ramen, Onigiri],
   },
   {
     name: 'Sztuka i rozrywka',
     url: 'sztuka-i-rozrywka',
-    images: [GreateWave, SawyearsLog, SojoHenjo],
+    img: [GreateWave, SawyearsLog, SojoHenjo],
   },
 ];
 

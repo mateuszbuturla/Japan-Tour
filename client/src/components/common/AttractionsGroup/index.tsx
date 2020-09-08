@@ -10,20 +10,21 @@ import {
   StyledAttractionTileDescription,
 } from './StyledAttractionsGroup';
 import { PageTransitionEffect } from '../../../animations';
+import TypesAttraction from '../../../types/TypesAttraction';
 
 interface Props {
   header: string;
-  attractions: any;
+  attractions: TypesAttraction[];
   refCurtain?: string;
 }
 
 function AttractionsGroup({ header, attractions, refCurtain }: Props) {
   const history = useHistory();
 
-  const handleTileClick = (item: any) => {
+  const handleTileClick = (item: TypesAttraction) => {
     PageTransitionEffect(refCurtain);
     setTimeout(
-      (item: any) => {
+      (item: TypesAttraction) => {
         history.push(`/podroze/${item.region}/${item.city}${item.url}`);
       },
       1000,
@@ -37,7 +38,7 @@ function AttractionsGroup({ header, attractions, refCurtain }: Props) {
         <>
           <StyledSubHeader>{header}</StyledSubHeader>
           <StyledAttractionTilesContainer>
-            {attractions.map((item: any) => (
+            {attractions.map((item: TypesAttraction) => (
               <StyledAttractionTile onClick={() => handleTileClick(item)}>
                 <StyledAttractionTileImage
                   src={process.env.PUBLIC_URL + '/images/' + item.img}

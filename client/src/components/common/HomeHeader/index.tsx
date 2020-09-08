@@ -31,22 +31,22 @@ function HomeHeader() {
         <HomeCategory
           url="/podroze"
           header="Podróże"
-          images={[ToriGate, TokyoSkytree, TokyoSkytower]}
+          img={[ToriGate, TokyoSkytree, TokyoSkytower]}
         />
         <HomeCategory
           url="/kultura"
           header="Kultura"
-          images={[Anime, Obon, Tanabata]}
+          img={[Anime, Obon, Tanabata]}
         />
         <HomeCategory
           url="/kuchnia"
           header="Kuchnia"
-          images={[Sushi, Ramen, Onigiri]}
+          img={[Sushi, Ramen, Onigiri]}
         />
         <HomeCategory
           url="/sztuka-i-rozrywka"
           header="Sztuka i rozrywka"
-          images={[GreateWave, SawyearsLog, SojoHenjo]}
+          img={[GreateWave, SawyearsLog, SojoHenjo]}
         />
       </StyledCategoriesContainer>
       <StyledMainHeader>Japonia - Kraj kwitnącej wiśni</StyledMainHeader>

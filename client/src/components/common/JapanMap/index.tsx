@@ -5,6 +5,8 @@ import { StyledSubHeader } from '../';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import { PageTransitionEffect } from '../../../animations';
+import TypesRegion from '../../../types/TypesRegion';
+import TypesCity from '../../../types/TypesCity';
 
 interface Props {
   refCurtain?: any;
@@ -13,7 +15,7 @@ interface Props {
 function JapanMap({ refCurtain }: Props) {
   const history = useHistory();
 
-  const setRegionClickEvent = (regions: any) => {
+  const setRegionClickEvent = (regions: TypesRegion[]) => {
     const regionsFromSvg = document.querySelectorAll('.japanMap__region');
 
     Array.from(regionsFromSvg).map((item) => {
@@ -22,7 +24,7 @@ function JapanMap({ refCurtain }: Props) {
           .getAttribute('id')
           .toLowerCase();
         const region = regions.find(
-          (item: any) => item.key.toLowerCase() === name,
+          (item: TypesRegion) => item.key.toLowerCase() === name,
         );
         if (region) {
           PageTransitionEffect(refCurtain);
@@ -34,7 +36,7 @@ function JapanMap({ refCurtain }: Props) {
     });
   };
 
-  const setSityClickEvent = (cities: any) => {
+  const setSityClickEvent = (cities: TypesCity[]) => {
     const citiesFromSvg = document.querySelectorAll('.japanMap__city');
 
     Array.from(citiesFromSvg).map((item) => {
@@ -43,7 +45,7 @@ function JapanMap({ refCurtain }: Props) {
           .getAttribute('id')
           .toLowerCase();
         const city = cities.find(
-          (item: any) => item.name.toLowerCase() === name,
+          (item: TypesCity) => item.name.toLowerCase() === name,
         );
         if (city) {
           PageTransitionEffect(refCurtain);

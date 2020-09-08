@@ -7,15 +7,15 @@ import {
 
 interface Props {
   text: string;
-  images: string[];
+  img: string[];
   small?: boolean;
 }
 
-function PageHeader({ text, images, small }: Props) {
+function PageHeader({ text, img, small }: Props) {
   const [currentImage, setCurrentImage] = useState(0);
 
   const changeImage = () => {
-    if (currentImage + 1 < images.length) setCurrentImage(currentImage + 1);
+    if (currentImage + 1 < img.length) setCurrentImage(currentImage + 1);
     else setCurrentImage(0);
   };
 
@@ -27,7 +27,7 @@ function PageHeader({ text, images, small }: Props) {
 
   return (
     <StyledPageHeader small={small ? true : false}>
-      {images.map((item, index) => (
+      {img.map((item, index) => (
         <StyledPageHeaderImage
           src={item}
           key={index}

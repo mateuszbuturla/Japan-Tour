@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { PageHeader } from '../../components/common';
 import { useParams } from 'react-router-dom';
 import { StyledPageContainer, JapanMap } from '../../components/common';
+import TypesCategory from '../../types/TypesCategory';
 
 interface Props {
   categoryUrl: string;
@@ -11,7 +12,9 @@ interface Props {
 }
 
 function Travel({ categoryUrl, categories, setTitle }: Props) {
-  const thisCategory = categories.find((item: any) => item.url === categoryUrl);
+  const thisCategory: TypesCategory = categories.find(
+    (item: TypesCategory) => item.url === categoryUrl,
+  );
 
   useEffect(() => {
     setTitle('Przewodnik podróży');
@@ -19,7 +22,7 @@ function Travel({ categoryUrl, categories, setTitle }: Props) {
 
   return (
     <>
-      <PageHeader text={thisCategory.name} images={thisCategory.images} />
+      <PageHeader text={thisCategory.name} img={thisCategory.img} />
       <StyledPageContainer>
         <JapanMap />
       </StyledPageContainer>

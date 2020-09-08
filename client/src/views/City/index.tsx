@@ -7,6 +7,8 @@ import {
   AttractionsGroup,
 } from '../../components/common';
 import axios from 'axios';
+import TypesCity from '../../types/TypesCity';
+import TypesAttraction from '../../types/TypesAttraction';
 
 interface Props {
   setTitle: Function;
@@ -15,8 +17,8 @@ interface Props {
 function City({ setTitle }: Props) {
   const { cityurl } = useParams();
   const history = useHistory();
-  const [city, setCity] = useState();
-  const [attractions, setAttractions] = useState([]);
+  const [city, setCity] = useState<TypesCity>();
+  const [attractions, setAttractions] = useState<TypesAttraction[]>([]);
 
   useEffect(() => {
     axios
@@ -38,20 +40,20 @@ function City({ setTitle }: Props) {
         <>
           <PageHeader
             text={city.name}
-            images={[process.env.PUBLIC_URL + '/images/' + city.img]}
+            img={[process.env.PUBLIC_URL + '/images/' + city.img]}
           />
           <StyledPageContainer>
             <ItemDescription description={city.description} />
             <AttractionsGroup
               header="Najciekawsze atrakcje"
               attractions={attractions.filter(
-                (item: any) => item.bestAttractions,
+                (item: TypesAttraction) => item.bestAttractions,
               )}
             />
             <AttractionsGroup
               header="Pozostałe atrakcje"
               attractions={attractions.filter(
-                (item: any) => !item.bestAttractions,
+                (item: TypesAttraction) => !item.bestAttractions,
               )}
             />
           </StyledPageContainer>

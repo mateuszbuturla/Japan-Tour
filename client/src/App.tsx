@@ -82,7 +82,7 @@ function App({ setTitle }: Props) {
 }
 
 const mapDispatchDoProps = (dispatch: any) => ({
-  setTitle: (value: any) => dispatch(actions.setTitle(value)),
+  setTitle: (value: string) => dispatch(actions.setTitle(value)),
 });
 
 export default connect(null, mapDispatchDoProps)(App);
