@@ -4,9 +4,7 @@ import {
   StyledPageContainer,
   PageHeader,
   ItemDescription,
-  StyledSubHeader,
-  StyledAttractionTilesContainer,
-  AttractionTile,
+  AttractionsGroup,
 } from '../../components/common';
 import axios from 'axios';
 
@@ -44,22 +42,18 @@ function City({ setTitle }: Props) {
           />
           <StyledPageContainer>
             <ItemDescription description={city.description} />
-            <StyledSubHeader>Najciekawsze atrakcje</StyledSubHeader>
-            <StyledAttractionTilesContainer>
-              {attractions
-                .filter((item: any) => item.bestAttractions)
-                .map((item: any) => (
-                  <AttractionTile attraction={item} />
-                ))}
-            </StyledAttractionTilesContainer>
-            <StyledSubHeader>Pozostałe atrakcje</StyledSubHeader>
-            <StyledAttractionTilesContainer>
-              {attractions
-                .filter((item: any) => !item.bestAttractions)
-                .map((item: any) => (
-                  <AttractionTile attraction={item} />
-                ))}
-            </StyledAttractionTilesContainer>
+            <AttractionsGroup
+              header="Najciekawsze atrakcje"
+              attractions={attractions.filter(
+                (item: any) => item.bestAttractions,
+              )}
+            />
+            <AttractionsGroup
+              header="Pozostałe atrakcje"
+              attractions={attractions.filter(
+                (item: any) => !item.bestAttractions,
+              )}
+            />
           </StyledPageContainer>
         </>
       )}

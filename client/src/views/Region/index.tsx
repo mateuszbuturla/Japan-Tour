@@ -4,9 +4,7 @@ import {
   StyledPageContainer,
   PageHeader,
   ItemDescription,
-  StyledSubHeader,
-  StyledAttractionTilesContainer,
-  AttractionTile,
+  AttractionsGroup,
 } from '../../components/common';
 import axios from 'axios';
 
@@ -44,12 +42,10 @@ function Region({ setTitle }: Props) {
           />
           <StyledPageContainer>
             <ItemDescription description={region.description} />
-            <StyledSubHeader>Najciekawsze atrakcje</StyledSubHeader>
-            <StyledAttractionTilesContainer>
-              {attractions.map((item: any) => (
-                <AttractionTile attraction={item} />
-              ))}
-            </StyledAttractionTilesContainer>
+            <AttractionsGroup
+              header="Najciekawsze atrakcje"
+              attractions={attractions}
+            />
           </StyledPageContainer>
         </>
       )}

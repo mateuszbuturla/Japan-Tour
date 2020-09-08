@@ -4,13 +4,9 @@ import {
   StyledPageContainer,
   PageHeader,
   ItemDescription,
-  StyledSubHeader,
-  StyledAttractionTilesContainer,
-  AttractionTile,
+  AttractionsGroup,
 } from '../../components/common';
 import axios from 'axios';
-
-import ff33 from '../../assets/regions/chubu.jpg';
 
 interface Props {
   attractionUrl: string;
@@ -46,12 +42,10 @@ function Attraction({ attractionUrl, setTitle }: Props) {
           />
           <StyledPageContainer>
             <ItemDescription description={attraction.description} />
-            <StyledSubHeader>Polecane podobne obiekty</StyledSubHeader>
-            <StyledAttractionTilesContainer>
-              {otherAttractions.map((item: any) => (
-                <AttractionTile attraction={item} />
-              ))}
-            </StyledAttractionTilesContainer>
+            <AttractionsGroup
+              header="Polecane podobne obiekty"
+              attractions={otherAttractions}
+            />
           </StyledPageContainer>
         </>
       )}

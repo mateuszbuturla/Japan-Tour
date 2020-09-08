@@ -5,9 +5,8 @@ import PageTransitionEffect from './PageTransitionEffect';
 import JapanMap from './JapanMap';
 import StyledPageContainer from './StyledPageContainer';
 import StyledSubHeader from './StyledSubHeader';
-import AttractionTile from './AttractionTile';
-import StyledAttractionTilesContainer from './StyledAttractionTilesContainer';
 import ItemDescription from './ItemDescription';
+import AttractionsGroup from './AttractionsGroup';
 
 export {
   HomeHeader,
@@ -17,7 +16,6 @@ export {
   JapanMap,
   StyledPageContainer,
   StyledSubHeader,
-  AttractionTile,
-  StyledAttractionTilesContainer,
   ItemDescription,
+  AttractionsGroup,
 };
