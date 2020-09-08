@@ -14,7 +14,11 @@ function ItemDescription({ description }: Props) {
           case 'text':
             return <StyledText>{item.value}</StyledText>;
           case 'img':
-            return <StyledImage src={item.value} />;
+            return (
+              <StyledImage
+                src={process.env.PUBLIC_URL + '/images/' + item.value}
+              />
+            );
         }
       })}
     </>
