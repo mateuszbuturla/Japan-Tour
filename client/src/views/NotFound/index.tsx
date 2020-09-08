@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   StyledNotFoundImage,
   StyledNotFoundDescription,
@@ -6,7 +6,15 @@ import {
 import { PageHeader, StyledPageContainer } from '../../components/common';
 import BG from '../../assets/mainBG.jpg';
 
-function NotFound() {
+interface Props {
+  setTitle: Function;
+}
+
+function NotFound({ setTitle }: Props) {
+  useEffect(() => {
+    setTitle('404');
+  }, []);
+
   return (
     <>
       <PageHeader text="" images={[BG]} small />

@@ -12,9 +12,10 @@ import axios from 'axios';
 
 interface Props {
   attractionUrl: string;
+  setTitle: Function;
 }
 
-function Attraction({ attractionUrl }: Props) {
+function Attraction({ attractionUrl, setTitle }: Props) {
   const { attractionurl } = useParams();
   const history = useHistory();
   const [attraction, setAttraction] = useState();
@@ -24,6 +25,7 @@ function Attraction({ attractionUrl }: Props) {
     axios
       .get(`http://localhost:4000/api/getattraction/${attractionurl}`)
       .then(function (result) {
+        setTitle(result.data.attraction.name);
         setAttraction(result.data.attraction);
         setOtherAttractions(result.data.otherAttractions);
       })

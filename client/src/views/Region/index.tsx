@@ -10,16 +10,22 @@ import {
 } from '../../components/common';
 import axios from 'axios';
 
-function Region() {
+interface Props {
+  setTitle: Function;
+}
+
+function Region({ setTitle }: Props) {
   const { regionurl } = useParams();
   const history = useHistory();
   const [region, setRegion] = useState();
   const [attractions, setAttractions] = useState([]);
+
   useEffect(() => {
     axios
       .get(`http://localhost:4000/api/getregion/${regionurl}`)
       .then(function (result) {
         if (!result.data.region) return history.push('/404');
+        setTitle(result.data.region.name);
         setRegion(result.data.region);
         setAttractions(result.data.attractions);
       })

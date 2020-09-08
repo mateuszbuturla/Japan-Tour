@@ -1,7 +1,14 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { HomeHeader } from '../../components/common';
 
-function Home() {
+interface Props {
+  setTitle: Function;
+}
+
+function Home({ setTitle }: Props) {
+  useEffect(() => {
+    setTitle('Strona główna');
+  }, []);
   return (
     <>
       <HomeHeader />

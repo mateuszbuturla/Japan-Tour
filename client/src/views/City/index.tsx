@@ -10,7 +10,11 @@ import {
 } from '../../components/common';
 import axios from 'axios';
 
-function City() {
+interface Props {
+  setTitle: Function;
+}
+
+function City({ setTitle }: Props) {
   const { cityurl } = useParams();
   const history = useHistory();
   const [city, setCity] = useState();
@@ -21,6 +25,7 @@ function City() {
       .get(`http://localhost:4000/api/getcity/${cityurl}`)
       .then(function (result) {
         if (!result.data.city) return history.push('/404');
+        setTitle(result.data.city.name);
         setCity(result.data.city);
         setAttractions(result.data.attractions);
       })
