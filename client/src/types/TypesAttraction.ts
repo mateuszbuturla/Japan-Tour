@@ -1,4 +1,5 @@
 import TypesItemDescription from './TypesItemDescription';
+import TypesOtherData from './TypesOtherData';
 
 interface TypesAttraction {
   name: string;
@@ -11,6 +12,7 @@ interface TypesAttraction {
   type: string;
   img: string;
   bestAttractions: boolean;
+  otherData: TypesOtherData[];
 }
 
 export default TypesAttraction;

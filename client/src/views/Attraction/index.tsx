@@ -2,9 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import {
   StyledPageContainer,
+  StyledMainContentContainer,
   PageHeader,
   ItemDescription,
   AttractionsGroup,
+  AsideInfo,
 } from '../../components/common';
 import axios from 'axios';
 import TypesAttraction from '../../types/TypesAttraction';
@@ -44,11 +46,14 @@ function Attraction({ attractionUrl, setTitle }: Props) {
             img={[process.env.PUBLIC_URL + '/images/' + attraction.img]}
           />
           <StyledPageContainer>
-            <ItemDescription description={attraction.description} />
-            <AttractionsGroup
-              header="Polecane podobne obiekty"
-              attractions={otherAttractions}
-            />
+            <StyledMainContentContainer>
+              <ItemDescription description={attraction.description} />
+              <AttractionsGroup
+                header="Polecane podobne obiekty"
+                attractions={otherAttractions}
+              />
+            </StyledMainContentContainer>
+            <AsideInfo data={attraction.otherData} />
           </StyledPageContainer>
         </>
       )}

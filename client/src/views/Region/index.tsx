@@ -2,9 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import {
   StyledPageContainer,
+  StyledMainContentContainer,
   PageHeader,
   ItemDescription,
   AttractionsGroup,
+  AsideInfo,
 } from '../../components/common';
 import axios from 'axios';
 import TypesRegion from '../../types/TypesRegion';
@@ -42,11 +44,14 @@ function Region({ setTitle }: Props) {
             img={[process.env.PUBLIC_URL + '/images/' + region.img]}
           />
           <StyledPageContainer>
-            <ItemDescription description={region.description} />
-            <AttractionsGroup
-              header="Najciekawsze atrakcje"
-              attractions={attractions}
-            />
+            <StyledMainContentContainer>
+              <ItemDescription description={region.description} />
+              <AttractionsGroup
+                header="Najciekawsze atrakcje"
+                attractions={attractions}
+              />
+            </StyledMainContentContainer>
+            <AsideInfo data={region.otherData} />
           </StyledPageContainer>
         </>
       )}
