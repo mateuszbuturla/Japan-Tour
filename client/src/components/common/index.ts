@@ -7,6 +7,7 @@ import StyledPageContainer from './StyledPageContainer';
 import StyledSubHeader from './StyledSubHeader';
 import ItemDescription from './ItemDescription';
 import AttractionsGroup from './AttractionsGroup';
+import AsideInfo from './AsideInfo';
 
 export {
   HomeHeader,
@@ -18,4 +19,5 @@ export {
   StyledSubHeader,
   ItemDescription,
   AttractionsGroup,
+  AsideInfo,
 };

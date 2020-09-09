@@ -5,6 +5,7 @@ import {
   PageHeader,
   ItemDescription,
   AttractionsGroup,
+  AsideInfo,
 } from '../../components/common';
 import axios from 'axios';
 import TypesCity from '../../types/TypesCity';
@@ -56,6 +57,7 @@ function City({ setTitle }: Props) {
                 (item: TypesAttraction) => !item.bestAttractions,
               )}
             />
+            <AsideInfo data={city.otherData} />
           </StyledPageContainer>
         </>
       )}

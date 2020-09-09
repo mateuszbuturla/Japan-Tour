@@ -5,6 +5,7 @@ import {
   PageHeader,
   ItemDescription,
   AttractionsGroup,
+  AsideInfo,
 } from '../../components/common';
 import axios from 'axios';
 import TypesAttraction from '../../types/TypesAttraction';
@@ -49,6 +50,7 @@ function Attraction({ attractionUrl, setTitle }: Props) {
               header="Polecane podobne obiekty"
               attractions={otherAttractions}
             />
+            <AsideInfo data={attraction.otherData} />
           </StyledPageContainer>
         </>
       )}

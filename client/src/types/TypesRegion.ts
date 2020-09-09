@@ -1,4 +1,5 @@
 import TypesItemDescription from './TypesItemDescription';
+import TypesOtherData from './TypesOtherData';
 
 interface TypesRegion {
   name: string;
@@ -6,6 +7,7 @@ interface TypesRegion {
   key: string;
   description: TypesItemDescription[];
   img: string[];
+  otherData: TypesOtherData[];
 }
 
 export default TypesRegion;

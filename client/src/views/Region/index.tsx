@@ -5,6 +5,7 @@ import {
   PageHeader,
   ItemDescription,
   AttractionsGroup,
+  AsideInfo,
 } from '../../components/common';
 import axios from 'axios';
 import TypesRegion from '../../types/TypesRegion';
@@ -47,6 +48,7 @@ function Region({ setTitle }: Props) {
               header="Najciekawsze atrakcje"
               attractions={attractions}
             />
+            <AsideInfo data={region.otherData} />
           </StyledPageContainer>
         </>
       )}
