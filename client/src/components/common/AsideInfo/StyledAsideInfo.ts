@@ -3,6 +3,8 @@ import styled from 'styled-components';
 const StyledAside = styled.aside`
   width: 20%;
   max-width: 250px;
+  padding-top: 50px;
+  margin-left: 30px;
 `;
 
 const StyledAsideInfoField = styled.div`

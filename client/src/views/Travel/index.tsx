@@ -2,7 +2,12 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { PageHeader } from '../../components/common';
 import { useParams } from 'react-router-dom';
-import { StyledPageContainer, JapanMap } from '../../components/common';
+import {
+  StyledPageContainer,
+  JapanMap,
+  StyledMainContentContainer,
+  AsideInfo,
+} from '../../components/common';
 import TypesCategory from '../../types/TypesCategory';
 
 interface Props {
@@ -24,7 +29,10 @@ function Travel({ categoryUrl, categories, setTitle }: Props) {
     <>
       <PageHeader text={thisCategory.name} img={thisCategory.img} />
       <StyledPageContainer>
-        <JapanMap />
+        <StyledMainContentContainer>
+          <JapanMap />
+        </StyledMainContentContainer>
+        <AsideInfo data={[]} />
       </StyledPageContainer>
     </>
   );

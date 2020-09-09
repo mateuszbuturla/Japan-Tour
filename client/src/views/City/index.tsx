@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import {
   StyledPageContainer,
+  StyledMainContentContainer,
   PageHeader,
   ItemDescription,
   AttractionsGroup,
@@ -44,19 +45,21 @@ function City({ setTitle }: Props) {
             img={[process.env.PUBLIC_URL + '/images/' + city.img]}
           />
           <StyledPageContainer>
-            <ItemDescription description={city.description} />
-            <AttractionsGroup
-              header="Najciekawsze atrakcje"
-              attractions={attractions.filter(
-                (item: TypesAttraction) => item.bestAttractions,
-              )}
-            />
-            <AttractionsGroup
-              header="Pozostałe atrakcje"
-              attractions={attractions.filter(
-                (item: TypesAttraction) => !item.bestAttractions,
-              )}
-            />
+            <StyledMainContentContainer>
+              <ItemDescription description={city.description} />
+              <AttractionsGroup
+                header="Najciekawsze atrakcje"
+                attractions={attractions.filter(
+                  (item: TypesAttraction) => item.bestAttractions,
+                )}
+              />
+              <AttractionsGroup
+                header="Pozostałe atrakcje"
+                attractions={attractions.filter(
+                  (item: TypesAttraction) => !item.bestAttractions,
+                )}
+              />
+            </StyledMainContentContainer>
             <AsideInfo data={city.otherData} />
           </StyledPageContainer>
         </>

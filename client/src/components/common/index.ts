@@ -4,6 +4,7 @@ import PageHeader from './PageHeader';
 import PageTransitionEffect from './PageTransitionEffect';
 import JapanMap from './JapanMap';
 import StyledPageContainer from './StyledPageContainer';
+import StyledMainContentContainer from './StyledMainContentContainer';
 import StyledSubHeader from './StyledSubHeader';
 import ItemDescription from './ItemDescription';
 import AttractionsGroup from './AttractionsGroup';
@@ -16,6 +17,7 @@ export {
   PageTransitionEffect,
   JapanMap,
   StyledPageContainer,
+  StyledMainContentContainer,
   StyledSubHeader,
   ItemDescription,
   AttractionsGroup,
