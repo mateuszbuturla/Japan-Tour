@@ -6,21 +6,23 @@ const StyledCurtain = styled.div`
   height: 100%;
   top: 0;
   left: 0;
-  background-color: ${(props) => props.theme.colors.bg};
+  background-color: #000;
+  opacity: 0.8;
   z-index: 1;
-  transition: 0.5s;
+  transition: 1s;
 `;
 
 const StyledCategoryHeader = styled.h2`
   position: absolute;
   top: 15vh;
-  left: 50%;
-  transform: translateX(-50%);
   width: 100%;
   text-align: center;
   z-index: 2;
   font-weight: normal;
-  transition: 0.5s;
+  opacity: 1;
+  color: ${(props) => props.theme.colors.lightGrey};
+  font-size: 2vw;
+  transition: 1s;
 `;
 
 const StyledCategory = styled.div`
@@ -32,12 +34,11 @@ const StyledCategory = styled.div`
   cursor: pointer;
 
   &:hover ${StyledCurtain} {
-    left: 100%;
+    opacity: 0;
   }
 
   &:hover ${StyledCategoryHeader} {
-    left: -100%;
-    transform: translateX(0);
+    opacity: 0;
   }
 `;
 
