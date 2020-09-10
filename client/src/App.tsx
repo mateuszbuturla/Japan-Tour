@@ -10,6 +10,7 @@ import {
   Region,
   City,
   Attraction,
+  Food,
   NotFound,
 } from './views';
 import { PageTransitionEffect } from './components/common';
@@ -60,6 +61,13 @@ function App({ setTitle }: Props) {
           path={`/podroze/:region/:city/:attractionurl`}
           component={(props: any) => (
             <Attraction {...props} setTitle={setTitle} />
+          )}
+          exact
+        />
+        <Route
+          path={`/kuchnia`}
+          component={(props: any) => (
+            <Food {...props} categoryUrl={'kuchnia'} setTitle={setTitle} />
           )}
           exact
         />
