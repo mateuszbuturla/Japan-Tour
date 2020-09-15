@@ -1,5 +1,5 @@
 interface TypesItemDescription {
-  type: string;
+  type: 'text' | 'img';
   value: string;
 }
 
