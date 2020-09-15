@@ -12,7 +12,6 @@ import {
 } from './StyledDishGroup';
 import { StyledSubHeader } from '../';
 import { PageTransitionEffect } from '../../../animations';
-import TypesAttraction from '../../../types/TypesAttraction';
 import TypesDish from '../../../types/TypesDish';
 
 interface Props {
@@ -27,8 +26,8 @@ function DishsGroup({ header, dishs, refCurtain }: Props) {
   const handleTileClick = (item: TypesDish) => {
     PageTransitionEffect(refCurtain);
     setTimeout(
-      (item: TypesAttraction) => {
-        history.push(`/kuchnia/${item.url}`);
+      (item: TypesDish) => {
+        history.push(`/kuchnia/${item.type}/${item.url}`);
       },
       1000,
       item,
