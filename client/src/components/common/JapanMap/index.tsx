@@ -3,17 +3,14 @@ import { useHistory } from 'react-router-dom';
 import { StyledJapanMap } from './StyledJapanMap';
 import { StyledSubHeader } from 'components/common';
 import axios from 'axios';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { PageTransitionEffect } from 'animations';
 import TypesRegion from 'types/TypesRegion';
 import TypesCity from 'types/TypesCity';
 
-interface Props {
-  refCurtain?: any;
-}
-
-function JapanMap({ refCurtain }: Props) {
+function JapanMap() {
   const history = useHistory();
+  const { pageTransitionEffectRef } = useSelector((state: any) => state.refs);
 
   const setRegionClickEvent = (regions: TypesRegion[]) => {
     const regionsFromSvg = document.querySelectorAll('.japanMap__region');
@@ -27,7 +24,7 @@ function JapanMap({ refCurtain }: Props) {
           (item: TypesRegion) => item.key.toLowerCase() === name,
         );
         if (region) {
-          PageTransitionEffect(refCurtain);
+          PageTransitionEffect(pageTransitionEffectRef);
           setTimeout(() => {
             history.push(`/podroze${region.url}`);
           }, 1000);
@@ -48,7 +45,7 @@ function JapanMap({ refCurtain }: Props) {
           (item: TypesCity) => item.name.toLowerCase() === name,
         );
         if (city) {
-          PageTransitionEffect(refCurtain);
+          PageTransitionEffect(pageTransitionEffectRef);
           setTimeout(() => {
             history.push(`/podroze/${city.region.toLowerCase()}${city.url}`);
           }, 1000);
@@ -74,8 +71,4 @@ function JapanMap({ refCurtain }: Props) {
   );
 }
 
-const mapStateToProps = (state: any) => ({
-  refCurtain: state.refs.pageTransitionEffectRef,
-});
-
-export default connect(mapStateToProps, null)(JapanMap);
+export default JapanMap;

@@ -1,5 +1,5 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import {
   StyledDishTilesContainer,
@@ -17,14 +17,14 @@ import TypesDish from 'types/TypesDish';
 interface Props {
   header: string;
   dishs: TypesDish[];
-  refCurtain?: any;
 }
 
-function DishsGroup({ header, dishs, refCurtain }: Props) {
+function DishsGroup({ header, dishs }: Props) {
   const history = useHistory();
+  const { pageTransitionEffectRef } = useSelector((state: any) => state.refs);
 
   const handleTileClick = (item: TypesDish) => {
-    PageTransitionEffect(refCurtain);
+    PageTransitionEffect(pageTransitionEffectRef);
     setTimeout(
       (item: TypesDish) => {
         history.push(`/kuchnia/${item.type}/${item.url}`);
@@ -57,8 +57,4 @@ function DishsGroup({ header, dishs, refCurtain }: Props) {
   );
 }
 
-const mapStateToProps = (state: any) => ({
-  refCurtain: state.refs.pageTransitionEffectRef,
-});
-
-export default connect(mapStateToProps, null)(DishsGroup);
+export default DishsGroup;

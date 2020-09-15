@@ -1,12 +1,10 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Helmet } from 'react-helmet';
 
-interface Props {
-  title?: string;
-}
+function PageHelmet() {
+  const { title } = useSelector((state: any) => state.title);
 
-function PageHelmet({ title }: Props) {
   return (
     <Helmet>
       <title>{title}</title>
@@ -18,8 +16,4 @@ function PageHelmet({ title }: Props) {
   );
 }
 
-const mapStateToProps = (state: any) => ({
-  title: state.title.title,
-});
-
-export default connect(mapStateToProps, null)(PageHelmet);
+export default PageHelmet;

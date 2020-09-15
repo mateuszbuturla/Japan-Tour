@@ -8,18 +8,15 @@ import {
   StyledFooterCopyright,
 } from './StyledFooter';
 import axios from 'axios';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { PageTransitionEffect } from 'animations';
 import TypesFooterData from 'types/TypesFooterData';
 import TypesFooterDataElement from 'types/TypesFooterDataElement';
 
-interface Props {
-  refCurtain?: any;
-}
-
-function Footer({ refCurtain }: Props) {
+function Footer() {
   const [footerData, setFooterData] = useState<TypesFooterData[]>([]);
   const history = useHistory();
+  const { pageTransitionEffectRef } = useSelector((state: any) => state.refs);
 
   useEffect(() => {
     axios.get(`http://localhost:4000/api/getfooter`).then(function (result) {
@@ -28,7 +25,7 @@ function Footer({ refCurtain }: Props) {
   }, []);
 
   const handleLinkClick = (to: string) => {
-    PageTransitionEffect(refCurtain);
+    PageTransitionEffect(pageTransitionEffectRef);
     setTimeout(() => {
       history.push(to);
     }, 1000);
@@ -61,8 +58,4 @@ function Footer({ refCurtain }: Props) {
   );
 }
 
-const mapStateToProps = (state: any) => ({
-  refCurtain: state.refs.pageTransitionEffectRef,
-});
-
-export default connect(mapStateToProps, null)(Footer);
+export default Footer;

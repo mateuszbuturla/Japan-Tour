@@ -1,5 +1,5 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Switch, Route } from 'react-router-dom';
 import actions from 'actions/title/actions';
 import {
@@ -14,11 +14,13 @@ import {
   NotFound,
 } from 'views';
 
-interface Props {
-  setTitle?: Function;
-}
+function Routing() {
+  const dispatch = useDispatch();
 
-function Routing({ setTitle }: Props) {
+  const setTitle = (value: string) => {
+    dispatch(actions.setTitle(value));
+  };
+
   return (
     <Switch>
       <Route
@@ -82,8 +84,4 @@ function Routing({ setTitle }: Props) {
   );
 }
 
-const mapDispatchDoProps = (dispatch: any) => ({
-  setTitle: (value: string) => dispatch(actions.setTitle(value)),
-});
-
-export default connect(null, mapDispatchDoProps)(Routing);
+export default Routing;

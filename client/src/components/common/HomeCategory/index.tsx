@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import {
   StyledCategory,
@@ -18,9 +18,10 @@ interface Props {
 
 function HomeCategory({ url, header, img, refCurtain }: Props) {
   const history = useHistory();
+  const { pageTransitionEffectRef } = useSelector((state: any) => state.refs);
 
   const handleCategoryClick = () => {
-    PageTransitionEffect(refCurtain);
+    PageTransitionEffect(pageTransitionEffectRef);
     setTimeout(() => {
       history.push(url);
     }, 1000);
@@ -35,8 +36,4 @@ function HomeCategory({ url, header, img, refCurtain }: Props) {
   );
 }
 
-const mapStateToProps = (state: any) => ({
-  refCurtain: state.refs.pageTransitionEffectRef,
-});
-
-export default connect(mapStateToProps, null)(HomeCategory);
+export default HomeCategory;

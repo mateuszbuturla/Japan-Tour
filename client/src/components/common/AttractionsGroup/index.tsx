@@ -1,5 +1,5 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { StyledSubHeader } from 'components/common';
 import {
@@ -15,14 +15,14 @@ import TypesAttraction from 'types/TypesAttraction';
 interface Props {
   header: string;
   attractions: TypesAttraction[];
-  refCurtain?: string;
 }
 
-function AttractionsGroup({ header, attractions, refCurtain }: Props) {
+function AttractionsGroup({ header, attractions }: Props) {
   const history = useHistory();
+  const { pageTransitionEffectRef } = useSelector((state: any) => state.refs);
 
   const handleTileClick = (item: TypesAttraction) => {
-    PageTransitionEffect(refCurtain);
+    PageTransitionEffect(pageTransitionEffectRef);
     setTimeout(
       (item: TypesAttraction) => {
         history.push(`/podroze/${item.region}/${item.city}${item.url}`);
@@ -58,8 +58,4 @@ function AttractionsGroup({ header, attractions, refCurtain }: Props) {
   );
 }
 
-const mapStateToProps = (state: any) => ({
-  refCurtain: state.refs.pageTransitionEffectRef,
-});
-
-export default connect(mapStateToProps, null)(AttractionsGroup);
+export default AttractionsGroup;
