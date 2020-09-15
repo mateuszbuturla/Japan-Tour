@@ -13,6 +13,7 @@ import {
 import { StyledSubHeader } from 'components/common';
 import { PageTransitionEffect } from 'animations';
 import TypesDish from 'types/TypesDish';
+import TypesApplicationState from 'types/TypesApplicationState';
 
 interface Props {
   header: string;
@@ -21,7 +22,9 @@ interface Props {
 
 function DishsGroup({ header, dishs }: Props) {
   const history = useHistory();
-  const { pageTransitionEffectRef } = useSelector((state: any) => state.refs);
+  const { pageTransitionEffectRef } = useSelector(
+    (state: TypesApplicationState) => state.refs,
+  );
 
   const handleTileClick = (item: TypesDish) => {
     PageTransitionEffect(pageTransitionEffectRef);

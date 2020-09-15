@@ -1,9 +1,10 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { Helmet } from 'react-helmet';
+import TypesApplicationState from 'types/TypesApplicationState';
 
 function PageHelmet() {
-  const { title } = useSelector((state: any) => state.title);
+  const { title } = useSelector((state: TypesApplicationState) => state.title);
 
   return (
     <Helmet>

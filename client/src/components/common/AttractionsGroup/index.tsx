@@ -11,6 +11,7 @@ import {
 } from './StyledAttractionsGroup';
 import { PageTransitionEffect } from 'animations';
 import TypesAttraction from 'types/TypesAttraction';
+import TypesApplicationState from 'types/TypesApplicationState';
 
 interface Props {
   header: string;
@@ -19,7 +20,9 @@ interface Props {
 
 function AttractionsGroup({ header, attractions }: Props) {
   const history = useHistory();
-  const { pageTransitionEffectRef } = useSelector((state: any) => state.refs);
+  const { pageTransitionEffectRef } = useSelector(
+    (state: TypesApplicationState) => state.refs,
+  );
 
   const handleTileClick = (item: TypesAttraction) => {
     PageTransitionEffect(pageTransitionEffectRef);

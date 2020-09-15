@@ -7,10 +7,13 @@ import { useSelector } from 'react-redux';
 import { PageTransitionEffect } from 'animations';
 import TypesRegion from 'types/TypesRegion';
 import TypesCity from 'types/TypesCity';
+import TypesApplicationState from 'types/TypesApplicationState';
 
 function JapanMap() {
   const history = useHistory();
-  const { pageTransitionEffectRef } = useSelector((state: any) => state.refs);
+  const { pageTransitionEffectRef } = useSelector(
+    (state: TypesApplicationState) => state.refs,
+  );
 
   const setRegionClickEvent = (regions: TypesRegion[]) => {
     const regionsFromSvg = document.querySelectorAll('.japanMap__region');

@@ -12,11 +12,14 @@ import { useSelector } from 'react-redux';
 import { PageTransitionEffect } from 'animations';
 import TypesFooterData from 'types/TypesFooterData';
 import TypesFooterDataElement from 'types/TypesFooterDataElement';
+import TypesApplicationState from 'types/TypesApplicationState';
 
 function Footer() {
   const [footerData, setFooterData] = useState<TypesFooterData[]>([]);
   const history = useHistory();
-  const { pageTransitionEffectRef } = useSelector((state: any) => state.refs);
+  const { pageTransitionEffectRef } = useSelector(
+    (state: TypesApplicationState) => state.refs,
+  );
 
   useEffect(() => {
     axios.get(`http://localhost:4000/api/getfooter`).then(function (result) {

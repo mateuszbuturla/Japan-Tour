@@ -8,6 +8,7 @@ import {
   StyledCurtain,
 } from './StyledHomeCategory';
 import { PageTransitionEffect } from 'animations';
+import TypesApplicationState from 'types/TypesApplicationState';
 
 interface Props {
   url: string;
@@ -18,7 +19,9 @@ interface Props {
 
 function HomeCategory({ url, header, img, refCurtain }: Props) {
   const history = useHistory();
-  const { pageTransitionEffectRef } = useSelector((state: any) => state.refs);
+  const { pageTransitionEffectRef } = useSelector(
+    (state: TypesApplicationState) => state.refs,
+  );
 
   const handleCategoryClick = () => {
     PageTransitionEffect(pageTransitionEffectRef);

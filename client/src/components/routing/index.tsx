@@ -4,7 +4,6 @@ import { Switch, Route } from 'react-router-dom';
 import actions from 'actions/title/actions';
 import {
   Home,
-  Category,
   Travel,
   Region,
   City,
