@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { StyledJapanMap } from './StyledJapanMap';
-import { StyledSubHeader } from '../';
+import { StyledSubHeader } from 'components/common';
 import axios from 'axios';
 import { connect } from 'react-redux';
-import { PageTransitionEffect } from '../../../animations';
-import TypesRegion from '../../../types/TypesRegion';
-import TypesCity from '../../../types/TypesCity';
+import { PageTransitionEffect } from 'animations';
+import TypesRegion from 'types/TypesRegion';
+import TypesCity from 'types/TypesCity';
 
 interface Props {
   refCurtain?: any;

@@ -4,17 +4,17 @@ import {
   StyledMainHeader,
   StyledCategoriesContainer,
 } from './StyledHomeHeader';
-import { HomeCategory } from '../';
+import { HomeCategory } from 'components/common';
 
-import ToriGate from '../../../assets/toriGate.jpg';
+import ToriGate from 'assets/toriGate.jpg';
 
-import Anime from '../../../assets/anime.jpg';
+import Anime from 'assets/anime.jpg';
 
-import Sushi from '../../../assets/sushi.jpg';
+import Sushi from 'assets/sushi.jpg';
 
-import GreateWave from '../../../assets/kanagawaTheGreatWave.jpg';
+import GreateWave from 'assets/kanagawaTheGreatWave.jpg';
 
-import { PageTransitionEffect } from '../../../animations';
+import { PageTransitionEffect } from 'animations';
 
 function HomeHeader() {
   return (

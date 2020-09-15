@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyledText, StyledImage } from './StyledItemDescription';
-import TypesItemDescription from '../../../types/TypesItemDescription';
+import TypesItemDescription from 'types/TypesItemDescription';
 
 interface Props {
   description: TypesItemDescription[];

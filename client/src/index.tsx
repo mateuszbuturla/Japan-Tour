@@ -5,8 +5,8 @@ import { Provider } from 'react-redux';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import store from './store';
-import Theme from './config/styledGlobal';
-import PageHelmet from './config/PageHelmet';
+import Theme from 'config/styledGlobal';
+import PageHelmet from 'config/PageHelmet';
 
 ReactDOM.render(
   <React.StrictMode>

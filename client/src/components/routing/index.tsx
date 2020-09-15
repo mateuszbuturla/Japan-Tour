@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Switch, Route } from 'react-router-dom';
-import actions from '../../actions/title/actions';
+import actions from 'actions/title/actions';
 import {
   Home,
   Category,
@@ -12,7 +12,7 @@ import {
   Food,
   Dish,
   NotFound,
-} from '../../views';
+} from 'views';
 
 interface Props {
   setTitle?: Function;

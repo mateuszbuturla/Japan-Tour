@@ -1,14 +1,14 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { PageHeader } from '../../components/common';
+import { PageHeader } from 'components/common';
 import { useParams } from 'react-router-dom';
 import {
   StyledPageContainer,
   JapanMap,
   StyledMainContentContainer,
   AsideInfo,
-} from '../../components/common';
-import TypesCategory from '../../types/TypesCategory';
+} from 'components/common';
+import TypesCategory from 'types/TypesCategory';
 
 interface Props {
   categoryUrl: string;

@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyledAside, StyledAsideInfoField } from './StyledAsideInfo';
-import TypesOtherData from '../../../types/TypesOtherData';
+import TypesOtherData from 'types/TypesOtherData';
 
 interface Props {
   data: TypesOtherData[];

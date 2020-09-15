@@ -5,8 +5,8 @@ import {
   StyledMainContentContainer,
   PageHeader,
   DishsGroup,
-} from '../../components/common';
-import TypesCategory from '../../types/TypesCategory';
+} from 'components/common';
+import TypesCategory from 'types/TypesCategory';
 
 interface Props {
   categoryUrl: string;

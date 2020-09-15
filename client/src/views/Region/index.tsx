@@ -7,9 +7,9 @@ import {
   ItemDescription,
   AttractionsGroup,
   AsideInfo,
-} from '../../components/common';
+} from 'components/common';
 import axios from 'axios';
-import TypesRegion from '../../types/TypesRegion';
+import TypesRegion from 'types/TypesRegion';
 
 interface Props {
   setTitle: Function;

@@ -1,9 +1,9 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
 
-import Routing from './components/routing';
-import { PageTransitionEffect } from './components/common';
-import { Footer } from './components/layout';
+import Routing from 'components/routing';
+import { PageTransitionEffect } from 'components/common';
+import { Footer } from 'components/layout';
 
 function App() {
   const location = useLocation();

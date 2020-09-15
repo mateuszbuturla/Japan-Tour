@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { HomeHeader } from '../../components/common';
+import { HomeHeader } from 'components/common';
 
 interface Props {
   setTitle: Function;

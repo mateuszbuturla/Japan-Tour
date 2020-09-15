@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { PageHeader } from '../../components/common';
+import { PageHeader } from 'components/common';
 import { useParams } from 'react-router-dom';
-import TypesCategory from '../../types/TypesCategory';
+import TypesCategory from 'types/TypesCategory';
 
 interface Props {
   categoryUrl: string;

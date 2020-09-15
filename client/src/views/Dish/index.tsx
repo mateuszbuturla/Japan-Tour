@@ -7,9 +7,9 @@ import {
   ItemDescription,
   DishsGroup,
   AsideInfo,
-} from '../../components/common';
+} from 'components/common';
 import axios from 'axios';
-import TypesDish from '../../types/TypesDish';
+import TypesDish from 'types/TypesDish';
 
 interface Props {
   setTitle: Function;

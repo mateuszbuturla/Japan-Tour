@@ -7,9 +7,9 @@ import {
   ItemDescription,
   AttractionsGroup,
   AsideInfo,
-} from '../../components/common';
+} from 'components/common';
 import axios from 'axios';
-import TypesAttraction from '../../types/TypesAttraction';
+import TypesAttraction from 'types/TypesAttraction';
 
 interface Props {
   attractionUrl: string;

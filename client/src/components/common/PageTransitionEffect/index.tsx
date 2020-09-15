@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import { connect } from 'react-redux';
 import { TimelineMax, Expo } from 'gsap';
 import { StyledPageTransitionEffect } from './StyledPageTransitionEffect';
-import actions from '../../../actions/refs/actions';
+import actions from 'actions/refs/actions';
 
 interface Props {
   setRef: Function;

@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { StyledSubHeader } from '../';
+import { StyledSubHeader } from 'components/common';
 import {
   StyledAttractionTilesContainer,
   StyledAttractionTile,
@@ -9,8 +9,8 @@ import {
   StyledAttractionTileTitle,
   StyledAttractionTileDescription,
 } from './StyledAttractionsGroup';
-import { PageTransitionEffect } from '../../../animations';
-import TypesAttraction from '../../../types/TypesAttraction';
+import { PageTransitionEffect } from 'animations';
+import TypesAttraction from 'types/TypesAttraction';
 
 interface Props {
   header: string;

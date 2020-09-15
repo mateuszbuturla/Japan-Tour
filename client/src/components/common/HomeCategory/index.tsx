@@ -7,7 +7,7 @@ import {
   StyledCategoryImage,
   StyledCurtain,
 } from './StyledHomeCategory';
-import { PageTransitionEffect } from '../../../animations';
+import { PageTransitionEffect } from 'animations';
 
 interface Props {
   url: string;

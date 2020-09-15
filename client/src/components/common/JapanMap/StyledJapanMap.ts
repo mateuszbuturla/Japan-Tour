@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { ReactComponent as Map } from '../../../assets/japanMap.svg';
+import { ReactComponent as Map } from 'assets/japanMap.svg';
 
 const StyledJapanMap = styled(Map)`
   display: block;

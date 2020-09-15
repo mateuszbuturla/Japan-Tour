@@ -3,8 +3,8 @@ import {
   StyledNotFoundImage,
   StyledNotFoundDescription,
 } from './StyledNotFound';
-import { PageHeader, StyledPageContainer } from '../../components/common';
-import BG from '../../assets/mainBG.jpg';
+import { PageHeader, StyledPageContainer } from 'components/common';
+import BG from 'assets/mainBG.jpg';
 
 interface Props {
   setTitle: Function;

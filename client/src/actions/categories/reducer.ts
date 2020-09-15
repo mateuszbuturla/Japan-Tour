@@ -1,10 +1,10 @@
-import ToriGate from '../../assets/toriGate.jpg';
+import ToriGate from 'assets/toriGate.jpg';
 
-import Anime from '../../assets/anime.jpg';
+import Anime from 'assets/anime.jpg';
 
-import Sushi from '../../assets/sushi.jpg';
+import Sushi from 'assets/sushi.jpg';
 
-import GreateWave from '../../assets/kanagawaTheGreatWave.jpg';
+import GreateWave from 'assets/kanagawaTheGreatWave.jpg';
 
 const INITIAL_STATE = [
   {

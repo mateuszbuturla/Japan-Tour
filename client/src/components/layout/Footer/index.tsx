@@ -9,9 +9,9 @@ import {
 } from './StyledFooter';
 import axios from 'axios';
 import { connect } from 'react-redux';
-import { PageTransitionEffect } from '../../../animations';
-import TypesFooterData from '../../../types/TypesFooterData';
-import TypesFooterDataElement from '../../../types/TypesFooterDataElement';
+import { PageTransitionEffect } from 'animations';
+import TypesFooterData from 'types/TypesFooterData';
+import TypesFooterDataElement from 'types/TypesFooterDataElement';
 
 interface Props {
   refCurtain?: any;

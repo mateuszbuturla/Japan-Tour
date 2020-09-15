@@ -10,9 +10,9 @@ import {
   StyledDishTileType,
   StyledDishTileDescription,
 } from './StyledDishGroup';
-import { StyledSubHeader } from '../';
-import { PageTransitionEffect } from '../../../animations';
-import TypesDish from '../../../types/TypesDish';
+import { StyledSubHeader } from 'components/common';
+import { PageTransitionEffect } from 'animations';
+import TypesDish from 'types/TypesDish';
 
 interface Props {
   header: string;
