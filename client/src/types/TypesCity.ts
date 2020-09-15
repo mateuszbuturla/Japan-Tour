@@ -7,7 +7,7 @@ interface TypesCity {
   key: string;
   description: TypesItemDescription[];
   region: string;
-  img: string[];
+  img: string;
   otherData: TypesOtherData[];
 }
 

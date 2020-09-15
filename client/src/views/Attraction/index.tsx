@@ -43,7 +43,7 @@ function Attraction({ attractionUrl, setTitle }: Props) {
         <>
           <PageHeader
             text={attraction.name}
-            img={[process.env.PUBLIC_URL + '/images/' + attraction.img]}
+            img={process.env.PUBLIC_URL + '/images/' + attraction.img}
           />
           <StyledPageContainer>
             <StyledMainContentContainer>

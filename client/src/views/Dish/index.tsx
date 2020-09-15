@@ -70,7 +70,7 @@ function Dish({ setTitle }: Props) {
         <>
           <PageHeader
             text={dish.name}
-            img={[process.env.PUBLIC_URL + '/images/' + dish.img]}
+            img={process.env.PUBLIC_URL + '/images/' + dish.img}
           />
           <StyledPageContainer>
             <StyledMainContentContainer>

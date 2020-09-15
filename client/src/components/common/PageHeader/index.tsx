@@ -7,7 +7,7 @@ import {
 
 interface Props {
   text: string;
-  img: string[];
+  img: string;
   small?: boolean;
 }
 
@@ -27,13 +27,7 @@ function PageHeader({ text, img, small }: Props) {
 
   return (
     <StyledPageHeader small={small ? true : false}>
-      {img.map((item, index) => (
-        <StyledPageHeaderImage
-          src={item}
-          key={index}
-          hidden={index === currentImage ? false : true}
-        />
-      ))}
+      <StyledPageHeaderImage src={img} />
       <StyledPageHeaderText>{text}</StyledPageHeaderText>
     </StyledPageHeader>
   );

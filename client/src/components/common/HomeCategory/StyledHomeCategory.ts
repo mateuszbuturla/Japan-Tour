@@ -44,7 +44,6 @@ const StyledCategory = styled.div`
 
 interface StyledCategoryImageProps {
   src: string;
-  hidden: boolean;
 }
 
 const StyledCategoryImage = styled.div<StyledCategoryImageProps>`
@@ -55,7 +54,6 @@ const StyledCategoryImage = styled.div<StyledCategoryImageProps>`
   height: 100%;
   width: 100%;
   z-index: -1;
-  opacity: ${(props) => (props.hidden === true ? 0 : 1)};
 `;
 
 export {

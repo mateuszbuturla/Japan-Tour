@@ -42,7 +42,7 @@ function City({ setTitle }: Props) {
         <>
           <PageHeader
             text={city.name}
-            img={[process.env.PUBLIC_URL + '/images/' + city.img]}
+            img={process.env.PUBLIC_URL + '/images/' + city.img}
           />
           <StyledPageContainer>
             <StyledMainContentContainer>

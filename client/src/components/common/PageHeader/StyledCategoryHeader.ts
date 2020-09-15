@@ -23,7 +23,6 @@ const StyledPageHeaderText = styled.h2`
 
 interface StyledPageHeaderImageProps {
   src: string;
-  hidden: boolean;
 }
 
 const StyledPageHeaderImage = styled.div<StyledPageHeaderImageProps>`
@@ -35,7 +34,6 @@ const StyledPageHeaderImage = styled.div<StyledPageHeaderImageProps>`
   width: 100%;
   height: 100%;
   z-index: -1;
-  opacity: ${(props) => (props.hidden === true ? 0 : 1)};
 `;
 
 export { StyledPageHeader, StyledPageHeaderText, StyledPageHeaderImage };

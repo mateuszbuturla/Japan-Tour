@@ -17,7 +17,7 @@ function NotFound({ setTitle }: Props) {
 
   return (
     <>
-      <PageHeader text="" img={[BG]} small />
+      <PageHeader text="" img={BG} small />
       <StyledPageContainer>
         <StyledNotFoundImage />
         <StyledNotFoundDescription>
