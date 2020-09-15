@@ -10,6 +10,7 @@ const StyledMainHeader = styled.h1`
   position: absolute;
   left: 10%;
   top: 50%;
+  color: ${(props) => props.theme.colors.lightGrey};
   transform: translateY(-50%);
   z-index: 1;
   font-size: 50px;
