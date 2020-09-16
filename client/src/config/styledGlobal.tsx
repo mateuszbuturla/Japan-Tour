@@ -31,6 +31,7 @@ const theme = {
     lg: '1280px',
     xl: '1920px',
   },
+  maxWidth: '1500px',
 };
 
 const Theme = ({ children }: Props) => (
