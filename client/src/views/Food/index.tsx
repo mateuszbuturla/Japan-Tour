@@ -24,13 +24,15 @@ function Food({ header, categoryUrl, categories, setTitle, api }: Props) {
     (item: TypesCategory) => item.url === categoryUrl,
   );
   const [elements, setElements] = useState<TypesDish[] | TypesCulture[]>([]);
+  const [elementsCategories, setElementsCategories] = useState<string[]>([]);
 
   useEffect(() => {
     setTitle(header);
     axios
       .get(`http://localhost:4000/api/${api}/getall`)
       .then(function (result) {
-        setElements(result.data);
+        setElements(result.data.data);
+        setElementsCategories(result.data.categories);
       });
   }, []);
 
@@ -40,11 +42,14 @@ function Food({ header, categoryUrl, categories, setTitle, api }: Props) {
       <StyledPageContainer>
         {elements.length > 0 && (
           <StyledMainContentContainer>
-            <DishsGroup
-              header="Sushi"
-              dishs={elements}
-              categoryUrl={categoryUrl}
-            />
+            {elementsCategories.map((item) => (
+              <DishsGroup
+                key={item}
+                header={item}
+                dishs={elements.filter((item2) => item2.type === item)}
+                categoryUrl={categoryUrl}
+              />
+            ))}
           </StyledMainContentContainer>
         )}
       </StyledPageContainer>

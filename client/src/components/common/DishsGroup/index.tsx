@@ -32,11 +32,7 @@ function DishsGroup({ categoryUrl, header, dishs }: Props) {
     PageTransitionEffect(pageTransitionEffectRef);
     setTimeout(
       (item: TypesDish | TypesCulture) => {
-        history.push(
-          `/${categoryUrl}/${
-            (item as TypesDish).type ? (item as TypesDish).type + '/' : ''
-          }${item.url}`,
-        );
+        history.push(`/${categoryUrl}/${item.type}/${item.url}`);
       },
       1000,
       item,
@@ -45,27 +41,27 @@ function DishsGroup({ categoryUrl, header, dishs }: Props) {
 
   return (
     <>
-      <StyledSubHeader>{header}</StyledSubHeader>
-      <StyledDishTilesContainer>
-        {dishs.map((item: TypesDish | TypesCulture) => (
-          <StyledDishTile onClick={() => handleTileClick(item)}>
-            <StyledDishTileImage
-              src={process.env.PUBLIC_URL + '/images/' + item.img}
-            />
-            <StyledDishTitleTypeContainer>
-              <StyledDishTileTitle>{item.name}</StyledDishTileTitle>
-              {(item as TypesDish).type && (
-                <StyledDishTileType>
-                  {(item as TypesDish).type}
-                </StyledDishTileType>
-              )}
-            </StyledDishTitleTypeContainer>
-            <StyledDishTileDescription>
-              {item.shortDescription}
-            </StyledDishTileDescription>
-          </StyledDishTile>
-        ))}
-      </StyledDishTilesContainer>
+      {dishs.length > 0 && (
+        <>
+          <StyledSubHeader>{header}</StyledSubHeader>
+          <StyledDishTilesContainer>
+            {dishs.map((item: TypesDish | TypesCulture) => (
+              <StyledDishTile onClick={() => handleTileClick(item)}>
+                <StyledDishTileImage
+                  src={process.env.PUBLIC_URL + '/images/' + item.img}
+                />
+                <StyledDishTitleTypeContainer>
+                  <StyledDishTileTitle>{item.name}</StyledDishTileTitle>
+                  <StyledDishTileType>{item.type}</StyledDishTileType>
+                </StyledDishTitleTypeContainer>
+                <StyledDishTileDescription>
+                  {item.shortDescription}
+                </StyledDishTileDescription>
+              </StyledDishTile>
+            ))}
+          </StyledDishTilesContainer>
+        </>
+      )}
     </>
   );
 }
