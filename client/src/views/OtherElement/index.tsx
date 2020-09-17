@@ -10,16 +10,17 @@ import {
 } from 'components/common';
 import axios from 'axios';
 import TypesDish from 'types/TypesDish';
+import TypesCulture from 'types/TypesCulture';
 
 interface Props {
   setTitle: Function;
   categoryUrl: string;
 }
 
-function Dish({ setTitle, categoryUrl }: Props) {
-  const { dishSlug } = useParams();
+function OtherElement({ setTitle, categoryUrl }: Props) {
+  const { elementSlug } = useParams();
   const history = useHistory();
-  const [dish, setDish] = useState<TypesDish>({
+  const [element, setElement] = useState<TypesDish | TypesCulture>({
     name: 'Uramaki',
     type: 'sushi',
     img: 'sushi.jpg',
@@ -31,35 +32,7 @@ function Dish({ setTitle, categoryUrl }: Props) {
     ],
     otherData: [],
   });
-  const [otherDishs, setOtherDishs] = useState<TypesDish[]>([
-    {
-      name: 'Uramaki',
-      type: 'sushi',
-      img: 'sushi.jpg',
-      url: 'uramaki',
-      shortDescription: 'Lorem ipsum',
-      description: [],
-      otherData: [],
-    },
-    {
-      name: 'Uramaki',
-      type: 'sushi',
-      img: 'sushi.jpg',
-      url: 'uramaki',
-      shortDescription: 'Lorem ipsum',
-      description: [],
-      otherData: [],
-    },
-    {
-      name: 'Uramaki',
-      type: 'sushi',
-      img: 'sushi.jpg',
-      url: 'uramaki',
-      shortDescription: 'Lorem ipsum',
-      description: [],
-      otherData: [],
-    },
-  ]);
+  const [similarElement, setSimilarElement] = useState<TypesDish[] | TypesCulture[]>([]);
 
   useEffect(() => {
     setTitle('test');
@@ -67,22 +40,19 @@ function Dish({ setTitle, categoryUrl }: Props) {
 
   return (
     <>
-      {dish && (
+      {element && (
         <>
-          <PageHeader
-            text={dish.name}
-            img={process.env.PUBLIC_URL + '/images/' + dish.img}
-          />
+          <PageHeader text={element.name} img={process.env.PUBLIC_URL + '/images/' + element.img} />
           <StyledPageContainer>
             <StyledMainContentContainer>
-              <ItemDescription description={dish.description} />
+              <ItemDescription description={element.description} />
               <OtherSectionElementsGroup
                 header="Inne z tej kategori"
-                data={otherDishs}
+                data={similarElement}
                 categoryUrl={categoryUrl}
               />
             </StyledMainContentContainer>
-            <AsideInfo data={dish.otherData} />
+            <AsideInfo data={element.otherData} />
           </StyledPageContainer>
         </>
       )}
@@ -90,4 +60,4 @@ function Dish({ setTitle, categoryUrl }: Props) {
   );
 }
 
-export default Dish;
+export default OtherElement;

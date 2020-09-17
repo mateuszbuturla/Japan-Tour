@@ -9,7 +9,7 @@ import {
   City,
   Attraction,
   OtherSection,
-  Dish,
+  OtherElement,
   NotFound,
 } from 'views';
 
@@ -76,7 +76,7 @@ function Routing() {
       <Route
         path={`/kuchnia/:type/:dishSlug`}
         component={(props: any) => (
-          <Dish {...props} setTitle={setTitle} categoryUrl="kuchnia" />
+          <OtherElement {...props} setTitle={setTitle} categoryUrl="kuchnia" />
         )}
         exact
       />
