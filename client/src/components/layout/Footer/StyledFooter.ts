@@ -35,6 +35,10 @@ const StyledFooterListElement = styled.li<StyledFooterListElementTypes>`
   font-size: ${(props) => (props.header ? '20px' : '16px')};
   margin-bottom: ${(props) => (props.header ? '20px' : '10px')};
   cursor: pointer;
+
+  &:hover {
+    color: ${(props) => (props.header ? 'none' : props.theme.colors.mainColor)};
+  }
 `;
 
 const StyledFooterCopyright = styled.div`
