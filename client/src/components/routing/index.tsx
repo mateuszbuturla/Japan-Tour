@@ -22,11 +22,7 @@ function Routing() {
 
   return (
     <Switch>
-      <Route
-        path="/"
-        component={(props: any) => <Home {...props} setTitle={setTitle} />}
-        exact
-      />
+      <Route path="/" component={(props: any) => <Home {...props} setTitle={setTitle} />} exact />
       {/* {categories.map((item: any) => (
     <Route
       path={`/${item.url}`}
@@ -55,9 +51,7 @@ function Routing() {
       />
       <Route
         path={`/podroze/:region/:city/:attractionurl`}
-        component={(props: any) => (
-          <Attraction {...props} setTitle={setTitle} />
-        )}
+        component={(props: any) => <Attraction {...props} setTitle={setTitle} />}
         exact
       />
       <Route
@@ -74,7 +68,7 @@ function Routing() {
         exact
       />
       <Route
-        path={`/kuchnia/:type/:dishSlug`}
+        path={`/kuchnia/:type/:elementSlug`}
         component={(props: any) => (
           <OtherElement {...props} setTitle={setTitle} categoryUrl="kuchnia" />
         )}
@@ -94,12 +88,14 @@ function Routing() {
         exact
       />
       <Route
-        path="/404"
-        component={(props: any) => <NotFound {...props} setTitle={setTitle} />}
+        path={`/kultura/:type/:elementSlug`}
+        component={(props: any) => (
+          <OtherElement {...props} setTitle={setTitle} categoryUrl="kultura" />
+        )}
+        exact
       />
-      <Route
-        component={(props: any) => <NotFound {...props} setTitle={setTitle} />}
-      />
+      <Route path="/404" component={(props: any) => <NotFound {...props} setTitle={setTitle} />} />
+      <Route component={(props: any) => <NotFound {...props} setTitle={setTitle} />} />
     </Switch>
   );
 }

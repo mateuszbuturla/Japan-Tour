@@ -35,7 +35,7 @@ function OtherElement({ setTitle, categoryUrl }: Props) {
   const [similarElement, setSimilarElement] = useState<TypesDish[] | TypesCulture[]>([]);
 
   useEffect(() => {
-    setTitle('test');
+    setTitle(element.name);
   }, []);
 
   return (
