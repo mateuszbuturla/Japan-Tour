@@ -8,7 +8,7 @@ import {
   Region,
   City,
   Attraction,
-  Food,
+  OtherSection,
   Dish,
   NotFound,
 } from 'views';
@@ -63,7 +63,7 @@ function Routing() {
       <Route
         path={`/kuchnia`}
         component={(props: any) => (
-          <Food
+          <OtherSection
             {...props}
             header="Kuchnia Japonii"
             categoryUrl="kuchnia"
@@ -83,7 +83,7 @@ function Routing() {
       <Route
         path={`/kultura`}
         component={(props: any) => (
-          <Food
+          <OtherSection
             {...props}
             header="Kultura Japonii"
             categoryUrl="kultura"

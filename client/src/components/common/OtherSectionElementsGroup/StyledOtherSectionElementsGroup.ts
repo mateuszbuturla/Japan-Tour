@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const StyledDishTilesContainer = styled.div`
+const StyledTilesContainer = styled.div`
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
@@ -14,7 +14,7 @@ const StyledDishTilesContainer = styled.div`
   }
 `;
 
-const StyledDishTile = styled.div`
+const StyledTile = styled.div`
   width: 100%;
   padding: 10px;
   box-shadow: 0px 0px 16px 1px rgba(0, 0, 0, 0.2);
@@ -39,20 +39,20 @@ const StyledDishTile = styled.div`
   }
 `;
 
-const StyledDishTileImage = styled.img`
+const StyledTileImage = styled.img`
   width: 100%;
 `;
 
-const StyledDishTitleTypeContainer = styled.div``;
+const StyledTitleTypeContainer = styled.div``;
 
-const StyledDishTileTitle = styled.h4`
+const StyledTileTitle = styled.h4`
   display: inline;
   font-weight: bold;
   font-size: 20px;
   margin-top: 10px;
 `;
 
-const StyledDishTileType = styled.p`
+const StyledTileType = styled.p`
   display: inline;
   position: relative;
   margin-left: 20px;
@@ -71,16 +71,16 @@ const StyledDishTileType = styled.p`
   }
 `;
 
-const StyledDishTileDescription = styled.p`
+const StyledTileDescription = styled.p`
   margin-top: 10px;
 `;
 
 export {
-  StyledDishTilesContainer,
-  StyledDishTile,
-  StyledDishTileImage,
-  StyledDishTitleTypeContainer,
-  StyledDishTileTitle,
-  StyledDishTileType,
-  StyledDishTileDescription,
+  StyledTilesContainer,
+  StyledTile,
+  StyledTileImage,
+  StyledTitleTypeContainer,
+  StyledTileTitle,
+  StyledTileType,
+  StyledTileDescription,
 };

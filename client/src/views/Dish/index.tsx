@@ -5,7 +5,7 @@ import {
   StyledMainContentContainer,
   PageHeader,
   ItemDescription,
-  DishsGroup,
+  OtherSectionElementsGroup,
   AsideInfo,
 } from 'components/common';
 import axios from 'axios';
@@ -76,9 +76,9 @@ function Dish({ setTitle, categoryUrl }: Props) {
           <StyledPageContainer>
             <StyledMainContentContainer>
               <ItemDescription description={dish.description} />
-              <DishsGroup
+              <OtherSectionElementsGroup
                 header="Inne z tej kategori"
-                dishs={otherDishs}
+                data={otherDishs}
                 categoryUrl={categoryUrl}
               />
             </StyledMainContentContainer>

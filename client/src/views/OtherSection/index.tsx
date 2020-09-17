@@ -4,7 +4,7 @@ import {
   StyledPageContainer,
   StyledMainContentContainer,
   PageHeader,
-  DishsGroup,
+  OtherSectionElementsGroup,
 } from 'components/common';
 import TypesCategory from 'types/TypesCategory';
 import TypesDish from 'types/TypesDish';
@@ -19,7 +19,13 @@ interface Props {
   api: string;
 }
 
-function Food({ header, categoryUrl, categories, setTitle, api }: Props) {
+function OtherSection({
+  header,
+  categoryUrl,
+  categories,
+  setTitle,
+  api,
+}: Props) {
   const thisCategory: TypesCategory = categories.find(
     (item: TypesCategory) => item.url === categoryUrl,
   );
@@ -43,10 +49,10 @@ function Food({ header, categoryUrl, categories, setTitle, api }: Props) {
         {elements.length > 0 && (
           <StyledMainContentContainer>
             {elementsCategories.map((item) => (
-              <DishsGroup
+              <OtherSectionElementsGroup
                 key={item}
                 header={item}
-                dishs={elements.filter((item2) => item2.type === item)}
+                data={elements.filter((item2) => item2.type === item)}
                 categoryUrl={categoryUrl}
               />
             ))}
@@ -61,4 +67,4 @@ const mapStateToProps = (state: any) => ({
   categories: state.categories,
 });
 
-export default connect(mapStateToProps, null)(Food);
+export default connect(mapStateToProps, null)(OtherSection);

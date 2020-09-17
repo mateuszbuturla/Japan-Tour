@@ -2,14 +2,14 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import {
-  StyledDishTilesContainer,
-  StyledDishTile,
-  StyledDishTileImage,
-  StyledDishTitleTypeContainer,
-  StyledDishTileTitle,
-  StyledDishTileType,
-  StyledDishTileDescription,
-} from './StyledDishGroup';
+  StyledTilesContainer,
+  StyledTile,
+  StyledTileImage,
+  StyledTitleTypeContainer,
+  StyledTileTitle,
+  StyledTileType,
+  StyledTileDescription,
+} from './StyledOtherSectionElementsGroup';
 import { StyledSubHeader } from 'components/common';
 import { PageTransitionEffect } from 'animations';
 import TypesDish from 'types/TypesDish';
@@ -18,11 +18,11 @@ import TypesApplicationState from 'types/TypesApplicationState';
 
 interface Props {
   header: string;
-  dishs: any;
+  data: any;
   categoryUrl: string;
 }
 
-function DishsGroup({ categoryUrl, header, dishs }: Props) {
+function OtherSectionElementsGroup({ categoryUrl, header, data }: Props) {
   const history = useHistory();
   const { pageTransitionEffectRef } = useSelector(
     (state: TypesApplicationState) => state.refs,
@@ -41,29 +41,29 @@ function DishsGroup({ categoryUrl, header, dishs }: Props) {
 
   return (
     <>
-      {dishs.length > 0 && (
+      {data.length > 0 && (
         <>
           <StyledSubHeader>{header}</StyledSubHeader>
-          <StyledDishTilesContainer>
-            {dishs.map((item: TypesDish | TypesCulture) => (
-              <StyledDishTile onClick={() => handleTileClick(item)}>
-                <StyledDishTileImage
+          <StyledTilesContainer>
+            {data.map((item: TypesDish | TypesCulture) => (
+              <StyledTile onClick={() => handleTileClick(item)}>
+                <StyledTileImage
                   src={process.env.PUBLIC_URL + '/images/' + item.img}
                 />
-                <StyledDishTitleTypeContainer>
-                  <StyledDishTileTitle>{item.name}</StyledDishTileTitle>
-                  <StyledDishTileType>{item.type}</StyledDishTileType>
-                </StyledDishTitleTypeContainer>
-                <StyledDishTileDescription>
+                <StyledTitleTypeContainer>
+                  <StyledTileTitle>{item.name}</StyledTileTitle>
+                  <StyledTileType>{item.type}</StyledTileType>
+                </StyledTitleTypeContainer>
+                <StyledTileDescription>
                   {item.shortDescription}
-                </StyledDishTileDescription>
-              </StyledDishTile>
+                </StyledTileDescription>
+              </StyledTile>
             ))}
-          </StyledDishTilesContainer>
+          </StyledTilesContainer>
         </>
       )}
     </>
   );
 }
 
-export default DishsGroup;
+export default OtherSectionElementsGroup;

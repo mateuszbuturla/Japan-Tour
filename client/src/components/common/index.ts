@@ -9,7 +9,7 @@ import StyledSubHeader from './StyledSubHeader';
 import ItemDescription from './ItemDescription';
 import AttractionsGroup from './AttractionsGroup';
 import AsideInfo from './AsideInfo';
-import DishsGroup from './DishsGroup';
+import OtherSectionElementsGroup from './OtherSectionElementsGroup';
 
 export {
   HomeHeader,
@@ -23,5 +23,5 @@ export {
   ItemDescription,
   AttractionsGroup,
   AsideInfo,
-  DishsGroup,
+  OtherSectionElementsGroup,
 };
