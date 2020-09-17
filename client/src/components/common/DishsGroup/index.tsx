@@ -13,24 +13,30 @@ import {
 import { StyledSubHeader } from 'components/common';
 import { PageTransitionEffect } from 'animations';
 import TypesDish from 'types/TypesDish';
+import TypesCulture from 'types/TypesCulture';
 import TypesApplicationState from 'types/TypesApplicationState';
 
 interface Props {
   header: string;
-  dishs: TypesDish[];
+  dishs: any;
+  categoryUrl: string;
 }
 
-function DishsGroup({ header, dishs }: Props) {
+function DishsGroup({ categoryUrl, header, dishs }: Props) {
   const history = useHistory();
   const { pageTransitionEffectRef } = useSelector(
     (state: TypesApplicationState) => state.refs,
   );
 
-  const handleTileClick = (item: TypesDish) => {
+  const handleTileClick = (item: TypesDish | TypesCulture) => {
     PageTransitionEffect(pageTransitionEffectRef);
     setTimeout(
-      (item: TypesDish) => {
-        history.push(`/kuchnia/${item.type}/${item.url}`);
+      (item: TypesDish | TypesCulture) => {
+        history.push(
+          `/${categoryUrl}/${
+            (item as TypesDish).type ? (item as TypesDish).type + '/' : ''
+          }${item.url}`,
+        );
       },
       1000,
       item,
@@ -41,14 +47,18 @@ function DishsGroup({ header, dishs }: Props) {
     <>
       <StyledSubHeader>{header}</StyledSubHeader>
       <StyledDishTilesContainer>
-        {dishs.map((item: TypesDish) => (
+        {dishs.map((item: TypesDish | TypesCulture) => (
           <StyledDishTile onClick={() => handleTileClick(item)}>
             <StyledDishTileImage
               src={process.env.PUBLIC_URL + '/images/' + item.img}
             />
             <StyledDishTitleTypeContainer>
               <StyledDishTileTitle>{item.name}</StyledDishTileTitle>
-              <StyledDishTileType>{item.type}</StyledDishTileType>
+              {(item as TypesDish).type && (
+                <StyledDishTileType>
+                  {(item as TypesDish).type}
+                </StyledDishTileType>
+              )}
             </StyledDishTitleTypeContainer>
             <StyledDishTileDescription>
               {item.shortDescription}

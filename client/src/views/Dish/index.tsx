@@ -13,9 +13,10 @@ import TypesDish from 'types/TypesDish';
 
 interface Props {
   setTitle: Function;
+  categoryUrl: string;
 }
 
-function Dish({ setTitle }: Props) {
+function Dish({ setTitle, categoryUrl }: Props) {
   const { dishSlug } = useParams();
   const history = useHistory();
   const [dish, setDish] = useState<TypesDish>({
@@ -75,7 +76,11 @@ function Dish({ setTitle }: Props) {
           <StyledPageContainer>
             <StyledMainContentContainer>
               <ItemDescription description={dish.description} />
-              <DishsGroup header="Inne z tej kategori" dishs={otherDishs} />
+              <DishsGroup
+                header="Inne z tej kategori"
+                dishs={otherDishs}
+                categoryUrl={categoryUrl}
+              />
             </StyledMainContentContainer>
             <AsideInfo data={dish.otherData} />
           </StyledPageContainer>

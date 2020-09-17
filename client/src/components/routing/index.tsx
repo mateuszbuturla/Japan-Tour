@@ -63,13 +63,34 @@ function Routing() {
       <Route
         path={`/kuchnia`}
         component={(props: any) => (
-          <Food {...props} categoryUrl={'kuchnia'} setTitle={setTitle} />
+          <Food
+            {...props}
+            header="Kuchnia Japonii"
+            categoryUrl="kuchnia"
+            setTitle={setTitle}
+            api="food"
+          />
         )}
         exact
       />
       <Route
         path={`/kuchnia/:type/:dishSlug`}
-        component={(props: any) => <Dish {...props} setTitle={setTitle} />}
+        component={(props: any) => (
+          <Dish {...props} setTitle={setTitle} categoryUrl="kuchnia" />
+        )}
+        exact
+      />
+      <Route
+        path={`/kultura`}
+        component={(props: any) => (
+          <Food
+            {...props}
+            header="Kultura Japonii"
+            categoryUrl="kultura"
+            setTitle={setTitle}
+            api="culture"
+          />
+        )}
         exact
       />
       <Route

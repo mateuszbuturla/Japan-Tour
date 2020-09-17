@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import {
   StyledPageContainer,
@@ -7,78 +7,46 @@ import {
   DishsGroup,
 } from 'components/common';
 import TypesCategory from 'types/TypesCategory';
+import TypesDish from 'types/TypesDish';
+import TypesCulture from 'types/TypesCulture';
+import axios from 'axios';
 
 interface Props {
+  header: string;
   categoryUrl: string;
   categories: any;
   setTitle: Function;
+  api: string;
 }
 
-function Food({ categoryUrl, categories, setTitle }: Props) {
+function Food({ header, categoryUrl, categories, setTitle, api }: Props) {
   const thisCategory: TypesCategory = categories.find(
     (item: TypesCategory) => item.url === categoryUrl,
   );
+  const [elements, setElements] = useState<TypesDish[] | TypesCulture[]>([]);
 
   useEffect(() => {
-    setTitle('Kuchnia');
+    setTitle(header);
+    axios
+      .get(`http://localhost:4000/api/${api}/getall`)
+      .then(function (result) {
+        setElements(result.data);
+      });
   }, []);
 
   return (
     <>
-      <PageHeader text="Kuchnia Japońska" img={thisCategory.img} />
+      <PageHeader text={header} img={thisCategory.img} />
       <StyledPageContainer>
-        <StyledMainContentContainer>
-          <DishsGroup
-            header="Sushi"
-            dishs={[
-              {
-                name: 'Uramaki',
-                type: 'sushi',
-                img: 'sushi.jpg',
-                url: 'uramaki',
-                shortDescription: 'Lorem ipsum',
-                description: [],
-                otherData: [],
-              },
-              {
-                name: 'Uramaki',
-                type: 'sushi',
-                img: 'sushi.jpg',
-                url: 'uramaki',
-                shortDescription: 'Lorem ipsum',
-                description: [],
-                otherData: [],
-              },
-              {
-                name: 'Uramaki',
-                type: 'sushi',
-                img: 'sushi.jpg',
-                url: 'uramaki',
-                shortDescription: 'Lorem ipsum',
-                description: [],
-                otherData: [],
-              },
-              {
-                name: 'Uramaki',
-                type: 'sushi',
-                img: 'sushi.jpg',
-                url: 'uramaki',
-                shortDescription: 'Lorem ipsum',
-                description: [],
-                otherData: [],
-              },
-              {
-                name: 'Uramaki',
-                type: 'sushi',
-                img: 'sushi.jpg',
-                url: 'uramaki',
-                shortDescription: 'Lorem ipsum',
-                description: [],
-                otherData: [],
-              },
-            ]}
-          />
-        </StyledMainContentContainer>
+        {elements.length > 0 && (
+          <StyledMainContentContainer>
+            <DishsGroup
+              header="Sushi"
+              dishs={elements}
+              categoryUrl={categoryUrl}
+            />
+          </StyledMainContentContainer>
+        )}
       </StyledPageContainer>
     </>
   );
