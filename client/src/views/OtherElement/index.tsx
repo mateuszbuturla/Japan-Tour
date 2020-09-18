@@ -15,27 +15,26 @@ import TypesCulture from 'types/TypesCulture';
 interface Props {
   setTitle: Function;
   categoryUrl: string;
+  api: string;
 }
 
-function OtherElement({ setTitle, categoryUrl }: Props) {
+function OtherElement({ setTitle, categoryUrl, api }: Props) {
   const { elementSlug } = useParams();
   const history = useHistory();
-  const [element, setElement] = useState<TypesDish | TypesCulture>({
-    name: 'Uramaki',
-    type: 'sushi',
-    img: 'sushi.jpg',
-    url: 'uramaki',
-    shortDescription: 'Lorem ipsum',
-    description: [
-      { type: 'text', value: 'Lorem ipsum' },
-      { type: 'text', value: 'Lorem ipsum' },
-    ],
-    otherData: [],
-  });
+  const [element, setElement] = useState<TypesDish | TypesCulture>();
   const [similarElement, setSimilarElement] = useState<TypesDish[] | TypesCulture[]>([]);
 
   useEffect(() => {
-    setTitle(element.name);
+    axios
+      .get(`http://localhost:4000/api/${api}/getone/${elementSlug}`)
+      .then(function (result) {
+        setElement(result.data.data);
+        console.log(result.data);
+        setTitle(result.data.data.name);
+      })
+      .catch(() => {
+        history.push('/404');
+      });
   }, []);
 
   return (
