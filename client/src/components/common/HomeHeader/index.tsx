@@ -1,9 +1,5 @@
 import React from 'react';
-import {
-  StyledHomeHeader,
-  StyledMainHeader,
-  StyledCategoriesContainer,
-} from './StyledHomeHeader';
+import { StyledHomeHeader, StyledMainHeader, StyledCategoriesContainer } from './StyledHomeHeader';
 import { HomeCategory } from 'components/common';
 
 import ToriGate from 'assets/toriGate.jpg';
@@ -23,11 +19,11 @@ function HomeHeader() {
         <HomeCategory url="/podroze" header="Podróże" img={ToriGate} />
         <HomeCategory url="/kultura" header="Kultura" img={Anime} />
         <HomeCategory url="/kuchnia" header="Kuchnia" img={Sushi} />
-        <HomeCategory
+        {/* <HomeCategory
           url="/sztuka-i-rozrywka"
           header="Sztuka i rozrywka"
           img={GreateWave}
-        />
+        /> */}
       </StyledCategoriesContainer>
       <StyledMainHeader>Japonia - Kraj kwitnącej wiśni</StyledMainHeader>
     </StyledHomeHeader>

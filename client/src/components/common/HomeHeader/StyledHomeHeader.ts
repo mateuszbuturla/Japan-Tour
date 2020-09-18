@@ -13,7 +13,7 @@ const StyledMainHeader = styled.h1`
   color: ${(props) => props.theme.colors.lightGrey};
   transform: translateY(-50%);
   z-index: 1;
-  font-size: 50px;
+  font-size: 3vw;
 `;
 
 const StyledCategoriesContainer = styled.div`

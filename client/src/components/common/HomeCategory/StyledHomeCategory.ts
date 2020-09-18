@@ -14,19 +14,22 @@ const StyledCurtain = styled.div`
 
 const StyledCategoryHeader = styled.h2`
   position: absolute;
-  top: 15vh;
+  bottom: 20vw;
   width: 100%;
-  text-align: center;
+  transform: rotate(-90deg);
+  left: -30%;
+  text-align: left;
   z-index: 2;
   font-weight: normal;
   opacity: 1;
   color: ${(props) => props.theme.colors.lightGrey};
-  font-size: 2vw;
-  transition: 1s;
+  font-size: 2.4vw;
+  transition: 0.6s;
 `;
 
 const StyledCategory = styled.div`
   flex-basis: 25%;
+  flex-grow: 1;
   height: 100%;
   border-right: 1px solid ${(props) => props.theme.colors.grey};
   overflow: hidden;
@@ -56,9 +59,4 @@ const StyledCategoryImage = styled.div<StyledCategoryImageProps>`
   z-index: -1;
 `;
 
-export {
-  StyledCategory,
-  StyledCategoryHeader,
-  StyledCategoryImage,
-  StyledCurtain,
-};
+export { StyledCategory, StyledCategoryHeader, StyledCategoryImage, StyledCurtain };
