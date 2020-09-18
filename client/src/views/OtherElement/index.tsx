@@ -8,9 +8,9 @@ import {
   OtherSectionElementsGroup,
   AsideInfo,
 } from 'components/common';
-import axios from 'axios';
 import TypesDish from 'types/TypesDish';
 import TypesCulture from 'types/TypesCulture';
+import Api from 'utils/Api';
 
 interface Props {
   setTitle: Function;
@@ -24,17 +24,18 @@ function OtherElement({ setTitle, categoryUrl, api }: Props) {
   const [element, setElement] = useState<TypesDish | TypesCulture>();
   const [similarElement, setSimilarElement] = useState<TypesDish[] | TypesCulture[]>([]);
 
+  const getData = async () => {
+    try {
+      let res = await Api.get(`/${api}/getone/${elementSlug}`);
+      setElement(res.data.data);
+      setTitle(res.data.data.name);
+    } catch (e) {
+      history.push('/404');
+    }
+  };
+
   useEffect(() => {
-    axios
-      .get(`http://localhost:4000/api/${api}/getone/${elementSlug}`)
-      .then(function (result) {
-        setElement(result.data.data);
-        console.log(result.data);
-        setTitle(result.data.data.name);
-      })
-      .catch(() => {
-        history.push('/404');
-      });
+    getData();
   }, []);
 
   return (

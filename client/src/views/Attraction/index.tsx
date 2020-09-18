@@ -8,7 +8,7 @@ import {
   AttractionsGroup,
   AsideInfo,
 } from 'components/common';
-import axios from 'axios';
+import Api from 'utils/Api';
 import TypesAttraction from 'types/TypesAttraction';
 
 interface Props {
@@ -20,21 +20,21 @@ function Attraction({ attractionUrl, setTitle }: Props) {
   const { attractionurl } = useParams();
   const history = useHistory();
   const [attraction, setAttraction] = useState<TypesAttraction>();
-  const [otherAttractions, setOtherAttractions] = useState<TypesAttraction[]>(
-    [],
-  );
+  const [otherAttractions, setOtherAttractions] = useState<TypesAttraction[]>([]);
+
+  const getData = async () => {
+    try {
+      let res = await Api.get(`/getattraction/${attractionurl}`);
+      setTitle(res.data.attraction.name);
+      setAttraction(res.data.attraction);
+      setOtherAttractions(res.data.otherAttractions);
+    } catch (e) {
+      history.push('/404');
+    }
+  };
 
   useEffect(() => {
-    axios
-      .get(`http://localhost:4000/api/getattraction/${attractionurl}`)
-      .then(function (result) {
-        setTitle(result.data.attraction.name);
-        setAttraction(result.data.attraction);
-        setOtherAttractions(result.data.otherAttractions);
-      })
-      .catch(() => {
-        history.push('/404');
-      });
+    getData();
   }, []);
 
   return (
@@ -48,10 +48,7 @@ function Attraction({ attractionUrl, setTitle }: Props) {
           <StyledPageContainer>
             <StyledMainContentContainer>
               <ItemDescription description={attraction.description} />
-              <AttractionsGroup
-                header="Polecane podobne obiekty"
-                attractions={otherAttractions}
-              />
+              <AttractionsGroup header="Polecane podobne obiekty" attractions={otherAttractions} />
             </StyledMainContentContainer>
             <AsideInfo data={attraction.otherData} />
           </StyledPageContainer>

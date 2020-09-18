@@ -8,7 +8,7 @@ import {
   AttractionsGroup,
   AsideInfo,
 } from 'components/common';
-import axios from 'axios';
+import Api from 'utils/Api';
 import TypesRegion from 'types/TypesRegion';
 
 interface Props {
@@ -21,35 +21,31 @@ function Region({ setTitle }: Props) {
   const [region, setRegion] = useState<TypesRegion>();
   const [attractions, setAttractions] = useState([]);
 
+  const getData = async () => {
+    try {
+      let res = await Api.get(`/getregion/${regionurl}`);
+      if (!res.data.region) return history.push('/404');
+      setTitle(res.data.region.name);
+      setRegion(res.data.region);
+      setAttractions(res.data.attractions);
+    } catch (e) {
+      history.push('/404');
+    }
+  };
+
   useEffect(() => {
-    axios
-      .get(`http://localhost:4000/api/getregion/${regionurl}`)
-      .then(function (result) {
-        if (!result.data.region) return history.push('/404');
-        setTitle(result.data.region.name);
-        setRegion(result.data.region);
-        setAttractions(result.data.attractions);
-      })
-      .catch(() => {
-        history.push('/404');
-      });
+    getData();
   }, []);
 
   return (
     <>
       {region && (
         <>
-          <PageHeader
-            text={region.name}
-            img={process.env.PUBLIC_URL + '/images/' + region.img}
-          />
+          <PageHeader text={region.name} img={process.env.PUBLIC_URL + '/images/' + region.img} />
           <StyledPageContainer>
             <StyledMainContentContainer>
               <ItemDescription description={region.description} />
-              <AttractionsGroup
-                header="Najciekawsze atrakcje"
-                attractions={attractions}
-              />
+              <AttractionsGroup header="Najciekawsze atrakcje" attractions={attractions} />
             </StyledMainContentContainer>
             <AsideInfo data={region.otherData} />
           </StyledPageContainer>

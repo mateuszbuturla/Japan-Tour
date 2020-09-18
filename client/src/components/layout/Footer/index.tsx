@@ -7,24 +7,25 @@ import {
   StyledFooterListElement,
   StyledFooterCopyright,
 } from './StyledFooter';
-import axios from 'axios';
 import { useSelector } from 'react-redux';
 import { PageTransitionEffect } from 'animations';
 import TypesFooterData from 'types/TypesFooterData';
 import TypesFooterDataElement from 'types/TypesFooterDataElement';
 import TypesApplicationState from 'types/TypesApplicationState';
+import Api from 'utils/Api';
 
 function Footer() {
   const [footerData, setFooterData] = useState<TypesFooterData[]>([]);
   const history = useHistory();
-  const { pageTransitionEffectRef } = useSelector(
-    (state: TypesApplicationState) => state.refs,
-  );
+  const { pageTransitionEffectRef } = useSelector((state: TypesApplicationState) => state.refs);
+
+  const getData = async () => {
+    let res = await Api.get('/getfooter');
+    setFooterData(res.data);
+  };
 
   useEffect(() => {
-    axios.get(`http://localhost:4000/api/getfooter`).then(function (result) {
-      setFooterData(result.data);
-    });
+    getData();
   }, []);
 
   const handleLinkClick = (to: string) => {
@@ -40,13 +41,9 @@ function Footer() {
         <StyledFooterContainer>
           {footerData.map((category: TypesFooterData) => (
             <StyledFooterList>
-              <StyledFooterListElement header>
-                {category.header}
-              </StyledFooterListElement>
+              <StyledFooterListElement header>{category.header}</StyledFooterListElement>
               {category.data.map((item: TypesFooterDataElement) => (
-                <StyledFooterListElement
-                  onClick={() => handleLinkClick(`/${item.url}`)}
-                >
+                <StyledFooterListElement onClick={() => handleLinkClick(`/${item.url}`)}>
                   {item.title}
                 </StyledFooterListElement>
               ))}

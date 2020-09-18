@@ -2,30 +2,24 @@ import React, { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { StyledJapanMap } from './StyledJapanMap';
 import { StyledSubHeader } from 'components/common';
-import axios from 'axios';
 import { useSelector } from 'react-redux';
 import { PageTransitionEffect } from 'animations';
 import TypesRegion from 'types/TypesRegion';
 import TypesCity from 'types/TypesCity';
 import TypesApplicationState from 'types/TypesApplicationState';
+import Api from 'utils/Api';
 
 function JapanMap() {
   const history = useHistory();
-  const { pageTransitionEffectRef } = useSelector(
-    (state: TypesApplicationState) => state.refs,
-  );
+  const { pageTransitionEffectRef } = useSelector((state: TypesApplicationState) => state.refs);
 
   const setRegionClickEvent = (regions: TypesRegion[]) => {
     const regionsFromSvg = document.querySelectorAll('.japanMap__region');
 
     Array.from(regionsFromSvg).map((item) => {
       item.addEventListener('click', (e: any) => {
-        const name = e.target.parentElement.parentElement
-          .getAttribute('id')
-          .toLowerCase();
-        const region = regions.find(
-          (item: TypesRegion) => item.key.toLowerCase() === name,
-        );
+        const name = e.target.parentElement.parentElement.getAttribute('id').toLowerCase();
+        const region = regions.find((item: TypesRegion) => item.key.toLowerCase() === name);
         if (region) {
           PageTransitionEffect(pageTransitionEffectRef);
           setTimeout(() => {
@@ -41,12 +35,8 @@ function JapanMap() {
 
     Array.from(citiesFromSvg).map((item) => {
       item.addEventListener('click', (e: any) => {
-        const name = e.target.parentElement.parentElement
-          .getAttribute('id')
-          .toLowerCase();
-        const city = cities.find(
-          (item: TypesCity) => item.name.toLowerCase() === name,
-        );
+        const name = e.target.parentElement.parentElement.getAttribute('id').toLowerCase();
+        const city = cities.find((item: TypesCity) => item.name.toLowerCase() === name);
         if (city) {
           PageTransitionEffect(pageTransitionEffectRef);
           setTimeout(() => {
@@ -57,13 +47,14 @@ function JapanMap() {
     });
   };
 
+  const getData = async () => {
+    let res = await Api.get('/getcitiesandregions');
+    setSityClickEvent(res.data.cities);
+    setRegionClickEvent(res.data.regions);
+  };
+
   useEffect(() => {
-    axios
-      .get(`http://localhost:4000/api/getcitiesandregions`)
-      .then(function (result) {
-        setSityClickEvent(result.data.cities);
-        setRegionClickEvent(result.data.regions);
-      });
+    getData();
   }, []);
 
   return (

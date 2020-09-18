@@ -9,7 +9,7 @@ import {
 import TypesCategory from 'types/TypesCategory';
 import TypesDish from 'types/TypesDish';
 import TypesCulture from 'types/TypesCulture';
-import axios from 'axios';
+import Api from 'utils/Api';
 
 interface Props {
   header: string;
@@ -19,27 +19,22 @@ interface Props {
   api: string;
 }
 
-function OtherSection({
-  header,
-  categoryUrl,
-  categories,
-  setTitle,
-  api,
-}: Props) {
+function OtherSection({ header, categoryUrl, categories, setTitle, api }: Props) {
   const thisCategory: TypesCategory = categories.find(
     (item: TypesCategory) => item.url === categoryUrl,
   );
   const [elements, setElements] = useState<TypesDish[] | TypesCulture[]>([]);
   const [elementsCategories, setElementsCategories] = useState<string[]>([]);
 
+  const getData = async () => {
+    let res = await Api.get(`/${api}/getall`);
+    setElements(res.data.data);
+    setElementsCategories(res.data.categories);
+  };
+
   useEffect(() => {
     setTitle(header);
-    axios
-      .get(`http://localhost:4000/api/${api}/getall`)
-      .then(function (result) {
-        setElements(result.data.data);
-        setElementsCategories(result.data.categories);
-      });
+    getData();
   }, []);
 
   return (
