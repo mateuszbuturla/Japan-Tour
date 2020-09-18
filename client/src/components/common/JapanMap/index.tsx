@@ -40,21 +40,26 @@ function JapanMap() {
         if (city) {
           PageTransitionEffect(pageTransitionEffectRef);
           setTimeout(() => {
-            history.push(`/podroze/${city.region.toLowerCase()}${city.url}`);
+            history.push(`/podroze/${city.region.toLowerCase()}/${city.key}`);
           }, 1000);
         }
       });
     });
   };
 
-  const getData = async () => {
+  const getRegions = async () => {
     let res = await Api.get('/regions');
-    // setSityClickEvent(res.data.cities);
     setRegionClickEvent(res.data);
   };
 
+  const getCities = async () => {
+    let res = await Api.get('/cities');
+    setSityClickEvent(res.data);
+  };
+
   useEffect(() => {
-    getData();
+    getRegions();
+    getCities();
   }, []);
 
   return (

@@ -16,14 +16,14 @@ interface Props {
 }
 
 function Region({ setTitle }: Props) {
-  const { regionurl } = useParams();
+  const { regionKey } = useParams();
   const history = useHistory();
   const [region, setRegion] = useState<TypesRegion>();
   const [attractions, setAttractions] = useState([]);
 
   const getData = async () => {
     try {
-      let res = await Api.get(`/regions/${regionurl}`);
+      let res = await Api.get(`/regions/${regionKey}`);
       console.log(res.data);
       if (!res.data) return history.push('/404');
       setTitle(res.data.name);

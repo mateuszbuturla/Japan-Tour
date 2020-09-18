@@ -17,18 +17,19 @@ interface Props {
 }
 
 function City({ setTitle }: Props) {
-  const { cityurl } = useParams();
+  const { cityKey } = useParams();
   const history = useHistory();
   const [city, setCity] = useState<TypesCity>();
   const [attractions, setAttractions] = useState<TypesAttraction[]>([]);
 
   const getData = async () => {
     try {
-      let res = await Api.get(`/getcity/${cityurl}`);
-      if (!res.data.city) return history.push('/404');
-      setTitle(res.data.city.name);
-      setCity(res.data.city);
-      setAttractions(res.data.attractions);
+      let res = await Api.get(`/cities/${cityKey}`);
+      if (!res.data) return history.push('/404');
+      console.log(res);
+      setTitle(res.data.name);
+      setCity(res.data);
+      // setAttractions(res.data.attractions);
     } catch (e) {
       history.push('/404');
     }

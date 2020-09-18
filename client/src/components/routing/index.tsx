@@ -40,12 +40,12 @@ function Routing() {
         exact
       />
       <Route
-        path={`/podroze/:regionurl`}
+        path={`/podroze/:regionKey`}
         component={(props: any) => <Region {...props} setTitle={setTitle} />}
         exact
       />
       <Route
-        path={`/podroze/:region/:cityurl`}
+        path={`/podroze/:region/:cityKey`}
         component={(props: any) => <City {...props} setTitle={setTitle} />}
         exact
       />
