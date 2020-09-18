@@ -23,11 +23,12 @@ function Region({ setTitle }: Props) {
 
   const getData = async () => {
     try {
-      let res = await Api.get(`/getregion/${regionurl}`);
-      if (!res.data.region) return history.push('/404');
-      setTitle(res.data.region.name);
-      setRegion(res.data.region);
-      setAttractions(res.data.attractions);
+      let res = await Api.get(`/regions/${regionurl}`);
+      console.log(res.data);
+      if (!res.data) return history.push('/404');
+      setTitle(res.data.name);
+      setRegion(res.data);
+      // setAttractions(res.data.attractions);
     } catch (e) {
       history.push('/404');
     }
