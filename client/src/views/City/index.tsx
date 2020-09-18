@@ -22,21 +22,26 @@ function City({ setTitle }: Props) {
   const [city, setCity] = useState<TypesCity>();
   const [attractions, setAttractions] = useState<TypesAttraction[]>([]);
 
-  const getData = async () => {
+  const getCity = async () => {
     try {
       let res = await Api.get(`/cities/${cityKey}`);
       if (!res.data) return history.push('/404');
       console.log(res);
       setTitle(res.data.name);
       setCity(res.data);
-      // setAttractions(res.data.attractions);
     } catch (e) {
       history.push('/404');
     }
   };
 
+  const getAttractions = async () => {
+    let res = await Api.get(`/attractions/allFromCity/${cityKey}`);
+    setAttractions(res.data);
+  };
+
   useEffect(() => {
-    getData();
+    getCity();
+    getAttractions();
   }, []);
 
   return (

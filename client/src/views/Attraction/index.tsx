@@ -12,29 +12,35 @@ import Api from 'utils/Api';
 import TypesAttraction from 'types/TypesAttraction';
 
 interface Props {
-  attractionUrl: string;
   setTitle: Function;
 }
 
-function Attraction({ attractionUrl, setTitle }: Props) {
-  const { attractionurl } = useParams();
+function Attraction({ setTitle }: Props) {
+  const { attractionKey } = useParams();
   const history = useHistory();
   const [attraction, setAttraction] = useState<TypesAttraction>();
-  const [otherAttractions, setOtherAttractions] = useState<TypesAttraction[]>([]);
+  const [similarAttractions, setSimilarAttractions] = useState<TypesAttraction[]>([]);
 
-  const getData = async () => {
+  const getAttraction = async () => {
     try {
-      let res = await Api.get(`/getattraction/${attractionurl}`);
-      setTitle(res.data.attraction.name);
-      setAttraction(res.data.attraction);
-      setOtherAttractions(res.data.otherAttractions);
+      let res = await Api.get(`/attractions/${attractionKey}`);
+      setTitle(res.data.name);
+      setAttraction(res.data);
+      getAllAttractionsFromCategory(res.data);
     } catch (e) {
       history.push('/404');
     }
   };
 
+  const getAllAttractionsFromCategory = async (thisAttraction: TypesAttraction) => {
+    let res = await Api.get(`/attractions/allFromCategory/${thisAttraction.category}`);
+    setSimilarAttractions(
+      res.data.filter((item: TypesAttraction) => item.key !== thisAttraction.key),
+    );
+  };
+
   useEffect(() => {
-    getData();
+    getAttraction();
   }, []);
 
   return (
@@ -48,7 +54,10 @@ function Attraction({ attractionUrl, setTitle }: Props) {
           <StyledPageContainer>
             <StyledMainContentContainer>
               <ItemDescription description={attraction.description} />
-              <AttractionsGroup header="Polecane podobne obiekty" attractions={otherAttractions} />
+              <AttractionsGroup
+                header="Polecane podobne obiekty"
+                attractions={similarAttractions}
+              />
             </StyledMainContentContainer>
             <AsideInfo data={attraction.otherData} />
           </StyledPageContainer>

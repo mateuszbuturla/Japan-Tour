@@ -21,7 +21,7 @@ function Region({ setTitle }: Props) {
   const [region, setRegion] = useState<TypesRegion>();
   const [attractions, setAttractions] = useState([]);
 
-  const getData = async () => {
+  const getRegion = async () => {
     try {
       let res = await Api.get(`/regions/${regionKey}`);
       console.log(res.data);
@@ -34,8 +34,14 @@ function Region({ setTitle }: Props) {
     }
   };
 
+  const getAttractions = async () => {
+    let res = await Api.get(`/attractions/bestFromRegion/${regionKey}`);
+    setAttractions(res.data);
+  };
+
   useEffect(() => {
-    getData();
+    getRegion();
+    getAttractions();
   }, []);
 
   return (
