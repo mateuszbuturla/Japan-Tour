@@ -21,6 +21,8 @@ const StyledAttractionTile = styled.div`
   box-sizing: border-box;
   margin-top: 20px;
   cursor: pointer;
+  transform: scale(1);
+  transition: 0.5s;
 
   @media (min-width: ${(props) => props.theme.breakPoints.sm}) {
     width: 45%;
@@ -36,6 +38,10 @@ const StyledAttractionTile = styled.div`
   @media (min-width: ${(props) => props.theme.breakPoints.lg}) {
     width: 23%;
     margin-right: 2%;
+  }
+
+  &:hover {
+    transform: scale(1.05) rotate(5deg);
   }
 `;
 
