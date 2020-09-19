@@ -19,16 +19,16 @@ interface Props {
 }
 
 function OtherElement({ setTitle, categoryUrl, api }: Props) {
-  const { elementSlug } = useParams();
+  const { elementKey } = useParams();
   const history = useHistory();
   const [element, setElement] = useState<TypesDish | TypesCulture>();
   const [similarElement, setSimilarElement] = useState<TypesDish[] | TypesCulture[]>([]);
 
   const getData = async () => {
     try {
-      let res = await Api.get(`/${api}/getone/${elementSlug}`);
-      setElement(res.data.data);
-      setTitle(res.data.data.name);
+      let res = await Api.get(`/${api}/${elementKey}`);
+      setElement(res.data);
+      setTitle(res.data.name);
     } catch (e) {
       history.push('/404');
     }
