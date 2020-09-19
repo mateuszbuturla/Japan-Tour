@@ -27,9 +27,9 @@ function OtherSection({ header, categoryUrl, categories, setTitle, api }: Props)
   const [elementsCategories, setElementsCategories] = useState<string[]>([]);
 
   const getData = async () => {
-    let res = await Api.get(`/${api}/getall`);
-    setElements(res.data.data);
-    setElementsCategories(res.data.categories);
+    let res = await Api.get(`/${api}`);
+    setElements(res.data);
+    setElementsCategories(['popkultura', 'święta']);
   };
 
   useEffect(() => {
@@ -47,7 +47,7 @@ function OtherSection({ header, categoryUrl, categories, setTitle, api }: Props)
               <OtherSectionElementsGroup
                 key={item}
                 header={item}
-                data={elements.filter((item2) => item2.type === item)}
+                data={elements.filter((item2) => item2.category === item)}
                 categoryUrl={categoryUrl}
               />
             ))}

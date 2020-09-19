@@ -82,15 +82,15 @@ function Routing() {
             header="Kultura Japonii"
             categoryUrl="kultura"
             setTitle={setTitle}
-            api="culture"
+            api="cultures"
           />
         )}
         exact
       />
       <Route
-        path={`/kultura/:type/:elementSlug`}
+        path={`/kultura/:type/:elementKey`}
         component={(props: any) => (
-          <OtherElement {...props} setTitle={setTitle} categoryUrl="kultura" api="culture" />
+          <OtherElement {...props} setTitle={setTitle} categoryUrl="kultura" api="cultures" />
         )}
         exact
       />
