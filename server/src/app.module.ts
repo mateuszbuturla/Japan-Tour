@@ -4,6 +4,7 @@ import { RegionsModule } from "./regions/regions.module";
 import { CitiesModule } from "./cities/cities.module";
 import { AttractionsModule } from "./Attractions/attractions.module";
 import { CulturesModule } from "./Cultures/cultures.module";
+import { DishesModule } from "./Dishes/dishes.module";
 
 @Module({
   imports: [
@@ -12,6 +13,7 @@ import { CulturesModule } from "./Cultures/cultures.module";
     CitiesModule,
     AttractionsModule,
     CulturesModule,
+    DishesModule,
   ],
   controllers: [],
   providers: [],

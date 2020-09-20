@@ -62,15 +62,15 @@ function Routing() {
             header="Kuchnia Japonii"
             categoryUrl="kuchnia"
             setTitle={setTitle}
-            api="food"
+            api="dishes"
           />
         )}
         exact
       />
       <Route
-        path={`/kuchnia/:type/:elementSlug`}
+        path={`/kuchnia/:type/:elementKey`}
         component={(props: any) => (
-          <OtherElement {...props} setTitle={setTitle} categoryUrl="kuchnia" api="food" />
+          <OtherElement {...props} setTitle={setTitle} categoryUrl="kuchnia" api="dishes" />
         )}
         exact
       />
