@@ -29,7 +29,7 @@ function OtherSection({ header, categoryUrl, categories, setTitle, api }: Props)
   const getData = async () => {
     let res = await Api.get(`/${api}`);
     setElements(res.data);
-    setElementsCategories(['popkultura', 'święta']);
+    setElementsCategories(['popkultura', 'święta', 'sushi']);
   };
 
   useEffect(() => {
