@@ -6,6 +6,7 @@ import { AttractionsModule } from "./Attractions/attractions.module";
 import { CulturesModule } from "./Cultures/cultures.module";
 import { DishesModule } from "./Dishes/dishes.module";
 import { CategoriesModule } from "./categories/categories.module";
+import { FooterModule } from "./footer/footer.module";
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { CategoriesModule } from "./categories/categories.module";
     CulturesModule,
     DishesModule,
     CategoriesModule,
+    FooterModule,
   ],
   controllers: [],
   providers: [],
