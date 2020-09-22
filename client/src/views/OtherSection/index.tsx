@@ -9,6 +9,7 @@ import {
 import TypesCategory from 'types/TypesCategory';
 import TypesDish from 'types/TypesDish';
 import TypesCulture from 'types/TypesCulture';
+import TypesElementCategory from 'types/TypesElementCategory';
 import Api from 'utils/Api';
 
 interface Props {
@@ -24,12 +25,13 @@ function OtherSection({ header, categoryUrl, categories, setTitle, api }: Props)
     (item: TypesCategory) => item.url === categoryUrl,
   );
   const [elements, setElements] = useState<TypesDish[] | TypesCulture[]>([]);
-  const [elementsCategories, setElementsCategories] = useState<string[]>([]);
+  const [elementsCategories, setElementsCategories] = useState<TypesElementCategory[]>([]);
 
   const getData = async () => {
     let res = await Api.get(`/${api}`);
     setElements(res.data);
-    setElementsCategories(['popkultura', 'święta', 'sushi']);
+    let res2 = await Api.get(`/categories/${api}`);
+    setElementsCategories(res2.data);
   };
 
   useEffect(() => {
@@ -45,9 +47,9 @@ function OtherSection({ header, categoryUrl, categories, setTitle, api }: Props)
           <StyledMainContentContainer>
             {elementsCategories.map((item) => (
               <OtherSectionElementsGroup
-                key={item}
-                header={item}
-                data={elements.filter((item2) => item2.category === item)}
+                key={item.key}
+                header={item.title}
+                data={elements.filter((item2) => item2.category === item.key)}
                 categoryUrl={categoryUrl}
               />
             ))}
