@@ -27,16 +27,20 @@ function OtherSection({ header, categoryUrl, categories, setTitle, api }: Props)
   const [elements, setElements] = useState<TypesDish[] | TypesCulture[]>([]);
   const [elementsCategories, setElementsCategories] = useState<TypesElementCategory[]>([]);
 
-  const getData = async () => {
+  const getElements = async () => {
     let res = await Api.get(`/${api}`);
     setElements(res.data);
-    let res2 = await Api.get(`/categories/${api}`);
-    setElementsCategories(res2.data);
+  };
+
+  const getSimilarElements = async () => {
+    let res = await Api.get(`/categories/${api}`);
+    setElementsCategories(res.data);
   };
 
   useEffect(() => {
     setTitle(header);
-    getData();
+    getElements();
+    getSimilarElements();
   }, []);
 
   return (
