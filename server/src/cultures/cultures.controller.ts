@@ -1,6 +1,7 @@
-import { Controller, Body, Get, Param } from "@nestjs/common";
+import { Controller, Body, Get, Param, Post } from "@nestjs/common";
 
 import { CulturesService } from "./cultures.service";
+import { Culture } from "./culture.model";
 
 @Controller("/api/cultures")
 export class CulturesController {
@@ -10,6 +11,11 @@ export class CulturesController {
   async getAllCulures() {
     const regions = await this.culturesService.getCultures();
     return regions;
+  }
+
+  @Post("create")
+  createCity(@Body() data: Culture) {
+    return this.culturesService.createCulture(data);
   }
 
   @Get(":key")
