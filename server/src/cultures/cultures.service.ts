@@ -1,8 +1,10 @@
-import { Injectable, NotFoundException } from "@nestjs/common";
+import { Injectable, NotFoundException, HttpException } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { Model } from "mongoose";
+import { isNull } from "util";
 
 import { Culture } from "./culture.model";
+import NormalizeString from "../utils/normalizeString";
 
 @Injectable()
 export class CulturesService {
@@ -31,5 +33,31 @@ export class CulturesService {
       throw new NotFoundException("Could not find culture.");
     }
     return culture;
+  }
+
+  async createCulture(data: Culture) {
+    let res;
+    const existCulture = await this.cultureModel
+      .findOne({
+        $or: [{ name: data.name }, { key: NormalizeString(data.name) }],
+      })
+      .exec();
+
+    if (isNull(existCulture)) {
+      const newCulture = new this.cultureModel({
+        name: data.name,
+        key: NormalizeString(data.name),
+        category: data.category,
+        img: data.img,
+        shortDescription: data.shortDescription,
+        description: data.description,
+        otherData: data.otherData,
+      });
+      res = await newCulture.save();
+    } else {
+      throw new HttpException("Culture is exist.", 409);
+    }
+
+    return res;
   }
 }
