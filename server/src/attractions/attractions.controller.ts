@@ -1,10 +1,16 @@
-import { Controller, Body, Get, Param } from "@nestjs/common";
+import { Controller, Body, Get, Param, Post } from "@nestjs/common";
 
 import { AttractionsService } from "./attractions.service";
+import { Attraction } from "./attraction.model";
 
 @Controller("/api/attractions")
 export class AttractionsController {
   constructor(private readonly attractionsService: AttractionsService) {}
+
+  @Post("create")
+  createCity(@Body() data: Attraction) {
+    return this.attractionsService.createAttraction(data);
+  }
 
   @Get("bestFromRegion/:region")
   async getBestAttractionsFromRegion(@Param("region") region: string) {
