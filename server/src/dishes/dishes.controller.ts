@@ -1,6 +1,7 @@
-import { Controller, Body, Get, Param } from "@nestjs/common";
+import { Controller, Body, Get, Param, Post } from "@nestjs/common";
 
 import { DishesService } from "./dishes.service";
+import { Dish } from "./dish.model";
 
 @Controller("/api/dishes")
 export class DishesController {
@@ -10,6 +11,11 @@ export class DishesController {
   async getAllCulures() {
     const regions = await this.dishesService.getDishes();
     return regions;
+  }
+
+  @Post("create")
+  createDish(@Body() data: Dish) {
+    return this.dishesService.createDish(data);
   }
 
   @Get(":key")
