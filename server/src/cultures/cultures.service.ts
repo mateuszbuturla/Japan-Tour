@@ -60,4 +60,21 @@ export class CulturesService {
 
     return res;
   }
+
+  async removeCulture(key: string) {
+    let res;
+
+    try {
+      const removedCulture = await this.cultureModel.remove({ key });
+      if (removedCulture.deletedCount > 0) {
+        res = "Successfully deleted.";
+      } else if (removedCulture.deletedCount === 0) {
+        throw new HttpException("Could not remove culture.", 409);
+      }
+    } catch (error) {
+      throw new HttpException("Could not remove culture.", 409);
+    }
+
+    return res;
+  }
 }
