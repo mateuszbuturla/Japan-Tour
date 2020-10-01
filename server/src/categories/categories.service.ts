@@ -42,4 +42,21 @@ export class CategoriesService {
 
     return res;
   }
+
+  async removeCategory(key: string) {
+    let res;
+
+    try {
+      const removedCategory = await this.cultureCategoryModel.remove({ key });
+      if (removedCategory.deletedCount > 0) {
+        res = "Successfully deleted.";
+      } else if (removedCategory.deletedCount === 0) {
+        throw new HttpException("Could not remove category.", 409);
+      }
+    } catch (error) {
+      throw new HttpException("Could not remove category.", 409);
+    }
+
+    return res;
+  }
 }
