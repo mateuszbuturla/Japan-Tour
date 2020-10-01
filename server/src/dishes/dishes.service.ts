@@ -58,4 +58,21 @@ export class DishesService {
 
     return res;
   }
+
+  async removeDish(key: string) {
+    let res;
+
+    try {
+      const removedDish = await this.dishModel.remove({ key });
+      if (removedDish.deletedCount > 0) {
+        res = "Successfully deleted.";
+      } else if (removedDish.deletedCount === 0) {
+        throw new HttpException("Could not remove dish.", 409);
+      }
+    } catch (error) {
+      throw new HttpException("Could not remove dish.", 409);
+    }
+
+    return res;
+  }
 }
