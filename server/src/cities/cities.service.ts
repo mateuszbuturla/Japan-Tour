@@ -70,4 +70,21 @@ export class CitiesService {
 
     return res;
   }
+
+  async removeCity(key: string) {
+    let res;
+
+    try {
+      const removedCity = await this.cityModel.remove({ key });
+      if (removedCity.deletedCount > 0) {
+        res = "Successfully deleted.";
+      } else if (removedCity.deletedCount === 0) {
+        throw new HttpException("Could not remove city.", 409);
+      }
+    } catch (error) {
+      throw new HttpException("Could not remove city.", 409);
+    }
+
+    return res;
+  }
 }
