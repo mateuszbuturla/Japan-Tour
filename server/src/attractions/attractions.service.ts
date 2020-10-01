@@ -5,7 +5,6 @@ import { isNull } from "util";
 
 import { Attraction } from "./attraction.model";
 import NormalizeString from "../utils/normalizeString";
-import { stringify } from "querystring";
 
 @Injectable()
 export class AttractionsService {
@@ -78,6 +77,23 @@ export class AttractionsService {
       res = await newAttraction.save();
     } else {
       throw new HttpException("Attraction is exist.", 409);
+    }
+
+    return res;
+  }
+
+  async removeAttraction(key: string) {
+    let res;
+
+    try {
+      const removedAttraction = await this.attractionModel.remove({ key });
+      if (removedAttraction.deletedCount > 0) {
+        res = "Successfully deleted.";
+      } else if (removedAttraction.deletedCount === 0) {
+        throw new HttpException("Could not remove attraction.", 409);
+      }
+    } catch (error) {
+      throw new HttpException("Could not remove attraction.", 409);
     }
 
     return res;
