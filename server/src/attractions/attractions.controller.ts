@@ -1,4 +1,4 @@
-import { Controller, Body, Get, Param, Post } from "@nestjs/common";
+import { Controller, Body, Get, Param, Post, Delete } from "@nestjs/common";
 
 import { AttractionsService } from "./attractions.service";
 import { Attraction } from "./attraction.model";
@@ -8,8 +8,13 @@ export class AttractionsController {
   constructor(private readonly attractionsService: AttractionsService) {}
 
   @Post("create")
-  createCity(@Body() data: Attraction) {
+  createAttraction(@Body() data: Attraction) {
     return this.attractionsService.createAttraction(data);
+  }
+
+  @Delete("remove/:key")
+  removeAttraction(@Param("key") data: string) {
+    return this.attractionsService.removeAttraction(data);
   }
 
   @Get("bestFromRegion/:region")
