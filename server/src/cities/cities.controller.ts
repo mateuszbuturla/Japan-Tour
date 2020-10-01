@@ -1,4 +1,4 @@
-import { Controller, Body, Get, Param, Post } from "@nestjs/common";
+import { Controller, Body, Get, Param, Post, Delete } from "@nestjs/common";
 
 import { CitiesService } from "./cities.service";
 import { City } from "./city.model";
@@ -16,6 +16,11 @@ export class CitiesController {
   @Post("create")
   createCity(@Body() data: City) {
     return this.citiesService.createCity(data);
+  }
+
+  @Delete("remove/:key")
+  removeCity(@Param("key") data: string) {
+    return this.citiesService.removeCity(data);
   }
 
   @Get(":key")
