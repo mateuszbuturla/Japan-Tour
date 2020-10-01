@@ -10,11 +10,11 @@ import NormalizeString from "../utils/normalizeString";
 export class CategoriesService {
   constructor(
     @InjectModel("Category")
-    private readonly cultureCategoryModel: Model<Category>
+    private readonly categoryModel: Model<Category>
   ) {}
 
   async getCategories(section: string) {
-    const categories = await this.cultureCategoryModel.find({ section }).exec();
+    const categories = await this.categoryModel.find({ section }).exec();
     return categories.map((category) => ({
       title: category.title,
       key: category.key,
@@ -23,14 +23,14 @@ export class CategoriesService {
 
   async createCategory(data: Category) {
     let res;
-    const existDish = await this.cultureCategoryModel
+    const existDish = await this.categoryModel
       .findOne({
         $or: [{ title: data.title }, { key: NormalizeString(data.title) }],
       })
       .exec();
 
     if (isNull(existDish)) {
-      const newDish = new this.cultureCategoryModel({
+      const newDish = new this.categoryModel({
         title: data.title,
         key: NormalizeString(data.title),
         section: data.section,
@@ -47,7 +47,7 @@ export class CategoriesService {
     let res;
 
     try {
-      const removedCategory = await this.cultureCategoryModel.remove({ key });
+      const removedCategory = await this.categoryModel.remove({ key });
       if (removedCategory.deletedCount > 0) {
         res = "Successfully deleted.";
       } else if (removedCategory.deletedCount === 0) {
