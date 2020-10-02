@@ -1,4 +1,12 @@
-import { Controller, Body, Get, Param, Post, Delete } from "@nestjs/common";
+import {
+  Controller,
+  Body,
+  Get,
+  Param,
+  Post,
+  Delete,
+  Patch,
+} from "@nestjs/common";
 
 import { AttractionsService } from "./attractions.service";
 import { Attraction } from "./attraction.model";
@@ -13,8 +21,13 @@ export class AttractionsController {
   }
 
   @Delete("remove/:key")
-  removeAttraction(@Param("key") data: string) {
-    return this.attractionsService.removeAttraction(data);
+  removeAttraction(@Param("key") key: string) {
+    return this.attractionsService.removeAttraction(key);
+  }
+
+  @Patch("update/:key")
+  updateAttraction(@Param("key") key: string, @Body() data: Attraction) {
+    return this.attractionsService.updateAttraction(key, data);
   }
 
   @Get("bestFromRegion/:region")

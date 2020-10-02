@@ -88,12 +88,52 @@ export class AttractionsService {
     try {
       const removedAttraction = await this.attractionModel.remove({ key });
       if (removedAttraction.deletedCount > 0) {
-        res = "Successfully deleted.";
+        res = {
+          statusCode: 200,
+          message: "Successfully deleted.",
+        };
       } else if (removedAttraction.deletedCount === 0) {
         throw new HttpException("Could not remove attraction.", 409);
       }
     } catch (error) {
       throw new HttpException("Could not remove attraction.", 409);
+    }
+
+    return res;
+  }
+
+  async updateAttraction(key: string, data: Attraction) {
+    let res;
+
+    try {
+      const newData = {
+        name: data.name,
+        key: NormalizeString(data.name),
+        url: NormalizeString(data.name),
+        shortDescription: data.shortDescription,
+        description: data.description,
+        region: data.region,
+        city: data.city,
+        category: data.category,
+        img: data.img,
+        bestAttractions: data.bestAttractions,
+        otherData: data.otherData,
+      };
+
+      const updatedAttraction = await this.attractionModel.updateOne(
+        { key },
+        newData
+      );
+      if (updatedAttraction.nModified > 0) {
+        res = {
+          statusCode: 200,
+          message: "Successfully updated.",
+        };
+      } else if (updatedAttraction.n === 0) {
+        throw new HttpException("Could not update attraction.", 409);
+      }
+    } catch (error) {
+      throw new HttpException("Could not update attraction.", 409);
     }
 
     return res;
