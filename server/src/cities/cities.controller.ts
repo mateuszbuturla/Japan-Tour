@@ -1,4 +1,12 @@
-import { Controller, Body, Get, Param, Post, Delete } from "@nestjs/common";
+import {
+  Controller,
+  Body,
+  Get,
+  Param,
+  Post,
+  Delete,
+  Patch,
+} from "@nestjs/common";
 
 import { CitiesService } from "./cities.service";
 import { City } from "./city.model";
@@ -21,6 +29,11 @@ export class CitiesController {
   @Delete("remove/:key")
   removeCity(@Param("key") data: string) {
     return this.citiesService.removeCity(data);
+  }
+
+  @Patch("update/:key")
+  updateCity(@Param("key") key: string, @Body() data: City) {
+    return this.citiesService.updateCity(key, data);
   }
 
   @Get(":key")
