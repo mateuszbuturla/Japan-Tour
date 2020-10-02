@@ -49,12 +49,45 @@ export class CategoriesService {
     try {
       const removedCategory = await this.categoryModel.remove({ key });
       if (removedCategory.deletedCount > 0) {
-        res = "Successfully deleted.";
+        res = {
+          statusCode: 200,
+          message: "Successfully deleted.",
+        };
       } else if (removedCategory.deletedCount === 0) {
         throw new HttpException("Could not remove category.", 409);
       }
     } catch (error) {
       throw new HttpException("Could not remove category.", 409);
+    }
+
+    return res;
+  }
+
+  async updateCategory(key: string, data: Category) {
+    let res;
+
+    try {
+      const newData = {
+        title: data.title,
+        key: NormalizeString(data.title),
+        section: data.section,
+      };
+
+      const updatedCategory = await this.categoryModel.updateOne(
+        { key },
+        newData
+      );
+
+      if (updatedCategory.n > 0) {
+        res = {
+          statusCode: 200,
+          message: "Successfully updated.",
+        };
+      } else if (updatedCategory.n === 0) {
+        throw new HttpException("Could not update category.", 409);
+      }
+    } catch (error) {
+      throw new HttpException("Could not update category.", 409);
     }
 
     return res;
