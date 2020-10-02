@@ -1,4 +1,12 @@
-import { Controller, Body, Get, Param, Post, Delete } from "@nestjs/common";
+import {
+  Controller,
+  Body,
+  Get,
+  Param,
+  Post,
+  Delete,
+  Patch,
+} from "@nestjs/common";
 
 import { DishesService } from "./dishes.service";
 import { Dish } from "./dish.model";
@@ -21,6 +29,11 @@ export class DishesController {
   @Delete("remove/:key")
   removeDish(@Param("key") key: string) {
     return this.dishesService.removeDish(key);
+  }
+
+  @Patch("update/:key")
+  updateDish(@Param("key") key: string, @Body() data: Dish) {
+    return this.dishesService.updateDish(key, data);
   }
 
   @Get(":key")

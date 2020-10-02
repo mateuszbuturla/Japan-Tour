@@ -75,4 +75,34 @@ export class DishesService {
 
     return res;
   }
+
+  async updateDish(key: string, data: Dish) {
+    let res;
+
+    try {
+      const newData = {
+        name: data.name,
+        key: NormalizeString(data.name),
+        shortDescription: data.shortDescription,
+        description: data.description,
+        category: data.category,
+        img: data.img,
+        otherData: data.otherData,
+      };
+
+      const updatedDishes = await this.dishModel.updateOne({ key }, newData);
+      if (updatedDishes.n > 0) {
+        res = {
+          statusCode: 200,
+          message: "Successfully updated.",
+        };
+      } else if (updatedDishes.n === 0) {
+        throw new HttpException("Could not update dish.", 409);
+      }
+    } catch (error) {
+      throw new HttpException("Could not update dish.", 409);
+    }
+
+    return res;
+  }
 }
