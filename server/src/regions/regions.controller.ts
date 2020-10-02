@@ -1,6 +1,7 @@
-import { Controller, Body, Get, Param } from "@nestjs/common";
+import { Controller, Body, Get, Param, Patch } from "@nestjs/common";
 
 import { RegionsService } from "./regions.service";
+import { Region } from "./region.model";
 
 @Controller("/api/regions")
 export class RegionsController {
@@ -10,6 +11,11 @@ export class RegionsController {
   async getAllRegions() {
     const regions = await this.regionsService.getRegions();
     return regions;
+  }
+
+  @Patch("update/:key")
+  updateRegion(@Param("key") key: string, @Body() data: Region) {
+    return this.regionsService.updateRegion(key, data);
   }
 
   @Get(":key")
