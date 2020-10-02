@@ -77,4 +77,39 @@ export class CulturesService {
 
     return res;
   }
+
+  async updateCulture(key: string, data: Culture) {
+    let res;
+
+    try {
+      const newData = {
+        name: data.name,
+        key: NormalizeString(data.name),
+        shortDescription: data.shortDescription,
+        description: data.description,
+        category: data.category,
+        img: data.img,
+        otherData: data.otherData,
+      };
+
+      const updatedCultures = await this.cultureModel.updateOne(
+        { key },
+        newData
+      );
+      console.log(updatedCultures);
+      if (updatedCultures.n > 0) {
+        res = {
+          statusCode: 200,
+          message: "Successfully updated.",
+        };
+      } else if (updatedCultures.n === 0) {
+        throw new HttpException("Could not update culture.", 409);
+      }
+    } catch (error) {
+      console.log(error);
+      throw new HttpException("Could not update culture.", 409);
+    }
+
+    return res;
+  }
 }
