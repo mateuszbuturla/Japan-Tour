@@ -96,7 +96,6 @@ export class CulturesService {
         { key },
         newData
       );
-      console.log(updatedCultures);
       if (updatedCultures.n > 0) {
         res = {
           statusCode: 200,
