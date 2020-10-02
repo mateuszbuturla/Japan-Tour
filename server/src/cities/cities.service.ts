@@ -87,4 +87,34 @@ export class CitiesService {
 
     return res;
   }
+
+  async updateCity(key: string, data: City) {
+    let res;
+
+    try {
+      const newData = {
+        name: data.name,
+        key: NormalizeString(data.name),
+        url: NormalizeString(data.name),
+        description: data.description,
+        region: data.region,
+        img: data.img,
+        otherData: data.otherData,
+      };
+
+      const updatedCity = await this.cityModel.updateOne({ key }, newData);
+      if (updatedCity.n > 0) {
+        res = {
+          statusCode: 200,
+          message: "Successfully updated.",
+        };
+      } else if (updatedCity.n === 0) {
+        throw new HttpException("Could not update city.", 409);
+      }
+    } catch (error) {
+      throw new HttpException("Could not update city.", 409);
+    }
+
+    return res;
+  }
 }
