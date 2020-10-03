@@ -40,17 +40,17 @@ function Routing() {
         exact
       />
       <Route
-        path={`/podroze/:regionurl`}
+        path={`/podroze/:regionKey`}
         component={(props: any) => <Region {...props} setTitle={setTitle} />}
         exact
       />
       <Route
-        path={`/podroze/:region/:cityurl`}
+        path={`/podroze/:region/:cityKey`}
         component={(props: any) => <City {...props} setTitle={setTitle} />}
         exact
       />
       <Route
-        path={`/podroze/:region/:city/:attractionurl`}
+        path={`/podroze/:region/:city/:attractionKey`}
         component={(props: any) => <Attraction {...props} setTitle={setTitle} />}
         exact
       />
@@ -62,15 +62,15 @@ function Routing() {
             header="Kuchnia Japonii"
             categoryUrl="kuchnia"
             setTitle={setTitle}
-            api="food"
+            api="dishes"
           />
         )}
         exact
       />
       <Route
-        path={`/kuchnia/:type/:elementSlug`}
+        path={`/kuchnia/:type/:elementKey`}
         component={(props: any) => (
-          <OtherElement {...props} setTitle={setTitle} categoryUrl="kuchnia" api="food" />
+          <OtherElement {...props} setTitle={setTitle} categoryUrl="kuchnia" api="dishes" />
         )}
         exact
       />
@@ -82,15 +82,15 @@ function Routing() {
             header="Kultura Japonii"
             categoryUrl="kultura"
             setTitle={setTitle}
-            api="culture"
+            api="cultures"
           />
         )}
         exact
       />
       <Route
-        path={`/kultura/:type/:elementSlug`}
+        path={`/kultura/:type/:elementKey`}
         component={(props: any) => (
-          <OtherElement {...props} setTitle={setTitle} categoryUrl="kultura" api="culture" />
+          <OtherElement {...props} setTitle={setTitle} categoryUrl="kultura" api="cultures" />
         )}
         exact
       />

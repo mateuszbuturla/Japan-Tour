@@ -3,9 +3,9 @@ import TypesOtherData from './TypesOtherData';
 
 interface TypesDish {
   name: string;
-  type: string;
+  category: string;
   img: string;
-  url: string;
+  key: string;
   shortDescription: string;
   description: TypesItemDescription[];
   otherData: TypesOtherData[];

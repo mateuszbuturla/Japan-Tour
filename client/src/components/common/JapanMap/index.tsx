@@ -23,7 +23,7 @@ function JapanMap() {
         if (region) {
           PageTransitionEffect(pageTransitionEffectRef);
           setTimeout(() => {
-            history.push(`/podroze${region.url}`);
+            history.push(`/podroze/${region.key}`);
           }, 1000);
         }
       });
@@ -40,21 +40,26 @@ function JapanMap() {
         if (city) {
           PageTransitionEffect(pageTransitionEffectRef);
           setTimeout(() => {
-            history.push(`/podroze/${city.region.toLowerCase()}${city.url}`);
+            history.push(`/podroze/${city.region.toLowerCase()}/${city.key}`);
           }, 1000);
         }
       });
     });
   };
 
-  const getData = async () => {
-    let res = await Api.get('/getcitiesandregions');
-    setSityClickEvent(res.data.cities);
-    setRegionClickEvent(res.data.regions);
+  const getRegions = async () => {
+    let res = await Api.get('/regions');
+    setRegionClickEvent(res.data);
+  };
+
+  const getCities = async () => {
+    let res = await Api.get('/cities');
+    setSityClickEvent(res.data);
   };
 
   useEffect(() => {
-    getData();
+    getRegions();
+    getCities();
   }, []);
 
   return (

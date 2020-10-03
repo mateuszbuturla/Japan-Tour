@@ -20,7 +20,7 @@ function Footer() {
   const { pageTransitionEffectRef } = useSelector((state: TypesApplicationState) => state.refs);
 
   const getData = async () => {
-    let res = await Api.get('/getfooter');
+    let res = await Api.get('/footer');
     setFooterData(res.data);
   };
 

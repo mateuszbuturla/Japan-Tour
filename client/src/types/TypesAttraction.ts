@@ -9,7 +9,7 @@ interface TypesAttraction {
   description: TypesItemDescription[];
   region: string;
   city: string;
-  type: string;
+  category: string;
   img: string;
   bestAttractions: boolean;
   otherData: TypesOtherData[];

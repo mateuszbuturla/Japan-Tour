@@ -16,25 +16,32 @@ interface Props {
 }
 
 function Region({ setTitle }: Props) {
-  const { regionurl } = useParams();
+  const { regionKey } = useParams();
   const history = useHistory();
   const [region, setRegion] = useState<TypesRegion>();
   const [attractions, setAttractions] = useState([]);
 
-  const getData = async () => {
+  const getRegion = async () => {
     try {
-      let res = await Api.get(`/getregion/${regionurl}`);
-      if (!res.data.region) return history.push('/404');
-      setTitle(res.data.region.name);
-      setRegion(res.data.region);
-      setAttractions(res.data.attractions);
+      let res = await Api.get(`/regions/${regionKey}`);
+      console.log(res.data);
+      if (!res.data) return history.push('/404');
+      setTitle(res.data.name);
+      setRegion(res.data);
+      // setAttractions(res.data.attractions);
     } catch (e) {
       history.push('/404');
     }
   };
 
+  const getAttractions = async () => {
+    let res = await Api.get(`/attractions/bestFromRegion/${regionKey}`);
+    setAttractions(res.data);
+  };
+
   useEffect(() => {
-    getData();
+    getRegion();
+    getAttractions();
   }, []);
 
   return (
