@@ -10,6 +10,7 @@ import ItemDescription from './ItemDescription';
 import AttractionsGroup from './AttractionsGroup';
 import AsideInfo from './AsideInfo';
 import OtherSectionElementsGroup from './OtherSectionElementsGroup';
+import AdminAside from './AdminAside';
 
 export {
   HomeHeader,
@@ -24,4 +25,5 @@ export {
   AttractionsGroup,
   AsideInfo,
   OtherSectionElementsGroup,
+  AdminAside,
 };
