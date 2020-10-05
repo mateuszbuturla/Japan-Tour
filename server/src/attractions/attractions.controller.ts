@@ -56,4 +56,9 @@ export class AttractionsController {
   getSingleAttraction(@Param("key") key: string) {
     return this.attractionsService.getSingleAttraction(key);
   }
+
+  @Get("")
+  getAllAttractions() {
+    return this.attractionsService.getAllAttractions();
+  }
 }

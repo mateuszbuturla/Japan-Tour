@@ -8,6 +8,13 @@ import {
   StyledAsideListElement,
   StyledAsideBurgerButton,
 } from './StyledAdminAside';
+import { useSelector } from 'react-redux';
+import TypesApplicationState from 'types/TypesApplicationState';
+import TypesRegion from 'types/TypesRegion';
+import TypesCity from 'types/TypesCity';
+import TypesAttraction from 'types/TypesAttraction';
+import TypesCulture from 'types/TypesCulture';
+import TypesDish from 'types/TypesDish';
 
 import Logo from 'assets/LOGO.png';
 
@@ -18,6 +25,16 @@ function AdminAside() {
   const [attractionsListShow, setAttractionsListShow] = useState(false);
   const [culturesListShow, setCulturesListShow] = useState(false);
   const [dishesListShow, setDishesListShow] = useState(false);
+
+  const regions = useSelector<TypesApplicationState, TypesRegion[]>((state) => state.admin.regions);
+  const cities = useSelector<TypesApplicationState, TypesCity[]>((state) => state.admin.cities);
+  const attractions = useSelector<TypesApplicationState, TypesAttraction[]>(
+    (state) => state.admin.attractions,
+  );
+  const cultures = useSelector<TypesApplicationState, TypesCulture[]>(
+    (state) => state.admin.cultures,
+  );
+  const dishes = useSelector<TypesApplicationState, TypesDish[]>((state) => state.admin.dishes);
 
   return (
     <>
@@ -30,51 +47,64 @@ function AdminAside() {
         <StyledAsideLink to="/admin/add-culture">Dodaj kulturę</StyledAsideLink>
         <StyledAsideLink to="/admin/add-dish">Dodaj potrawę</StyledAsideLink>
 
-        <StyledAsideListButton onClick={() => setRegionsListShow(!regionsListShow)}>
+        <StyledAsideListButton
+          onClick={() => setRegionsListShow(!regionsListShow)}
+          active={regionsListShow}
+        >
           Regiony
         </StyledAsideListButton>
         <StyledAsideListContainer show={regionsListShow}>
-          <StyledAsideListElement>asdasd </StyledAsideListElement>
-          <StyledAsideListElement>asdasd </StyledAsideListElement>
+          {regions.map((item: any) => (
+            <StyledAsideListElement key={item.name}>{item.name}</StyledAsideListElement>
+          ))}
         </StyledAsideListContainer>
 
-        <StyledAsideListButton onClick={() => setCitiesListShow(!citiesListShow)}>
+        <StyledAsideListButton
+          onClick={() => setCitiesListShow(!citiesListShow)}
+          active={citiesListShow}
+        >
           Miasta
         </StyledAsideListButton>
         <StyledAsideListContainer show={citiesListShow}>
-          <StyledAsideListElement>asdasd </StyledAsideListElement>
-          <StyledAsideListElement>asdasd </StyledAsideListElement>
+          {cities.map((item: any) => (
+            <StyledAsideListElement key={item.name}>{item.name}</StyledAsideListElement>
+          ))}
         </StyledAsideListContainer>
 
-        <StyledAsideListButton onClick={() => setAttractionsListShow(!attractionsListShow)}>
+        <StyledAsideListButton
+          onClick={() => setAttractionsListShow(!attractionsListShow)}
+          active={attractionsListShow}
+        >
           Atrakcje
         </StyledAsideListButton>
         <StyledAsideListContainer show={attractionsListShow}>
-          <StyledAsideListElement>asdasd </StyledAsideListElement>
-          <StyledAsideListElement>asdasd </StyledAsideListElement>
-          <StyledAsideListElement>asdasd </StyledAsideListElement>
-          <StyledAsideListElement>asdasd </StyledAsideListElement>
-          <StyledAsideListElement>asdasd </StyledAsideListElement>
-          <StyledAsideListElement>asdasd </StyledAsideListElement>
-          <StyledAsideListElement>asdasd </StyledAsideListElement>
-          <StyledAsideListElement>asdasd </StyledAsideListElement>
-          <StyledAsideListElement>asdasd </StyledAsideListElement>
+          {attractions.map((item: any) => (
+            <StyledAsideListElement key={item.name}>{item.name}</StyledAsideListElement>
+          ))}
         </StyledAsideListContainer>
 
-        <StyledAsideListButton onClick={() => setCulturesListShow(!culturesListShow)}>
+        <StyledAsideListButton
+          onClick={() => setCulturesListShow(!culturesListShow)}
+          active={culturesListShow}
+        >
           Kultury
         </StyledAsideListButton>
         <StyledAsideListContainer show={culturesListShow}>
-          <StyledAsideListElement>asdasd </StyledAsideListElement>
-          <StyledAsideListElement>asdasd </StyledAsideListElement>
+          {cultures.map((item: any) => (
+            <StyledAsideListElement key={item.name}>{item.name}</StyledAsideListElement>
+          ))}
         </StyledAsideListContainer>
 
-        <StyledAsideListButton onClick={() => setDishesListShow(!dishesListShow)}>
+        <StyledAsideListButton
+          onClick={() => setDishesListShow(!dishesListShow)}
+          active={dishesListShow}
+        >
           Potrawy
         </StyledAsideListButton>
         <StyledAsideListContainer show={dishesListShow}>
-          <StyledAsideListElement>asdasd </StyledAsideListElement>
-          <StyledAsideListElement>asdasd </StyledAsideListElement>
+          {dishes.map((item: any) => (
+            <StyledAsideListElement key={item.name}>{item.name}</StyledAsideListElement>
+          ))}
         </StyledAsideListContainer>
       </StyledAside>
 

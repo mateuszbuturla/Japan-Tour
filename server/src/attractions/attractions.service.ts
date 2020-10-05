@@ -25,6 +25,11 @@ export class AttractionsService {
     return attractions;
   }
 
+  async getAllAttractions() {
+    const attractions = await this.attractionModel.find().exec();
+    return attractions;
+  }
+
   async getAllFromCity(city: string) {
     const attractions = await this.attractionModel.find({ city }).exec();
     return attractions;

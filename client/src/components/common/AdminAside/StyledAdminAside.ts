@@ -43,7 +43,12 @@ const StyledAsideLink = styled(Link)`
   cursor: pointer;
 `;
 
-const StyledAsideListButton = styled.button`
+interface StyledAsideListButtonProps {
+  active: boolean;
+}
+
+const StyledAsideListButton = styled.button<StyledAsideListButtonProps>`
+  position: relative;
   width: 100%;
   padding: 10px 20px;
   text-align: left;
@@ -54,6 +59,20 @@ const StyledAsideListButton = styled.button`
   border-bottom: 1px solid #3a3a3a;
   outline: none;
   cursor: pointer;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: 30px;
+    transform: translateY(-50%) ${(props) => (props.active ? 'rotate(180deg)' : '')};
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 10px 5px 0 5px;
+    border-color: #a3a3a3 transparent transparent transparent;
+    transition: 0.1s;
+  }
 `;
 
 interface StyledAsideListContainerProps {
