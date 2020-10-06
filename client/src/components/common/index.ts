@@ -11,6 +11,9 @@ import AttractionsGroup from './AttractionsGroup';
 import AsideInfo from './AsideInfo';
 import OtherSectionElementsGroup from './OtherSectionElementsGroup';
 import AdminAside from './AdminAside';
+import Form from './Form';
+import Input from './Input';
+import Button from './Button';
 
 export {
   HomeHeader,
@@ -26,4 +29,7 @@ export {
   AsideInfo,
   OtherSectionElementsGroup,
   AdminAside,
+  Form,
+  Input,
+  Button,
 };

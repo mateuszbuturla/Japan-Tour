@@ -4,6 +4,7 @@ import { StyledAdminContainer } from './StyledAdmin';
 import Api from 'utils/Api';
 import { useDispatch } from 'react-redux';
 import actions from 'actions/admin/actions';
+import RoutingAdmin from 'components/routing/admin';
 
 interface Props {
   setTitle: Function;
@@ -49,6 +50,7 @@ function Admin({ setTitle }: Props) {
   return (
     <StyledAdminContainer>
       <AdminAside />
+      <RoutingAdmin />
     </StyledAdminContainer>
   );
 }

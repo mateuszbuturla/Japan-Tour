@@ -61,7 +61,7 @@ function AdminAside() {
           Regiony
         </StyledAsideListButton>
         <StyledAsideListContainer show={regionsListShow}>
-          {regions.map((item: any) => (
+          {regions.map((item) => (
             <StyledAsideListElement key={item.name} onClick={() => redirect(`regions/${item.key}`)}>
               {item.name}
             </StyledAsideListElement>
@@ -75,7 +75,7 @@ function AdminAside() {
           Miasta
         </StyledAsideListButton>
         <StyledAsideListContainer show={citiesListShow}>
-          {cities.map((item: any) => (
+          {cities.map((item) => (
             <StyledAsideListElement key={item.name} onClick={() => redirect(`cities/${item.key}`)}>
               {item.name}
             </StyledAsideListElement>
@@ -89,7 +89,7 @@ function AdminAside() {
           Atrakcje
         </StyledAsideListButton>
         <StyledAsideListContainer show={attractionsListShow}>
-          {attractions.map((item: any) => (
+          {attractions.map((item) => (
             <StyledAsideListElement
               key={item.name}
               onClick={() => redirect(`attractions/${item.key}`)}
@@ -106,7 +106,7 @@ function AdminAside() {
           Kultury
         </StyledAsideListButton>
         <StyledAsideListContainer show={culturesListShow}>
-          {cultures.map((item: any) => (
+          {cultures.map((item) => (
             <StyledAsideListElement
               key={item.name}
               onClick={() => redirect(`cultures/${item.key}`)}
@@ -123,7 +123,7 @@ function AdminAside() {
           Potrawy
         </StyledAsideListButton>
         <StyledAsideListContainer show={dishesListShow}>
-          {dishes.map((item: any) => (
+          {dishes.map((item) => (
             <StyledAsideListElement key={item.name} onClick={() => redirect(`dishes/${item.key}`)}>
               {item.name}
             </StyledAsideListElement>
