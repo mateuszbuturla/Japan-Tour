@@ -9,6 +9,7 @@ import {
   StyledAsideBurgerButton,
 } from './StyledAdminAside';
 import { useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import TypesApplicationState from 'types/TypesApplicationState';
 import TypesRegion from 'types/TypesRegion';
 import TypesCity from 'types/TypesCity';
@@ -16,9 +17,11 @@ import TypesAttraction from 'types/TypesAttraction';
 import TypesCulture from 'types/TypesCulture';
 import TypesDish from 'types/TypesDish';
 
-import Logo from 'assets/LOGO.png';
+import Logo from 'assets/logo.png';
 
 function AdminAside() {
+  const history = useHistory();
+
   const [showAside, setShowAside] = useState(false);
   const [regionsListShow, setRegionsListShow] = useState(false);
   const [citiesListShow, setCitiesListShow] = useState(false);
@@ -36,10 +39,14 @@ function AdminAside() {
   );
   const dishes = useSelector<TypesApplicationState, TypesDish[]>((state) => state.admin.dishes);
 
+  const redirect = (to: string) => {
+    history.push(`/admin/${to}`);
+  };
+
   return (
     <>
       <StyledAside show={showAside}>
-        <StyledAsideLogo src={Logo} />
+        <StyledAsideLogo src={Logo} onClick={() => history.push('/')} />
 
         <StyledAsideLink to="/admin/add-city">Dodaj miasto</StyledAsideLink>
         <StyledAsideLink to="/admin/add-attraction">Dodaj atrakcję</StyledAsideLink>
@@ -55,7 +62,9 @@ function AdminAside() {
         </StyledAsideListButton>
         <StyledAsideListContainer show={regionsListShow}>
           {regions.map((item: any) => (
-            <StyledAsideListElement key={item.name}>{item.name}</StyledAsideListElement>
+            <StyledAsideListElement key={item.name} onClick={() => redirect(`regions/${item.key}`)}>
+              {item.name}
+            </StyledAsideListElement>
           ))}
         </StyledAsideListContainer>
 
@@ -67,7 +76,9 @@ function AdminAside() {
         </StyledAsideListButton>
         <StyledAsideListContainer show={citiesListShow}>
           {cities.map((item: any) => (
-            <StyledAsideListElement key={item.name}>{item.name}</StyledAsideListElement>
+            <StyledAsideListElement key={item.name} onClick={() => redirect(`cities/${item.key}`)}>
+              {item.name}
+            </StyledAsideListElement>
           ))}
         </StyledAsideListContainer>
 
@@ -79,7 +90,12 @@ function AdminAside() {
         </StyledAsideListButton>
         <StyledAsideListContainer show={attractionsListShow}>
           {attractions.map((item: any) => (
-            <StyledAsideListElement key={item.name}>{item.name}</StyledAsideListElement>
+            <StyledAsideListElement
+              key={item.name}
+              onClick={() => redirect(`attractions/${item.key}`)}
+            >
+              {item.name}
+            </StyledAsideListElement>
           ))}
         </StyledAsideListContainer>
 
@@ -91,7 +107,12 @@ function AdminAside() {
         </StyledAsideListButton>
         <StyledAsideListContainer show={culturesListShow}>
           {cultures.map((item: any) => (
-            <StyledAsideListElement key={item.name}>{item.name}</StyledAsideListElement>
+            <StyledAsideListElement
+              key={item.name}
+              onClick={() => redirect(`cultures/${item.key}`)}
+            >
+              {item.name}
+            </StyledAsideListElement>
           ))}
         </StyledAsideListContainer>
 
@@ -103,7 +124,9 @@ function AdminAside() {
         </StyledAsideListButton>
         <StyledAsideListContainer show={dishesListShow}>
           {dishes.map((item: any) => (
-            <StyledAsideListElement key={item.name}>{item.name}</StyledAsideListElement>
+            <StyledAsideListElement key={item.name} onClick={() => redirect(`dishes/${item.key}`)}>
+              {item.name}
+            </StyledAsideListElement>
           ))}
         </StyledAsideListContainer>
       </StyledAside>

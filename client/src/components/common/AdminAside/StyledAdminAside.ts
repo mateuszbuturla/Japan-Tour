@@ -19,14 +19,15 @@ const StyledAside = styled.aside<StyledAsideProps>`
 
   @media (min-width: ${(props) => props.theme.breakPoints.md}) {
     left: 0;
-    width: 300px;
+    width: 250px;
   }
 `;
 
 const StyledAsideLogo = styled.img`
   display: block;
   width: 90%;
-  margin: 0 auto;
+  margin: 30px auto;
+  cursor: pointer;
 `;
 
 const StyledAsideLink = styled(Link)`
@@ -89,6 +90,7 @@ const StyledAsideListElement = styled.li`
   width: calc(100%);
   border-bottom: 1px solid #3a3a3a;
   padding: 10px 0px 10px 40px;
+  cursor: pointer;
 `;
 
 interface StyledAsideBurgerButtonProps {
