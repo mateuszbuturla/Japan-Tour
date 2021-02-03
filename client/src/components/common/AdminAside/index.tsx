@@ -17,7 +17,7 @@ import TypesAttraction from 'types/TypesAttraction';
 import TypesCulture from 'types/TypesCulture';
 import TypesDish from 'types/TypesDish';
 
-import Logo from 'assets/logo.png';
+import Logo from 'assets/LOGO.png';
 
 function AdminAside() {
   const history = useHistory();

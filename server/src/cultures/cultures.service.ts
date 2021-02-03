@@ -37,6 +37,7 @@ export class CulturesService {
 
   async createCulture(data: Culture) {
     let res;
+
     const existCulture = await this.cultureModel
       .findOne({
         $or: [{ name: data.name }, { key: NormalizeString(data.name) }],
@@ -48,7 +49,7 @@ export class CulturesService {
         name: data.name,
         key: NormalizeString(data.name),
         category: data.category,
-        img: data.img,
+        img: "ewqeqweqweqw",
         shortDescription: data.shortDescription,
         description: data.description,
         otherData: data.otherData,
@@ -57,7 +58,7 @@ export class CulturesService {
     } else {
       throw new HttpException("Culture is exist.", 409);
     }
-
+    console.log(res);
     return res;
   }
 

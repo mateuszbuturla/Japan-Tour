@@ -9,7 +9,7 @@ import {
 } from './StyledInput';
 
 interface Props {
-  type?: 'text' | 'select';
+  type?: 'text' | 'select' | 'file';
   id: string;
   label: string;
   name: string;
@@ -39,6 +39,26 @@ function Input({
             {label}
           </StyledInputLabel>
           <StyledInput
+            id={id}
+            name={name}
+            defaultValue={defaultValue}
+            placeholder={placeholder}
+            error={errorMessage ? true : false}
+            ref={inputRef}
+          />
+          {errorMessage ? <StyledInputError>{errorMessage}</StyledInputError> : null}
+        </StyledInputContainer>
+      )}
+
+      {type === 'file' && (
+        <StyledInputContainer>
+          <StyledInputLabel htmlFor={id} error={errorMessage ? true : false}>
+            {label}
+          </StyledInputLabel>
+          <StyledInput
+            type="file"
+            accept="image/png, image/jpeg"
+            multiple={false}
             id={id}
             name={name}
             defaultValue={defaultValue}

@@ -14,6 +14,7 @@ import AdminAside from './AdminAside';
 import Form from './Form';
 import Input from './Input';
 import Button from './Button';
+import FormList from './FormList';
 
 export {
   HomeHeader,
@@ -32,4 +33,5 @@ export {
   Form,
   Input,
   Button,
+  FormList,
 };

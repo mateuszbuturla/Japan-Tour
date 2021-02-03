@@ -46,7 +46,7 @@ export class DishesService {
         name: data.name,
         key: NormalizeString(data.name),
         category: data.category,
-        img: data.img,
+        img: "werwerwerwerew",
         shortDescription: data.shortDescription,
         description: data.description,
         otherData: data.otherData,

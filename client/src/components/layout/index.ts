@@ -1,4 +1,5 @@
 import Footer from './Footer';
 import AddCategory from './AddCategory';
+import AddCulture from './AddCulture';
 
-export { Footer, AddCategory };
+export { Footer, AddCategory, AddCulture };
