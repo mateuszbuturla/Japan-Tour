@@ -15,7 +15,6 @@ export class RegionsController {
 
   @Post("create")
   createRegion(@Body() data: Region) {
-    console.log(data);
     return this.regionsService.createRegion(data);
   }
 
