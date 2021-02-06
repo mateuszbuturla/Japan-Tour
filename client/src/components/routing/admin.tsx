@@ -1,6 +1,6 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
-import { AddCategory, AddCulture, AddRegion } from 'components/layout';
+import { AddCategory, AddCulture, AddRegion, AddCity } from 'components/layout';
 
 function RoutingAdmin() {
   return (
@@ -23,6 +23,11 @@ function RoutingAdmin() {
       <Route
         path="/admin/add-region"
         component={(props: any) => <AddRegion {...props} api="regions" />}
+        exact
+      />
+      <Route
+        path="/admin/add-city"
+        component={(props: any) => <AddCity {...props} api="cities" />}
         exact
       />
     </Switch>
