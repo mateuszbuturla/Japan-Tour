@@ -5,6 +5,7 @@ import Api from 'utils/Api';
 import TypesElementCategory from 'types/TypesElementCategory';
 import TypesRegion from 'types/TypesRegion';
 import TypesCity from 'types/TypesCity';
+import AddNotification from 'utils/AddNotification';
 
 interface Props {
   api: string;
@@ -73,7 +74,16 @@ function AddAttraction({ api }: Props) {
     let newData = data;
     console.log(data.bestAttractions);
     newData.bestAttractions = data.bestAttractions === 'yes' ? true : false;
-    const res = await Api.post(`/${api}/create`, newData);
+    try {
+      const res = await Api.post(`/${api}/create`, newData);
+      if (res.status === 201) {
+        AddNotification('Dodano', 'Nowa atrakcja została dodana', 'success');
+      }
+    } catch (err) {
+      if (err.response.status === 409) {
+        AddNotification('Błąd', 'Taka atrakcja już istnieje', 'danger');
+      }
+    }
   };
 
   const addNewInputToDescription = (e: any) => {
