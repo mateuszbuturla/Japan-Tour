@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Form, Input, Button, FormList } from 'components/common';
 import { useForm, useFieldArray } from 'react-hook-form';
 import Api from 'utils/Api';
+import TypesElementCategory from 'types/TypesElementCategory';
 import TypesRegion from 'types/TypesRegion';
 import TypesCity from 'types/TypesCity';
 
@@ -11,6 +12,7 @@ interface Props {
 
 function AddAttraction({ api }: Props) {
   const { register, handleSubmit, errors, control } = useForm();
+  const [categories, setCategories] = useState();
   const [regions, setRegions] = useState();
   const [cities, setCities] = useState();
 
@@ -31,6 +33,16 @@ function AddAttraction({ api }: Props) {
     control,
     name: 'otherData',
   });
+
+  const getCategories = async () => {
+    let res = await Api.get(`/categories/${api}`);
+    console.log(res.data);
+    let newCategories: String[] = [];
+    res.data.map((item: TypesElementCategory) => {
+      newCategories = [...newCategories, item.key];
+    });
+    setCategories(newCategories);
+  };
 
   const getRegions = async () => {
     let res = await Api.get(`/regions`);
@@ -54,11 +66,14 @@ function AddAttraction({ api }: Props) {
   useEffect(() => {
     getRegions();
     getCities();
+    getCategories();
   }, []);
 
   const onSubmit = async (data: any, e: any) => {
-    console.log(data);
-    const res = await Api.post(`/${api}/create`, data);
+    let newData = data;
+    console.log(data.bestAttractions);
+    newData.bestAttractions = data.bestAttractions === 'yes' ? true : false;
+    const res = await Api.post(`/${api}/create`, newData);
   };
 
   const addNewInputToDescription = (e: any) => {
@@ -96,13 +111,22 @@ function AddAttraction({ api }: Props) {
         errorMessage={errors.name ? 'To pole nie może być puste' : ''}
       />
       <Input
-        id="bestAttraction"
+        id="bestAttractions"
         label="Topowa atrakcja"
-        name="bestAttraction"
+        name="bestAttractions"
         inputRef={register({ required: true })}
         errorMessage={errors.section ? 'To pole nie może być puste' : ''}
         type="select"
         options={['yes', 'no']}
+      />
+      <Input
+        id="category"
+        label="Kategoria"
+        name="category"
+        inputRef={register({ required: true })}
+        errorMessage={errors.section ? 'To pole nie może być puste' : ''}
+        type="select"
+        options={categories}
       />
       <Input
         id="region"
