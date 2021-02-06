@@ -9,7 +9,6 @@ interface Props {
 
 function AddRegion({ api }: Props) {
   const { register, handleSubmit, errors, control } = useForm();
-  const [regions, setRegions] = useState();
 
   const {
     fields: descriptionFields,
