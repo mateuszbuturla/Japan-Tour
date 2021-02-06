@@ -48,6 +48,7 @@ function AdminAside() {
       <StyledAside show={showAside}>
         <StyledAsideLogo src={Logo} onClick={() => history.push('/')} />
 
+        <StyledAsideLink to="/admin/add-region">Dodaj region</StyledAsideLink>
         <StyledAsideLink to="/admin/add-city">Dodaj miasto</StyledAsideLink>
         <StyledAsideLink to="/admin/add-attraction">Dodaj atrakcję</StyledAsideLink>
         <StyledAsideLink to="/admin/add-category">Dodaj kategorię</StyledAsideLink>
