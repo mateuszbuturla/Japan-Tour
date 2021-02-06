@@ -3,6 +3,7 @@ import { Form, Input, Button, FormList } from 'components/common';
 import { useForm, useFieldArray } from 'react-hook-form';
 import Api from 'utils/Api';
 import TypesRegion from 'types/TypesRegion';
+import AddNotification from 'utils/AddNotification';
 
 interface Props {
   api: string;
@@ -44,8 +45,16 @@ function AddCity({ api }: Props) {
   }, []);
 
   const onSubmit = async (data: any, e: any) => {
-    console.log(data);
-    const res = await Api.post(`/${api}/create`, data);
+    try {
+      const res = await Api.post(`/${api}/create`, data);
+      if (res.status === 201) {
+        AddNotification('Dodano', 'Nowe miasto zostało dodane', 'success');
+      }
+    } catch (err) {
+      if (err.response.status === 409) {
+        AddNotification('Błąd', 'Takie miasto już istnieje', 'danger');
+      }
+    }
   };
 
   const addNewInputToDescription = (e: any) => {

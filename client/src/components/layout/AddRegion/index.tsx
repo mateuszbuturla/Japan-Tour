@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Form, Input, Button, FormList } from 'components/common';
 import { useForm, useFieldArray } from 'react-hook-form';
 import Api from 'utils/Api';
+import AddNotification from 'utils/AddNotification';
 
 interface Props {
   api: string;
@@ -29,8 +30,16 @@ function AddRegion({ api }: Props) {
   });
 
   const onSubmit = async (data: any, e: any) => {
-    console.log(data);
-    const res = await Api.post(`/${api}/create`, data);
+    try {
+      const res = await Api.post(`/${api}/create`, data);
+      if (res.status === 201) {
+        AddNotification('Dodano', 'Nowy region został dodany', 'success');
+      }
+    } catch (err) {
+      if (err.response.status === 409) {
+        AddNotification('Błąd', 'Taki region już istnieje', 'danger');
+      }
+    }
   };
 
   const addNewInputToDescription = (e: any) => {

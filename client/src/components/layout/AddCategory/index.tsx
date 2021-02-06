@@ -2,12 +2,22 @@ import React from 'react';
 import { Form, Input, Button } from 'components/common';
 import { useForm } from 'react-hook-form';
 import Api from 'utils/Api';
+import AddNotification from 'utils/AddNotification';
 
 function AddCategory() {
   const { register, handleSubmit, errors } = useForm();
 
   const onSubmit = async (data: any, e: any) => {
-    const res = await Api.post('/categories/create', data);
+    try {
+      const res = await Api.post('/categories/create', data);
+      if (res.status === 201) {
+        AddNotification('Dodano', 'Nowa kategoria została dodana', 'success');
+      }
+    } catch (err) {
+      if (err.response.status === 409) {
+        AddNotification('Błąd', 'Taka kategoria już istnieje', 'danger');
+      }
+    }
   };
 
   return (

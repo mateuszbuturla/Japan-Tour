@@ -1,4 +1,6 @@
 import React, { useEffect } from 'react';
+import ReactNotification, { store } from 'react-notifications-component';
+import 'react-notifications-component/dist/theme.css';
 import { AdminAside } from 'components/common';
 import { StyledAdminContainer } from './StyledAdmin';
 import Api from 'utils/Api';
@@ -48,10 +50,13 @@ function Admin({ setTitle }: Props) {
   }, []);
 
   return (
-    <StyledAdminContainer>
-      <AdminAside />
-      <RoutingAdmin />
-    </StyledAdminContainer>
+    <>
+      <ReactNotification />
+      <StyledAdminContainer>
+        <AdminAside />
+        <RoutingAdmin />
+      </StyledAdminContainer>
+    </>
   );
 }
 
