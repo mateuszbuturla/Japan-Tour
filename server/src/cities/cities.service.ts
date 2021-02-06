@@ -60,7 +60,7 @@ export class CitiesService {
         key: NormalizeString(data.name),
         region: data.region,
         description: data.description,
-        img: data.img,
+        img: "hokkaido.jpg",
         otherData: data.otherData,
       });
       res = await newCity.save();

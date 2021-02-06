@@ -26,7 +26,7 @@ function AddCategory() {
         inputRef={register({ required: true })}
         errorMessage={errors.section ? 'To pole nie może być puste' : ''}
         type="select"
-        options={['dishes', 'cultures']}
+        options={['dishes', 'cultures', 'attractions']}
       />
       <Button text="Dodaj" />
     </Form>

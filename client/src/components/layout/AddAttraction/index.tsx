@@ -1,14 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Form, Input, Button, FormList } from 'components/common';
 import { useForm, useFieldArray } from 'react-hook-form';
 import Api from 'utils/Api';
+import TypesElementCategory from 'types/TypesElementCategory';
+import TypesRegion from 'types/TypesRegion';
+import TypesCity from 'types/TypesCity';
 
 interface Props {
   api: string;
 }
 
-function AddRegion({ api }: Props) {
+function AddAttraction({ api }: Props) {
   const { register, handleSubmit, errors, control } = useForm();
+  const [categories, setCategories] = useState();
+  const [regions, setRegions] = useState();
+  const [cities, setCities] = useState();
 
   const {
     fields: descriptionFields,
@@ -28,9 +34,46 @@ function AddRegion({ api }: Props) {
     name: 'otherData',
   });
 
+  const getCategories = async () => {
+    let res = await Api.get(`/categories/${api}`);
+    console.log(res.data);
+    let newCategories: String[] = [];
+    res.data.map((item: TypesElementCategory) => {
+      newCategories = [...newCategories, item.key];
+    });
+    setCategories(newCategories);
+  };
+
+  const getRegions = async () => {
+    let res = await Api.get(`/regions`);
+    let newRegions: String[] = [];
+    res.data.map((item: TypesRegion) => {
+      newRegions = [...newRegions, item.key];
+    });
+    setRegions(newRegions);
+  };
+
+  const getCities = async () => {
+    let res = await Api.get(`/cities`);
+    let newCities: String[] = [];
+    res.data.map((item: TypesCity) => {
+      newCities = [...newCities, item.key];
+    });
+    console.log(newCities);
+    setCities(newCities);
+  };
+
+  useEffect(() => {
+    getRegions();
+    getCities();
+    getCategories();
+  }, []);
+
   const onSubmit = async (data: any, e: any) => {
-    console.log(data);
-    const res = await Api.post(`/${api}/create`, data);
+    let newData = data;
+    console.log(data.bestAttractions);
+    newData.bestAttractions = data.bestAttractions === 'yes' ? true : false;
+    const res = await Api.post(`/${api}/create`, newData);
   };
 
   const addNewInputToDescription = (e: any) => {
@@ -59,6 +102,49 @@ function AddRegion({ api }: Props) {
         inputRef={register({ required: true })}
         errorMessage={errors.name ? 'Zdjęcie jest wyamagane' : ''}
         type="file"
+      />
+      <Input
+        id="shortDescription"
+        label="Krótki opis"
+        name="shortDescription"
+        inputRef={register({ required: true })}
+        errorMessage={errors.name ? 'To pole nie może być puste' : ''}
+      />
+      <Input
+        id="bestAttractions"
+        label="Topowa atrakcja"
+        name="bestAttractions"
+        inputRef={register({ required: true })}
+        errorMessage={errors.section ? 'To pole nie może być puste' : ''}
+        type="select"
+        options={['yes', 'no']}
+      />
+      <Input
+        id="category"
+        label="Kategoria"
+        name="category"
+        inputRef={register({ required: true })}
+        errorMessage={errors.section ? 'To pole nie może być puste' : ''}
+        type="select"
+        options={categories}
+      />
+      <Input
+        id="region"
+        label="Region"
+        name="region"
+        inputRef={register({ required: true })}
+        errorMessage={errors.section ? 'To pole nie może być puste' : ''}
+        type="select"
+        options={regions}
+      />
+      <Input
+        id="city"
+        label="Miasto"
+        name="city"
+        inputRef={register({ required: true })}
+        errorMessage={errors.section ? 'To pole nie może być puste' : ''}
+        type="select"
+        options={cities}
       />
       <FormList title="Opis">
         {descriptionFields.map((item, index) => (
@@ -114,4 +200,4 @@ function AddRegion({ api }: Props) {
   );
 }
 
-export default AddRegion;
+export default AddAttraction;

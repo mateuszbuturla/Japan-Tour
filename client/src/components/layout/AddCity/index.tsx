@@ -1,14 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Form, Input, Button, FormList } from 'components/common';
 import { useForm, useFieldArray } from 'react-hook-form';
 import Api from 'utils/Api';
+import TypesRegion from 'types/TypesRegion';
 
 interface Props {
   api: string;
 }
 
-function AddRegion({ api }: Props) {
+function AddCity({ api }: Props) {
   const { register, handleSubmit, errors, control } = useForm();
+  const [regions, setRegions] = useState();
 
   const {
     fields: descriptionFields,
@@ -27,6 +29,19 @@ function AddRegion({ api }: Props) {
     control,
     name: 'otherData',
   });
+
+  const getRegions = async () => {
+    let res = await Api.get(`/regions`);
+    let newRegions: String[] = [];
+    res.data.map((item: TypesRegion) => {
+      newRegions = [...newRegions, item.key];
+    });
+    setRegions(newRegions);
+  };
+
+  useEffect(() => {
+    getRegions();
+  }, []);
 
   const onSubmit = async (data: any, e: any) => {
     console.log(data);
@@ -51,6 +66,15 @@ function AddRegion({ api }: Props) {
         name="name"
         inputRef={register({ required: true })}
         errorMessage={errors.name ? 'To pole nie może być puste' : ''}
+      />
+      <Input
+        id="region"
+        label="Region"
+        name="region"
+        inputRef={register({ required: true })}
+        errorMessage={errors.section ? 'To pole nie może być puste' : ''}
+        type="select"
+        options={regions}
       />
       <Input
         id="img"
@@ -114,4 +138,4 @@ function AddRegion({ api }: Props) {
   );
 }
 
-export default AddRegion;
+export default AddCity;
