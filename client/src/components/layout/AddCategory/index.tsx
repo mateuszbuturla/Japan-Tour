@@ -12,6 +12,7 @@ function AddCategory() {
       const res = await Api.post('/categories/create', data);
       if (res.status === 201) {
         AddNotification('Dodano', 'Nowa kategoria została dodana', 'success');
+        e.target.reset();
       }
     } catch (err) {
       if (err.response.status === 409) {

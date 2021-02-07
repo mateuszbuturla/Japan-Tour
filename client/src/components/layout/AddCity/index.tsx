@@ -49,6 +49,7 @@ function AddCity({ api }: Props) {
       const res = await Api.post(`/${api}/create`, data);
       if (res.status === 201) {
         AddNotification('Dodano', 'Nowe miasto zostało dodane', 'success');
+        e.target.reset();
       }
     } catch (err) {
       if (err.response.status === 409) {
