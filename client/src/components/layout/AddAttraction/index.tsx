@@ -78,6 +78,7 @@ function AddAttraction({ api }: Props) {
       const res = await Api.post(`/${api}/create`, newData);
       if (res.status === 201) {
         AddNotification('Dodano', 'Nowa atrakcja została dodana', 'success');
+        e.target.reset();
       }
     } catch (err) {
       if (err.response.status === 409) {

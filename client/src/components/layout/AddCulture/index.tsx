@@ -36,6 +36,7 @@ function AddCulture({ api }: Props) {
       const res = await Api.post(`/${api}/create`, data);
       if (res.status === 201) {
         AddNotification('Dodano', 'Dodano pomyślnie', 'success');
+        e.target.reset();
       }
     } catch (err) {
       if (err.response.status === 409) {
