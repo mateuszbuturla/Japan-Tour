@@ -7,11 +7,12 @@ import { Footer } from 'components/layout';
 
 function App() {
   const location = useLocation();
+  const pathName: String[] = location.pathname.split('/');
 
   return (
     <div className="App">
       <Routing />
-      {location.pathname !== '/' && <Footer />}
+      {pathName[1] !== '/' && pathName[1] !== '' && pathName[1] !== 'admin' && <Footer />}
       <PageTransitionEffect />
     </div>
   );
