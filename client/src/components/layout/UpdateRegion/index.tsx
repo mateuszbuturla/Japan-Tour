@@ -37,7 +37,14 @@ function UpdateRegion({ api }: Props) {
   const onSubmit = async (data: any, e: any) => {
     try {
       const res = await Api.patch(`/${api}/update/${id}`, data);
-    } catch (err) {}
+      if (res.status === 200) {
+        AddNotification('Dodano', 'Region został zaktualizowany', 'success');
+      }
+    } catch (err) {
+      if (err.response.status === 409) {
+        AddNotification('Błąd', 'Wystąpił błąd', 'danger');
+      }
+    }
   };
 
   const addNewInputToDescription = (e: any) => {
