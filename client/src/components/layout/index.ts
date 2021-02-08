@@ -4,5 +4,6 @@ import AddCulture from './AddCulture';
 import AddRegion from './AddRegion';
 import AddCity from './AddCity';
 import AddAttraction from './AddAttraction';
+import UpdateRegion from './UpdateRegion';
 
-export { Footer, AddCategory, AddCulture, AddRegion, AddCity, AddAttraction };
+export { Footer, AddCategory, AddCulture, AddRegion, AddCity, AddAttraction, UpdateRegion };
