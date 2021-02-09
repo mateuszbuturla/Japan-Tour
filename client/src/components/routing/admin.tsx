@@ -8,6 +8,7 @@ import {
   AddAttraction,
   UpdateRegion,
   UpdateCity,
+  UpdateAttraction,
 } from 'components/layout';
 
 function RoutingAdmin() {
@@ -51,6 +52,11 @@ function RoutingAdmin() {
       <Route
         path="/admin/cities/:id"
         component={(props: any) => <UpdateCity {...props} api="cities" />}
+        exact
+      />
+      <Route
+        path="/admin/attractions/:id"
+        component={(props: any) => <UpdateAttraction {...props} api="attractions" />}
         exact
       />
     </Switch>

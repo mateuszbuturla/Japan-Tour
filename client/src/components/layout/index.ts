@@ -6,6 +6,7 @@ import AddCity from './AddCity';
 import AddAttraction from './AddAttraction';
 import UpdateRegion from './UpdateRegion';
 import UpdateCity from './UpdateCity';
+import UpdateAttraction from './UpdateAttraction';
 
 export {
   Footer,
@@ -16,4 +17,5 @@ export {
   AddAttraction,
   UpdateRegion,
   UpdateCity,
+  UpdateAttraction,
 };
