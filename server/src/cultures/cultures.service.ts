@@ -89,7 +89,7 @@ export class CulturesService {
         shortDescription: data.shortDescription,
         description: data.description,
         category: data.category,
-        img: data.img,
+        img: "hokkaido.png",
         otherData: data.otherData,
       };
 

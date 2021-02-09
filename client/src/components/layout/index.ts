@@ -7,6 +7,7 @@ import AddAttraction from './AddAttraction';
 import UpdateRegion from './UpdateRegion';
 import UpdateCity from './UpdateCity';
 import UpdateAttraction from './UpdateAttraction';
+import UpdateCultureDish from './UpdateCultureDish';
 
 export {
   Footer,
@@ -18,4 +19,5 @@ export {
   UpdateRegion,
   UpdateCity,
   UpdateAttraction,
+  UpdateCultureDish,
 };

@@ -9,6 +9,7 @@ import {
   UpdateRegion,
   UpdateCity,
   UpdateAttraction,
+  UpdateCultureDish,
 } from 'components/layout';
 
 function RoutingAdmin() {
@@ -57,6 +58,16 @@ function RoutingAdmin() {
       <Route
         path="/admin/attractions/:id"
         component={(props: any) => <UpdateAttraction {...props} api="attractions" />}
+        exact
+      />
+      <Route
+        path="/admin/cultures/:id"
+        component={(props: any) => <UpdateCultureDish {...props} api="cultures" />}
+        exact
+      />
+      <Route
+        path="/admin/dishes/:id"
+        component={(props: any) => <UpdateCultureDish {...props} api="dishes" />}
         exact
       />
     </Switch>
