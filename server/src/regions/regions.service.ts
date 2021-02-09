@@ -71,13 +71,13 @@ export class RegionsService {
     let res;
 
     try {
-      const newData = {
+      let newData = {
         name: data.name,
         url: NormalizeString(data.name),
         key: NormalizeString(data.name),
         description: data.description,
-        img: data.img,
         otherData: data.otherData,
+        img: "hokkaido.png",
       };
 
       const updatedRegions = await this.regionModel.updateOne({ key }, newData);
@@ -90,6 +90,7 @@ export class RegionsService {
         throw new HttpException("Could not update region.", 409);
       }
     } catch (error) {
+      console.log(error);
       throw new HttpException("Could not update region.", 409);
     }
 
