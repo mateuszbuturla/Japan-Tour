@@ -8,6 +8,7 @@ import AddNotification from 'utils/AddNotification';
 import TypesDish from 'types/TypesDish';
 import TypesCulture from 'types/TypesCulture';
 import UploadImage from 'utils/UploadImage';
+import DeleteElement from 'utils/DeleteElement';
 
 interface Props {
   api: string;
@@ -190,6 +191,14 @@ function UpdateCultureDish({ api }: Props) {
           />
         </FormList>
         <Button text="Dodaj" />
+        <Button
+          text="Usuń"
+          bgColor="red"
+          onClick={(e: any) => {
+            e.preventDefault();
+            DeleteElement(api, selectedItem._id);
+          }}
+        />
       </Form>
     );
   }

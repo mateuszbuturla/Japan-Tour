@@ -61,11 +61,11 @@ export class CulturesService {
     return res;
   }
 
-  async removeCulture(key: string) {
+  async removeCulture(id: string) {
     let res;
 
     try {
-      const removedCulture = await this.cultureModel.remove({ key });
+      const removedCulture = await this.cultureModel.remove({ _id: id });
       if (removedCulture.deletedCount > 0) {
         res = "Successfully deleted.";
       } else if (removedCulture.deletedCount === 0) {
