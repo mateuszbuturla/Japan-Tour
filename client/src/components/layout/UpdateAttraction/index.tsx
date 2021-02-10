@@ -9,6 +9,7 @@ import TypesCity from 'types/TypesCity';
 import TypesAttraction from 'types/TypesAttraction';
 import AddNotification from 'utils/AddNotification';
 import UploadImage from 'utils/UploadImage';
+import DeleteElement from 'utils/DeleteElement';
 
 interface Props {
   api: string;
@@ -72,6 +73,7 @@ function UpdateAttraction({ api }: Props) {
   const getSelectedAttractionData = async () => {
     const res = await Api.get(`/${api}/${id}`);
     setSelectedAttraction(res.data);
+    console.log(res.data);
     const description = res.data.description;
     const otherData = res.data.otherData;
     if (description) {
@@ -128,6 +130,7 @@ function UpdateAttraction({ api }: Props) {
   };
 
   if (selectedAttraction !== undefined) {
+    console.log(selectedAttraction._id);
     return (
       <Form onSubmit={handleSubmit(onSubmit)}>
         <Input
@@ -244,6 +247,14 @@ function UpdateAttraction({ api }: Props) {
           />
         </FormList>
         <Button text="Dodaj" />
+        <Button
+          text="Usuń"
+          bgColor="red"
+          onClick={(e: any) => {
+            e.preventDefault();
+            DeleteElement(api, selectedAttraction._id);
+          }}
+        />
       </Form>
     );
   }

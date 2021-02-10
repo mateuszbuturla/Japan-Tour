@@ -24,9 +24,9 @@ export class AttractionsController {
     return this.attractionsService.createAttraction(data);
   }
 
-  @Delete("remove/:key")
-  removeAttraction(@Param("key") key: string) {
-    return this.attractionsService.removeAttraction(key);
+  @Delete("remove/:id")
+  removeAttraction(@Param("id") id: string) {
+    return this.attractionsService.removeAttraction(id);
   }
 
   @Patch("update/:key")

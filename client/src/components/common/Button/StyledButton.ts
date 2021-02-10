@@ -1,11 +1,16 @@
 import styled from 'styled-components';
 
-const StyledButton = styled.button`
+interface StyledButtonProps {
+  bgColor: 'default' | 'red';
+}
+
+const StyledButton = styled.button<StyledButtonProps>`
   width: 100%;
   border: none;
   outline: none;
   padding: 10px;
-  background-color: #7f81d4;
+  background-color: ${(props) =>
+    props.bgColor === 'default' ? '#7f81d4' : props.bgColor === 'red' && '#e31305'};
   cursor: pointer;
   font-weight: bold;
   letter-spacing: 2px;
