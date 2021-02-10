@@ -7,6 +7,7 @@ import TypesElementCategory from 'types/TypesElementCategory';
 import AddNotification from 'utils/AddNotification';
 import TypesDish from 'types/TypesDish';
 import TypesCulture from 'types/TypesCulture';
+import UploadImage from 'utils/UploadImage';
 
 interface Props {
   api: string;
@@ -37,16 +38,26 @@ function UpdateCultureDish({ api }: Props) {
   });
 
   const onSubmit = async (data: any, e: any) => {
-    try {
-      const res = await Api.patch(`/${api}/update/${id}`, data);
-      if (res.status === 200) {
-        AddNotification('Zaktualizowano', 'Zaktualizowano pomyślnie', 'success');
-        e.target.reset();
+    let newData = data;
+
+    const uploadImageRes: any = await UploadImage(data.img[0]);
+
+    if (uploadImageRes) {
+      newData.img = uploadImageRes.data.data.url;
+
+      try {
+        const res = await Api.patch(`/${api}/update/${id}`, newData);
+        if (res.status === 200) {
+          AddNotification('Zaktualizowano', 'Zaktualizowano pomyślnie', 'success');
+          e.target.reset();
+        }
+      } catch (err) {
+        if (err.response.status === 409) {
+          AddNotification('Błąd', 'Wystąpił błąd', 'danger');
+        }
       }
-    } catch (err) {
-      if (err.response.status === 409) {
-        AddNotification('Błąd', 'Wystąpił błąd', 'danger');
-      }
+    } else {
+      AddNotification('Błąd', 'Wystąpił błąd po stronie serwera', 'danger');
     }
   };
 

@@ -98,7 +98,7 @@ export class CitiesService {
         url: NormalizeString(data.name),
         description: data.description,
         region: data.region,
-        img: "hokkaido.png",
+        img: data.img,
         otherData: data.otherData,
       };
 
