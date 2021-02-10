@@ -4,6 +4,7 @@ import { useForm, useFieldArray } from 'react-hook-form';
 import Api from 'utils/Api';
 import TypesRegion from 'types/TypesRegion';
 import AddNotification from 'utils/AddNotification';
+import UploadImage from 'utils/UploadImage';
 
 interface Props {
   api: string;
@@ -45,16 +46,26 @@ function AddCity({ api }: Props) {
   }, []);
 
   const onSubmit = async (data: any, e: any) => {
-    try {
-      const res = await Api.post(`/${api}/create`, data);
-      if (res.status === 201) {
-        AddNotification('Dodano', 'Nowe miasto zostało dodane', 'success');
-        e.target.reset();
+    let newData = data;
+
+    const uploadImageRes: any = await UploadImage(data.img[0]);
+
+    if (uploadImageRes) {
+      newData.img = uploadImageRes.data.data.url;
+      console.log(newData);
+      try {
+        const res = await Api.post(`/${api}/create`, newData);
+        if (res.status === 201) {
+          AddNotification('Dodano', 'Nowe miasto zostało dodane', 'success');
+          e.target.reset();
+        }
+      } catch (err) {
+        if (err.response.status === 409) {
+          AddNotification('Błąd', 'Takie miasto już istnieje', 'danger');
+        }
       }
-    } catch (err) {
-      if (err.response.status === 409) {
-        AddNotification('Błąd', 'Takie miasto już istnieje', 'danger');
-      }
+    } else {
+      AddNotification('Błąd', 'Wystąpił błąd po stronie serwera', 'danger');
     }
   };
 

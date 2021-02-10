@@ -3,6 +3,7 @@ import { Form, Input, Button, FormList } from 'components/common';
 import { useForm, useFieldArray } from 'react-hook-form';
 import Api from 'utils/Api';
 import AddNotification from 'utils/AddNotification';
+import UploadImage from 'utils/UploadImage';
 
 interface Props {
   api: string;
@@ -30,16 +31,27 @@ function AddRegion({ api }: Props) {
   });
 
   const onSubmit = async (data: any, e: any) => {
-    try {
-      const res = await Api.post(`/${api}/create`, data);
-      if (res.status === 201) {
-        AddNotification('Dodano', 'Nowy region został dodany', 'success');
-        e.target.reset();
+    let newData = data;
+
+    const uploadImageRes: any = await UploadImage(data.img[0]);
+    console.log(uploadImageRes);
+
+    if (uploadImageRes) {
+      newData.img = uploadImageRes.data.data.url;
+      console.log(newData);
+      try {
+        const res = await Api.post(`/${api}/create`, newData);
+        if (res.status === 201) {
+          AddNotification('Dodano', 'Nowy region został dodany', 'success');
+          e.target.reset();
+        }
+      } catch (err) {
+        if (err.response.status === 409) {
+          AddNotification('Błąd', 'Taki region już istnieje', 'danger');
+        }
       }
-    } catch (err) {
-      if (err.response.status === 409) {
-        AddNotification('Błąd', 'Taki region już istnieje', 'danger');
-      }
+    } else {
+      AddNotification('Błąd', 'Wystąpił błąd po stronie serwera', 'danger');
     }
   };
 

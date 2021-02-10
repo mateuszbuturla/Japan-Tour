@@ -75,7 +75,7 @@ export class AttractionsService {
         region: data.region,
         city: data.city,
         category: data.category,
-        img: "hokkaido.jpg",
+        img: data.img,
         bestAttractions: data.bestAttractions,
         otherData: data.otherData,
       });

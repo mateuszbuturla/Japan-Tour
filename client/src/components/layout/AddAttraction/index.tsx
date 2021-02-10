@@ -6,6 +6,7 @@ import TypesElementCategory from 'types/TypesElementCategory';
 import TypesRegion from 'types/TypesRegion';
 import TypesCity from 'types/TypesCity';
 import AddNotification from 'utils/AddNotification';
+import UploadImage from 'utils/UploadImage';
 
 interface Props {
   api: string;
@@ -72,18 +73,25 @@ function AddAttraction({ api }: Props) {
 
   const onSubmit = async (data: any, e: any) => {
     let newData = data;
-    console.log(data.bestAttractions);
-    newData.bestAttractions = data.bestAttractions === 'yes' ? true : false;
-    try {
-      const res = await Api.post(`/${api}/create`, newData);
-      if (res.status === 201) {
-        AddNotification('Dodano', 'Nowa atrakcja została dodana', 'success');
-        e.target.reset();
+
+    const uploadImageRes: any = await UploadImage(data.img[0]);
+
+    if (uploadImageRes) {
+      newData.img = uploadImageRes.data.data.url;
+      newData.bestAttractions = data.bestAttractions === 'yes' ? true : false;
+      try {
+        const res = await Api.post(`/${api}/create`, newData);
+        if (res.status === 201) {
+          AddNotification('Dodano', 'Nowa atrakcja została dodana', 'success');
+          e.target.reset();
+        }
+      } catch (err) {
+        if (err.response.status === 409) {
+          AddNotification('Błąd', 'Taka atrakcja już istnieje', 'danger');
+        }
       }
-    } catch (err) {
-      if (err.response.status === 409) {
-        AddNotification('Błąd', 'Taka atrakcja już istnieje', 'danger');
-      }
+    } else {
+      AddNotification('Błąd', 'Wystąpił błąd po stronie serwera', 'danger');
     }
   };
 

@@ -4,6 +4,7 @@ import { useForm, useFieldArray } from 'react-hook-form';
 import Api from 'utils/Api';
 import TypesElementCategory from 'types/TypesElementCategory';
 import AddNotification from 'utils/AddNotification';
+import UploadImage from 'utils/UploadImage';
 
 interface Props {
   api: string;
@@ -32,16 +33,25 @@ function AddCulture({ api }: Props) {
   });
 
   const onSubmit = async (data: any, e: any) => {
-    try {
-      const res = await Api.post(`/${api}/create`, data);
-      if (res.status === 201) {
-        AddNotification('Dodano', 'Dodano pomyślnie', 'success');
-        e.target.reset();
+    let newData = data;
+
+    const uploadImageRes: any = await UploadImage(data.img[0]);
+
+    if (uploadImageRes) {
+      newData.img = uploadImageRes.data.data.url;
+      try {
+        const res = await Api.post(`/${api}/create`, newData);
+        if (res.status === 201) {
+          AddNotification('Dodano', 'Dodano pomyślnie', 'success');
+          e.target.reset();
+        }
+      } catch (err) {
+        if (err.response.status === 409) {
+          AddNotification('Błąd', 'Nazwa jest już zajęta', 'danger');
+        }
       }
-    } catch (err) {
-      if (err.response.status === 409) {
-        AddNotification('Błąd', 'Nazwa jest już zajęta', 'danger');
-      }
+    } else {
+      AddNotification('Błąd', 'Wystąpił błąd po stronie serwera', 'danger');
     }
   };
 

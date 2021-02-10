@@ -47,10 +47,7 @@ function Attraction({ setTitle }: Props) {
     <>
       {attraction && (
         <>
-          <PageHeader
-            text={attraction.name}
-            img={process.env.PUBLIC_URL + '/images/' + attraction.img}
-          />
+          <PageHeader text={attraction.name} img={attraction.img} />
           <StyledPageContainer>
             <StyledMainContentContainer>
               <ItemDescription description={attraction.description} />

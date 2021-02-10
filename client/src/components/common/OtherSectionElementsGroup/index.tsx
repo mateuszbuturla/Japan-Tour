@@ -45,7 +45,7 @@ function OtherSectionElementsGroup({ categoryUrl, header, data }: Props) {
           <StyledTilesContainer>
             {data.map((item: TypesDish | TypesCulture) => (
               <StyledTile onClick={() => handleTileClick(item)}>
-                <StyledTileImage src={process.env.PUBLIC_URL + '/images/' + item.img} />
+                <StyledTileImage src={item.img} />
                 <StyledTitleTypeContainer>
                   <StyledTileTitle>{item.name}</StyledTileTitle>
                   <StyledTileType>{item.category}</StyledTileType>

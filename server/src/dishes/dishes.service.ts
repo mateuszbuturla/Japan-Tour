@@ -46,7 +46,7 @@ export class DishesService {
         name: data.name,
         key: NormalizeString(data.name),
         category: data.category,
-        img: "werwerwerwerew",
+        img: data.img,
         shortDescription: data.shortDescription,
         description: data.description,
         otherData: data.otherData,
@@ -86,7 +86,7 @@ export class DishesService {
         shortDescription: data.shortDescription,
         description: data.description,
         category: data.category,
-        img: "hokkaido.png",
+        img: data.img,
         otherData: data.otherData,
       };
 

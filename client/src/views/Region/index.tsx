@@ -48,7 +48,7 @@ function Region({ setTitle }: Props) {
     <>
       {region && (
         <>
-          <PageHeader text={region.name} img={process.env.PUBLIC_URL + '/images/' + region.img} />
+          <PageHeader text={region.name} img={region.img} />
           <StyledPageContainer>
             <StyledMainContentContainer>
               <ItemDescription description={region.description} />

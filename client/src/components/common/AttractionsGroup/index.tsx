@@ -20,9 +20,7 @@ interface Props {
 
 function AttractionsGroup({ header, attractions }: Props) {
   const history = useHistory();
-  const { pageTransitionEffectRef } = useSelector(
-    (state: TypesApplicationState) => state.refs,
-  );
+  const { pageTransitionEffectRef } = useSelector((state: TypesApplicationState) => state.refs);
 
   const handleTileClick = (item: TypesAttraction) => {
     PageTransitionEffect(pageTransitionEffectRef);
@@ -43,12 +41,8 @@ function AttractionsGroup({ header, attractions }: Props) {
           <StyledAttractionTilesContainer>
             {attractions.map((item: TypesAttraction) => (
               <StyledAttractionTile onClick={() => handleTileClick(item)}>
-                <StyledAttractionTileImage
-                  src={process.env.PUBLIC_URL + '/images/' + item.img}
-                />
-                <StyledAttractionTileTitle>
-                  {item.name}
-                </StyledAttractionTileTitle>
+                <StyledAttractionTileImage src={item.img} />
+                <StyledAttractionTileTitle>{item.name}</StyledAttractionTileTitle>
                 <StyledAttractionTileDescription>
                   {item.shortDescription}
                 </StyledAttractionTileDescription>
