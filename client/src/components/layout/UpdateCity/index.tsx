@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 import { Form, Input, Button, FormList } from 'components/common';
 import { useForm, useFieldArray } from 'react-hook-form';
 import Api from 'utils/Api';
@@ -15,6 +15,7 @@ interface Props {
 
 function UpdateCity({ api }: Props) {
   const { id } = useParams();
+  const history = useHistory();
   const { register, handleSubmit, errors, control } = useForm();
   const [regions, setRegions] = useState();
   const [selectedCity, setSelectedCity] = useState<TypesCity>();
@@ -184,9 +185,16 @@ function UpdateCity({ api }: Props) {
         <Button
           text="Usuń"
           bgColor="red"
-          onClick={(e: any) => {
+          onClick={async (e: any) => {
             e.preventDefault();
-            DeleteElement(api, selectedCity._id);
+            try {
+              const res = await DeleteElement(api, selectedCity._id);
+              if (res.status === 200) {
+                history.push('/admin');
+              }
+            } catch (err) {
+              AddNotification('Błąd', 'Wystąpił błąd', 'danger');
+            }
           }}
         />
       </Form>

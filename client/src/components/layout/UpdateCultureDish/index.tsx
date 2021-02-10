@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 import { Form, Input, Button, FormList } from 'components/common';
 import { useForm, useFieldArray } from 'react-hook-form';
 import Api from 'utils/Api';
@@ -16,6 +16,7 @@ interface Props {
 
 function UpdateCultureDish({ api }: Props) {
   const { id } = useParams();
+  const history = useHistory();
   const { register, handleSubmit, errors, control } = useForm();
   const [categories, setCategories] = useState();
   const [selectedItem, setSelectedItem] = useState<TypesDish | TypesCulture>();
@@ -194,9 +195,16 @@ function UpdateCultureDish({ api }: Props) {
         <Button
           text="Usuń"
           bgColor="red"
-          onClick={(e: any) => {
+          onClick={async (e: any) => {
             e.preventDefault();
-            DeleteElement(api, selectedItem._id);
+            try {
+              const res = await DeleteElement(api, selectedItem._id);
+              if (res.status === 200) {
+                history.push('/admin');
+              }
+            } catch (err) {
+              AddNotification('Błąd', 'Wystąpił błąd', 'danger');
+            }
           }}
         />
       </Form>
