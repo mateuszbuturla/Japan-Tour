@@ -26,9 +26,9 @@ export class CitiesController {
     return this.citiesService.createCity(data);
   }
 
-  @Delete("remove/:key")
-  removeCity(@Param("key") data: string) {
-    return this.citiesService.removeCity(data);
+  @Delete("remove/:id")
+  removeCity(@Param("id") id: string) {
+    return this.citiesService.removeCity(id);
   }
 
   @Patch("update/:key")

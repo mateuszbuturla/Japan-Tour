@@ -71,11 +71,11 @@ export class CitiesService {
     return res;
   }
 
-  async removeCity(key: string) {
+  async removeCity(id: string) {
     let res;
 
     try {
-      const removedCity = await this.cityModel.remove({ key });
+      const removedCity = await this.cityModel.remove({ _id: id });
       if (removedCity.deletedCount > 0) {
         res = "Successfully deleted.";
       } else if (removedCity.deletedCount === 0) {
