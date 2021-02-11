@@ -12,7 +12,7 @@ interface Props {
 
 function AddCity({ api }: Props) {
   const { register, handleSubmit, errors, control } = useForm();
-  const [regions, setRegions] = useState();
+  const [regions, setRegions] = useState<TypesRegion[]>();
 
   const {
     fields: descriptionFields,
@@ -34,11 +34,7 @@ function AddCity({ api }: Props) {
 
   const getRegions = async () => {
     let res = await Api.get(`/regions`);
-    let newRegions: String[] = [];
-    res.data.map((item: TypesRegion) => {
-      newRegions = [...newRegions, item.key];
-    });
-    setRegions(newRegions);
+    setRegions(res.data);
   };
 
   useEffect(() => {
@@ -50,9 +46,12 @@ function AddCity({ api }: Props) {
 
     const uploadImageRes: any = await UploadImage(data.img[0]);
 
-    if (uploadImageRes) {
+    if (uploadImageRes && regions) {
       newData.img = uploadImageRes.data.data.url;
-      console.log(newData);
+      const region = regions.filter((obj) => {
+        return obj.name === data.region;
+      });
+      newData.region = region[0]._id;
       try {
         const res = await Api.post(`/${api}/create`, newData);
         if (res.status === 201) {
@@ -79,6 +78,20 @@ function AddCity({ api }: Props) {
     otherDataAppend({ title: '', value: '' });
   };
 
+  const regionsList = () => {
+    if (regions === undefined) {
+      return [];
+    }
+
+    let regionsListTitle: string[] = [];
+
+    regions.map((item: TypesRegion) => {
+      regionsListTitle = [...regionsListTitle, item.name];
+    });
+
+    return regionsListTitle;
+  };
+
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
       <Input
@@ -95,7 +108,7 @@ function AddCity({ api }: Props) {
         inputRef={register({ required: true })}
         errorMessage={errors.section ? 'To pole nie może być puste' : ''}
         type="select"
-        options={regions}
+        options={regionsList()}
       />
       <Input
         id="img"

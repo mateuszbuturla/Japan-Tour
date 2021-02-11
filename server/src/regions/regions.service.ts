@@ -15,6 +15,7 @@ export class RegionsService {
   async getRegions() {
     const regions = await this.regionModel.find().exec();
     return regions.map((region) => ({
+      _id: region._id,
       name: region.name,
       url: region.url,
       key: region.key,
