@@ -7,6 +7,7 @@ import TypesRegion from 'types/TypesRegion';
 import TypesCity from 'types/TypesCity';
 import AddNotification from 'utils/AddNotification';
 import UploadImage from 'utils/UploadImage';
+import categories from 'actions/categories';
 
 interface Props {
   api: string;
@@ -14,7 +15,7 @@ interface Props {
 
 function AddAttraction({ api }: Props) {
   const { register, handleSubmit, errors, control } = useForm();
-  const [categories, setCategories] = useState();
+  const [categories, setCategories] = useState<TypesElementCategory[]>();
   const [regions, setRegions] = useState();
   const [cities, setCities] = useState();
 
@@ -38,12 +39,7 @@ function AddAttraction({ api }: Props) {
 
   const getCategories = async () => {
     let res = await Api.get(`/categories/${api}`);
-    console.log(res.data);
-    let newCategories: String[] = [];
-    res.data.map((item: TypesElementCategory) => {
-      newCategories = [...newCategories, item.key];
-    });
-    setCategories(newCategories);
+    setCategories(res.data);
   };
 
   const getRegions = async () => {
@@ -76,9 +72,13 @@ function AddAttraction({ api }: Props) {
 
     const uploadImageRes: any = await UploadImage(data.img[0]);
 
-    if (uploadImageRes) {
+    if (uploadImageRes && categories) {
       newData.img = uploadImageRes.data.data.url;
       newData.bestAttractions = data.bestAttractions === 'yes' ? true : false;
+      const category = categories.filter((obj) => {
+        return obj.title === data.category;
+      });
+      newData.category = category[0]._id;
       try {
         const res = await Api.post(`/${api}/create`, newData);
         if (res.status === 201) {
@@ -103,6 +103,20 @@ function AddAttraction({ api }: Props) {
   const addNewInputToOtherData = (e: any) => {
     e.preventDefault();
     otherDataAppend({ title: '', value: '' });
+  };
+
+  const categoriesList = () => {
+    if (categories === undefined) {
+      return [];
+    }
+
+    let categoriesListTitle: string[] = [];
+
+    categories.map((item: TypesElementCategory) => {
+      categoriesListTitle = [...categoriesListTitle, item.title];
+    });
+
+    return categoriesListTitle;
   };
 
   return (
@@ -145,7 +159,7 @@ function AddAttraction({ api }: Props) {
         inputRef={register({ required: true })}
         errorMessage={errors.section ? 'To pole nie może być puste' : ''}
         type="select"
-        options={categories}
+        options={categoriesList()}
       />
       <Input
         id="region"

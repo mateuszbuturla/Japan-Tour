@@ -16,6 +16,7 @@ export class CategoriesService {
   async getCategories(section: string) {
     const categories = await this.categoryModel.find({ section }).exec();
     return categories.map((category) => ({
+      _id: category._id,
       title: category.title,
       key: category.key,
     }));
