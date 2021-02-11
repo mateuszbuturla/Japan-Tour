@@ -12,7 +12,7 @@ interface Props {
 
 function AddCulture({ api }: Props) {
   const { register, handleSubmit, errors, control } = useForm();
-  const [categories, setCategories] = useState();
+  const [categories, setCategories] = useState<TypesElementCategory[]>();
 
   const {
     fields: descriptionFields,
@@ -37,8 +37,12 @@ function AddCulture({ api }: Props) {
 
     const uploadImageRes: any = await UploadImage(data.img[0]);
 
-    if (uploadImageRes) {
+    if (uploadImageRes && categories) {
       newData.img = uploadImageRes.data.data.url;
+      const category = categories.filter((obj) => {
+        return obj.title === data.category;
+      });
+      newData.category = category[0]._id;
       try {
         const res = await Api.post(`/${api}/create`, newData);
         if (res.status === 201) {
@@ -57,12 +61,7 @@ function AddCulture({ api }: Props) {
 
   const getCategories = async () => {
     let res = await Api.get(`/categories/${api}`);
-    console.log(res.data);
-    let newCategories: String[] = [];
-    res.data.map((item: TypesElementCategory) => {
-      newCategories = [...newCategories, item.key];
-    });
-    setCategories(newCategories);
+    setCategories(res.data);
   };
 
   useEffect(() => {
@@ -77,6 +76,20 @@ function AddCulture({ api }: Props) {
   const addNewInputToOtherData = (e: any) => {
     e.preventDefault();
     otherDataAppend({ title: '', value: '' });
+  };
+
+  const categoriesList = () => {
+    if (categories === undefined) {
+      return [];
+    }
+
+    let categoriesListTitle: string[] = [];
+
+    categories.map((item: TypesElementCategory) => {
+      categoriesListTitle = [...categoriesListTitle, item.title];
+    });
+
+    return categoriesListTitle;
   };
 
   return (
@@ -95,7 +108,7 @@ function AddCulture({ api }: Props) {
         inputRef={register({ required: true })}
         errorMessage={errors.section ? 'To pole nie może być puste' : ''}
         type="select"
-        options={categories}
+        options={categoriesList()}
       />
       <Input
         id="img"
