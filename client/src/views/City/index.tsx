@@ -29,19 +29,19 @@ function City({ setTitle }: Props) {
       console.log(res);
       setTitle(res.data.name);
       setCity(res.data);
+      getAttractions(res.data._id);
     } catch (e) {
       history.push('/404');
     }
   };
 
-  const getAttractions = async () => {
-    let res = await Api.get(`/attractions/allFromCity/${cityKey}`);
+  const getAttractions = async (cityId: string) => {
+    let res = await Api.get(`/attractions/allFromCity/${cityId}`);
     setAttractions(res.data);
   };
 
   useEffect(() => {
     getCity();
-    getAttractions();
   }, []);
 
   return (
