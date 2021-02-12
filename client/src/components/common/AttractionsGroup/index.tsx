@@ -26,7 +26,7 @@ function AttractionsGroup({ header, attractions }: Props) {
     PageTransitionEffect(pageTransitionEffectRef);
     setTimeout(
       (item: TypesAttraction) => {
-        history.push(`/podroze/${item.region}/${item.city}${item.url}`);
+        history.push(`/podroze/${item.region}/${item.city}/${item.url}`);
       },
       1000,
       item,

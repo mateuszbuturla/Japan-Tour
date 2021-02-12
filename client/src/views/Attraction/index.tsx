@@ -28,7 +28,8 @@ function Attraction({ setTitle }: Props) {
       setAttraction(res.data);
       getAllAttractionsFromCategory(res.data);
     } catch (e) {
-      history.push('/404');
+      console.log(e);
+      //history.push('/404');
     }
   };
 
