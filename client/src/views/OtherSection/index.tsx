@@ -53,7 +53,7 @@ function OtherSection({ header, categoryUrl, categories, setTitle, api }: Props)
               <OtherSectionElementsGroup
                 key={item.key}
                 header={item.title}
-                data={elements.filter((item2) => item2.category === item.key)}
+                data={elements.filter((item2) => item2.category === item._id)}
                 categoryUrl={categoryUrl}
               />
             ))}

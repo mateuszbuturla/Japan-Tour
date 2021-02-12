@@ -4,6 +4,7 @@ import { useForm, useFieldArray } from 'react-hook-form';
 import Api from 'utils/Api';
 import TypesRegion from 'types/TypesRegion';
 import AddNotification from 'utils/AddNotification';
+import UploadImage from 'utils/UploadImage';
 
 interface Props {
   api: string;
@@ -11,7 +12,7 @@ interface Props {
 
 function AddCity({ api }: Props) {
   const { register, handleSubmit, errors, control } = useForm();
-  const [regions, setRegions] = useState();
+  const [regions, setRegions] = useState<TypesRegion[]>();
 
   const {
     fields: descriptionFields,
@@ -33,11 +34,7 @@ function AddCity({ api }: Props) {
 
   const getRegions = async () => {
     let res = await Api.get(`/regions`);
-    let newRegions: String[] = [];
-    res.data.map((item: TypesRegion) => {
-      newRegions = [...newRegions, item.key];
-    });
-    setRegions(newRegions);
+    setRegions(res.data);
   };
 
   useEffect(() => {
@@ -45,16 +42,29 @@ function AddCity({ api }: Props) {
   }, []);
 
   const onSubmit = async (data: any, e: any) => {
-    try {
-      const res = await Api.post(`/${api}/create`, data);
-      if (res.status === 201) {
-        AddNotification('Dodano', 'Nowe miasto zostało dodane', 'success');
-        e.target.reset();
+    let newData = data;
+
+    const uploadImageRes: any = await UploadImage(data.img[0]);
+
+    if (uploadImageRes && regions) {
+      newData.img = uploadImageRes.data.data.url;
+      const region = regions.filter((obj) => {
+        return obj.name === data.region;
+      });
+      newData.region = region[0]._id;
+      try {
+        const res = await Api.post(`/${api}/create`, newData);
+        if (res.status === 201) {
+          AddNotification('Dodano', 'Nowe miasto zostało dodane', 'success');
+          e.target.reset();
+        }
+      } catch (err) {
+        if (err.response.status === 409) {
+          AddNotification('Błąd', 'Takie miasto już istnieje', 'danger');
+        }
       }
-    } catch (err) {
-      if (err.response.status === 409) {
-        AddNotification('Błąd', 'Takie miasto już istnieje', 'danger');
-      }
+    } else {
+      AddNotification('Błąd', 'Wystąpił błąd po stronie serwera', 'danger');
     }
   };
 
@@ -66,6 +76,20 @@ function AddCity({ api }: Props) {
   const addNewInputToOtherData = (e: any) => {
     e.preventDefault();
     otherDataAppend({ title: '', value: '' });
+  };
+
+  const regionsList = () => {
+    if (regions === undefined) {
+      return [];
+    }
+
+    let regionsListTitle: string[] = [];
+
+    regions.map((item: TypesRegion) => {
+      regionsListTitle = [...regionsListTitle, item.name];
+    });
+
+    return regionsListTitle;
   };
 
   return (
@@ -84,7 +108,7 @@ function AddCity({ api }: Props) {
         inputRef={register({ required: true })}
         errorMessage={errors.section ? 'To pole nie może być puste' : ''}
         type="select"
-        options={regions}
+        options={regionsList()}
       />
       <Input
         id="img"

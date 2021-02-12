@@ -75,7 +75,7 @@ export class AttractionsService {
         region: data.region,
         city: data.city,
         category: data.category,
-        img: "hokkaido.jpg",
+        img: data.img,
         bestAttractions: data.bestAttractions,
         otherData: data.otherData,
       });
@@ -87,11 +87,11 @@ export class AttractionsService {
     return res;
   }
 
-  async removeAttraction(key: string) {
+  async removeAttraction(id: string) {
     let res;
 
     try {
-      const removedAttraction = await this.attractionModel.remove({ key });
+      const removedAttraction = await this.attractionModel.remove({ _id: id });
       if (removedAttraction.deletedCount > 0) {
         res = {
           statusCode: 200,
@@ -120,7 +120,7 @@ export class AttractionsService {
         region: data.region,
         city: data.city,
         category: data.category,
-        img: "hokkaido.png",
+        img: data.img,
         bestAttractions: data.bestAttractions,
         otherData: data.otherData,
       };

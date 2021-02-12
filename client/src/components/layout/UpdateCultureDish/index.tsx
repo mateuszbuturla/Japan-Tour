@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 import { Form, Input, Button, FormList } from 'components/common';
 import { useForm, useFieldArray } from 'react-hook-form';
 import Api from 'utils/Api';
@@ -7,6 +7,8 @@ import TypesElementCategory from 'types/TypesElementCategory';
 import AddNotification from 'utils/AddNotification';
 import TypesDish from 'types/TypesDish';
 import TypesCulture from 'types/TypesCulture';
+import UploadImage from 'utils/UploadImage';
+import DeleteElement from 'utils/DeleteElement';
 
 interface Props {
   api: string;
@@ -14,6 +16,7 @@ interface Props {
 
 function UpdateCultureDish({ api }: Props) {
   const { id } = useParams();
+  const history = useHistory();
   const { register, handleSubmit, errors, control } = useForm();
   const [categories, setCategories] = useState();
   const [selectedItem, setSelectedItem] = useState<TypesDish | TypesCulture>();
@@ -37,16 +40,26 @@ function UpdateCultureDish({ api }: Props) {
   });
 
   const onSubmit = async (data: any, e: any) => {
-    try {
-      const res = await Api.patch(`/${api}/update/${id}`, data);
-      if (res.status === 200) {
-        AddNotification('Zaktualizowano', 'Zaktualizowano pomyślnie', 'success');
-        e.target.reset();
+    let newData = data;
+
+    const uploadImageRes: any = await UploadImage(data.img[0]);
+
+    if (uploadImageRes) {
+      newData.img = uploadImageRes.data.data.url;
+
+      try {
+        const res = await Api.patch(`/${api}/update/${id}`, newData);
+        if (res.status === 200) {
+          AddNotification('Zaktualizowano', 'Zaktualizowano pomyślnie', 'success');
+          e.target.reset();
+        }
+      } catch (err) {
+        if (err.response.status === 409) {
+          AddNotification('Błąd', 'Wystąpił błąd', 'danger');
+        }
       }
-    } catch (err) {
-      if (err.response.status === 409) {
-        AddNotification('Błąd', 'Wystąpił błąd', 'danger');
-      }
+    } else {
+      AddNotification('Błąd', 'Wystąpił błąd po stronie serwera', 'danger');
     }
   };
 
@@ -179,6 +192,21 @@ function UpdateCultureDish({ api }: Props) {
           />
         </FormList>
         <Button text="Dodaj" />
+        <Button
+          text="Usuń"
+          bgColor="red"
+          onClick={async (e: any) => {
+            e.preventDefault();
+            try {
+              const res = await DeleteElement(api, selectedItem._id);
+              if (res.status === 200) {
+                history.push('/admin');
+              }
+            } catch (err) {
+              AddNotification('Błąd', 'Wystąpił błąd', 'danger');
+            }
+          }}
+        />
       </Form>
     );
   }

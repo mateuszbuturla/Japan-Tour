@@ -6,6 +6,8 @@ import TypesElementCategory from 'types/TypesElementCategory';
 import TypesRegion from 'types/TypesRegion';
 import TypesCity from 'types/TypesCity';
 import AddNotification from 'utils/AddNotification';
+import UploadImage from 'utils/UploadImage';
+import categories from 'actions/categories';
 
 interface Props {
   api: string;
@@ -13,9 +15,9 @@ interface Props {
 
 function AddAttraction({ api }: Props) {
   const { register, handleSubmit, errors, control } = useForm();
-  const [categories, setCategories] = useState();
-  const [regions, setRegions] = useState();
-  const [cities, setCities] = useState();
+  const [categories, setCategories] = useState<TypesElementCategory[]>();
+  const [regions, setRegions] = useState<TypesRegion[]>();
+  const [cities, setCities] = useState<TypesCity[]>();
 
   const {
     fields: descriptionFields,
@@ -37,31 +39,17 @@ function AddAttraction({ api }: Props) {
 
   const getCategories = async () => {
     let res = await Api.get(`/categories/${api}`);
-    console.log(res.data);
-    let newCategories: String[] = [];
-    res.data.map((item: TypesElementCategory) => {
-      newCategories = [...newCategories, item.key];
-    });
-    setCategories(newCategories);
+    setCategories(res.data);
   };
 
   const getRegions = async () => {
     let res = await Api.get(`/regions`);
-    let newRegions: String[] = [];
-    res.data.map((item: TypesRegion) => {
-      newRegions = [...newRegions, item.key];
-    });
-    setRegions(newRegions);
+    setRegions(res.data);
   };
 
   const getCities = async () => {
     let res = await Api.get(`/cities`);
-    let newCities: String[] = [];
-    res.data.map((item: TypesCity) => {
-      newCities = [...newCities, item.key];
-    });
-    console.log(newCities);
-    setCities(newCities);
+    setCities(res.data);
   };
 
   useEffect(() => {
@@ -72,18 +60,37 @@ function AddAttraction({ api }: Props) {
 
   const onSubmit = async (data: any, e: any) => {
     let newData = data;
-    console.log(data.bestAttractions);
-    newData.bestAttractions = data.bestAttractions === 'yes' ? true : false;
-    try {
-      const res = await Api.post(`/${api}/create`, newData);
-      if (res.status === 201) {
-        AddNotification('Dodano', 'Nowa atrakcja została dodana', 'success');
-        e.target.reset();
+
+    const uploadImageRes: any = await UploadImage(data.img[0]);
+
+    if (uploadImageRes && categories && regions && cities) {
+      newData.img = uploadImageRes.data.data.url;
+      newData.bestAttractions = data.bestAttractions === 'yes' ? true : false;
+      const category = categories.filter((obj) => {
+        return obj.title === data.category;
+      });
+      newData.category = category[0]._id;
+      const region = regions.filter((obj) => {
+        return obj.name === data.region;
+      });
+      newData.region = region[0]._id;
+      const city = cities.filter((obj) => {
+        return obj.name === data.city;
+      });
+      newData.city = city[0]._id;
+      try {
+        const res = await Api.post(`/${api}/create`, newData);
+        if (res.status === 201) {
+          AddNotification('Dodano', 'Nowa atrakcja została dodana', 'success');
+          e.target.reset();
+        }
+      } catch (err) {
+        if (err.response.status === 409) {
+          AddNotification('Błąd', 'Taka atrakcja już istnieje', 'danger');
+        }
       }
-    } catch (err) {
-      if (err.response.status === 409) {
-        AddNotification('Błąd', 'Taka atrakcja już istnieje', 'danger');
-      }
+    } else {
+      AddNotification('Błąd', 'Wystąpił błąd po stronie serwera', 'danger');
     }
   };
 
@@ -95,6 +102,48 @@ function AddAttraction({ api }: Props) {
   const addNewInputToOtherData = (e: any) => {
     e.preventDefault();
     otherDataAppend({ title: '', value: '' });
+  };
+
+  const categoriesList = () => {
+    if (categories === undefined) {
+      return [];
+    }
+
+    let categoriesListTitle: string[] = [];
+
+    categories.map((item: TypesElementCategory) => {
+      categoriesListTitle = [...categoriesListTitle, item.title];
+    });
+
+    return categoriesListTitle;
+  };
+
+  const regionsList = () => {
+    if (regions === undefined) {
+      return [];
+    }
+
+    let regionsListTitle: string[] = [];
+
+    regions.map((item: TypesRegion) => {
+      regionsListTitle = [...regionsListTitle, item.name];
+    });
+
+    return regionsListTitle;
+  };
+
+  const citiesList = () => {
+    if (cities === undefined) {
+      return [];
+    }
+
+    let citiesListTitle: string[] = [];
+
+    cities.map((item: TypesCity) => {
+      citiesListTitle = [...citiesListTitle, item.name];
+    });
+
+    return citiesListTitle;
   };
 
   return (
@@ -137,7 +186,7 @@ function AddAttraction({ api }: Props) {
         inputRef={register({ required: true })}
         errorMessage={errors.section ? 'To pole nie może być puste' : ''}
         type="select"
-        options={categories}
+        options={categoriesList()}
       />
       <Input
         id="region"
@@ -146,7 +195,7 @@ function AddAttraction({ api }: Props) {
         inputRef={register({ required: true })}
         errorMessage={errors.section ? 'To pole nie może być puste' : ''}
         type="select"
-        options={regions}
+        options={regionsList()}
       />
       <Input
         id="city"
@@ -155,7 +204,7 @@ function AddAttraction({ api }: Props) {
         inputRef={register({ required: true })}
         errorMessage={errors.section ? 'To pole nie może być puste' : ''}
         type="select"
-        options={cities}
+        options={citiesList()}
       />
       <FormList title="Opis">
         {descriptionFields.map((item, index) => (

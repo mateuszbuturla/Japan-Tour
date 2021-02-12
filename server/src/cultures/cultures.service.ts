@@ -49,7 +49,7 @@ export class CulturesService {
         name: data.name,
         key: NormalizeString(data.name),
         category: data.category,
-        img: "ewqeqweqweqw",
+        img: data.img,
         shortDescription: data.shortDescription,
         description: data.description,
         otherData: data.otherData,
@@ -58,15 +58,14 @@ export class CulturesService {
     } else {
       throw new HttpException("Culture is exist.", 409);
     }
-    console.log(res);
     return res;
   }
 
-  async removeCulture(key: string) {
+  async removeCulture(id: string) {
     let res;
 
     try {
-      const removedCulture = await this.cultureModel.remove({ key });
+      const removedCulture = await this.cultureModel.remove({ _id: id });
       if (removedCulture.deletedCount > 0) {
         res = "Successfully deleted.";
       } else if (removedCulture.deletedCount === 0) {
@@ -89,7 +88,7 @@ export class CulturesService {
         shortDescription: data.shortDescription,
         description: data.description,
         category: data.category,
-        img: "hokkaido.png",
+        img: data.img,
         otherData: data.otherData,
       };
 
@@ -106,7 +105,6 @@ export class CulturesService {
         throw new HttpException("Could not update culture.", 409);
       }
     } catch (error) {
-      console.log(error);
       throw new HttpException("Could not update culture.", 409);
     }
 

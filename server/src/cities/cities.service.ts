@@ -13,6 +13,7 @@ export class CitiesService {
   async getCities() {
     const cities = await this.cityModel.find().exec();
     return cities.map((city) => ({
+      _id: city._id,
       name: city.name,
       url: city.url,
       key: city.key,
@@ -60,7 +61,7 @@ export class CitiesService {
         key: NormalizeString(data.name),
         region: data.region,
         description: data.description,
-        img: "hokkaido.jpg",
+        img: data.img,
         otherData: data.otherData,
       });
       res = await newCity.save();
@@ -71,11 +72,11 @@ export class CitiesService {
     return res;
   }
 
-  async removeCity(key: string) {
+  async removeCity(id: string) {
     let res;
 
     try {
-      const removedCity = await this.cityModel.remove({ key });
+      const removedCity = await this.cityModel.remove({ _id: id });
       if (removedCity.deletedCount > 0) {
         res = "Successfully deleted.";
       } else if (removedCity.deletedCount === 0) {
@@ -98,7 +99,7 @@ export class CitiesService {
         url: NormalizeString(data.name),
         description: data.description,
         region: data.region,
-        img: "hokkaido.png",
+        img: data.img,
         otherData: data.otherData,
       };
 

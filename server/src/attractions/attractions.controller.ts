@@ -6,23 +6,27 @@ import {
   Post,
   Delete,
   Patch,
+  UseInterceptors,
 } from "@nestjs/common";
 
 import { AttractionsService } from "./attractions.service";
 import { Attraction } from "./attraction.model";
+import { FileInterceptor } from "@nestjs/platform-express";
 
 @Controller("/api/attractions")
 export class AttractionsController {
   constructor(private readonly attractionsService: AttractionsService) {}
 
   @Post("create")
+  @UseInterceptors(FileInterceptor("file"))
   createAttraction(@Body() data: Attraction) {
+    console.log(data.img[0]);
     return this.attractionsService.createAttraction(data);
   }
 
-  @Delete("remove/:key")
-  removeAttraction(@Param("key") key: string) {
-    return this.attractionsService.removeAttraction(key);
+  @Delete("remove/:id")
+  removeAttraction(@Param("id") id: string) {
+    return this.attractionsService.removeAttraction(id);
   }
 
   @Patch("update/:key")

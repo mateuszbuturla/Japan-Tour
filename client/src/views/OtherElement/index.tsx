@@ -42,7 +42,7 @@ function OtherElement({ setTitle, categoryUrl, api }: Props) {
     <>
       {element && (
         <>
-          <PageHeader text={element.name} img={process.env.PUBLIC_URL + '/images/' + element.img} />
+          <PageHeader text={element.name} img={element.img} />
           <StyledPageContainer>
             <StyledMainContentContainer>
               <ItemDescription description={element.description} />

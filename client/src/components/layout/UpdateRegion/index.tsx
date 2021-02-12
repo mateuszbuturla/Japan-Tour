@@ -5,6 +5,7 @@ import { useForm, useFieldArray } from 'react-hook-form';
 import Api from 'utils/Api';
 import AddNotification from 'utils/AddNotification';
 import TypesRegion from 'types/TypesRegion';
+import UploadImage from 'utils/UploadImage';
 
 interface Props {
   api: string;
@@ -35,15 +36,25 @@ function UpdateRegion({ api }: Props) {
   });
 
   const onSubmit = async (data: any, e: any) => {
-    try {
-      const res = await Api.patch(`/${api}/update/${id}`, data);
-      if (res.status === 200) {
-        AddNotification('Dodano', 'Region został zaktualizowany', 'success');
+    let newData = data;
+
+    const uploadImageRes: any = await UploadImage(data.img[0]);
+
+    if (uploadImageRes) {
+      newData.img = uploadImageRes.data.data.url;
+
+      try {
+        const res = await Api.patch(`/${api}/update/${id}`, newData);
+        if (res.status === 200) {
+          AddNotification('Dodano', 'Region został zaktualizowany', 'success');
+        }
+      } catch (err) {
+        if (err.response.status === 409) {
+          AddNotification('Błąd', 'Wystąpił błąd', 'danger');
+        }
       }
-    } catch (err) {
-      if (err.response.status === 409) {
-        AddNotification('Błąd', 'Wystąpił błąd', 'danger');
-      }
+    } else {
+      AddNotification('Błąd', 'Wystąpił błąd po stronie serwera', 'danger');
     }
   };
 

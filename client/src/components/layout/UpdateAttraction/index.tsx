@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 import { Form, Input, Button, FormList } from 'components/common';
 import { useForm, useFieldArray } from 'react-hook-form';
 import Api from 'utils/Api';
@@ -8,6 +8,8 @@ import TypesRegion from 'types/TypesRegion';
 import TypesCity from 'types/TypesCity';
 import TypesAttraction from 'types/TypesAttraction';
 import AddNotification from 'utils/AddNotification';
+import UploadImage from 'utils/UploadImage';
+import DeleteElement from 'utils/DeleteElement';
 
 interface Props {
   api: string;
@@ -15,6 +17,7 @@ interface Props {
 
 function UpdateAttraction({ api }: Props) {
   const { id } = useParams();
+  const history = useHistory();
   const { register, handleSubmit, errors, control } = useForm();
   const [categories, setCategories] = useState();
   const [regions, setRegions] = useState();
@@ -71,6 +74,7 @@ function UpdateAttraction({ api }: Props) {
   const getSelectedAttractionData = async () => {
     const res = await Api.get(`/${api}/${id}`);
     setSelectedAttraction(res.data);
+    console.log(res.data);
     const description = res.data.description;
     const otherData = res.data.otherData;
     if (description) {
@@ -94,18 +98,25 @@ function UpdateAttraction({ api }: Props) {
 
   const onSubmit = async (data: any, e: any) => {
     let newData = data;
-    console.log(data.bestAttractions);
-    newData.bestAttractions = data.bestAttractions === 'yes' ? true : false;
-    try {
-      const res = await Api.patch(`/${api}/update/${id}`, newData);
-      if (res.status === 200) {
-        AddNotification('Zaktualizowano', 'Atrakcja została zaktualizowana', 'success');
-        e.target.reset();
+
+    const uploadImageRes: any = await UploadImage(data.img[0]);
+
+    if (uploadImageRes) {
+      newData.img = uploadImageRes.data.data.url;
+      newData.bestAttractions = data.bestAttractions === 'yes' ? true : false;
+      try {
+        const res = await Api.patch(`/${api}/update/${id}`, newData);
+        if (res.status === 200) {
+          AddNotification('Zaktualizowano', 'Atrakcja została zaktualizowana', 'success');
+          e.target.reset();
+        }
+      } catch (err) {
+        if (err.response.status === 409) {
+          AddNotification('Błąd', 'Wystąpił błąd', 'danger');
+        }
       }
-    } catch (err) {
-      if (err.response.status === 409) {
-        AddNotification('Błąd', 'Wystąpił błąd', 'danger');
-      }
+    } else {
+      AddNotification('Błąd', 'Wystąpił błąd po stronie serwera', 'danger');
     }
   };
 
@@ -120,6 +131,7 @@ function UpdateAttraction({ api }: Props) {
   };
 
   if (selectedAttraction !== undefined) {
+    console.log(selectedAttraction._id);
     return (
       <Form onSubmit={handleSubmit(onSubmit)}>
         <Input
@@ -236,6 +248,21 @@ function UpdateAttraction({ api }: Props) {
           />
         </FormList>
         <Button text="Dodaj" />
+        <Button
+          text="Usuń"
+          bgColor="red"
+          onClick={async (e: any) => {
+            e.preventDefault();
+            try {
+              const res = await DeleteElement(api, selectedAttraction._id);
+              if (res.status === 200) {
+                history.push('/admin');
+              }
+            } catch (err) {
+              AddNotification('Błąd', 'Wystąpił błąd', 'danger');
+            }
+          }}
+        />
       </Form>
     );
   }

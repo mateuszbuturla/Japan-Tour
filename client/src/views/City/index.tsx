@@ -48,7 +48,7 @@ function City({ setTitle }: Props) {
     <>
       {city && (
         <>
-          <PageHeader text={city.name} img={process.env.PUBLIC_URL + '/images/' + city.img} />
+          <PageHeader text={city.name} img={city.img} />
           <StyledPageContainer>
             <StyledMainContentContainer>
               <ItemDescription description={city.description} />
