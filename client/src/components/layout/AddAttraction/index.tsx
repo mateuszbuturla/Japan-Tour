@@ -16,8 +16,8 @@ interface Props {
 function AddAttraction({ api }: Props) {
   const { register, handleSubmit, errors, control } = useForm();
   const [categories, setCategories] = useState<TypesElementCategory[]>();
-  const [regions, setRegions] = useState();
-  const [cities, setCities] = useState();
+  const [regions, setRegions] = useState<TypesRegion[]>();
+  const [cities, setCities] = useState<TypesCity[]>();
 
   const {
     fields: descriptionFields,
@@ -44,21 +44,12 @@ function AddAttraction({ api }: Props) {
 
   const getRegions = async () => {
     let res = await Api.get(`/regions`);
-    let newRegions: String[] = [];
-    res.data.map((item: TypesRegion) => {
-      newRegions = [...newRegions, item.key];
-    });
-    setRegions(newRegions);
+    setRegions(res.data);
   };
 
   const getCities = async () => {
     let res = await Api.get(`/cities`);
-    let newCities: String[] = [];
-    res.data.map((item: TypesCity) => {
-      newCities = [...newCities, item.key];
-    });
-    console.log(newCities);
-    setCities(newCities);
+    setCities(res.data);
   };
 
   useEffect(() => {
@@ -72,13 +63,21 @@ function AddAttraction({ api }: Props) {
 
     const uploadImageRes: any = await UploadImage(data.img[0]);
 
-    if (uploadImageRes && categories) {
+    if (uploadImageRes && categories && regions && cities) {
       newData.img = uploadImageRes.data.data.url;
       newData.bestAttractions = data.bestAttractions === 'yes' ? true : false;
       const category = categories.filter((obj) => {
         return obj.title === data.category;
       });
       newData.category = category[0]._id;
+      const region = regions.filter((obj) => {
+        return obj.name === data.region;
+      });
+      newData.region = region[0]._id;
+      const city = cities.filter((obj) => {
+        return obj.name === data.city;
+      });
+      newData.city = city[0]._id;
       try {
         const res = await Api.post(`/${api}/create`, newData);
         if (res.status === 201) {
@@ -117,6 +116,34 @@ function AddAttraction({ api }: Props) {
     });
 
     return categoriesListTitle;
+  };
+
+  const regionsList = () => {
+    if (regions === undefined) {
+      return [];
+    }
+
+    let regionsListTitle: string[] = [];
+
+    regions.map((item: TypesRegion) => {
+      regionsListTitle = [...regionsListTitle, item.name];
+    });
+
+    return regionsListTitle;
+  };
+
+  const citiesList = () => {
+    if (cities === undefined) {
+      return [];
+    }
+
+    let citiesListTitle: string[] = [];
+
+    cities.map((item: TypesCity) => {
+      citiesListTitle = [...citiesListTitle, item.name];
+    });
+
+    return citiesListTitle;
   };
 
   return (
@@ -168,7 +195,7 @@ function AddAttraction({ api }: Props) {
         inputRef={register({ required: true })}
         errorMessage={errors.section ? 'To pole nie może być puste' : ''}
         type="select"
-        options={regions}
+        options={regionsList()}
       />
       <Input
         id="city"
@@ -177,7 +204,7 @@ function AddAttraction({ api }: Props) {
         inputRef={register({ required: true })}
         errorMessage={errors.section ? 'To pole nie może być puste' : ''}
         type="select"
-        options={cities}
+        options={citiesList()}
       />
       <FormList title="Opis">
         {descriptionFields.map((item, index) => (

@@ -13,6 +13,7 @@ export class CitiesService {
   async getCities() {
     const cities = await this.cityModel.find().exec();
     return cities.map((city) => ({
+      _id: city._id,
       name: city.name,
       url: city.url,
       key: city.key,
