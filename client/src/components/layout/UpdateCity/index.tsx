@@ -17,7 +17,7 @@ function UpdateCity({ api }: Props) {
   const { id } = useParams();
   const history = useHistory();
   const { register, handleSubmit, errors, control } = useForm();
-  const [regions, setRegions] = useState();
+  const [regions, setRegions] = useState<TypesRegion[]>();
   const [selectedCity, setSelectedCity] = useState<TypesCity>();
 
   const {
@@ -40,11 +40,7 @@ function UpdateCity({ api }: Props) {
 
   const getRegions = async () => {
     let res = await Api.get(`/regions`);
-    let newRegions: String[] = [];
-    res.data.map((item: TypesRegion) => {
-      newRegions = [...newRegions, item.key];
-    });
-    setRegions(newRegions);
+    setRegions(res.data);
   };
 
   const getSelectedCityData = async () => {
@@ -74,9 +70,12 @@ function UpdateCity({ api }: Props) {
 
     const uploadImageRes: any = await UploadImage(data.img[0]);
 
-    if (uploadImageRes) {
+    if (uploadImageRes && regions) {
       newData.img = uploadImageRes.data.data.url;
-
+      const region = regions.filter((obj) => {
+        return obj.name === data.region;
+      });
+      newData.region = region[0]._id;
       try {
         const res = await Api.patch(`/${api}/update/${id}`, newData);
         if (res.status === 200) {
@@ -103,7 +102,21 @@ function UpdateCity({ api }: Props) {
     otherDataAppend({ title: '', value: '' });
   };
 
-  if (selectedCity !== undefined) {
+  const regionsList = () => {
+    if (regions === undefined) {
+      return [];
+    }
+
+    let regionsListTitle: string[] = [];
+
+    regions.map((item: TypesRegion) => {
+      regionsListTitle = [...regionsListTitle, item.name];
+    });
+
+    return regionsListTitle;
+  };
+
+  if (selectedCity !== undefined && regions) {
     return (
       <Form onSubmit={handleSubmit(onSubmit)}>
         <Input
@@ -118,11 +131,11 @@ function UpdateCity({ api }: Props) {
           id="region"
           label="Region"
           name="region"
-          defaultValue={selectedCity.region}
+          defaultValue={regions.filter((obj) => obj._id === selectedCity.region)[0].name}
           inputRef={register({ required: true })}
           errorMessage={errors.section ? 'To pole nie może być puste' : ''}
           type="select"
-          options={regions}
+          options={regionsList()}
         />
         <Input id="img" label="Zdjęcie" name="img" inputRef={register()} type="file" />
         <FormList title="Opis">
