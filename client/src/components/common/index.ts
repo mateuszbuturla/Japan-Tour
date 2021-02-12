@@ -10,6 +10,12 @@ import ItemDescription from './ItemDescription';
 import AttractionsGroup from './AttractionsGroup';
 import AsideInfo from './AsideInfo';
 import OtherSectionElementsGroup from './OtherSectionElementsGroup';
+import AdminAside from './AdminAside';
+import Form from './Form';
+import Input from './Input';
+import Button from './Button';
+import FormList from './FormList';
+import LoadingBar from './LoadingBar';
 
 export {
   HomeHeader,
@@ -24,4 +30,10 @@ export {
   AttractionsGroup,
   AsideInfo,
   OtherSectionElementsGroup,
+  AdminAside,
+  Form,
+  Input,
+  Button,
+  FormList,
+  LoadingBar,
 };

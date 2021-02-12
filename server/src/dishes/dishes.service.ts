@@ -59,11 +59,11 @@ export class DishesService {
     return res;
   }
 
-  async removeDish(key: string) {
+  async removeDish(id: string) {
     let res;
 
     try {
-      const removedDish = await this.dishModel.remove({ key });
+      const removedDish = await this.dishModel.remove({ _id: id });
       if (removedDish.deletedCount > 0) {
         res = "Successfully deleted.";
       } else if (removedDish.deletedCount === 0) {

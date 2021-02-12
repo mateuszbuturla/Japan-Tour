@@ -22,11 +22,6 @@ const INITIAL_STATE = [
     url: 'kuchnia',
     img: Sushi,
   },
-  {
-    name: 'Sztuka i rozrywka',
-    url: 'sztuka-i-rozrywka',
-    img: GreateWave,
-  },
 ];
 
 const categoriesReducer = (state = INITIAL_STATE, action: any) => {

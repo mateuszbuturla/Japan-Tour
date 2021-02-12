@@ -6,6 +6,7 @@ interface TypesApplicationState {
   title: {
     title: string;
   };
+  admin: any;
 }
 
 export default TypesApplicationState;

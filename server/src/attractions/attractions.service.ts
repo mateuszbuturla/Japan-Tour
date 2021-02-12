@@ -25,6 +25,11 @@ export class AttractionsService {
     return attractions;
   }
 
+  async getAllAttractions() {
+    const attractions = await this.attractionModel.find().exec();
+    return attractions;
+  }
+
   async getAllFromCity(city: string) {
     const attractions = await this.attractionModel.find({ city }).exec();
     return attractions;
@@ -82,11 +87,11 @@ export class AttractionsService {
     return res;
   }
 
-  async removeAttraction(key: string) {
+  async removeAttraction(id: string) {
     let res;
 
     try {
-      const removedAttraction = await this.attractionModel.remove({ key });
+      const removedAttraction = await this.attractionModel.remove({ _id: id });
       if (removedAttraction.deletedCount > 0) {
         res = {
           statusCode: 200,

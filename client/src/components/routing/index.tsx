@@ -10,6 +10,7 @@ import {
   Attraction,
   OtherSection,
   OtherElement,
+  Admin,
   NotFound,
 } from 'views';
 
@@ -32,6 +33,7 @@ function Routing() {
       exact
     />
   ))} */}
+      <Route path="/admin" component={(props: any) => <Admin {...props} setTitle={setTitle} />} />
       <Route
         path={`/podroze`}
         component={(props: any) => (

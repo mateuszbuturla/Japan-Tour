@@ -1,6 +1,7 @@
 import { Injectable, NotFoundException, HttpException } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { Model } from "mongoose";
+import { isNull } from "util";
 
 import { Region } from "./region.model";
 import NormalizeString from "../utils/normalizeString";
@@ -14,6 +15,7 @@ export class RegionsService {
   async getRegions() {
     const regions = await this.regionModel.find().exec();
     return regions.map((region) => ({
+      _id: region._id,
       name: region.name,
       url: region.url,
       key: region.key,
@@ -26,6 +28,31 @@ export class RegionsService {
   async getSingleRegion(key: string) {
     const region = await this.findRegion(key);
     return region;
+  }
+
+  async createRegion(data: Region) {
+    let res;
+    const existRegion = await this.regionModel
+      .findOne({
+        $or: [{ name: data.name }, { key: NormalizeString(data.name) }],
+      })
+      .exec();
+
+    if (isNull(existRegion)) {
+      const newRegion = new this.regionModel({
+        name: data.name,
+        url: NormalizeString(data.name),
+        key: NormalizeString(data.name),
+        img: data.img,
+        description: data.description,
+        otherData: data.otherData,
+      });
+      res = await newRegion.save();
+    } else {
+      throw new HttpException("Region is exist.", 409);
+    }
+
+    return res;
   }
 
   private async findRegion(key: string): Promise<Region> {
@@ -45,13 +72,13 @@ export class RegionsService {
     let res;
 
     try {
-      const newData = {
+      let newData = {
         name: data.name,
         url: NormalizeString(data.name),
         key: NormalizeString(data.name),
         description: data.description,
-        img: data.img,
         otherData: data.otherData,
+        img: data.img,
       };
 
       const updatedRegions = await this.regionModel.updateOne({ key }, newData);

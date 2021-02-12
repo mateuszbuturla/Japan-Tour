@@ -26,9 +26,9 @@ export class DishesController {
     return this.dishesService.createDish(data);
   }
 
-  @Delete("remove/:key")
-  removeDish(@Param("key") key: string) {
-    return this.dishesService.removeDish(key);
+  @Delete("remove/:id")
+  removeDish(@Param("id") id: string) {
+    return this.dishesService.removeDish(id);
   }
 
   @Patch("update/:key")

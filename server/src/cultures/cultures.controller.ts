@@ -26,9 +26,9 @@ export class CulturesController {
     return this.culturesService.createCulture(data);
   }
 
-  @Delete("remove/:key")
-  removeCulture(@Param("key") data: string) {
-    return this.culturesService.removeCulture(data);
+  @Delete("remove/:id")
+  removeCulture(@Param("id") id: string) {
+    return this.culturesService.removeCulture(id);
   }
 
   @Patch("update/:key")
