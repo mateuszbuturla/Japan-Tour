@@ -29,19 +29,19 @@ function Region({ setTitle }: Props) {
       setTitle(res.data.name);
       setRegion(res.data);
       // setAttractions(res.data.attractions);
+      getAttractions(res.data._id);
     } catch (e) {
       history.push('/404');
     }
   };
 
-  const getAttractions = async () => {
-    let res = await Api.get(`/attractions/bestFromRegion/${regionKey}`);
+  const getAttractions = async (regionId: string) => {
+    let res = await Api.get(`/attractions/bestFromRegion/${regionId}`);
     setAttractions(res.data);
   };
 
   useEffect(() => {
     getRegion();
-    getAttractions();
   }, []);
 
   return (
