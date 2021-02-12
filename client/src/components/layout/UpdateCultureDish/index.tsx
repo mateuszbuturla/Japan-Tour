@@ -18,7 +18,7 @@ function UpdateCultureDish({ api }: Props) {
   const { id } = useParams();
   const history = useHistory();
   const { register, handleSubmit, errors, control } = useForm();
-  const [categories, setCategories] = useState();
+  const [categories, setCategories] = useState<TypesElementCategory[]>();
   const [selectedItem, setSelectedItem] = useState<TypesDish | TypesCulture>();
 
   const {
@@ -44,9 +44,12 @@ function UpdateCultureDish({ api }: Props) {
 
     const uploadImageRes: any = await UploadImage(data.img[0]);
 
-    if (uploadImageRes) {
+    if (uploadImageRes && categories) {
       newData.img = uploadImageRes.data.data.url;
-
+      const category = categories.filter((obj) => {
+        return obj.title === data.category;
+      });
+      newData.category = category[0]._id;
       try {
         const res = await Api.patch(`/${api}/update/${id}`, newData);
         if (res.status === 200) {
@@ -65,12 +68,7 @@ function UpdateCultureDish({ api }: Props) {
 
   const getCategories = async () => {
     let res = await Api.get(`/categories/${api}`);
-    console.log(res.data);
-    let newCategories: String[] = [];
-    res.data.map((item: TypesElementCategory) => {
-      newCategories = [...newCategories, item.key];
-    });
-    setCategories(newCategories);
+    setCategories(res.data);
   };
 
   useEffect(() => {
@@ -105,7 +103,21 @@ function UpdateCultureDish({ api }: Props) {
     otherDataAppend({ title: '', value: '' });
   };
 
-  if (selectedItem !== undefined) {
+  const categoriesList = () => {
+    if (categories === undefined) {
+      return [];
+    }
+
+    let categoriesListTitle: string[] = [];
+
+    categories.map((item: TypesElementCategory) => {
+      categoriesListTitle = [...categoriesListTitle, item.title];
+    });
+
+    return categoriesListTitle;
+  };
+
+  if (selectedItem !== undefined && categories) {
     return (
       <Form onSubmit={handleSubmit(onSubmit)}>
         <Input
@@ -120,11 +132,11 @@ function UpdateCultureDish({ api }: Props) {
           id="category"
           label="Kategoria"
           name="category"
-          defaultValue={selectedItem.category}
+          defaultValue={categories.filter((obj) => obj._id === selectedItem.category)[0].title}
           inputRef={register({ required: true })}
           errorMessage={errors.section ? 'To pole nie może być puste' : ''}
           type="select"
-          options={categories}
+          options={categoriesList()}
         />
         <Input id="img" label="Zdjęcie" name="img" inputRef={register()} type="file" />
         <Input
