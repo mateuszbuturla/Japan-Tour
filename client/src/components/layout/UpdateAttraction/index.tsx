@@ -19,9 +19,9 @@ function UpdateAttraction({ api }: Props) {
   const { id } = useParams();
   const history = useHistory();
   const { register, handleSubmit, errors, control } = useForm();
-  const [categories, setCategories] = useState();
-  const [regions, setRegions] = useState();
-  const [cities, setCities] = useState();
+  const [categories, setCategories] = useState<TypesElementCategory[]>();
+  const [regions, setRegions] = useState<TypesRegion[]>();
+  const [cities, setCities] = useState<TypesCity[]>();
   const [selectedAttraction, setSelectedAttraction] = useState<TypesAttraction>();
 
   const {
@@ -44,31 +44,17 @@ function UpdateAttraction({ api }: Props) {
 
   const getCategories = async () => {
     let res = await Api.get(`/categories/${api}`);
-    console.log(res.data);
-    let newCategories: String[] = [];
-    res.data.map((item: TypesElementCategory) => {
-      newCategories = [...newCategories, item.key];
-    });
-    setCategories(newCategories);
+    setCategories(res.data);
   };
 
   const getRegions = async () => {
     let res = await Api.get(`/regions`);
-    let newRegions: String[] = [];
-    res.data.map((item: TypesRegion) => {
-      newRegions = [...newRegions, item.key];
-    });
-    setRegions(newRegions);
+    setRegions(res.data);
   };
 
   const getCities = async () => {
     let res = await Api.get(`/cities`);
-    let newCities: String[] = [];
-    res.data.map((item: TypesCity) => {
-      newCities = [...newCities, item.key];
-    });
-    console.log(newCities);
-    setCities(newCities);
+    setCities(res.data);
   };
 
   const getSelectedAttractionData = async () => {
@@ -101,9 +87,21 @@ function UpdateAttraction({ api }: Props) {
 
     const uploadImageRes: any = await UploadImage(data.img[0]);
 
-    if (uploadImageRes) {
+    if (uploadImageRes && categories && regions && cities) {
       newData.img = uploadImageRes.data.data.url;
       newData.bestAttractions = data.bestAttractions === 'yes' ? true : false;
+      const category = categories.filter((obj) => {
+        return obj.title === data.category;
+      });
+      newData.category = category[0]._id;
+      const region = regions.filter((obj) => {
+        return obj.name === data.region;
+      });
+      newData.region = region[0]._id;
+      const city = cities.filter((obj) => {
+        return obj.name === data.city;
+      });
+      newData.city = city[0]._id;
       try {
         const res = await Api.patch(`/${api}/update/${id}`, newData);
         if (res.status === 200) {
@@ -130,7 +128,49 @@ function UpdateAttraction({ api }: Props) {
     otherDataAppend({ title: '', value: '' });
   };
 
-  if (selectedAttraction !== undefined) {
+  const categoriesList = () => {
+    if (categories === undefined) {
+      return [];
+    }
+
+    let categoriesListTitle: string[] = [];
+
+    categories.map((item: TypesElementCategory) => {
+      categoriesListTitle = [...categoriesListTitle, item.title];
+    });
+
+    return categoriesListTitle;
+  };
+
+  const regionsList = () => {
+    if (regions === undefined) {
+      return [];
+    }
+
+    let regionsListTitle: string[] = [];
+
+    regions.map((item: TypesRegion) => {
+      regionsListTitle = [...regionsListTitle, item.name];
+    });
+
+    return regionsListTitle;
+  };
+
+  const citiesList = () => {
+    if (cities === undefined) {
+      return [];
+    }
+
+    let citiesListTitle: string[] = [];
+
+    cities.map((item: TypesCity) => {
+      citiesListTitle = [...citiesListTitle, item.name];
+    });
+
+    return citiesListTitle;
+  };
+
+  if (selectedAttraction !== undefined && categories && regions && cities) {
     console.log(selectedAttraction._id);
     return (
       <Form onSubmit={handleSubmit(onSubmit)}>
@@ -165,31 +205,33 @@ function UpdateAttraction({ api }: Props) {
           id="category"
           label="Kategoria"
           name="category"
-          defaultValue={selectedAttraction.category}
+          defaultValue={
+            categories.filter((obj) => obj._id === selectedAttraction.category)[0].title
+          }
           inputRef={register({ required: true })}
           errorMessage={errors.section ? 'To pole nie może być puste' : ''}
           type="select"
-          options={categories}
+          options={categoriesList()}
         />
         <Input
           id="region"
           label="Region"
           name="region"
-          defaultValue={selectedAttraction.region}
+          defaultValue={regions.filter((obj) => obj._id === selectedAttraction.region)[0].name}
           inputRef={register({ required: true })}
           errorMessage={errors.section ? 'To pole nie może być puste' : ''}
           type="select"
-          options={regions}
+          options={regionsList()}
         />
         <Input
           id="city"
           label="Miasto"
           name="city"
-          defaultValue={selectedAttraction.city}
+          defaultValue={cities.filter((obj) => obj._id === selectedAttraction.city)[0].name}
           inputRef={register({ required: true })}
           errorMessage={errors.section ? 'To pole nie może być puste' : ''}
           type="select"
-          options={cities}
+          options={citiesList()}
         />
         <FormList title="Opis">
           {descriptionFields.map((item, index) => (
