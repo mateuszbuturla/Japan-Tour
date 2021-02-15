@@ -13,6 +13,7 @@ const StyledNav = styled.nav<StyledNavProps>`
   background-color: ${(props) => props.theme.colors.lightGrey};
   overflow-y: scroll;
   transition: ${(props) => props.theme.transition.slow};
+  padding-top: 70px;
 `;
 
 interface StyledBurgerButtonProps {
