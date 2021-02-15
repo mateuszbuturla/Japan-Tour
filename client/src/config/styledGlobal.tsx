@@ -32,6 +32,10 @@ const theme = {
     xl: '1920px',
   },
   maxWidth: '1500px',
+  transition: {
+    slow: '0.4s',
+    fast: '0.2s',
+  },
 };
 
 const Theme = ({ children }: Props) => (
