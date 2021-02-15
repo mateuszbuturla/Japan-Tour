@@ -15,6 +15,7 @@ import { PageTransitionEffect } from 'animations';
 import TypesDish from 'types/TypesDish';
 import TypesCulture from 'types/TypesCulture';
 import TypesApplicationState from 'types/TypesApplicationState';
+import ChangePath from 'utils/ChangePath';
 
 interface Props {
   header: string;
@@ -27,14 +28,7 @@ function OtherSectionElementsGroup({ categoryUrl, header, data }: Props) {
   const { pageTransitionEffectRef } = useSelector((state: TypesApplicationState) => state.refs);
 
   const handleTileClick = (item: TypesDish | TypesCulture) => {
-    PageTransitionEffect(pageTransitionEffectRef);
-    setTimeout(
-      (item: TypesDish | TypesCulture) => {
-        history.push(`/${categoryUrl}/${item.category}/${item.key}`);
-      },
-      1000,
-      item,
-    );
+    ChangePath(history, `/${categoryUrl}/${item.category}/${item.key}`);
   };
 
   return (

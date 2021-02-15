@@ -8,6 +8,7 @@ import TypesRegion from 'types/TypesRegion';
 import TypesCity from 'types/TypesCity';
 import TypesApplicationState from 'types/TypesApplicationState';
 import Api from 'utils/Api';
+import ChangePath from 'utils/ChangePath';
 
 function JapanMap() {
   const history = useHistory();
@@ -21,10 +22,7 @@ function JapanMap() {
         const name = e.target.parentElement.parentElement.getAttribute('id').toLowerCase();
         const region = regions.find((item: TypesRegion) => item.key.toLowerCase() === name);
         if (region) {
-          PageTransitionEffect(pageTransitionEffectRef);
-          setTimeout(() => {
-            history.push(`/podroze/${region.key}`);
-          }, 1000);
+          ChangePath(history, `/podroze/${region.key}`);
         }
       });
     });
@@ -38,10 +36,7 @@ function JapanMap() {
         const name = e.target.parentElement.parentElement.getAttribute('id').toLowerCase();
         const city = cities.find((item: TypesCity) => item.name.toLowerCase() === name);
         if (city) {
-          PageTransitionEffect(pageTransitionEffectRef);
-          setTimeout(() => {
-            history.push(`/podroze/${city.region.toLowerCase()}/${city.key}`);
-          }, 1000);
+          ChangePath(history, `/podroze/${city.region.toLowerCase()}/${city.key}`);
         }
       });
     });

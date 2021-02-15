@@ -12,6 +12,7 @@ import {
 import { PageTransitionEffect } from 'animations';
 import TypesAttraction from 'types/TypesAttraction';
 import TypesApplicationState from 'types/TypesApplicationState';
+import ChangePath from 'utils/ChangePath';
 
 interface Props {
   header: string;
@@ -23,14 +24,7 @@ function AttractionsGroup({ header, attractions }: Props) {
   const { pageTransitionEffectRef } = useSelector((state: TypesApplicationState) => state.refs);
 
   const handleTileClick = (item: TypesAttraction) => {
-    PageTransitionEffect(pageTransitionEffectRef);
-    setTimeout(
-      (item: TypesAttraction) => {
-        history.push(`/podroze/${item.region}/${item.city}/${item.url}`);
-      },
-      1000,
-      item,
-    );
+    ChangePath(history, `/podroze/${item.region}/${item.city}/${item.url}`);
   };
 
   return (
