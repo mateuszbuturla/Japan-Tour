@@ -56,7 +56,7 @@ function Nav() {
     return (
       <>
         {regions &&
-          regions.map((item: any, index: number) => {
+          regions.map((item: TypesRegion, index: number) => {
             return <li key={index}>{item.name}</li>;
           })}
       </>
@@ -68,14 +68,14 @@ function Nav() {
       <>
         {regions &&
           cities &&
-          regions.map((item: any, index: number) => {
+          regions.map((item: TypesRegion, index: number) => {
             return (
               <li key={index}>
                 {item.name}
                 <ul>
                   {cities
                     .filter((obj) => obj.region === item._id)
-                    .map((item2: any, index2: number) => {
+                    .map((item2: TypesCity, index2: number) => {
                       return <li key={index2}>{item2.name}</li>;
                     })}
                 </ul>
@@ -93,14 +93,14 @@ function Nav() {
           attractions &&
           categories
             .filter((obj) => obj.section === 'attractions')
-            .map((item: any, index: number) => {
+            .map((item: TypesElementCategory, index: number) => {
               return (
                 <li key={index}>
                   {item.title}
                   <ul>
                     {attractions
                       .filter((obj) => obj.category === item._id)
-                      .map((item2: any, index2: number) => {
+                      .map((item2: TypesAttraction, index2: number) => {
                         return <li key={index2}>{item2.name}</li>;
                       })}
                   </ul>
@@ -118,14 +118,14 @@ function Nav() {
           cultures &&
           categories
             .filter((obj) => obj.section === 'cultures')
-            .map((item: any, index: number) => {
+            .map((item: TypesElementCategory, index: number) => {
               return (
                 <li key={index}>
                   {item.title}
                   <ul>
                     {cultures
                       .filter((obj) => obj.category === item._id)
-                      .map((item2: any, index2: number) => {
+                      .map((item2: TypesCulture, index2: number) => {
                         return <li key={index2}>{item2.name}</li>;
                       })}
                   </ul>
@@ -143,14 +143,14 @@ function Nav() {
           dishes &&
           categories
             .filter((obj) => obj.section === 'dishes')
-            .map((item: any, index: number) => {
+            .map((item: TypesElementCategory, index: number) => {
               return (
                 <li key={index}>
                   {item.title}
                   <ul>
                     {dishes
                       .filter((obj) => obj.category === item._id)
-                      .map((item2: any, index2: number) => {
+                      .map((item2: TypesDish, index2: number) => {
                         return <li key={index2}>{item2.name}</li>;
                       })}
                   </ul>
