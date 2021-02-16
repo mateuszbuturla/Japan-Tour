@@ -30,6 +30,11 @@ function Nav() {
   const [dishes, setDishes] = useState<TypesDish[]>();
   const [categories, setCategories] = useState<TypesElementCategory[]>();
 
+  const redirect = (url: string) => {
+    ChangePath(history, url);
+    toggleIsShow();
+  };
+
   const getRegions = async () => {
     const res = await Api.get(`/regions`);
     setRegions(res.data);
@@ -69,7 +74,16 @@ function Nav() {
       <>
         {regions &&
           regions.map((item: TypesRegion, index: number) => {
-            return <StyledNavListElement key={index}>{item.name}</StyledNavListElement>;
+            return (
+              <StyledNavListElement
+                key={index}
+                onClick={() => {
+                  redirect(`/podroze/${item.key}`);
+                }}
+              >
+                {item.name}
+              </StyledNavListElement>
+            );
           })}
       </>
     );
@@ -88,7 +102,16 @@ function Nav() {
                   {cities
                     .filter((obj) => obj.region === item._id)
                     .map((item2: TypesCity, index2: number) => {
-                      return <StyledNavListElement key={index2}>{item2.name}</StyledNavListElement>;
+                      return (
+                        <StyledNavListElement
+                          key={index2}
+                          onClick={() => {
+                            redirect(`/podroze/${item.key}/${item2.key}`);
+                          }}
+                        >
+                          {item2.name}
+                        </StyledNavListElement>
+                      );
                     })}
                 </StyledNavList>
               </StyledNavListElement>
@@ -114,7 +137,14 @@ function Nav() {
                       .filter((obj) => obj.category === item._id)
                       .map((item2: TypesAttraction, index2: number) => {
                         return (
-                          <StyledNavListElement key={index2}>{item2.name}</StyledNavListElement>
+                          <StyledNavListElement
+                            key={index2}
+                            onClick={() => {
+                              redirect(`/podroze/${item2.region}/${item2.city}/${item2.key}`);
+                            }}
+                          >
+                            {item2.name}
+                          </StyledNavListElement>
                         );
                       })}
                   </StyledNavList>
@@ -141,7 +171,14 @@ function Nav() {
                       .filter((obj) => obj.category === item._id)
                       .map((item2: TypesCulture, index2: number) => {
                         return (
-                          <StyledNavListElement key={index2}>{item2.name}</StyledNavListElement>
+                          <StyledNavListElement
+                            key={index2}
+                            onClick={() => {
+                              redirect(`/kultura/${item.key}/${item2.key}`);
+                            }}
+                          >
+                            {item2.name}
+                          </StyledNavListElement>
                         );
                       })}
                   </StyledNavList>
@@ -168,7 +205,14 @@ function Nav() {
                       .filter((obj) => obj.category === item._id)
                       .map((item2: TypesDish, index2: number) => {
                         return (
-                          <StyledNavListElement key={index2}>{item2.name}</StyledNavListElement>
+                          <StyledNavListElement
+                            key={index2}
+                            onClick={() => {
+                              redirect(`/kuchnia/${item.key}/${item2.key}`);
+                            }}
+                          >
+                            {item2.name}
+                          </StyledNavListElement>
                         );
                       })}
                   </StyledNavList>
