@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import {
   StyledNav,
+  StyledNavLogo,
   StyledNavSectionHeader,
   StyledNavList,
   StyledNavListElement,
@@ -14,8 +15,13 @@ import TypesAttraction from 'types/TypesAttraction';
 import TypesCulture from 'types/TypesCulture';
 import TypesDish from 'types/TypesDish';
 import TypesElementCategory from 'types/TypesElementCategory';
+import ChangePath from 'utils/ChangePath';
+import { useHistory } from 'react-router-dom';
+
+import logo from 'assets/LOGO.png';
 
 function Nav() {
+  const history = useHistory();
   const [isShow, toggleIsShow] = useSwitch(true);
   const [regions, setRegions] = useState<TypesRegion[]>();
   const [cities, setCities] = useState<TypesCity[]>();
@@ -176,6 +182,13 @@ function Nav() {
   return (
     <>
       <StyledNav isShow={isShow}>
+        <StyledNavLogo
+          src={logo}
+          onClick={() => {
+            toggleIsShow();
+            ChangePath(history, '/');
+          }}
+        />
         <StyledNavList>
           <StyledNavSectionHeader>Regiony</StyledNavSectionHeader>
           {generateRegionsNavSection()}

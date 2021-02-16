@@ -18,6 +18,13 @@ const StyledNav = styled.nav<StyledNavProps>`
   box-sizing: border-box;
 `;
 
+const StyledNavLogo = styled.img`
+  width: 70%;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+`;
+
 const StyledNavSectionHeader = styled.p`
   font-size: 20px;
   font-weight: bold;
@@ -75,6 +82,7 @@ const StyledBurgerButton = styled.button<StyledBurgerButtonProps>`
 
 export {
   StyledNav,
+  StyledNavLogo,
   StyledNavSectionHeader,
   StyledNavList,
   StyledNavListElement,
