@@ -23,20 +23,25 @@ const StyledNavLogo = styled.img`
   position: relative;
   left: 50%;
   transform: translateX(-50%);
+  cursor: pointer;
 `;
 
 const StyledNavSectionHeader = styled.p`
-  font-size: 20px;
-  font-weight: bold;
+  font-size: 25px;
 `;
 
 const StyledNavListElement = styled.li`
   margin-left: 10px;
   list-style: none;
   display: none;
+  font-weight: normal;
+  font-size: 19px;
+  cursor: pointer;
 `;
 
 const StyledNavList = styled.ul`
+  font-weight: bold;
+  font-size: 22px;
   &:hover {
     & > li {
       display: block;
