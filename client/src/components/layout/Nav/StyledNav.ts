@@ -14,6 +14,27 @@ const StyledNav = styled.nav<StyledNavProps>`
   overflow-y: scroll;
   transition: ${(props) => props.theme.transition.slow};
   padding-top: 70px;
+  padding-left: 20px;
+  box-sizing: border-box;
+`;
+
+const StyledNavSectionHeader = styled.p`
+  font-size: 20px;
+  font-weight: bold;
+`;
+
+const StyledNavListElement = styled.li`
+  margin-left: 10px;
+  list-style: none;
+  display: none;
+`;
+
+const StyledNavList = styled.ul`
+  &:hover {
+    & > li {
+      display: block;
+    }
+  }
 `;
 
 interface StyledBurgerButtonProps {
@@ -52,4 +73,10 @@ const StyledBurgerButton = styled.button<StyledBurgerButtonProps>`
   }
 `;
 
-export { StyledNav, StyledBurgerButton };
+export {
+  StyledNav,
+  StyledNavSectionHeader,
+  StyledNavList,
+  StyledNavListElement,
+  StyledBurgerButton,
+};

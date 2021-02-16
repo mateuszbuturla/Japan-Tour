@@ -1,5 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { StyledNav, StyledBurgerButton } from './StyledNav';
+import {
+  StyledNav,
+  StyledNavSectionHeader,
+  StyledNavList,
+  StyledNavListElement,
+  StyledBurgerButton,
+} from './StyledNav';
 import { useSwitch } from 'hooks';
 import Api from 'utils/Api';
 import TypesRegion from 'types/TypesRegion';
@@ -57,7 +63,7 @@ function Nav() {
       <>
         {regions &&
           regions.map((item: TypesRegion, index: number) => {
-            return <li key={index}>{item.name}</li>;
+            return <StyledNavListElement key={index}>{item.name}</StyledNavListElement>;
           })}
       </>
     );
@@ -70,16 +76,16 @@ function Nav() {
           cities &&
           regions.map((item: TypesRegion, index: number) => {
             return (
-              <li key={index}>
-                {item.name}
-                <ul>
+              <StyledNavListElement key={index}>
+                <StyledNavList>
+                  {item.name}
                   {cities
                     .filter((obj) => obj.region === item._id)
                     .map((item2: TypesCity, index2: number) => {
-                      return <li key={index2}>{item2.name}</li>;
+                      return <StyledNavListElement key={index2}>{item2.name}</StyledNavListElement>;
                     })}
-                </ul>
-              </li>
+                </StyledNavList>
+              </StyledNavListElement>
             );
           })}
       </>
@@ -95,16 +101,18 @@ function Nav() {
             .filter((obj) => obj.section === 'attractions')
             .map((item: TypesElementCategory, index: number) => {
               return (
-                <li key={index}>
-                  {item.title}
-                  <ul>
+                <StyledNavListElement key={index}>
+                  <StyledNavList>
+                    {item.title}
                     {attractions
                       .filter((obj) => obj.category === item._id)
                       .map((item2: TypesAttraction, index2: number) => {
-                        return <li key={index2}>{item2.name}</li>;
+                        return (
+                          <StyledNavListElement key={index2}>{item2.name}</StyledNavListElement>
+                        );
                       })}
-                  </ul>
-                </li>
+                  </StyledNavList>
+                </StyledNavListElement>
               );
             })}
       </>
@@ -120,16 +128,18 @@ function Nav() {
             .filter((obj) => obj.section === 'cultures')
             .map((item: TypesElementCategory, index: number) => {
               return (
-                <li key={index}>
-                  {item.title}
-                  <ul>
+                <StyledNavListElement key={index}>
+                  <StyledNavList>
+                    {item.title}
                     {cultures
                       .filter((obj) => obj.category === item._id)
                       .map((item2: TypesCulture, index2: number) => {
-                        return <li key={index2}>{item2.name}</li>;
+                        return (
+                          <StyledNavListElement key={index2}>{item2.name}</StyledNavListElement>
+                        );
                       })}
-                  </ul>
-                </li>
+                  </StyledNavList>
+                </StyledNavListElement>
               );
             })}
       </>
@@ -145,16 +155,18 @@ function Nav() {
             .filter((obj) => obj.section === 'dishes')
             .map((item: TypesElementCategory, index: number) => {
               return (
-                <li key={index}>
-                  {item.title}
-                  <ul>
+                <StyledNavListElement key={index}>
+                  <StyledNavList>
+                    {item.title}
                     {dishes
                       .filter((obj) => obj.category === item._id)
                       .map((item2: TypesDish, index2: number) => {
-                        return <li key={index2}>{item2.name}</li>;
+                        return (
+                          <StyledNavListElement key={index2}>{item2.name}</StyledNavListElement>
+                        );
                       })}
-                  </ul>
-                </li>
+                  </StyledNavList>
+                </StyledNavListElement>
               );
             })}
       </>
@@ -164,26 +176,26 @@ function Nav() {
   return (
     <>
       <StyledNav isShow={isShow}>
-        <ul>
-          <p>Regiony</p>
+        <StyledNavList>
+          <StyledNavSectionHeader>Regiony</StyledNavSectionHeader>
           {generateRegionsNavSection()}
-        </ul>
-        <ul>
-          <p>Miasta</p>
+        </StyledNavList>
+        <StyledNavList>
+          <StyledNavSectionHeader>Miasta</StyledNavSectionHeader>
           {generateCitiesNavSection()}
-        </ul>
-        <ul>
-          <p>Atrakcje</p>
+        </StyledNavList>
+        <StyledNavList>
+          <StyledNavSectionHeader>Atrakcje</StyledNavSectionHeader>
           {generateAttractionsNavSection()}
-        </ul>
-        <ul>
-          <p>Kultura</p>
+        </StyledNavList>
+        <StyledNavList>
+          <StyledNavSectionHeader>Kultura</StyledNavSectionHeader>
           {generateCulturesNavSection()}
-        </ul>
-        <ul>
-          <p>Kuchnia</p>
+        </StyledNavList>
+        <StyledNavList>
+          <StyledNavSectionHeader>Kuchnia</StyledNavSectionHeader>
           {generateKitchenNavSection()}
-        </ul>
+        </StyledNavList>
       </StyledNav>
       <StyledBurgerButton onClick={toggleIsShow} isShow={isShow} />
     </>
