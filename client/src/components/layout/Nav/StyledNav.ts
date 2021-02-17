@@ -17,6 +17,11 @@ const StyledNav = styled.nav<StyledNavProps>`
   padding-left: 20px;
   box-sizing: border-box;
   z-index: 50;
+
+  @media (min-width: 1024px) {
+    width: 350px;
+    left: ${(props) => (props.isShow ? '0' : '-350px')};
+  }
 `;
 
 const StyledNavLogo = styled.img`
