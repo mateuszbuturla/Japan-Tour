@@ -22,6 +22,16 @@ export class CategoriesService {
     }));
   }
 
+  async getAllCategories() {
+    const categories = await this.categoryModel.find().exec();
+    return categories.map((category) => ({
+      _id: category._id,
+      title: category.title,
+      key: category.key,
+      section: category.section,
+    }));
+  }
+
   async createCategory(data: Category) {
     let res;
     const existDish = await this.categoryModel

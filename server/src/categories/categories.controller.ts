@@ -15,6 +15,12 @@ import { Category } from "./category.model";
 export class CategoriesController {
   constructor(private readonly categoriesService: CategoriesService) {}
 
+  @Get()
+  async getAllCategories() {
+    const categories = await this.categoriesService.getAllCategories();
+    return categories;
+  }
+
   @Post("create")
   createCategory(@Body() data: Category) {
     return this.categoriesService.createCategory(data);
@@ -31,7 +37,7 @@ export class CategoriesController {
   }
 
   @Get(":section")
-  async getAllCategories(@Param("section") section: string) {
+  async getAllCategoriesFromSection(@Param("section") section: string) {
     const categories = await this.categoriesService.getCategories(section);
     return categories;
   }

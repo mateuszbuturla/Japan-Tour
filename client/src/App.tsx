@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom';
 
 import Routing from 'components/routing';
 import { PageTransitionEffect } from 'components/common';
-import { Footer } from 'components/layout';
+import { Footer, Nav } from 'components/layout';
 
 function App() {
   const location = useLocation();
@@ -12,6 +12,7 @@ function App() {
   return (
     <div className="App">
       <Routing />
+      {pathName[1] !== 'admin' && <Nav />}
       {pathName[1] !== '/' && pathName[1] !== '' && pathName[1] !== 'admin' && <Footer />}
       <PageTransitionEffect />
     </div>
