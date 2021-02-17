@@ -32,29 +32,6 @@ const StyledNavLogo = styled.img`
   cursor: pointer;
 `;
 
-const StyledNavSectionHeader = styled.p`
-  font-size: 25px;
-`;
-
-const StyledNavListElement = styled.li`
-  margin-left: 10px;
-  list-style: none;
-  display: none;
-  font-weight: normal;
-  font-size: 19px;
-  cursor: pointer;
-`;
-
-const StyledNavList = styled.ul`
-  font-weight: bold;
-  font-size: 22px;
-  &:hover {
-    & > li {
-      display: block;
-    }
-  }
-`;
-
 interface StyledBurgerButtonProps {
   isShow: boolean;
 }
@@ -92,11 +69,4 @@ const StyledBurgerButton = styled.button<StyledBurgerButtonProps>`
   }
 `;
 
-export {
-  StyledNav,
-  StyledNavLogo,
-  StyledNavSectionHeader,
-  StyledNavList,
-  StyledNavListElement,
-  StyledBurgerButton,
-};
+export { StyledNav, StyledNavLogo, StyledBurgerButton };

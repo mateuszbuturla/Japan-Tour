@@ -1,13 +1,5 @@
 import React, { useCallback, useState, useEffect, useRef } from 'react';
-import {
-  StyledNav,
-  StyledNavLogo,
-  StyledNavSectionHeader,
-  StyledNavList,
-  StyledNavListElement,
-  StyledBurgerButton,
-} from './StyledNav';
-import { useSwitch } from 'hooks';
+import { StyledNav, StyledNavLogo, StyledBurgerButton } from './StyledNav';
 import Api from 'utils/Api';
 import TypesRegion from 'types/TypesRegion';
 import TypesCity from 'types/TypesCity';
@@ -19,6 +11,8 @@ import ChangePath from 'utils/ChangePath';
 import { useHistory } from 'react-router-dom';
 
 import logo from 'assets/LOGO.png';
+
+import Test from './test';
 
 function Nav() {
   const history = useHistory();
@@ -36,30 +30,31 @@ function Nav() {
     setIsShow(false);
   };
 
-  const redirect = (url: string) => {
-    ChangePath(history, url);
-    onClose();
-  };
   const getRegions = async () => {
     const res = await Api.get(`/regions`);
     setRegions(res.data);
   };
+
   const getCities = async () => {
     const res = await Api.get(`/cities`);
     setCities(res.data);
   };
+
   const getAttractions = async () => {
     const res = await Api.get(`/attractions`);
     setAttractions(res.data);
   };
+
   const getCultures = async () => {
     const res = await Api.get(`/cultures`);
     setCultures(res.data);
   };
+
   const getDishes = async () => {
     const res = await Api.get(`/dishes`);
     setDishes(res.data);
   };
+
   const getCategories = async () => {
     const res = await Api.get(`/categories`);
     setCategories(res.data);
@@ -79,6 +74,7 @@ function Nav() {
       onClose();
     }
   }, []);
+
   const clickListener = useCallback(
     (e: MouseEvent) => {
       if (
@@ -102,160 +98,6 @@ function Nav() {
     };
   }, []);
 
-  const generateRegionsNavSection = () => {
-    return (
-      <>
-        {regions &&
-          regions.map((item: TypesRegion, index: number) => {
-            return (
-              <StyledNavListElement
-                key={index}
-                onClick={() => {
-                  redirect(`/podroze/${item.key}`);
-                }}
-              >
-                {item.name}
-              </StyledNavListElement>
-            );
-          })}
-      </>
-    );
-  };
-
-  const generateCitiesNavSection = () => {
-    return (
-      <>
-        {regions &&
-          cities &&
-          regions.map((item: TypesRegion, index: number) => {
-            return (
-              <StyledNavListElement key={index}>
-                <StyledNavList>
-                  {item.name}
-                  {cities
-                    .filter((obj) => obj.region === item._id)
-                    .map((item2: TypesCity, index2: number) => {
-                      return (
-                        <StyledNavListElement
-                          key={index2}
-                          onClick={() => {
-                            redirect(`/podroze/${item.key}/${item2.key}`);
-                          }}
-                        >
-                          {item2.name}
-                        </StyledNavListElement>
-                      );
-                    })}
-                </StyledNavList>
-              </StyledNavListElement>
-            );
-          })}
-      </>
-    );
-  };
-
-  const generateAttractionsNavSection = () => {
-    return (
-      <>
-        {categories &&
-          attractions &&
-          categories
-            .filter((obj) => obj.section === 'attractions')
-            .map((item: TypesElementCategory, index: number) => {
-              return (
-                <StyledNavListElement key={index}>
-                  <StyledNavList>
-                    {item.title}
-                    {attractions
-                      .filter((obj) => obj.category === item._id)
-                      .map((item2: TypesAttraction, index2: number) => {
-                        return (
-                          <StyledNavListElement
-                            key={index2}
-                            onClick={() => {
-                              redirect(`/podroze/${item2.region}/${item2.city}/${item2.key}`);
-                            }}
-                          >
-                            {item2.name}
-                          </StyledNavListElement>
-                        );
-                      })}
-                  </StyledNavList>
-                </StyledNavListElement>
-              );
-            })}
-      </>
-    );
-  };
-
-  const generateCulturesNavSection = () => {
-    return (
-      <>
-        {categories &&
-          cultures &&
-          categories
-            .filter((obj) => obj.section === 'cultures')
-            .map((item: TypesElementCategory, index: number) => {
-              return (
-                <StyledNavListElement key={index}>
-                  <StyledNavList>
-                    {item.title}
-                    {cultures
-                      .filter((obj) => obj.category === item._id)
-                      .map((item2: TypesCulture, index2: number) => {
-                        return (
-                          <StyledNavListElement
-                            key={index2}
-                            onClick={() => {
-                              redirect(`/kultura/${item.key}/${item2.key}`);
-                            }}
-                          >
-                            {item2.name}
-                          </StyledNavListElement>
-                        );
-                      })}
-                  </StyledNavList>
-                </StyledNavListElement>
-              );
-            })}
-      </>
-    );
-  };
-
-  const generateKitchenNavSection = () => {
-    return (
-      <>
-        {categories &&
-          dishes &&
-          categories
-            .filter((obj) => obj.section === 'dishes')
-            .map((item: TypesElementCategory, index: number) => {
-              return (
-                <StyledNavListElement key={index}>
-                  <StyledNavList>
-                    {item.title}
-                    {dishes
-                      .filter((obj) => obj.category === item._id)
-                      .map((item2: TypesDish, index2: number) => {
-                        return (
-                          <StyledNavListElement
-                            key={index2}
-                            onClick={() => {
-                              redirect(`/kuchnia/${item.key}/${item2.key}`);
-                            }}
-                          >
-                            {item2.name}
-                          </StyledNavListElement>
-                        );
-                      })}
-                  </StyledNavList>
-                </StyledNavListElement>
-              );
-            })}
-      </>
-    );
-  };
-
   return (
     <>
       <StyledNav isShow={isShow} ref={navRef}>
@@ -266,26 +108,85 @@ function Nav() {
             ChangePath(history, '/');
           }}
         />
-        <StyledNavList>
-          <StyledNavSectionHeader>Regiony</StyledNavSectionHeader>
-          {generateRegionsNavSection()}
-        </StyledNavList>
-        <StyledNavList>
-          <StyledNavSectionHeader>Miasta</StyledNavSectionHeader>
-          {generateCitiesNavSection()}
-        </StyledNavList>
-        <StyledNavList>
-          <StyledNavSectionHeader>Atrakcje</StyledNavSectionHeader>
-          {generateAttractionsNavSection()}
-        </StyledNavList>
-        <StyledNavList>
-          <StyledNavSectionHeader>Kultura</StyledNavSectionHeader>
-          {generateCulturesNavSection()}
-        </StyledNavList>
-        <StyledNavList>
-          <StyledNavSectionHeader>Kuchnia</StyledNavSectionHeader>
-          {generateKitchenNavSection()}
-        </StyledNavList>
+        <Test
+          title="Regiony"
+          data={regions && regions.map((a) => ({ name: a.name, url: `/podroze/${a.key}` }))}
+          closeNav={onClose}
+        />
+        <Test
+          title="Miasta"
+          closeNav={onClose}
+          dropdownData={
+            regions &&
+            cities &&
+            regions.map((a) => ({
+              title: a.name,
+              data: cities.map(
+                (b) => b.region === a._id && { name: b.name, url: `/podroze/${a.key}/${b.key}` },
+              ),
+            }))
+          }
+        />
+        <Test
+          title="Atrakcje"
+          closeNav={onClose}
+          dropdownData={
+            categories &&
+            attractions &&
+            categories
+              .filter((obj) => obj.section === 'attractions')
+              .map((a) => ({
+                title: a.title,
+                data: attractions.map(
+                  (b) =>
+                    b.category === a._id && {
+                      name: b.name,
+                      url: `/podroze/${b.region}/${b.city}/${b.key}`,
+                    },
+                ),
+              }))
+          }
+        />
+        <Test
+          title="Kultura"
+          closeNav={onClose}
+          dropdownData={
+            categories &&
+            cultures &&
+            categories
+              .filter((obj) => obj.section === 'cultures')
+              .map((a) => ({
+                title: a.title,
+                data: cultures.map(
+                  (b) =>
+                    b.category === a._id && {
+                      name: b.name,
+                      url: `/kultura/${b.category}/${b.key}`,
+                    },
+                ),
+              }))
+          }
+        />
+        <Test
+          title="Kuchnia"
+          closeNav={onClose}
+          dropdownData={
+            categories &&
+            dishes &&
+            categories
+              .filter((obj) => obj.section === 'dishes')
+              .map((a) => ({
+                title: a.title,
+                data: dishes.map(
+                  (b) =>
+                    b.category === a._id && {
+                      name: b.name,
+                      url: `/kuchnia/${b.category}/${b.key}`,
+                    },
+                ),
+              }))
+          }
+        />
       </StyledNav>
       <StyledBurgerButton
         onClick={() => {
