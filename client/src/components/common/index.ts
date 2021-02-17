@@ -16,6 +16,7 @@ import Input from './Input';
 import Button from './Button';
 import FormList from './FormList';
 import LoadingBar from './LoadingBar';
+import NavDropdown from './NavDropdown';
 
 export {
   HomeHeader,
@@ -36,4 +37,5 @@ export {
   Button,
   FormList,
   LoadingBar,
+  NavDropdown,
 };

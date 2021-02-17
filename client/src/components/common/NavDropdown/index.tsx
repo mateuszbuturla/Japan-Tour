@@ -2,14 +2,19 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import ChangePath from 'utils/ChangePath';
 
+interface Data {
+  name: string;
+  url: string;
+}
+
 interface Props {
   title: string;
-  data?: any;
+  data?: Data[];
   dropdownData?: any[];
   closeNav: () => void;
 }
 
-function Test({ title, data, dropdownData, closeNav }: Props) {
+function NavDropdown({ title, data, dropdownData, closeNav }: Props) {
   const history = useHistory();
   const [isShow, setIsShow] = useState(false);
 
@@ -23,15 +28,19 @@ function Test({ title, data, dropdownData, closeNav }: Props) {
       <a onClick={() => setIsShow(!isShow)}>{title}</a>
       {isShow &&
         data &&
-        data.map((item: any, index: number) => (
-          <li key={index} onClick={() => redirect(item.url)}>
-            {item.name}
-          </li>
-        ))}
+        data.map(
+          (item, index: number) =>
+            item && (
+              <li key={index} onClick={() => redirect(item.url)}>
+                {item.name}
+              </li>
+            ),
+        )}
       {isShow &&
         dropdownData &&
-        dropdownData.map((item: any, index: number) => (
-          <Test
+        dropdownData.map((item, index: number) => (
+          <NavDropdown
+            key={index}
             title={item.title}
             data={item.data && item.data}
             dropdownData={item.dropdownData && dropdownData}
@@ -42,4 +51,4 @@ function Test({ title, data, dropdownData, closeNav }: Props) {
   );
 }
 
-export default Test;
+export default NavDropdown;

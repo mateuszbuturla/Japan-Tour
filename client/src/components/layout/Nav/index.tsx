@@ -1,5 +1,6 @@
 import React, { useCallback, useState, useEffect, useRef } from 'react';
 import { StyledNav, StyledNavLogo, StyledBurgerButton } from './StyledNav';
+import { NavDropdown } from 'components/common';
 import Api from 'utils/Api';
 import TypesRegion from 'types/TypesRegion';
 import TypesCity from 'types/TypesCity';
@@ -11,8 +12,6 @@ import ChangePath from 'utils/ChangePath';
 import { useHistory } from 'react-router-dom';
 
 import logo from 'assets/LOGO.png';
-
-import Test from './test';
 
 function Nav() {
   const history = useHistory();
@@ -108,12 +107,12 @@ function Nav() {
             ChangePath(history, '/');
           }}
         />
-        <Test
+        <NavDropdown
           title="Regiony"
           data={regions && regions.map((a) => ({ name: a.name, url: `/podroze/${a.key}` }))}
           closeNav={onClose}
         />
-        <Test
+        <NavDropdown
           title="Miasta"
           closeNav={onClose}
           dropdownData={
@@ -127,7 +126,7 @@ function Nav() {
             }))
           }
         />
-        <Test
+        <NavDropdown
           title="Atrakcje"
           closeNav={onClose}
           dropdownData={
@@ -147,7 +146,7 @@ function Nav() {
               }))
           }
         />
-        <Test
+        <NavDropdown
           title="Kultura"
           closeNav={onClose}
           dropdownData={
@@ -167,7 +166,7 @@ function Nav() {
               }))
           }
         />
-        <Test
+        <NavDropdown
           title="Kuchnia"
           closeNav={onClose}
           dropdownData={
