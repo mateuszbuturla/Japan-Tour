@@ -10,6 +10,18 @@ const GlobalStyle = createGlobalStyle`
   body {
     overflow-x: hidden;
   }
+
+  ::-webkit-scrollbar {
+    width: 5px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #888;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
 `;
 
 interface Props {
