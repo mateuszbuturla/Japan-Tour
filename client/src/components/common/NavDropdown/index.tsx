@@ -1,6 +1,11 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import ChangePath from 'utils/ChangePath';
+import {
+  StyledNavDropdown,
+  StyledNavDropdownTitle,
+  StyledNavDropdownItem,
+} from './StyledNavDropdown';
 
 interface Data {
   name: string;
@@ -24,16 +29,16 @@ function NavDropdown({ title, data, dropdownData, closeNav }: Props) {
   };
 
   return (
-    <ul>
-      <a onClick={() => setIsShow(!isShow)}>{title}</a>
+    <StyledNavDropdown>
+      <StyledNavDropdownTitle onClick={() => setIsShow(!isShow)}>{title}</StyledNavDropdownTitle>
       {isShow &&
         data &&
         data.map(
           (item, index: number) =>
             item && (
-              <li key={index} onClick={() => redirect(item.url)}>
+              <StyledNavDropdownItem key={index} onClick={() => redirect(item.url)}>
                 {item.name}
-              </li>
+              </StyledNavDropdownItem>
             ),
         )}
       {isShow &&
@@ -47,7 +52,7 @@ function NavDropdown({ title, data, dropdownData, closeNav }: Props) {
             closeNav={closeNav}
           />
         ))}
-    </ul>
+    </StyledNavDropdown>
   );
 }
 

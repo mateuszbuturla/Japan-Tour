@@ -19,7 +19,7 @@ const StyledNav = styled.nav<StyledNavProps>`
   z-index: 50;
 
   @media (min-width: 1024px) {
-    width: 350px;
+    width: 300px;
     left: ${(props) => (props.isShow ? '0' : '-350px')};
   }
 `;
