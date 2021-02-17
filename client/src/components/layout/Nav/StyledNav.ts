@@ -16,6 +16,7 @@ const StyledNav = styled.nav<StyledNavProps>`
   padding-top: 70px;
   padding-left: 20px;
   box-sizing: border-box;
+  z-index: 50;
 `;
 
 const StyledNavLogo = styled.img`
@@ -63,6 +64,7 @@ const StyledBurgerButton = styled.button<StyledBurgerButtonProps>`
   background: none;
   outline: none;
   cursor: pointer;
+  z-index: 100;
   &::before,
   &::after {
     content: '';
