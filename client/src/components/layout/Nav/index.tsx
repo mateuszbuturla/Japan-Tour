@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useCallback, useState, useEffect, useRef } from 'react';
 import {
   StyledNav,
   StyledNavLogo,
@@ -22,7 +22,9 @@ import logo from 'assets/LOGO.png';
 
 function Nav() {
   const history = useHistory();
-  const [isShow, toggleIsShow] = useSwitch(true);
+  const navRef = useRef(null);
+  const burgerButtonRef = useRef(null);
+  const [isShow, setIsShow] = useState(false);
   const [regions, setRegions] = useState<TypesRegion[]>();
   const [cities, setCities] = useState<TypesCity[]>();
   const [attractions, setAttractions] = useState<TypesAttraction[]>();
@@ -30,11 +32,14 @@ function Nav() {
   const [dishes, setDishes] = useState<TypesDish[]>();
   const [categories, setCategories] = useState<TypesElementCategory[]>();
 
-  const redirect = (url: string) => {
-    ChangePath(history, url);
-    toggleIsShow();
+  const onClose = () => {
+    setIsShow(false);
   };
 
+  const redirect = (url: string) => {
+    ChangePath(history, url);
+    onClose();
+  };
   const getRegions = async () => {
     const res = await Api.get(`/regions`);
     setRegions(res.data);
@@ -67,6 +72,34 @@ function Nav() {
     getCultures();
     getDishes();
     getCategories();
+  }, []);
+
+  const escapeListener = useCallback((e: KeyboardEvent) => {
+    if (e.key === 'Escape') {
+      onClose();
+    }
+  }, []);
+  const clickListener = useCallback(
+    (e: MouseEvent) => {
+      if (
+        !(navRef.current! as any).contains(e.target) &&
+        !(burgerButtonRef.current! as any).contains(e.target)
+      ) {
+        onClose();
+      }
+    },
+    [navRef.current],
+  );
+
+  useEffect(() => {
+    // Attach the listeners on component mount.
+    document.addEventListener('click', clickListener);
+    document.addEventListener('keyup', escapeListener);
+    // Detach the listeners on component unmount.
+    return () => {
+      document.removeEventListener('click', clickListener);
+      document.removeEventListener('keyup', escapeListener);
+    };
   }, []);
 
   const generateRegionsNavSection = () => {
@@ -225,11 +258,11 @@ function Nav() {
 
   return (
     <>
-      <StyledNav isShow={isShow}>
+      <StyledNav isShow={isShow} ref={navRef}>
         <StyledNavLogo
           src={logo}
           onClick={() => {
-            toggleIsShow();
+            onClose();
             ChangePath(history, '/');
           }}
         />
@@ -254,7 +287,13 @@ function Nav() {
           {generateKitchenNavSection()}
         </StyledNavList>
       </StyledNav>
-      <StyledBurgerButton onClick={toggleIsShow} isShow={isShow} />
+      <StyledBurgerButton
+        onClick={() => {
+          setIsShow(!isShow);
+        }}
+        isShow={isShow}
+        ref={burgerButtonRef}
+      />
     </>
   );
 }
