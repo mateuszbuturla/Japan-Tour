@@ -1,6 +1,8 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { Button, Input } from 'components/common';
+import Api from 'utils/Api';
+import AddNotification from 'utils/AddNotification';
 
 interface InputType {
   type: 'text' | 'file' | 'select';
@@ -12,14 +14,25 @@ interface InputType {
 }
 
 interface Props {
+  api: string;
   form: InputType[];
 }
 
-function Forms({ form }: Props) {
+function Forms({ api, form }: Props) {
   const { register, handleSubmit, errors } = useForm();
 
-  const onSubmit = (data: any) => {
-    console.log(data);
+  const onSubmit = async (data: any, e: any) => {
+    try {
+      const res = await Api.post(api, data);
+      if (res.status === 201) {
+        AddNotification('Dodano', 'Wykonano pomyślnie', 'success');
+        e.target.reset();
+      }
+    } catch (err) {
+      if (err.response.status === 409) {
+        AddNotification('Błąd', 'Wystąpił błąd', 'danger');
+      }
+    }
   };
 
   return (

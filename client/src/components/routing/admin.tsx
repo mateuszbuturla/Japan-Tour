@@ -76,33 +76,20 @@ function RoutingAdmin() {
         component={(props: any) => (
           <Forms
             {...props}
+            api="/categories/create"
             form={[
               {
                 type: 'text',
-                label: 'Pole teksowe 1',
-                name: 'nazwa',
-                defaultValue: 'default value',
-                required: true,
-              },
-              {
-                type: 'text',
-                label: 'Pole teksowe 2',
-                name: 'nazwa2',
-                defaultValue: 'default value2',
-                required: false,
-              },
-              {
-                type: 'file',
-                label: 'Pole pliku',
-                name: 'nazwa3',
+                label: 'Nazwa kategori',
+                name: 'title',
                 required: true,
               },
               {
                 type: 'select',
-                label: 'Pole pliku',
-                name: 'nazwa3',
+                label: 'Sekcja',
+                name: 'section',
                 required: true,
-                selectInputValues: ['test1', 'test2', 'test3'],
+                selectInputValues: ['dishes', 'cultures', 'attractions'],
               },
             ]}
           />
