@@ -10,6 +10,7 @@ import {
   UpdateCity,
   UpdateAttraction,
   UpdateCultureDish,
+  Forms,
 } from 'components/layout';
 
 function RoutingAdmin() {
@@ -68,6 +69,37 @@ function RoutingAdmin() {
       <Route
         path="/admin/dishes/:id"
         component={(props: any) => <UpdateCultureDish {...props} api="dishes" />}
+        exact
+      />
+      <Route
+        path="/admin/forms"
+        component={(props: any) => (
+          <Forms
+            {...props}
+            form={[
+              {
+                type: 'text',
+                label: 'Pole teksowe 1',
+                name: 'nazwa',
+                defaultValue: 'default value',
+                required: true,
+              },
+              {
+                type: 'text',
+                label: 'Pole teksowe 2',
+                name: 'nazwa2',
+                defaultValue: 'default value2',
+                required: false,
+              },
+              {
+                type: 'file',
+                label: 'Pole pliku',
+                name: 'nazwa3',
+                required: true,
+              },
+            ]}
+          />
+        )}
         exact
       />
     </Switch>
