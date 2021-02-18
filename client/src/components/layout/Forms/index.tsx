@@ -3,11 +3,12 @@ import { useForm } from 'react-hook-form';
 import { Button, Input } from 'components/common';
 
 interface InputType {
-  type: 'text' | 'file';
+  type: 'text' | 'file' | 'select';
   label: string;
   name: string;
   defaultValue: any;
   required: boolean;
+  selectInputValues?: string[];
 }
 
 interface Props {
@@ -33,6 +34,7 @@ function Forms({ form }: Props) {
           key={index}
           inputRef={register({ required: item.required })}
           errorMessage={errors[item.name] ? 'To pole nie może być puste' : ''}
+          options={item.type === 'select' && item.selectInputValues}
         />
       ))}
       <Button text="Wyślij" />

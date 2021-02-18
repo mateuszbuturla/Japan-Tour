@@ -97,6 +97,13 @@ function RoutingAdmin() {
                 name: 'nazwa3',
                 required: true,
               },
+              {
+                type: 'select',
+                label: 'Pole pliku',
+                name: 'nazwa3',
+                required: true,
+                selectInputValues: ['test1', 'test2', 'test3'],
+              },
             ]}
           />
         )}
