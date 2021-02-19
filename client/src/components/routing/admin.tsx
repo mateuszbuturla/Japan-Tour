@@ -12,6 +12,7 @@ import {
   UpdateCultureDish,
   Forms,
 } from 'components/layout';
+import FormsTemplate from 'formsTemplate';
 
 function RoutingAdmin() {
   return (
@@ -31,21 +32,21 @@ function RoutingAdmin() {
         component={(props: any) => <AddCulture {...props} api="dishes" />}
         exact
       />
-      <Route
+      {/* <Route
         path="/admin/add-region"
         component={(props: any) => <AddRegion {...props} api="regions" />}
         exact
-      />
+      /> */}
       <Route
         path="/admin/add-city"
         component={(props: any) => <AddCity {...props} api="cities" />}
         exact
       />
-      <Route
+      {/* <Route
         path="/admin/add-attraction"
         component={(props: any) => <AddAttraction {...props} api="attractions" />}
         exact
-      />
+      /> */}
       <Route
         path="/admin/regions/:id"
         component={(props: any) => <UpdateRegion {...props} api="regions" />}
@@ -71,30 +72,22 @@ function RoutingAdmin() {
         component={(props: any) => <UpdateCultureDish {...props} api="dishes" />}
         exact
       />
-      <Route
-        path="/admin/forms"
-        component={(props: any) => (
-          <Forms
-            {...props}
-            api="/regions/create"
-            form={[
-              {
-                type: 'text',
-                label: 'Nazwa',
-                name: 'name',
-                required: true,
-              },
-              {
-                type: 'file',
-                label: 'Zdjęcie',
-                name: 'img',
-                required: true,
-              },
-            ]}
-          />
-        )}
-        exact
-      />
+      {FormsTemplate.map((item, index) => (
+        <Route
+          path={item.url}
+          key={index}
+          component={(props: any) => (
+            <Forms
+              {...props}
+              api={item.api}
+              form={item.fields}
+              description={item.description}
+              otherData={item.otherData}
+            />
+          )}
+          exact
+        />
+      ))}
     </Switch>
   );
 }

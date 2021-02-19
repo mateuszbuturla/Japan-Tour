@@ -17,9 +17,11 @@ interface InputType {
 interface Props {
   api: string;
   form: InputType[];
+  description?: boolean;
+  otherData?: boolean;
 }
 
-function Forms({ api, form }: Props) {
+function Forms({ api, form, description, otherData }: Props) {
   const { register, handleSubmit, errors } = useForm();
 
   const uploadImages = async (data: any) => {
@@ -66,8 +68,12 @@ function Forms({ api, form }: Props) {
         });
       }
 
-      newData.description = [];
-      newData.otherData = [];
+      if (description) {
+        newData.description = [];
+      }
+      if (otherData) {
+        newData.otherData = [];
+      }
 
       const res = await Api.post(api, newData);
       if (res.status === 201) {
