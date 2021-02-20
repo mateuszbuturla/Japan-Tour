@@ -28,7 +28,6 @@ const AddAttractionForm = async () => {
         type: 'checkbox',
         label: 'Topowa atrakcja',
         name: 'bestAttractions',
-        required: true,
       },
       {
         type: 'select',
