@@ -37,11 +37,11 @@ function RoutingAdmin() {
         component={(props: any) => <AddCategory {...props} />}
         exact
       /> */}
-      <Route
+      {/* <Route
         path="/admin/add-culture"
         component={(props: any) => <AddCulture {...props} api="cultures" />}
         exact
-      />
+      /> */}
       <Route
         path="/admin/add-dish"
         component={(props: any) => <AddCulture {...props} api="dishes" />}
