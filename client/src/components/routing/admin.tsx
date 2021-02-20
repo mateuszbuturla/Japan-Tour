@@ -52,11 +52,11 @@ function RoutingAdmin() {
         component={(props: any) => <AddRegion {...props} api="regions" />}
         exact
       /> */}
-      <Route
+      {/* <Route
         path="/admin/add-city"
         component={(props: any) => <AddCity {...props} api="cities" />}
         exact
-      />
+      /> */}
       {/* <Route
         path="/admin/add-attraction"
         component={(props: any) => <AddAttraction {...props} api="attractions" />}
