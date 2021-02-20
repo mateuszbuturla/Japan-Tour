@@ -67,7 +67,7 @@ function AddAttraction({ api }: Props) {
       newData.img = uploadImageRes.data.data.url;
       newData.bestAttractions = data.bestAttractions === 'yes' ? true : false;
       const category = categories.filter((obj) => {
-        return obj.title === data.category;
+        return obj.name === data.category;
       });
       newData.category = category[0]._id;
       const region = regions.filter((obj) => {
@@ -112,7 +112,7 @@ function AddAttraction({ api }: Props) {
     let categoriesListTitle: string[] = [];
 
     categories.map((item: TypesElementCategory) => {
-      categoriesListTitle = [...categoriesListTitle, item.title];
+      categoriesListTitle = [...categoriesListTitle, item.name];
     });
 
     return categoriesListTitle;

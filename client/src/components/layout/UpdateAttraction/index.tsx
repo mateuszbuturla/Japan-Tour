@@ -91,7 +91,7 @@ function UpdateAttraction({ api }: Props) {
       newData.img = uploadImageRes.data.data.url;
       newData.bestAttractions = data.bestAttractions === 'yes' ? true : false;
       const category = categories.filter((obj) => {
-        return obj.title === data.category;
+        return obj.name === data.category;
       });
       newData.category = category[0]._id;
       const region = regions.filter((obj) => {
@@ -136,7 +136,7 @@ function UpdateAttraction({ api }: Props) {
     let categoriesListTitle: string[] = [];
 
     categories.map((item: TypesElementCategory) => {
-      categoriesListTitle = [...categoriesListTitle, item.title];
+      categoriesListTitle = [...categoriesListTitle, item.name];
     });
 
     return categoriesListTitle;
@@ -205,9 +205,7 @@ function UpdateAttraction({ api }: Props) {
           id="category"
           label="Kategoria"
           name="category"
-          defaultValue={
-            categories.filter((obj) => obj._id === selectedAttraction.category)[0].title
-          }
+          defaultValue={categories.filter((obj) => obj._id === selectedAttraction.category)[0].name}
           inputRef={register({ required: true })}
           errorMessage={errors.section ? 'To pole nie może być puste' : ''}
           type="select"

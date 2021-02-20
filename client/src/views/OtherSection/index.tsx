@@ -52,7 +52,7 @@ function OtherSection({ header, categoryUrl, categories, setTitle, api }: Props)
             {elementsCategories.map((item) => (
               <OtherSectionElementsGroup
                 key={item.key}
-                header={item.title}
+                header={item.name}
                 data={elements.filter((item2) => item2.category === item._id)}
                 categoryUrl={categoryUrl}
               />

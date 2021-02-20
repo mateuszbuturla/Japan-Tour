@@ -4,9 +4,12 @@ import { Button, Input } from 'components/common';
 import Api from 'utils/Api';
 import AddNotification from 'utils/AddNotification';
 import UploadImage from 'utils/UploadImage';
+import TypesElementCategory from 'types/TypesElementCategory';
+import TypesRegion from 'types/TypesRegion';
+import TypesCity from 'types/TypesCity';
 
 interface InputType {
-  type: 'text' | 'file' | 'select';
+  type: 'text' | 'file' | 'select' | 'checkbox';
   label: string;
   name: string;
   defaultValue: any;
@@ -14,14 +17,21 @@ interface InputType {
   selectInputValues?: string[];
 }
 
+interface DataFromApiType {
+  categories?: TypesElementCategory[];
+  regions?: TypesRegion[];
+  cities?: TypesCity[];
+}
+
 interface Props {
   api: string;
   form: InputType[];
   description?: boolean;
   otherData?: boolean;
+  dataFromApi?: DataFromApiType;
 }
 
-function Forms({ api, form, description, otherData }: Props) {
+function Forms({ api, form, description, otherData, dataFromApi }: Props) {
   const { register, handleSubmit, errors } = useForm();
 
   const uploadImages = async (data: any) => {
@@ -67,6 +77,26 @@ function Forms({ api, form, description, otherData }: Props) {
           }
         });
       }
+      if (dataFromApi) {
+        if (data.category && dataFromApi.categories) {
+          const category = dataFromApi.categories.filter((obj) => {
+            return obj.name === data.category;
+          });
+          newData.category = category[0]._id;
+        }
+        if (data.region && dataFromApi.regions) {
+          const region = dataFromApi.regions.filter((obj) => {
+            return obj.name === data.region;
+          });
+          newData.region = region[0]._id;
+        }
+        if (data.city && dataFromApi.cities) {
+          const city = dataFromApi.cities.filter((obj) => {
+            return obj.name === data.city;
+          });
+          newData.city = city[0]._id;
+        }
+      }
 
       if (description) {
         newData.description = [];
@@ -99,7 +129,12 @@ function Forms({ api, form, description, otherData }: Props) {
           key={index}
           inputRef={register({ required: item.required })}
           errorMessage={errors[item.name] ? 'To pole nie może być puste' : ''}
-          options={item.type === 'select' && item.selectInputValues}
+          options={
+            item.type === 'select' &&
+            item.selectInputValues.map(
+              (item: TypesElementCategory | TypesRegion | TypesCity) => item.name,
+            )
+          }
         />
       ))}
       <Button text="Wyślij" />

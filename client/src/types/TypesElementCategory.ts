@@ -1,6 +1,6 @@
 interface TypesElementCategory {
   _id: string;
-  title: string;
+  name: string;
   key: string;
   section: string;
 }

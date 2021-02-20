@@ -40,7 +40,7 @@ function AddCulture({ api }: Props) {
     if (uploadImageRes && categories) {
       newData.img = uploadImageRes.data.data.url;
       const category = categories.filter((obj) => {
-        return obj.title === data.category;
+        return obj.name === data.category;
       });
       newData.category = category[0]._id;
       try {
@@ -86,7 +86,7 @@ function AddCulture({ api }: Props) {
     let categoriesListTitle: string[] = [];
 
     categories.map((item: TypesElementCategory) => {
-      categoriesListTitle = [...categoriesListTitle, item.title];
+      categoriesListTitle = [...categoriesListTitle, item.name];
     });
 
     return categoriesListTitle;

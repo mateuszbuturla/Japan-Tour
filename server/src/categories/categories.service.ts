@@ -17,7 +17,7 @@ export class CategoriesService {
     const categories = await this.categoryModel.find({ section }).exec();
     return categories.map((category) => ({
       _id: category._id,
-      title: category.title,
+      name: category.title,
       key: category.key,
     }));
   }
@@ -26,7 +26,7 @@ export class CategoriesService {
     const categories = await this.categoryModel.find().exec();
     return categories.map((category) => ({
       _id: category._id,
-      title: category.title,
+      name: category.title,
       key: category.key,
       section: category.section,
     }));
@@ -36,13 +36,13 @@ export class CategoriesService {
     let res;
     const existDish = await this.categoryModel
       .findOne({
-        $or: [{ title: data.title }, { key: NormalizeString(data.title) }],
+        $or: [{ name: data.title }, { key: NormalizeString(data.title) }],
       })
       .exec();
 
     if (isNull(existDish)) {
       const newDish = new this.categoryModel({
-        title: data.title,
+        name: data.title,
         key: NormalizeString(data.title),
         section: data.section,
       });
@@ -79,7 +79,7 @@ export class CategoriesService {
 
     try {
       const newData = {
-        title: data.title,
+        name: data.title,
         key: NormalizeString(data.title),
         section: data.section,
       };

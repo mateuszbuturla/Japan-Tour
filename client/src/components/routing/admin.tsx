@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import {
   AddCategory,
@@ -13,8 +13,23 @@ import {
   Forms,
 } from 'components/layout';
 import FormsTemplate from 'formsTemplate';
+import AddAttractionForm from 'formsTemplate/AddAttractionForm';
 
 function RoutingAdmin() {
+  const [forms, setForms] = useState<any[]>();
+
+  const getForms = async () => {
+    const formsRes = await FormsTemplate();
+    console.log(formsRes);
+    setForms(formsRes);
+  };
+
+  useEffect(() => {
+    if (!forms) {
+      getForms();
+    }
+  }, []);
+
   return (
     <Switch>
       <Route
@@ -72,22 +87,24 @@ function RoutingAdmin() {
         component={(props: any) => <UpdateCultureDish {...props} api="dishes" />}
         exact
       />
-      {FormsTemplate.map((item, index) => (
-        <Route
-          path={item.url}
-          key={index}
-          component={(props: any) => (
-            <Forms
-              {...props}
-              api={item.api}
-              form={item.fields}
-              description={item.description}
-              otherData={item.otherData}
-            />
-          )}
-          exact
-        />
-      ))}
+      {forms &&
+        forms.map((item, index) => (
+          <Route
+            path={item.url}
+            key={index}
+            component={(props: any) => (
+              <Forms
+                {...props}
+                api={item.api}
+                form={item.fields}
+                description={item.description}
+                otherData={item.otherData}
+                dataFromApi={item.dataFromApi}
+              />
+            )}
+            exact
+          />
+        ))}
     </Switch>
   );
 }

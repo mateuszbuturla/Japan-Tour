@@ -9,7 +9,7 @@ import {
 } from './StyledInput';
 
 interface Props {
-  type?: 'text' | 'select' | 'file';
+  type?: 'text' | 'select' | 'file' | 'checkbox';
   id: string;
   label: string;
   name: string;
@@ -93,6 +93,24 @@ function Input({
               </>
             )}
           </StyledSelect>
+          {errorMessage ? <StyledInputError>{errorMessage}</StyledInputError> : null}
+        </StyledInputContainer>
+      )}
+
+      {type === 'checkbox' && (
+        <StyledInputContainer>
+          <StyledInputLabel htmlFor={id} error={errorMessage ? true : false}>
+            {label}
+          </StyledInputLabel>
+          <StyledInput
+            type="checkbox"
+            id={id}
+            name={name}
+            defaultValue={defaultValue}
+            placeholder={placeholder}
+            error={errorMessage ? true : false}
+            ref={inputRef}
+          />
           {errorMessage ? <StyledInputError>{errorMessage}</StyledInputError> : null}
         </StyledInputContainer>
       )}
