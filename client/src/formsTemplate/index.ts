@@ -2,7 +2,7 @@ import AddAttractionForm from './AddAttractionForm';
 import AddRegionForm from './AddRegionForm';
 
 const FormsTemplate = async () => {
-  let forms = [AddRegionForm];
+  let forms: any[] = [AddRegionForm];
   const attractionsForm = await AddAttractionForm();
   forms = [...forms, attractionsForm];
   return forms;
