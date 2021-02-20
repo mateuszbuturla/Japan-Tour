@@ -1,3 +1,4 @@
+import TypesRegion from 'types/TypesRegion';
 import { getRegions } from 'utils/ApiRequests';
 
 const AddCityForm = async () => {
@@ -27,7 +28,7 @@ const AddCityForm = async () => {
         label: 'Region',
         name: 'region',
         required: true,
-        selectInputValues: regions.data,
+        selectInputValues: regions.data.map((item: TypesRegion) => item.name),
       },
     ],
     description: true,

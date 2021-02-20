@@ -1,4 +1,7 @@
 import { getCategories, getRegions, getCities } from 'utils/ApiRequests';
+import TypesElementCategory from 'types/TypesElementCategory';
+import TypesRegion from 'types/TypesRegion';
+import TypesCity from 'types/TypesCity';
 
 const AddAttractionForm = async () => {
   const categories = await getCategories('attractions');
@@ -34,21 +37,21 @@ const AddAttractionForm = async () => {
         label: 'Kategoria',
         name: 'category',
         required: true,
-        selectInputValues: categories.data,
+        selectInputValues: categories.data.map((item: TypesElementCategory) => item.name),
       },
       {
         type: 'select',
         label: 'Region',
         name: 'region',
         required: true,
-        selectInputValues: regions.data,
+        selectInputValues: regions.data.map((item: TypesRegion) => item.name),
       },
       {
         type: 'select',
         label: 'Miasto',
         name: 'city',
         required: true,
-        selectInputValues: cities.data,
+        selectInputValues: cities.data.map((item: TypesCity) => item.name),
       },
     ],
     description: true,

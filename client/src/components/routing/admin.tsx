@@ -32,11 +32,11 @@ function RoutingAdmin() {
 
   return (
     <Switch>
-      <Route
+      {/* <Route
         path="/admin/add-category"
         component={(props: any) => <AddCategory {...props} />}
         exact
-      />
+      /> */}
       <Route
         path="/admin/add-culture"
         component={(props: any) => <AddCulture {...props} api="cultures" />}

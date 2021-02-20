@@ -129,12 +129,7 @@ function Forms({ api, form, description, otherData, dataFromApi }: Props) {
           key={index}
           inputRef={register({ required: item.required })}
           errorMessage={errors[item.name] ? 'To pole nie może być puste' : ''}
-          options={
-            item.type === 'select' &&
-            item.selectInputValues.map(
-              (item: TypesElementCategory | TypesRegion | TypesCity) => item.name,
-            )
-          }
+          options={item.type === 'select' && item.selectInputValues}
         />
       ))}
       <Button text="Wyślij" />
