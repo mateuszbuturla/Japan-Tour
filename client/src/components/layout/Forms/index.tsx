@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { Button, Input } from 'components/common';
 import Api from 'utils/Api';
@@ -29,10 +30,35 @@ interface Props {
   description?: boolean;
   otherData?: boolean;
   dataFromApi?: DataFromApiType;
+  defaultValues?: TypesElementCategory | TypesRegion | TypesCity;
+  getElementDefaultValueFunction?: (id: string) => void;
 }
 
-function Forms({ api, form, description, otherData, dataFromApi }: Props) {
+function Forms({
+  api,
+  form,
+  description,
+  otherData,
+  dataFromApi,
+  defaultValues,
+  getElementDefaultValueFunction,
+}: Props) {
+  const { id } = useParams();
   const { register, handleSubmit, errors } = useForm();
+  const [defaultValuesFromApi, setDefaultValuesFromApi] = useState<any>();
+
+  const getData = async () => {
+    if (getElementDefaultValueFunction) {
+      const res = await getElementDefaultValueFunction(id);
+      setDefaultValuesFromApi(res);
+    }
+  };
+
+  useEffect(() => {
+    if (!defaultValuesFromApi) {
+      getData();
+    }
+  });
 
   const uploadImages = async (data: any) => {
     let newData = data;
@@ -125,7 +151,7 @@ function Forms({ api, form, description, otherData, dataFromApi }: Props) {
           type={item.type}
           label={item.label}
           name={item.name}
-          defaultValue={item.defaultValue}
+          defaultValue={defaultValuesFromApi && defaultValuesFromApi.data[item.name]}
           key={index}
           inputRef={register({ required: item.required })}
           errorMessage={errors[item.name] ? 'To pole nie może być puste' : ''}

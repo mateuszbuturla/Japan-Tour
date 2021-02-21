@@ -1,8 +1,8 @@
 import { getCategories } from 'utils/ApiRequests';
 import TypesElementCategory from 'types/TypesElementCategory';
 
-const AddCultureForm = async () => {
-  const categories = await getCategories('cultures');
+const AddDishForm = async () => {
+  const categories = await getCategories('dishes');
   return {
     fields: [
       {
@@ -33,12 +33,12 @@ const AddCultureForm = async () => {
     ],
     description: true,
     otherData: true,
-    api: '/cultures/create',
-    url: '/admin/add-culture',
+    api: '/dishes/create',
+    url: '/admin/add-dish',
     dataFromApi: {
       categories: categories.data,
     },
   };
 };
 
-export default AddCultureForm;
+export default AddDishForm;

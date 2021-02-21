@@ -15,4 +15,9 @@ const getCities = async () => {
   return res;
 };
 
-export { getCategories, getRegions, getCities };
+const getSelecterRegionData = async (id: string) => {
+  const res = await Api.get(`/regions/${id}`);
+  return res;
+};
+
+export { getCategories, getRegions, getCities, getSelecterRegionData };

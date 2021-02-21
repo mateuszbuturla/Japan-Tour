@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   StyledInputContainer,
   StyledInputLabel,
@@ -31,6 +31,8 @@ function Input({
   errorMessage,
   options,
 }: Props) {
+  const [imgPreviewPath, setImgPrevewPth] = useState();
+
   return (
     <>
       {type === 'text' && (
@@ -51,23 +53,38 @@ function Input({
       )}
 
       {type === 'file' && (
-        <StyledInputContainer>
-          <StyledInputLabel htmlFor={id} error={errorMessage ? true : false}>
-            {label}
-          </StyledInputLabel>
-          <StyledInput
-            type="file"
-            accept="image/png, image/jpeg"
-            multiple={false}
-            id={id}
-            name={name}
-            defaultValue={defaultValue}
-            placeholder={placeholder}
-            error={errorMessage ? true : false}
-            ref={inputRef}
-          />
-          {errorMessage ? <StyledInputError>{errorMessage}</StyledInputError> : null}
-        </StyledInputContainer>
+        <>
+          {imgPreviewPath && <img src={imgPreviewPath} />}
+          <StyledInputContainer>
+            <StyledInputLabel htmlFor={id} error={errorMessage ? true : false}>
+              {label}
+            </StyledInputLabel>
+            <StyledInput
+              type="file"
+              accept="image/png, image/jpeg"
+              multiple={false}
+              id={id}
+              name={name}
+              defaultValue={defaultValue}
+              placeholder={placeholder}
+              error={errorMessage ? true : false}
+              ref={inputRef}
+              onChange={(e: any) => {
+                setImgPrevewPth(e.target.value);
+                console.log(e.target.value);
+                const reader = new FileReader();
+
+                reader.onload = (rEvent: any) => {
+                  if (rEvent) {
+                    setImgPrevewPth(rEvent.target.result);
+                  }
+                };
+                reader.readAsDataURL(e.target.files[0]);
+              }}
+            />
+            {errorMessage ? <StyledInputError>{errorMessage}</StyledInputError> : null}
+          </StyledInputContainer>
+        </>
       )}
 
       {type === 'select' && (
