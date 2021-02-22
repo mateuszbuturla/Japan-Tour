@@ -7,6 +7,7 @@ import {
   ItemDescription,
   AttractionsGroup,
   AsideInfo,
+  LocationPath,
 } from 'components/common';
 import Api from 'utils/Api';
 import TypesRegion from 'types/TypesRegion';
@@ -49,6 +50,13 @@ function Region({ setTitle }: Props) {
       {region && (
         <>
           <PageHeader text={region.name} img={region.img} />
+          <LocationPath
+            elements={[
+              { text: 'strona główna', url: '/' },
+              { text: 'podróże', url: '/podroze' },
+              { text: region.name, url: `/podroze/${region.key}` },
+            ]}
+          />
           <StyledPageContainer>
             <StyledMainContentContainer>
               <ItemDescription description={region.description} />
