@@ -9,6 +9,7 @@ import UpdateCity from './UpdateCity';
 import UpdateAttraction from './UpdateAttraction';
 import UpdateCultureDish from './UpdateCultureDish';
 import Nav from './Nav';
+import Forms from './Forms';
 
 export {
   Footer,
@@ -22,4 +23,5 @@ export {
   UpdateAttraction,
   UpdateCultureDish,
   Nav,
+  Forms,
 };

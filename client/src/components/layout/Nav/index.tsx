@@ -135,7 +135,7 @@ function Nav() {
             categories
               .filter((obj) => obj.section === 'attractions')
               .map((a) => ({
-                title: a.title,
+                title: a.name,
                 data: attractions.map(
                   (b) =>
                     b.category === a._id && {
@@ -155,7 +155,7 @@ function Nav() {
             categories
               .filter((obj) => obj.section === 'cultures')
               .map((a) => ({
-                title: a.title,
+                title: a.name,
                 data: cultures.map(
                   (b) =>
                     b.category === a._id && {
@@ -175,7 +175,7 @@ function Nav() {
             categories
               .filter((obj) => obj.section === 'dishes')
               .map((a) => ({
-                title: a.title,
+                title: a.name,
                 data: dishes.map(
                   (b) =>
                     b.category === a._id && {
