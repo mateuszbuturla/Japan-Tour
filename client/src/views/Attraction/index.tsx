@@ -48,7 +48,20 @@ function Attraction({ setTitle }: Props) {
     <>
       {attraction && (
         <>
-          <PageHeader text={attraction.name} img={attraction.img} />
+          <PageHeader
+            text={attraction.name}
+            img={attraction.img}
+            locationPathElements={[
+              { text: 'Strona główna', url: '/' },
+              { text: 'Podróże', url: '/podroze' },
+              { text: attraction.region, url: `/podroze/${attraction.region}` },
+              { text: attraction.city, url: `/podroze/${attraction.region}/${attraction.city}` },
+              {
+                text: attraction.name,
+                url: `/podroze/${attraction.region}/${attraction.city}/${attraction.name}`,
+              },
+            ]}
+          />
           <StyledPageContainer>
             <StyledMainContentContainer>
               <ItemDescription description={attraction.description} />

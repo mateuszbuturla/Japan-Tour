@@ -27,7 +27,14 @@ function Travel({ categoryUrl, categories, setTitle }: Props) {
 
   return (
     <>
-      <PageHeader text={thisCategory.name} img={thisCategory.img} />
+      <PageHeader
+        text={thisCategory.name}
+        img={thisCategory.img}
+        locationPathElements={[
+          { text: 'Strona główna', url: '/' },
+          { text: 'Podróże', url: '/podroze' },
+        ]}
+      />
       <StyledPageContainer>
         <StyledMainContentContainer>
           <JapanMap />

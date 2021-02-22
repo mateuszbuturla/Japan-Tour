@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { LocationPath } from 'components/common';
 import {
   StyledPageHeader,
   StyledPageHeaderText,
@@ -9,9 +10,10 @@ interface Props {
   text: string;
   img: string;
   small?: boolean;
+  locationPathElements?: any[];
 }
 
-function PageHeader({ text, img, small }: Props) {
+function PageHeader({ text, img, small, locationPathElements }: Props) {
   const [currentImage, setCurrentImage] = useState(0);
 
   const changeImage = () => {
@@ -26,10 +28,13 @@ function PageHeader({ text, img, small }: Props) {
   });
 
   return (
-    <StyledPageHeader small={small ? true : false}>
-      <StyledPageHeaderImage src={img} />
-      <StyledPageHeaderText>{text}</StyledPageHeaderText>
-    </StyledPageHeader>
+    <>
+      <StyledPageHeader small={small ? true : false}>
+        <StyledPageHeaderImage src={img} />
+        <StyledPageHeaderText>{text}</StyledPageHeaderText>
+      </StyledPageHeader>
+      {locationPathElements && <LocationPath elements={locationPathElements} />}
+    </>
   );
 }
 
