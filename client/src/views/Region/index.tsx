@@ -48,7 +48,15 @@ function Region({ setTitle }: Props) {
     <>
       {region && (
         <>
-          <PageHeader text={region.name} img={region.img} />
+          <PageHeader
+            text={region.name}
+            img={region.img}
+            locationPathElements={[
+              { text: 'Strona główna', url: '/' },
+              { text: 'Podróże', url: '/podroze' },
+              { text: region.name, url: `/podroze/${region.key}` },
+            ]}
+          />
           <StyledPageContainer>
             <StyledMainContentContainer>
               <ItemDescription description={region.description} />

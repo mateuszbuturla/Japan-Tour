@@ -15,10 +15,11 @@ import Api from 'utils/Api';
 interface Props {
   setTitle: Function;
   categoryUrl: string;
+  categoryName: string;
   api: string;
 }
 
-function OtherElement({ setTitle, categoryUrl, api }: Props) {
+function OtherElement({ setTitle, categoryUrl, api, categoryName }: Props) {
   const { elementKey } = useParams();
   const history = useHistory();
   const [element, setElement] = useState<TypesDish | TypesCulture>();
@@ -42,7 +43,16 @@ function OtherElement({ setTitle, categoryUrl, api }: Props) {
     <>
       {element && (
         <>
-          <PageHeader text={element.name} img={element.img} />
+          <PageHeader
+            text={element.name}
+            img={element.img}
+            locationPathElements={[
+              { text: 'Strona główna', url: '/' },
+              { text: categoryName, url: `/${categoryUrl}` },
+              { text: element.category, url: `/${categoryUrl}/${element.category}` },
+              { text: element.name, url: `/${categoryUrl}/${element.category}/${element.key}` },
+            ]}
+          />
           <StyledPageContainer>
             <StyledMainContentContainer>
               <ItemDescription description={element.description} />

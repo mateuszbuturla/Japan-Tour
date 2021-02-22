@@ -17,6 +17,7 @@ import Button from './Button';
 import FormList from './FormList';
 import LoadingBar from './LoadingBar';
 import NavDropdown from './NavDropdown';
+import LocationPath from './LocationPath';
 
 export {
   HomeHeader,
@@ -38,4 +39,5 @@ export {
   FormList,
   LoadingBar,
   NavDropdown,
+  LocationPath,
 };

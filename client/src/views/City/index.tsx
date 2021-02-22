@@ -48,7 +48,16 @@ function City({ setTitle }: Props) {
     <>
       {city && (
         <>
-          <PageHeader text={city.name} img={city.img} />
+          <PageHeader
+            text={city.name}
+            img={city.img}
+            locationPathElements={[
+              { text: 'Strona główna', url: '/' },
+              { text: 'Podróże', url: '/podroze' },
+              { text: city.region, url: `/podroze/${city.region}` },
+              { text: city.name, url: `/podroze/${city.region}/${city.name}` },
+            ]}
+          />
           <StyledPageContainer>
             <StyledMainContentContainer>
               <ItemDescription description={city.description} />

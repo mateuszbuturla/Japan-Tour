@@ -72,7 +72,13 @@ function Routing() {
       <Route
         path={`/kuchnia/:type/:elementKey`}
         component={(props: any) => (
-          <OtherElement {...props} setTitle={setTitle} categoryUrl="kuchnia" api="dishes" />
+          <OtherElement
+            {...props}
+            setTitle={setTitle}
+            categoryUrl="kuchnia"
+            categoryName="Kuchnia"
+            api="dishes"
+          />
         )}
         exact
       />
@@ -92,7 +98,13 @@ function Routing() {
       <Route
         path={`/kultura/:type/:elementKey`}
         component={(props: any) => (
-          <OtherElement {...props} setTitle={setTitle} categoryUrl="kultura" api="cultures" />
+          <OtherElement
+            {...props}
+            setTitle={setTitle}
+            categoryUrl="kultura"
+            categoryName="Kultura"
+            api="cultures"
+          />
         )}
         exact
       />
