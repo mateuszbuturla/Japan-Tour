@@ -4,7 +4,7 @@ export const RegionSchema = new mongoose.Schema({
   name: { type: String, required: true },
   url: { type: String, required: true },
   key: { type: String, required: true },
-  description: { type: Array, required: true },
+  description: { type: String, required: true },
   img: { type: String, required: true },
   otherData: { type: Array, required: false },
 });
@@ -13,7 +13,7 @@ export interface Region extends mongoose.Document {
   name: string;
   url: string;
   key: string;
-  description: { type: "text" | "img"; value: string }[];
+  description: string;
   img: string;
   otherData: { title: string; value: string }[];
 }

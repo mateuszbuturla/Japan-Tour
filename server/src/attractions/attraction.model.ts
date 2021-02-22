@@ -5,7 +5,7 @@ export const AttractionSchema = new mongoose.Schema({
   url: { type: String, required: true },
   key: { type: String, required: true },
   shortDescription: { type: String, required: true },
-  description: { type: Array, required: true },
+  description: { type: String, required: true },
   region: { type: String, required: true },
   city: { type: String, required: true },
   category: { type: String, required: true },
@@ -19,7 +19,7 @@ export interface Attraction extends mongoose.Document {
   url: string;
   key: string;
   shortDescription: string;
-  description: { type: "text" | "img"; value: string }[];
+  description: string;
   region: string;
   city: string;
   category: string;

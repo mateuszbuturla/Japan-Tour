@@ -6,7 +6,7 @@ export const CultureSchema = new mongoose.Schema({
   img: { type: String, required: true },
   key: { type: String, required: true },
   shortDescription: { type: String, required: true },
-  description: { type: Array, required: true },
+  description: { type: String, required: true },
   otherData: { type: Array, required: false },
 });
 
@@ -16,6 +16,6 @@ export interface Culture extends mongoose.Document {
   img: string;
   key: string;
   shortDescription: string;
-  description: { type: "text" | "img"; value: string }[];
+  description: string;
   otherData: { title: string; value: string }[];
 }
