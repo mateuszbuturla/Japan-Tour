@@ -26,7 +26,6 @@ function OtherSection({ header, categoryUrl, categories, setTitle, api }: Props)
   );
   const [elements, setElements] = useState<TypesDish[] | TypesCulture[]>([]);
   const [elementsCategories, setElementsCategories] = useState<TypesElementCategory[]>([]);
-
   const getElements = async () => {
     let res = await Api.get(`/${api}`);
     setElements(res.data);
@@ -45,7 +44,14 @@ function OtherSection({ header, categoryUrl, categories, setTitle, api }: Props)
 
   return (
     <>
-      <PageHeader text={header} img={thisCategory.img} />
+      <PageHeader
+        text={header}
+        img={thisCategory.img}
+        locationPathElements={[
+          { text: 'Strona główna', url: '/' },
+          { text: thisCategory.name, url: thisCategory.url },
+        ]}
+      />
       <StyledPageContainer>
         {elements.length > 0 && (
           <StyledMainContentContainer>
