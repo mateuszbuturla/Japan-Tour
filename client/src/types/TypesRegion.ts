@@ -6,7 +6,7 @@ interface TypesRegion {
   name: string;
   url: string;
   key: string;
-  description: TypesItemDescription[];
+  description: string;
   img: string;
   otherData: TypesOtherData[];
 }

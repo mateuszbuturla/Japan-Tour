@@ -8,7 +8,7 @@ interface TypesCulture {
   img: string;
   key: string;
   shortDescription: string;
-  description: TypesItemDescription[];
+  description: string;
   otherData: TypesOtherData[];
 }
 

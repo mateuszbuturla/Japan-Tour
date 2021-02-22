@@ -1,24 +1,12 @@
 import React from 'react';
-import { StyledText, StyledImage } from './StyledItemDescription';
-import TypesItemDescription from 'types/TypesItemDescription';
+import ReactHtmlParser from 'react-html-parser';
 
 interface Props {
-  description: TypesItemDescription[];
+  description: string;
 }
 
 function ItemDescription({ description }: Props) {
-  return (
-    <>
-      {description.map((item: TypesItemDescription) => {
-        switch (item.type) {
-          case 'text':
-            return <StyledText>{item.value}</StyledText>;
-          case 'img':
-            return <StyledImage src={item.value} />;
-        }
-      })}
-    </>
-  );
+  return <div>{ReactHtmlParser(description)}</div>;
 }
 
 export default ItemDescription;

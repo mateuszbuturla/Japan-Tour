@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { Button, Input } from 'components/common';
+import { Editor } from 'react-draft-wysiwyg';
+import { stateToHTML } from 'draft-js-export-html';
 import Api from 'utils/Api';
 import AddNotification from 'utils/AddNotification';
 import UploadImage from 'utils/UploadImage';
@@ -44,6 +46,7 @@ function Forms({
   getElementDefaultValueFunction,
 }: Props) {
   const { id } = useParams();
+  const [elementDescription, setElementDescription] = useState();
   const { register, handleSubmit, errors } = useForm();
   const [defaultValuesFromApi, setDefaultValuesFromApi] = useState<any>();
 
@@ -124,12 +127,15 @@ function Forms({
         }
       }
 
-      if (description) {
-        newData.description = [];
+      if (description && elementDescription) {
+        newData.description = stateToHTML(elementDescription.getCurrentContent());
       }
+
       if (otherData) {
         newData.otherData = [];
       }
+
+      console.log(newData);
 
       const res = await Api.post(api, newData);
       if (res.status === 201) {
@@ -141,6 +147,12 @@ function Forms({
         AddNotification('Błąd', 'Wystąpił błąd', 'danger');
       }
     }
+  };
+
+  const uploadCallback = async (file: any) => {
+    const uploadImageRes: any = await UploadImage(file);
+    console.log(uploadImageRes);
+    return { data: { link: uploadImageRes.data.data.url } };
   };
 
   return (
@@ -158,6 +170,22 @@ function Forms({
           options={item.type === 'select' && item.selectInputValues}
         />
       ))}
+      {description && (
+        <Editor
+          editorState={elementDescription}
+          onEditorStateChange={setElementDescription}
+          toolbar={{
+            options: ['inline', 'image'],
+            inline: {
+              options: ['bold', 'italic', 'underline'],
+              bold: { className: 'rich-text-icon' },
+              italic: { className: 'rich-text-icon' },
+              underline: { className: 'rich-text-icon' },
+            },
+            image: { uploadCallback: uploadCallback, alt: { present: true, mandatory: true } },
+          }}
+        />
+      )}
       <Button text="Wyślij" />
     </form>
   );

@@ -7,7 +7,7 @@ interface TypesAttraction {
   url: string;
   key: string;
   shortDescription: string;
-  description: TypesItemDescription[];
+  description: string;
   region: string;
   city: string;
   category: string;
