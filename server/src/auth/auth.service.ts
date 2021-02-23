@@ -54,7 +54,7 @@ export class AuthService {
         .exec();
 
       if (!user) {
-        return res.json({ error: "Invalid login data!" });
+        return res.status(401).json({ error: "Invalid login data!" });
       }
 
       const token = await this.createToken(await this.generateToken(user));

@@ -50,6 +50,12 @@ const StyledLoginFormForm = styled.form`
   max-width: 400px;
 `;
 
+const StyledLoginFormError = styled.p`
+  color: red;
+  text-align: center;
+  width: 100%;
+`;
+
 export {
   StyledLoginFormWrapper,
   StyledLoginForm,
@@ -57,4 +63,5 @@ export {
   StyledLoginFormHeader,
   StyledLoginFormBottomContainer,
   StyledLoginFormForm,
+  StyledLoginFormError,
 };
