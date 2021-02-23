@@ -7,7 +7,7 @@ import NormalizeString from "../utils/normalizeString";
 import { isNull } from "util";
 
 @Injectable()
-export class DishesService {
+export class DishService {
   constructor(@InjectModel("Dish") private readonly dishModel: Model<Dish>) {}
 
   async getDishes() {

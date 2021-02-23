@@ -7,7 +7,7 @@ import { Culture } from "./culture.model";
 import NormalizeString from "../utils/normalizeString";
 
 @Injectable()
-export class CulturesService {
+export class CultureService {
   constructor(
     @InjectModel("Culture") private readonly cultureModel: Model<Culture>
   ) {}

@@ -7,7 +7,7 @@ import { Category } from "./category.model";
 import NormalizeString from "../utils/normalizeString";
 
 @Injectable()
-export class CategoriesService {
+export class CategoryService {
   constructor(
     @InjectModel("Category")
     private readonly categoryModel: Model<Category>

@@ -7,7 +7,7 @@ import NormalizeString from "../utils/normalizeString";
 import { City } from "./city.model";
 
 @Injectable()
-export class CitiesService {
+export class CityService {
   constructor(@InjectModel("City") private readonly cityModel: Model<City>) {}
 
   async getCities() {

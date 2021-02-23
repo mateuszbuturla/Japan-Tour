@@ -7,7 +7,7 @@ import { Region } from "./region.model";
 import NormalizeString from "../utils/normalizeString";
 
 @Injectable()
-export class RegionsService {
+export class RegionService {
   constructor(
     @InjectModel("Region") private readonly regionModel: Model<Region>
   ) {}

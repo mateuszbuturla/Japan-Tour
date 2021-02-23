@@ -1,8 +1,8 @@
 import { Module } from "@nestjs/common";
 import { MongooseModule } from "@nestjs/mongoose";
 
-import { AttractionsController } from "./attractions.controller";
-import { AttractionsService } from "./attractions.service";
+import { AttractionController } from "./attraction.controller";
+import { AttractionService } from "./attraction.service";
 import { AttractionSchema } from "./attraction.model";
 
 @Module({
@@ -11,7 +11,7 @@ import { AttractionSchema } from "./attraction.model";
       { name: "Attraction", schema: AttractionSchema },
     ]),
   ],
-  controllers: [AttractionsController],
-  providers: [AttractionsService],
+  controllers: [AttractionController],
+  providers: [AttractionService],
 })
-export class AttractionsModule {}
+export class AttractionModule {}

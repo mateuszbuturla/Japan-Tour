@@ -7,7 +7,7 @@ import { Attraction } from "./attraction.model";
 import NormalizeString from "../utils/normalizeString";
 
 @Injectable()
-export class AttractionsService {
+export class AttractionService {
   constructor(
     @InjectModel("Attraction")
     private readonly attractionModel: Model<Attraction>

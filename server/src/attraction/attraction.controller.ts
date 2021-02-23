@@ -11,34 +11,34 @@ import {
 
 import { JoiValidationPipe } from "../pipes/JoiValidationPipe";
 
-import { AttractionsService } from "./attractions.service";
+import { AttractionService } from "./attraction.service";
 import { Attraction } from "./attraction.model";
 import { AddUpdateAttractionSchema } from "./Schema/attraction.schema";
 
 @Controller("/api/attractions")
-export class AttractionsController {
-  constructor(private readonly attractionsService: AttractionsService) {}
+export class AttractionController {
+  constructor(private readonly AttractionService: AttractionService) {}
 
   @Post("create")
   @UsePipes(new JoiValidationPipe(AddUpdateAttractionSchema))
   createAttraction(@Body() data: Attraction) {
-    return this.attractionsService.createAttraction(data);
+    return this.AttractionService.createAttraction(data);
   }
 
   @Delete("remove/:id")
   removeAttraction(@Param("id") id: string) {
-    return this.attractionsService.removeAttraction(id);
+    return this.AttractionService.removeAttraction(id);
   }
 
   @Patch("update/:key")
   @UsePipes(new JoiValidationPipe(AddUpdateAttractionSchema))
   updateAttraction(@Param("key") key: string, @Body() data: Attraction) {
-    return this.attractionsService.updateAttraction(key, data);
+    return this.AttractionService.updateAttraction(key, data);
   }
 
   @Get("bestFromRegion/:region")
   async getBestAttractionsFromRegion(@Param("region") region: string) {
-    const attractions = await this.attractionsService.getBestAttractionsFromRegion(
+    const attractions = await this.AttractionService.getBestAttractionsFromRegion(
       region
     );
     return attractions;
@@ -46,7 +46,7 @@ export class AttractionsController {
 
   @Get("allFromCategory/:category")
   async getAllAttractionsFromCategory(@Param("category") category: string) {
-    const attractions = await this.attractionsService.getAllAttractionsFromCategory(
+    const attractions = await this.AttractionService.getAllAttractionsFromCategory(
       category
     );
     return attractions;
@@ -54,17 +54,17 @@ export class AttractionsController {
 
   @Get("allFromCity/:city")
   async getAllFromCity(@Param("city") city: string) {
-    const attractions = await this.attractionsService.getAllFromCity(city);
+    const attractions = await this.AttractionService.getAllFromCity(city);
     return attractions;
   }
 
   @Get(":key")
   getSingleAttraction(@Param("key") key: string) {
-    return this.attractionsService.getSingleAttraction(key);
+    return this.AttractionService.getSingleAttraction(key);
   }
 
   @Get("")
   getAllAttractions() {
-    return this.attractionsService.getAllAttractions();
+    return this.AttractionService.getAllAttractions();
   }
 }
