@@ -8,6 +8,7 @@ import { DishModule } from "./dish/dish.module";
 import { CategoryModule } from "./category/category.module";
 import { FooterModule } from "./footer/footer.module";
 import { UserModule } from "./user/user.module";
+import { AuthModule } from "./auth/auth.module";
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { UserModule } from "./user/user.module";
     CategoryModule,
     FooterModule,
     UserModule,
+    AuthModule,
   ],
   controllers: [],
   providers: [],

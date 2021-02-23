@@ -7,7 +7,7 @@ import { User } from "./user.model";
 
 @Injectable()
 export class UserService {
-  constructor(@InjectModel("User") private readonly cityModel: Model<User>) {}
+  constructor(@InjectModel("User") private readonly userModel: Model<User>) {}
 
   filter(user: User) {
     const { _id, email } = user;
@@ -15,10 +15,9 @@ export class UserService {
   }
 
   async register(data: RegisterDto) {
-    const newUser = new this.cityModel({
+    const newUser = new this.userModel({
       email: data.email,
       pass: hashPwd(data.pass),
-      token: null,
     });
     const res = await newUser.save();
 
