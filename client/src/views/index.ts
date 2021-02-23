@@ -7,5 +7,17 @@ import OtherSection from './OtherSection';
 import OtherElement from './OtherElement';
 import NotFound from './NotFound';
 import Admin from './Admin';
+import Login from './Login';
 
-export { Home, Travel, Region, City, Attraction, OtherSection, OtherElement, NotFound, Admin };
+export {
+  Home,
+  Travel,
+  Region,
+  City,
+  Attraction,
+  OtherSection,
+  OtherElement,
+  NotFound,
+  Admin,
+  Login,
+};

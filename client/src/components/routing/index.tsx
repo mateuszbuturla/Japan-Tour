@@ -12,6 +12,7 @@ import {
   OtherElement,
   Admin,
   NotFound,
+  Login,
 } from 'views';
 
 function Routing() {
@@ -34,6 +35,7 @@ function Routing() {
     />
   ))} */}
       <Route path="/admin" component={(props: any) => <Admin {...props} setTitle={setTitle} />} />
+      <Route path="/login" component={(props: any) => <Login {...props} setTitle={setTitle} />} />
       <Route
         path={`/podroze`}
         component={(props: any) => (

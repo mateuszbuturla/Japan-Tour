@@ -18,6 +18,7 @@ import FormList from './FormList';
 import LoadingBar from './LoadingBar';
 import NavDropdown from './NavDropdown';
 import LocationPath from './LocationPath';
+import LoginForm from './LoginForm';
 
 export {
   HomeHeader,
@@ -40,4 +41,5 @@ export {
   LoadingBar,
   NavDropdown,
   LocationPath,
+  LoginForm,
 };
