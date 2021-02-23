@@ -6,10 +6,13 @@ import {
   Post,
   Delete,
   Patch,
+  UsePipes,
 } from "@nestjs/common";
+import { JoiValidationPipe } from "../pipes/JoiValidationPipe";
 
 import { CategoriesService } from "./categories.service";
 import { Category } from "./category.model";
+import { AddUpdateCategorySchema } from "./Schema/categories.schema";
 
 @Controller("/api/categories")
 export class CategoriesController {
@@ -22,6 +25,7 @@ export class CategoriesController {
   }
 
   @Post("create")
+  @UsePipes(new JoiValidationPipe(AddUpdateCategorySchema))
   createCategory(@Body() data: Category) {
     return this.categoriesService.createCategory(data);
   }
@@ -32,6 +36,7 @@ export class CategoriesController {
   }
 
   @Patch("update/:key")
+  @UsePipes(new JoiValidationPipe(AddUpdateCategorySchema))
   updateCategory(@Param("key") key: string, @Body() data: Category) {
     return this.categoriesService.updateCategory(key, data);
   }

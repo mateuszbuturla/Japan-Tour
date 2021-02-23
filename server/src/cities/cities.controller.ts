@@ -6,10 +6,13 @@ import {
   Post,
   Delete,
   Patch,
+  UsePipes,
 } from "@nestjs/common";
+import { JoiValidationPipe } from "../pipes/JoiValidationPipe";
 
 import { CitiesService } from "./cities.service";
 import { City } from "./city.model";
+import { AddUpdateCitySchema } from "./Schema/city.schema";
 
 @Controller("/api/cities")
 export class CitiesController {
@@ -22,6 +25,7 @@ export class CitiesController {
   }
 
   @Post("create")
+  @UsePipes(new JoiValidationPipe(AddUpdateCitySchema))
   createCity(@Body() data: City) {
     return this.citiesService.createCity(data);
   }
@@ -32,6 +36,7 @@ export class CitiesController {
   }
 
   @Patch("update/:key")
+  @UsePipes(new JoiValidationPipe(AddUpdateCitySchema))
   updateCity(@Param("key") key: string, @Body() data: City) {
     return this.citiesService.updateCity(key, data);
   }

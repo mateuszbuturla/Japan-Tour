@@ -6,21 +6,22 @@ import {
   Post,
   Delete,
   Patch,
-  UseInterceptors,
+  UsePipes,
 } from "@nestjs/common";
+
+import { JoiValidationPipe } from "../pipes/JoiValidationPipe";
 
 import { AttractionsService } from "./attractions.service";
 import { Attraction } from "./attraction.model";
-import { FileInterceptor } from "@nestjs/platform-express";
+import { AddUpdateAttractionSchema } from "./Schema/attraction.schema";
 
 @Controller("/api/attractions")
 export class AttractionsController {
   constructor(private readonly attractionsService: AttractionsService) {}
 
   @Post("create")
-  @UseInterceptors(FileInterceptor("file"))
+  @UsePipes(new JoiValidationPipe(AddUpdateAttractionSchema))
   createAttraction(@Body() data: Attraction) {
-    console.log(data.img[0]);
     return this.attractionsService.createAttraction(data);
   }
 
@@ -30,6 +31,7 @@ export class AttractionsController {
   }
 
   @Patch("update/:key")
+  @UsePipes(new JoiValidationPipe(AddUpdateAttractionSchema))
   updateAttraction(@Param("key") key: string, @Body() data: Attraction) {
     return this.attractionsService.updateAttraction(key, data);
   }

@@ -6,10 +6,13 @@ import {
   Post,
   Delete,
   Patch,
+  UsePipes,
 } from "@nestjs/common";
+import { JoiValidationPipe } from "../pipes/JoiValidationPipe";
 
 import { DishesService } from "./dishes.service";
 import { Dish } from "./dish.model";
+import { AddUpdateDishSchema } from "./Schema/dish.schema";
 
 @Controller("/api/dishes")
 export class DishesController {
@@ -22,6 +25,7 @@ export class DishesController {
   }
 
   @Post("create")
+  @UsePipes(new JoiValidationPipe(AddUpdateDishSchema))
   createDish(@Body() data: Dish) {
     return this.dishesService.createDish(data);
   }
@@ -32,6 +36,7 @@ export class DishesController {
   }
 
   @Patch("update/:key")
+  @UsePipes(new JoiValidationPipe(AddUpdateDishSchema))
   updateDish(@Param("key") key: string, @Body() data: Dish) {
     return this.dishesService.updateDish(key, data);
   }

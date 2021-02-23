@@ -14,7 +14,7 @@ export const AttractionSchema = new mongoose.Schema({
   otherData: { type: Array, required: false },
 });
 
-export interface Attraction extends mongoose.Document {
+export class Attraction extends mongoose.Document {
   name: string;
   url: string;
   key: string;
@@ -23,7 +23,7 @@ export interface Attraction extends mongoose.Document {
   region: string;
   city: string;
   category: string;
-  img: string;
   bestAttractions: boolean;
+  img: string;
   otherData: { title: string; value: string }[];
 }
