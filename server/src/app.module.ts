@@ -1,23 +1,27 @@
 import { Module } from "@nestjs/common";
 import { MongooseModule } from "@nestjs/mongoose";
-import { RegionsModule } from "./regions/regions.module";
-import { CitiesModule } from "./cities/cities.module";
-import { AttractionsModule } from "./Attractions/attractions.module";
-import { CulturesModule } from "./Cultures/cultures.module";
-import { DishesModule } from "./Dishes/dishes.module";
-import { CategoriesModule } from "./categories/categories.module";
+import { RegionModule } from "./region/region.module";
+import { CityModule } from "./city/city.module";
+import { AttractionModule } from "./attraction/attraction.module";
+import { CultureModule } from "./culture/culture.module";
+import { DishModule } from "./dish/dish.module";
+import { CategoryModule } from "./category/category.module";
 import { FooterModule } from "./footer/footer.module";
+import { UserModule } from "./user/user.module";
+import { AuthModule } from "./auth/auth.module";
 
 @Module({
   imports: [
-    RegionsModule,
+    RegionModule,
     MongooseModule.forRoot("mongodb://localhost:27017/Japan"),
-    CitiesModule,
-    AttractionsModule,
-    CulturesModule,
-    DishesModule,
-    CategoriesModule,
+    CityModule,
+    AttractionModule,
+    CultureModule,
+    DishModule,
+    CategoryModule,
     FooterModule,
+    UserModule,
+    AuthModule,
   ],
   controllers: [],
   providers: [],

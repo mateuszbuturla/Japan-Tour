@@ -1,17 +1,29 @@
 import { NestFactory } from "@nestjs/core";
 import { AppModule } from "./app.module";
+import { ValidationPipe } from "@nestjs/common";
+import * as cookieParser from "cookie-parser";
+import * as cors from "cors";
 
-import bodyParser from "body-parser";
-import multer from "multer";
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, { bodyParser: true });
-  app.enableCors();
+  app.use(
+    cors({
+      origin: "http://localhost:3000",
+      credentials: true, //access-control-allow-credentials:true
+      optionSuccessStatus: 200,
+    })
+  );
 
-  await app.init();
-  // app.use(multer);
-  // app.use(bodyParser.urlencoded({ extended: true }));
-  // app.use(bodyParser.text({ type: "text/html" }));
-  // app.use(bodyParser.json());
+  app.useGlobalPipes(
+    new ValidationPipe({
+      disableErrorMessages: true,
+      whitelist: true,
+      forbidNonWhitelisted: true,
+      transform: true,
+    })
+  );
+
+  app.use(cookieParser());
 
   await app.listen(4000);
 }
