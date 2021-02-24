@@ -16,13 +16,15 @@ import {
 } from 'components/layout';
 import FormsTemplate from 'formsTemplate';
 import AddAttractionForm from 'formsTemplate/AddAttractionForm';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import TypesApplicationState from 'types/TypesApplicationState';
+import adminActions from 'actions/admin/actions';
 
 function RoutingAdmin() {
   const { attractions, regions, cities, cultures, dishes } = useSelector(
     (state: TypesApplicationState) => state.admin,
   );
+  const dispatch = useDispatch();
   const [forms, setForms] = useState<any[]>();
 
   const getForms = async () => {
@@ -48,6 +50,7 @@ function RoutingAdmin() {
             {...props}
             title="Atrakcje"
             api="attractions"
+            removeFromAppState={(id: string) => dispatch(adminActions.removedAttractionById(id))}
             data={
               attractions &&
               attractions.map((item: any) => ({
@@ -88,6 +91,7 @@ function RoutingAdmin() {
             {...props}
             title="Miasta"
             api="cities"
+            removeFromAppState={(id: string) => dispatch(adminActions.removedCityById(id))}
             data={
               cities &&
               cities.map((item: any) => ({
@@ -108,6 +112,7 @@ function RoutingAdmin() {
             {...props}
             title="Kultura"
             api="cultures"
+            removeFromAppState={(id: string) => dispatch(adminActions.removeCultureById(id))}
             data={
               cultures &&
               cultures.map((item: any) => ({
@@ -128,6 +133,7 @@ function RoutingAdmin() {
             {...props}
             title="Kuchnia"
             api="dishes"
+            removeFromAppState={(id: string) => dispatch(adminActions.removeDishById(id))}
             data={
               dishes &&
               dishes.map((item: any) => ({

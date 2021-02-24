@@ -9,7 +9,6 @@ import {
   StyledAdminElementsListActionButton,
   StyledAdminElementsListActionButtonIcon,
 } from './StyledAdminElementsList';
-import Api from 'utils/Api';
 import AddNotification from 'utils/AddNotification';
 import { deleteElement } from 'utils/ApiRequests';
 
@@ -28,17 +27,21 @@ interface Props {
   data: DataProps[];
   title: string;
   api: string;
+  removeFromAppState?: (id: string) => void;
 }
 
-function AdminElementsList({ title, data, api }: Props) {
+function AdminElementsList({ title, data, api, removeFromAppState }: Props) {
   const handleRemoveClick = async (id: string) => {
-    try {
-      const res = await deleteElement(api, id);
-      if (res.status === 200) {
-        AddNotification('Sukces', 'Usunięto pomyślnie', 'success');
+    if (removeFromAppState) {
+      try {
+        const res = await deleteElement(api, id);
+        if (res.status === 200) {
+          removeFromAppState(id);
+          AddNotification('Sukces', 'Usunięto pomyślnie', 'success');
+        }
+      } catch (err) {
+        AddNotification('Błąd', 'Wystąpił błąd', 'danger');
       }
-    } catch (err) {
-      AddNotification('Błąd', 'Wystąpił błąd', 'danger');
     }
   };
 
