@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { Input, Button } from 'components/common';
 import { useForm } from 'react-hook-form';
+import actions from 'actions/user/actions';
 import Api from 'utils/Api';
 import {
   StyledLoginFormWrapper,
@@ -15,6 +17,7 @@ import {
 
 function LoginForm() {
   const history = useHistory();
+  const dispatch = useDispatch();
   const { register, handleSubmit, errors } = useForm();
   const [error, setError] = useState();
 
@@ -22,6 +25,7 @@ function LoginForm() {
     try {
       const res = await Api.post('/auth/login', data);
       if (res.status === 201) {
+        dispatch(actions.setUser(res.data));
         history.push('/admin');
       }
     } catch (err) {

@@ -1,6 +1,6 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
-import { Switch, Route } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { Switch, Route, Redirect } from 'react-router-dom';
 import actions from 'actions/title/actions';
 import {
   Home,
@@ -14,9 +14,11 @@ import {
   NotFound,
   Login,
 } from 'views';
+import TypesApplicationState from 'types/TypesApplicationState';
 
 function Routing() {
   const dispatch = useDispatch();
+  const { user } = useSelector((state: TypesApplicationState) => state.user);
 
   const setTitle = (value: string) => {
     dispatch(actions.setTitle(value));
@@ -25,17 +27,18 @@ function Routing() {
   return (
     <Switch>
       <Route path="/" component={(props: any) => <Home {...props} setTitle={setTitle} />} exact />
-      {/* {categories.map((item: any) => (
-    <Route
-      path={`/${item.url}`}
-      component={(props: any) => (
-        <Category {...props} categoryUrl={item.url} />
-      )}
-      exact
-    />
-  ))} */}
-      <Route path="/admin" component={(props: any) => <Admin {...props} setTitle={setTitle} />} />
-      <Route path="/login" component={(props: any) => <Login {...props} setTitle={setTitle} />} />
+      <Route
+        path="/admin"
+        component={(props: any) =>
+          user !== null ? <Admin {...props} setTitle={setTitle} /> : <Redirect to="/login" />
+        }
+      />
+      <Route
+        path="/login"
+        component={(props: any) =>
+          user === null ? <Login {...props} setTitle={setTitle} /> : <Redirect to="/admin" />
+        }
+      />
       <Route
         path={`/podroze`}
         component={(props: any) => (
