@@ -5,8 +5,14 @@ import CityIcon from 'assets/icons/city.svg';
 import AttractionIcon from 'assets/icons/attraction.svg';
 import KitchenIcon from 'assets/icons/kitchen.svg';
 import CultureIcon from 'assets/icons/culture.svg';
+import { useSelector } from 'react-redux';
+import TypesApplicationState from 'types/TypesApplicationState';
 
 function AdminDashboard() {
+  const { attractions, cities, cultures, dishes } = useSelector(
+    (state: TypesApplicationState) => state.admin,
+  );
+
   return (
     <>
       <AdminHeader text="Witaj Admin" main />
@@ -17,7 +23,7 @@ function AdminDashboard() {
             icon: CityIcon,
             description: 'Ilość wpisów o miastach',
             url: '/admin/cities',
-            count: 5,
+            count: cities.length,
             color: {
               color1: '#6CA4E5',
               color2: '#2666AF',
@@ -28,7 +34,7 @@ function AdminDashboard() {
             icon: AttractionIcon,
             description: 'Ilość wpisów o atrakcjach',
             url: '/admin/attractions',
-            count: 5,
+            count: attractions.length,
             color: {
               color1: '#67FC9E',
               color2: '#26AF6F',
@@ -39,7 +45,7 @@ function AdminDashboard() {
             icon: KitchenIcon,
             description: 'Ilość wpisów o kulturze',
             url: '/admin/culture',
-            count: 5,
+            count: cultures.length,
             color: {
               color1: '#D257D2',
               color2: '#6C40AE',
@@ -50,7 +56,7 @@ function AdminDashboard() {
             icon: CultureIcon,
             description: 'Ilość wpisów o kuchni',
             url: '/admin/kitchen',
-            count: 5,
+            count: dishes.length,
             color: {
               color1: '#E56C91',
               color2: '#AF2634',
