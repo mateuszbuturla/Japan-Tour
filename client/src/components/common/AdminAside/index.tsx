@@ -16,11 +16,14 @@ import TypesCity from 'types/TypesCity';
 import TypesAttraction from 'types/TypesAttraction';
 import TypesCulture from 'types/TypesCulture';
 import TypesDish from 'types/TypesDish';
-
+import { useDispatch } from 'react-redux';
+import userActions from 'actions/user/actions';
 import Logo from 'assets/LOGO.png';
+import Api from 'utils/Api';
 
 function AdminAside() {
   const history = useHistory();
+  const dispatch = useDispatch();
 
   const [showAside, setShowAside] = useState(false);
   const [regionsListShow, setRegionsListShow] = useState(false);
@@ -41,6 +44,12 @@ function AdminAside() {
 
   const redirect = (to: string) => {
     history.push(`/admin/${to}`);
+  };
+
+  const logout = () => {
+    Api.get('/auth/logout');
+    dispatch(userActions.removeUser());
+    history.push('/login');
   };
 
   return (
@@ -130,6 +139,7 @@ function AdminAside() {
             </StyledAsideListElement>
           ))}
         </StyledAsideListContainer>
+        <button onClick={logout}>Wyloguj</button>
       </StyledAside>
 
       <StyledAsideBurgerButton active={showAside} onClick={() => setShowAside(!showAside)} />

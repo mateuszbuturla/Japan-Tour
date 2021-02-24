@@ -7,10 +7,9 @@ const setUser = (item: any) => {
   };
 };
 
-const removeUser = (item: any) => {
+const removeUser = () => {
   return {
     type: types.REMOVE_USER,
-    item,
   };
 };
 
