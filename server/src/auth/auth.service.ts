@@ -85,4 +85,8 @@ export class AuthService {
       return res.json({ error: e.message });
     }
   }
+
+  async getUser(req, res: Response) {
+    return res.json(req.user);
+  }
 }
