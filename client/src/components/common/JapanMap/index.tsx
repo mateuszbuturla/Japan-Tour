@@ -61,6 +61,14 @@ function JapanMap() {
     <>
       <StyledSubHeader center>Mapa Japonii</StyledSubHeader>
       <StyledJapanMap />
+      <button
+        onClick={async () => {
+          const res = await Api.get('/auth/getUser');
+          console.log(res);
+        }}
+      >
+        dadasd
+      </button>
     </>
   );
 }
