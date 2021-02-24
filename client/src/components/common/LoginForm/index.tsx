@@ -60,6 +60,7 @@ function LoginForm() {
               errorMessage={errors.email ? 'To pole nie może być puste' : ''}
             />
             <Input
+              type="password"
               id="pass"
               name="pass"
               label="Hasło"
