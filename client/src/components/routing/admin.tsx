@@ -11,6 +11,7 @@ import {
   UpdateAttraction,
   UpdateCultureDish,
   Forms,
+  AdminDashboard,
 } from 'components/layout';
 import FormsTemplate from 'formsTemplate';
 import AddAttractionForm from 'formsTemplate/AddAttractionForm';
@@ -32,6 +33,11 @@ function RoutingAdmin() {
 
   return (
     <Switch>
+      <Route path="/admin" component={(props: any) => <AdminDashboard {...props} exact />} />
+      <Route
+        path="/admin/dashboard"
+        component={(props: any) => <AdminDashboard {...props} exact />}
+      />
       {/* <Route
         path="/admin/add-category"
         component={(props: any) => <AddCategory {...props} />}
@@ -67,7 +73,8 @@ function RoutingAdmin() {
         component={(props: any) => <UpdateRegion {...props} api="regions" />}
         exact
       /> */}
-      <Route
+      {/* ------------------------------------ */}
+      {/* <Route
         path="/admin/cities/:id"
         component={(props: any) => <UpdateCity {...props} api="cities" />}
         exact
@@ -106,7 +113,7 @@ function RoutingAdmin() {
             )}
             exact
           />
-        ))}
+        ))} */}
     </Switch>
   );
 }

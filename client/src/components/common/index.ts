@@ -19,6 +19,9 @@ import LoadingBar from './LoadingBar';
 import NavDropdown from './NavDropdown';
 import LocationPath from './LocationPath';
 import LoginForm from './LoginForm';
+import AdminHeader from './AdminHeader';
+import AdminTiles from './AdminTiles';
+import LatestChanges from './LatestChanges';
 
 export {
   HomeHeader,
@@ -42,4 +45,7 @@ export {
   NavDropdown,
   LocationPath,
   LoginForm,
+  AdminHeader,
+  AdminTiles,
+  LatestChanges,
 };

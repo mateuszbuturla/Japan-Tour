@@ -7,4 +7,10 @@ const StyledAdminContainer = styled.div`
   }
 `;
 
-export { StyledAdminContainer };
+const StyledAdminContentContainer = styled.div`
+  width: 100%;
+  max-width: 1400px;
+  padding: 0px 30px;
+`;
+
+export { StyledAdminContainer, StyledAdminContentContainer };

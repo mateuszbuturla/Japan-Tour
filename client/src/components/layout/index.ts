@@ -10,6 +10,7 @@ import UpdateAttraction from './UpdateAttraction';
 import UpdateCultureDish from './UpdateCultureDish';
 import Nav from './Nav';
 import Forms from './Forms';
+import AdminDashboard from './AdminDashboard';
 
 export {
   Footer,
@@ -24,4 +25,5 @@ export {
   UpdateCultureDish,
   Nav,
   Forms,
+  AdminDashboard,
 };

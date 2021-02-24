@@ -53,7 +53,7 @@ function AdminAside() {
         <StyledAdminAsideLinkIcon src={AttractionIcon} />
         Atrakcje
       </StyledAdminAsideLink>
-      <StyledAdminAsideLink to="/admin/cultures">
+      <StyledAdminAsideLink to="/admin/culture">
         <StyledAdminAsideLinkIcon src={CultureIcon} />
         Kultura
       </StyledAdminAsideLink>
