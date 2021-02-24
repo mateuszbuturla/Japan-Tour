@@ -1,50 +1,28 @@
 import React, { useState } from 'react';
 import {
-  StyledAside,
-  StyledAsideLogo,
-  StyledAsideLink,
-  StyledAsideListButton,
-  StyledAsideListContainer,
-  StyledAsideListElement,
-  StyledAsideBurgerButton,
+  StyledAdminAside,
+  StyledAdminAsideLogo,
+  StyledAdminAsideLink,
+  StyledAdminAsideLinkIcon,
+  StyledAdminAsideLogoutButton,
 } from './StyledAdminAside';
-import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import TypesApplicationState from 'types/TypesApplicationState';
-import TypesRegion from 'types/TypesRegion';
-import TypesCity from 'types/TypesCity';
-import TypesAttraction from 'types/TypesAttraction';
-import TypesCulture from 'types/TypesCulture';
-import TypesDish from 'types/TypesDish';
 import { useDispatch } from 'react-redux';
 import userActions from 'actions/user/actions';
 import Logo from 'assets/LOGO.png';
 import Api from 'utils/Api';
+import HomeIcon from 'assets/icons/home.svg';
+import CategoryIcon from 'assets/icons/category.svg';
+import RegionIcon from 'assets/icons/region.svg';
+import CityIcon from 'assets/icons/city.svg';
+import AttractionIcon from 'assets/icons/attraction.svg';
+import KitchenIcon from 'assets/icons/kitchen.svg';
+import CultureIcon from 'assets/icons/culture.svg';
+import LogoutIcon from 'assets/icons/logout.svg';
 
 function AdminAside() {
   const history = useHistory();
   const dispatch = useDispatch();
-
-  const [showAside, setShowAside] = useState(false);
-  const [regionsListShow, setRegionsListShow] = useState(false);
-  const [citiesListShow, setCitiesListShow] = useState(false);
-  const [attractionsListShow, setAttractionsListShow] = useState(false);
-  const [culturesListShow, setCulturesListShow] = useState(false);
-  const [dishesListShow, setDishesListShow] = useState(false);
-
-  const regions = useSelector<TypesApplicationState, TypesRegion[]>((state) => state.admin.regions);
-  const cities = useSelector<TypesApplicationState, TypesCity[]>((state) => state.admin.cities);
-  const attractions = useSelector<TypesApplicationState, TypesAttraction[]>(
-    (state) => state.admin.attractions,
-  );
-  const cultures = useSelector<TypesApplicationState, TypesCulture[]>(
-    (state) => state.admin.cultures,
-  );
-  const dishes = useSelector<TypesApplicationState, TypesDish[]>((state) => state.admin.dishes);
-
-  const redirect = (to: string) => {
-    history.push(`/admin/${to}`);
-  };
 
   const logout = () => {
     Api.get('/auth/logout');
@@ -53,97 +31,41 @@ function AdminAside() {
   };
 
   return (
-    <>
-      <StyledAside show={showAside}>
-        <StyledAsideLogo src={Logo} onClick={() => history.push('/')} />
-
-        <StyledAsideLink to="/admin/add-region">Dodaj region</StyledAsideLink>
-        <StyledAsideLink to="/admin/add-city">Dodaj miasto</StyledAsideLink>
-        <StyledAsideLink to="/admin/add-attraction">Dodaj atrakcję</StyledAsideLink>
-        <StyledAsideLink to="/admin/add-category">Dodaj kategorię</StyledAsideLink>
-        <StyledAsideLink to="/admin/add-culture">Dodaj kulturę</StyledAsideLink>
-        <StyledAsideLink to="/admin/add-dish">Dodaj potrawę</StyledAsideLink>
-
-        <StyledAsideListButton
-          onClick={() => setRegionsListShow(!regionsListShow)}
-          active={regionsListShow}
-        >
-          Regiony
-        </StyledAsideListButton>
-        <StyledAsideListContainer show={regionsListShow}>
-          {regions.map((item) => (
-            <StyledAsideListElement key={item.name} onClick={() => redirect(`regions/${item.key}`)}>
-              {item.name}
-            </StyledAsideListElement>
-          ))}
-        </StyledAsideListContainer>
-
-        <StyledAsideListButton
-          onClick={() => setCitiesListShow(!citiesListShow)}
-          active={citiesListShow}
-        >
-          Miasta
-        </StyledAsideListButton>
-        <StyledAsideListContainer show={citiesListShow}>
-          {cities.map((item) => (
-            <StyledAsideListElement key={item.name} onClick={() => redirect(`cities/${item.key}`)}>
-              {item.name}
-            </StyledAsideListElement>
-          ))}
-        </StyledAsideListContainer>
-
-        <StyledAsideListButton
-          onClick={() => setAttractionsListShow(!attractionsListShow)}
-          active={attractionsListShow}
-        >
-          Atrakcje
-        </StyledAsideListButton>
-        <StyledAsideListContainer show={attractionsListShow}>
-          {attractions.map((item) => (
-            <StyledAsideListElement
-              key={item.name}
-              onClick={() => redirect(`attractions/${item.key}`)}
-            >
-              {item.name}
-            </StyledAsideListElement>
-          ))}
-        </StyledAsideListContainer>
-
-        <StyledAsideListButton
-          onClick={() => setCulturesListShow(!culturesListShow)}
-          active={culturesListShow}
-        >
-          Kultury
-        </StyledAsideListButton>
-        <StyledAsideListContainer show={culturesListShow}>
-          {cultures.map((item) => (
-            <StyledAsideListElement
-              key={item.name}
-              onClick={() => redirect(`cultures/${item.key}`)}
-            >
-              {item.name}
-            </StyledAsideListElement>
-          ))}
-        </StyledAsideListContainer>
-
-        <StyledAsideListButton
-          onClick={() => setDishesListShow(!dishesListShow)}
-          active={dishesListShow}
-        >
-          Potrawy
-        </StyledAsideListButton>
-        <StyledAsideListContainer show={dishesListShow}>
-          {dishes.map((item) => (
-            <StyledAsideListElement key={item.name} onClick={() => redirect(`dishes/${item.key}`)}>
-              {item.name}
-            </StyledAsideListElement>
-          ))}
-        </StyledAsideListContainer>
-        <button onClick={logout}>Wyloguj</button>
-      </StyledAside>
-
-      <StyledAsideBurgerButton active={showAside} onClick={() => setShowAside(!showAside)} />
-    </>
+    <StyledAdminAside>
+      <StyledAdminAsideLogo src={Logo} />
+      <StyledAdminAsideLink to="/admin">
+        <StyledAdminAsideLinkIcon src={HomeIcon} />
+        Dashboard
+      </StyledAdminAsideLink>
+      <StyledAdminAsideLink to="/admin/categories">
+        <StyledAdminAsideLinkIcon src={CategoryIcon} />
+        Kategorie
+      </StyledAdminAsideLink>
+      <StyledAdminAsideLink to="/admin/regions">
+        <StyledAdminAsideLinkIcon src={RegionIcon} />
+        Regiony
+      </StyledAdminAsideLink>
+      <StyledAdminAsideLink to="/admin/cities">
+        <StyledAdminAsideLinkIcon src={CityIcon} />
+        Miasta
+      </StyledAdminAsideLink>
+      <StyledAdminAsideLink to="/admin/attractions">
+        <StyledAdminAsideLinkIcon src={AttractionIcon} />
+        Atrakcje
+      </StyledAdminAsideLink>
+      <StyledAdminAsideLink to="/admin/cultures">
+        <StyledAdminAsideLinkIcon src={CultureIcon} />
+        Kultura
+      </StyledAdminAsideLink>
+      <StyledAdminAsideLink to="/admin/kitchen">
+        <StyledAdminAsideLinkIcon src={KitchenIcon} />
+        Kuchnia
+      </StyledAdminAsideLink>
+      <StyledAdminAsideLogoutButton onClick={logout}>
+        <StyledAdminAsideLinkIcon src={LogoutIcon} />
+        Wyloguj
+      </StyledAdminAsideLogoutButton>
+    </StyledAdminAside>
   );
 }
 
