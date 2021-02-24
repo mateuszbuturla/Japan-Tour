@@ -33,7 +33,7 @@ function AdminAside() {
   return (
     <StyledAdminAside>
       <StyledAdminAsideLogo src={Logo} />
-      <StyledAdminAsideLink to="/admin">
+      <StyledAdminAsideLink to="/admin/dashboard">
         <StyledAdminAsideLinkIcon src={HomeIcon} />
         Dashboard
       </StyledAdminAsideLink>

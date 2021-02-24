@@ -33,11 +33,8 @@ function RoutingAdmin() {
 
   return (
     <Switch>
-      <Route path="/admin" component={(props: any) => <AdminDashboard {...props} exact />} />
-      <Route
-        path="/admin/dashboard"
-        component={(props: any) => <AdminDashboard {...props} exact />}
-      />
+      {/* <Route path="/admin" component={(props: any) => <AdminDashboard {...props} exact />} /> */}
+      <Route path="/admin/dashboard" component={(props: any) => <AdminDashboard {...props} />} />
       {/* <Route
         path="/admin/add-category"
         component={(props: any) => <AddCategory {...props} />}
