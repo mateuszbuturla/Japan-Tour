@@ -13,6 +13,11 @@ import { Model } from "mongoose";
 export class AuthService {
   constructor(@InjectModel("User") private readonly userModel: Model<User>) {}
 
+  filter(user: User) {
+    const { _id, email } = user;
+    return { _id, email };
+  }
+
   private createToken(
     currentTokenId: string
   ): { accessToken: string; expiresIn: number } {
@@ -54,7 +59,7 @@ export class AuthService {
         .exec();
 
       if (!user) {
-        return res.json({ error: "Invalid login data!" });
+        return res.status(401).json({ error: "Invalid login data!" });
       }
 
       const token = await this.createToken(await this.generateToken(user));
@@ -65,7 +70,7 @@ export class AuthService {
           domain: "localhost",
           httpOnly: true,
         })
-        .json({ ok: true });
+        .json(this.filter(user));
     } catch (e) {
       return res.json({ error: e.message });
     }

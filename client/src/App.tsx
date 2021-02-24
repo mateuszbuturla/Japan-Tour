@@ -12,8 +12,11 @@ function App() {
   return (
     <div className="App">
       <Routing />
-      {pathName[1] !== 'admin' && <Nav />}
-      {pathName[1] !== '/' && pathName[1] !== '' && pathName[1] !== 'admin' && <Footer />}
+      {pathName[1] !== 'admin' && pathName[1] !== 'login' && <Nav />}
+      {pathName[1] !== '/' &&
+        pathName[1] !== '' &&
+        pathName[1] !== 'admin' &&
+        pathName[1] !== 'login' && <Footer />}
       <PageTransitionEffect />
     </div>
   );
