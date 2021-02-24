@@ -10,7 +10,7 @@ const StyledAdminContainer = styled.div`
 const StyledAdminContentContainer = styled.div`
   width: 100%;
   max-width: 1400px;
-  padding: 0px 30px;
+  padding: 20px 50px;
 `;
 
 export { StyledAdminContainer, StyledAdminContentContainer };

@@ -11,6 +11,7 @@ import UpdateCultureDish from './UpdateCultureDish';
 import Nav from './Nav';
 import Forms from './Forms';
 import AdminDashboard from './AdminDashboard';
+import AdminElementsList from './AdminElementsList';
 
 export {
   Footer,
@@ -26,4 +27,5 @@ export {
   Nav,
   Forms,
   AdminDashboard,
+  AdminElementsList,
 };

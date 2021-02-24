@@ -12,11 +12,17 @@ import {
   UpdateCultureDish,
   Forms,
   AdminDashboard,
+  AdminElementsList,
 } from 'components/layout';
 import FormsTemplate from 'formsTemplate';
 import AddAttractionForm from 'formsTemplate/AddAttractionForm';
+import { useSelector } from 'react-redux';
+import TypesApplicationState from 'types/TypesApplicationState';
 
 function RoutingAdmin() {
+  const { attractions, regions, cities, cultures, dishes } = useSelector(
+    (state: TypesApplicationState) => state.admin,
+  );
   const [forms, setForms] = useState<any[]>();
 
   const getForms = async () => {
@@ -35,6 +41,106 @@ function RoutingAdmin() {
     <Switch>
       {/* <Route path="/admin" component={(props: any) => <AdminDashboard {...props} exact />} /> */}
       <Route path="/admin/dashboard" component={(props: any) => <AdminDashboard {...props} />} />
+      <Route
+        path="/admin/attractions"
+        component={(props: any) => (
+          <AdminElementsList
+            {...props}
+            title="Atrakcje"
+            api="attractions"
+            data={
+              attractions &&
+              attractions.map((item: any) => ({
+                _id: item._id,
+                name: item.name,
+                author: 'Admin',
+                date: '01.01.2020',
+                key: item.key,
+              }))
+            }
+          />
+        )}
+      />
+      <Route
+        path="/admin/regions"
+        component={(props: any) => (
+          <AdminElementsList
+            {...props}
+            title="Regiony"
+            api="regions"
+            data={
+              regions &&
+              regions.map((item: any) => ({
+                _id: item._id,
+                name: item.name,
+                author: 'Admin',
+                date: '01.01.2020',
+                key: item.key,
+              }))
+            }
+          />
+        )}
+      />
+      <Route
+        path="/admin/cities"
+        component={(props: any) => (
+          <AdminElementsList
+            {...props}
+            title="Miasta"
+            api="cities"
+            data={
+              cities &&
+              cities.map((item: any) => ({
+                _id: item._id,
+                name: item.name,
+                author: 'Admin',
+                date: '01.01.2020',
+                key: item.key,
+              }))
+            }
+          />
+        )}
+      />
+      <Route
+        path="/admin/culture"
+        component={(props: any) => (
+          <AdminElementsList
+            {...props}
+            title="Kultura"
+            api="cultures"
+            data={
+              cultures &&
+              cultures.map((item: any) => ({
+                _id: item._id,
+                name: item.name,
+                author: 'Admin',
+                date: '01.01.2020',
+                key: item.key,
+              }))
+            }
+          />
+        )}
+      />
+      <Route
+        path="/admin/kitchen"
+        component={(props: any) => (
+          <AdminElementsList
+            {...props}
+            title="Kuchnia"
+            api="dishes"
+            data={
+              dishes &&
+              dishes.map((item: any) => ({
+                _id: item._id,
+                name: item.name,
+                author: 'Admin',
+                date: '01.01.2020',
+                key: item.key,
+              }))
+            }
+          />
+        )}
+      />
       {/* <Route
         path="/admin/add-category"
         component={(props: any) => <AddCategory {...props} />}

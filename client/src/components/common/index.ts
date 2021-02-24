@@ -22,6 +22,7 @@ import LoginForm from './LoginForm';
 import AdminHeader from './AdminHeader';
 import AdminTiles from './AdminTiles';
 import LatestChanges from './LatestChanges';
+import StyledAdminTopPanel from './StyledAdminTopPanel';
 
 export {
   HomeHeader,
@@ -48,4 +49,5 @@ export {
   AdminHeader,
   AdminTiles,
   LatestChanges,
+  StyledAdminTopPanel,
 };

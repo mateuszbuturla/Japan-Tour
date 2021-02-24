@@ -20,4 +20,9 @@ const getSelecterRegionData = async (id: string) => {
   return res;
 };
 
-export { getCategories, getRegions, getCities, getSelecterRegionData };
+const deleteElement = async (api: string, id: string) => {
+  const res = await Api.delete(`/${api}/remove/${id}`);
+  return res;
+};
+
+export { getCategories, getRegions, getCities, getSelecterRegionData, deleteElement };
