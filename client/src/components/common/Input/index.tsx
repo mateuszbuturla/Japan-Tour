@@ -9,7 +9,7 @@ import {
 } from './StyledInput';
 
 interface Props {
-  type?: 'text' | 'select' | 'file' | 'checkbox';
+  type?: 'text' | 'select' | 'file' | 'checkbox' | 'password';
   id: string;
   label: string;
   name: string;
@@ -41,6 +41,24 @@ function Input({
             {label}
           </StyledInputLabel>
           <StyledInput
+            id={id}
+            name={name}
+            defaultValue={defaultValue}
+            placeholder={placeholder}
+            error={errorMessage ? true : false}
+            ref={inputRef}
+          />
+          {errorMessage ? <StyledInputError>{errorMessage}</StyledInputError> : null}
+        </StyledInputContainer>
+      )}
+
+      {type === 'password' && (
+        <StyledInputContainer>
+          <StyledInputLabel htmlFor={id} error={errorMessage ? true : false}>
+            {label}
+          </StyledInputLabel>
+          <StyledInput
+            type="password"
             id={id}
             name={name}
             defaultValue={defaultValue}
