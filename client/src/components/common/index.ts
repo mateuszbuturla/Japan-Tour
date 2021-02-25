@@ -23,6 +23,7 @@ import AdminHeader from './AdminHeader';
 import AdminTiles from './AdminTiles';
 import LatestChanges from './LatestChanges';
 import StyledAdminTopPanel from './StyledAdminTopPanel';
+import ActionDialog from './ActionDialog';
 
 export {
   HomeHeader,
@@ -50,4 +51,5 @@ export {
   AdminTiles,
   LatestChanges,
   StyledAdminTopPanel,
+  ActionDialog,
 };

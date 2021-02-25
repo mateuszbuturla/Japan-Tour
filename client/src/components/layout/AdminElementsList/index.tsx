@@ -1,5 +1,5 @@
-import React from 'react';
-import { AdminHeader, Button, StyledAdminTopPanel } from 'components/common';
+import React, { useState } from 'react';
+import { AdminHeader, Button, StyledAdminTopPanel, ActionDialog } from 'components/common';
 import {
   StyledAdminElementsListContainer,
   StyledAdminElementsListCellsTitles,
@@ -31,6 +31,8 @@ interface Props {
 }
 
 function AdminElementsList({ title, data, api, removeFromAppState }: Props) {
+  const [removeModal, setRemoveModal] = useState<any>(null);
+
   const handleRemoveClick = async (id: string) => {
     if (removeFromAppState) {
       try {
@@ -73,13 +75,24 @@ function AdminElementsList({ title, data, api, removeFromAppState }: Props) {
               <StyledAdminElementsListActionButton>
                 <StyledAdminElementsListActionButtonIcon src={EditIcon} />
               </StyledAdminElementsListActionButton>
-              <StyledAdminElementsListActionButton onClick={() => handleRemoveClick(item._id)}>
+              <StyledAdminElementsListActionButton onClick={() => setRemoveModal(item._id)}>
                 <StyledAdminElementsListActionButtonIcon src={RemoveIcon} />
               </StyledAdminElementsListActionButton>
             </StyledAdminElementsListElementCell>
           </StyledAdminElementsListElement>
         ))}
       </StyledAdminElementsListContainer>
+      <ActionDialog
+        isShow={removeModal === null ? false : true}
+        title="Potwierdź usunięcie"
+        content="Czy na pewno chcesz usunąć?"
+        onCancel={() => {
+          setRemoveModal(null);
+        }}
+        onAccept={() => {
+          handleRemoveClick(removeModal);
+        }}
+      />
     </>
   );
 }
