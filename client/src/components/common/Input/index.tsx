@@ -89,7 +89,6 @@ function Input({
               ref={inputRef}
               onChange={(e: any) => {
                 setImgPrevewPth(e.target.value);
-                console.log(e.target.value);
                 const reader = new FileReader();
 
                 reader.onload = (rEvent: any) => {
