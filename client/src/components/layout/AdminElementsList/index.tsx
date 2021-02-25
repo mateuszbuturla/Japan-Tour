@@ -30,9 +30,17 @@ interface Props {
   api: string;
   removeFromAppState?: (id: string) => void;
   addNewItemFormUrl: string;
+  updateItemFormUrl: string;
 }
 
-function AdminElementsList({ title, data, api, removeFromAppState, addNewItemFormUrl }: Props) {
+function AdminElementsList({
+  title,
+  data,
+  api,
+  removeFromAppState,
+  addNewItemFormUrl,
+  updateItemFormUrl,
+}: Props) {
   const history = useHistory();
   const [removeModal, setRemoveModal] = useState<any>(null);
 
@@ -75,7 +83,9 @@ function AdminElementsList({ title, data, api, removeFromAppState, addNewItemFor
               {item.date}
             </StyledAdminElementsListElementCell>
             <StyledAdminElementsListElementCell width="200px">
-              <StyledAdminElementsListActionButton>
+              <StyledAdminElementsListActionButton
+                onClick={() => history.push(`${updateItemFormUrl}/${item.key}`)}
+              >
                 <StyledAdminElementsListActionButtonIcon src={EditIcon} />
               </StyledAdminElementsListActionButton>
               <StyledAdminElementsListActionButton onClick={() => setRemoveModal(item._id)}>

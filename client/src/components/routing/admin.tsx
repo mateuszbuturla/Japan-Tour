@@ -54,6 +54,7 @@ function RoutingAdmin() {
               }))
             }
             addNewItemFormUrl="/admin/regions/add"
+            updateItemFormUrl="/admin/regions/update"
           />
         )}
         exact
@@ -124,7 +125,15 @@ function RoutingAdmin() {
 
       <Route
         path="/admin/regions/add"
-        component={(props: any) => <AddUpdateRegionForm {...props} title="Dodaj region" />}
+        component={(props: any) => (
+          <AddUpdateRegionForm {...props} title="Dodaj region" formType="add" />
+        )}
+      />
+      <Route
+        path="/admin/regions/update/:key"
+        component={(props: any) => (
+          <AddUpdateRegionForm {...props} title="Edytuj region" formType="update" />
+        )}
       />
     </Switch>
   );

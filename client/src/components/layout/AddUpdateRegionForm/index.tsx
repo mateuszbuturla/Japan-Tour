@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Button,
   Input,
@@ -18,14 +18,40 @@ import { useFieldArray, useForm } from 'react-hook-form';
 import DeleteIcon from 'assets/icons/remove.svg';
 import Api from 'utils/Api';
 import AddNotification from 'utils/AddNotification';
+import { useParams } from 'react-router-dom';
+import TypesApplicationState from 'types/TypesApplicationState';
+import { useSelector } from 'react-redux';
+import TypesRegion from 'types/TypesRegion';
+import { EditorState, ContentState, convertFromHTML } from 'draft-js';
 
 interface Props {
   title: string;
+  formType: 'add' | 'update';
 }
 
-function AddUpdateRegionForm({ title }: Props) {
+function AddUpdateRegionForm({ title, formType }: Props) {
+  const { regions } = useSelector((state: TypesApplicationState) => state.admin);
+  const { key } = useParams();
+  const [defaultValues, setDefaultValues] = useState<TypesRegion>();
   const { register, handleSubmit, errors, control } = useForm();
+
   const [regionDescription, setRegionDescription] = useState();
+
+  useEffect(() => {
+    if (!defaultValues && key && formType === 'update') {
+      const regionObj = regions.filter((item: TypesRegion) => item.key === key)[0];
+      setDefaultValues(regionObj);
+
+      const blocksFromHTML = convertFromHTML(regionObj.description);
+
+      const content = ContentState.createFromBlockArray(
+        blocksFromHTML.contentBlocks,
+        blocksFromHTML.entityMap,
+      );
+
+      setRegionDescription(EditorState.createWithContent(content));
+    }
+  }, []);
 
   const {
     fields: otherDataFields,
@@ -47,18 +73,39 @@ function AddUpdateRegionForm({ title }: Props) {
     return { data: { link: uploadImageRes.data.data.url } };
   };
 
+  const sendImage = async (file: any) => {
+    if (file.length === 1) {
+      const uploadedImageRes: any = await UploadImage(file[0]);
+      return uploadedImageRes.data.data.url;
+    } else {
+      return null;
+    }
+  };
+
   const onSubmit = async (data: any, e: any) => {
     try {
       let newData = data;
-      const uploadedImageRes: any = await UploadImage(data.img[0]);
-      newData.img = uploadedImageRes.data.data.url;
+      const imgUrl = await sendImage(data.img);
+      newData.img = imgUrl !== null ? imgUrl : defaultValues && defaultValues.img;
       if (regionDescription) {
         newData.description = stateToHTML(regionDescription.getCurrentContent());
       }
-      const res = await Api.post('/regions/create', newData);
-      if (res.status === 201) {
-        AddNotification('Dodano', 'Nowy region został dodany pomyślnie', 'success');
-        e.target.reset();
+      if (formType === 'add') {
+        const res = await Api.post('/regions/create', newData);
+        if (res.status === 201) {
+          AddNotification('Dodano', 'Nowy region został dodany pomyślnie', 'success');
+          e.target.reset();
+        }
+      } else if (formType === 'update') {
+        if (defaultValues) {
+          if (!data.otherData) {
+            newData.otherData = defaultValues.otherData;
+          }
+          const res = await Api.patch(`/regions/update/${key}`, newData);
+          if (res.status === 200) {
+            AddNotification('Dodano', 'Region został zaktualizowany pomyślnie', 'success');
+          }
+        }
       }
     } catch (err) {
       if (err.response.status === 409) {
@@ -78,7 +125,13 @@ function AddUpdateRegionForm({ title }: Props) {
         </StyledAdminTopPanel>
         <StyledInputsContainer>
           <StyledFormInputWrapper>
-            <Input label="Nazwa" id="name" name="name" inputRef={register({ required: true })} />
+            <Input
+              label="Nazwa"
+              id="name"
+              name="name"
+              inputRef={register({ required: true })}
+              defaultValue={formType === 'update' && defaultValues ? defaultValues.name : ''}
+            />
           </StyledFormInputWrapper>
           <StyledFormInputWrapper>
             <Input
@@ -86,7 +139,7 @@ function AddUpdateRegionForm({ title }: Props) {
               label="Zdjęcie"
               id="img"
               name="img"
-              inputRef={register({ required: true })}
+              inputRef={register({ required: formType === 'add' })}
             />
           </StyledFormInputWrapper>
         </StyledInputsContainer>
