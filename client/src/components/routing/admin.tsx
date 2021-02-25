@@ -126,13 +126,18 @@ function RoutingAdmin() {
       <Route
         path="/admin/regions/add"
         component={(props: any) => (
-          <AddUpdateRegionForm {...props} title="Dodaj region" formType="add" />
+          <AddUpdateRegionForm {...props} title="Dodaj region" formType="add" buttonLabel="Dodaj" />
         )}
       />
       <Route
         path="/admin/regions/update/:key"
         component={(props: any) => (
-          <AddUpdateRegionForm {...props} title="Edytuj region" formType="update" />
+          <AddUpdateRegionForm
+            {...props}
+            title="Edytuj region"
+            formType="update"
+            buttonLabel="Aktualizuj"
+          />
         )}
       />
     </Switch>

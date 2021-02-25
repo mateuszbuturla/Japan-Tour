@@ -27,9 +27,10 @@ import { EditorState, ContentState, convertFromHTML } from 'draft-js';
 interface Props {
   title: string;
   formType: 'add' | 'update';
+  buttonLabel: 'Dodaj' | 'Aktualizuj';
 }
 
-function AddUpdateRegionForm({ title, formType }: Props) {
+function AddUpdateRegionForm({ title, formType, buttonLabel }: Props) {
   const { regions } = useSelector((state: TypesApplicationState) => state.admin);
   const { key } = useParams();
   const [defaultValues, setDefaultValues] = useState<TypesRegion>();
@@ -121,7 +122,7 @@ function AddUpdateRegionForm({ title, formType }: Props) {
       <Form onSubmit={handleSubmit(onSubmit)}>
         <StyledAdminTopPanel>
           <AdminHeader text={title} />
-          <Button text="Dodaj" small />
+          <Button text={buttonLabel} small />
         </StyledAdminTopPanel>
         <StyledInputsContainer>
           <StyledFormInputWrapper>
