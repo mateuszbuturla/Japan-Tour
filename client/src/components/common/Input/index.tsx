@@ -72,7 +72,7 @@ function Input({
 
       {type === 'file' && (
         <>
-          {imgPreviewPath && <img src={imgPreviewPath} />}
+          {/* {imgPreviewPath && <img src={imgPreviewPath} />} */}
           <StyledInputContainer>
             <StyledInputLabel htmlFor={id} error={errorMessage ? true : false}>
               {label}

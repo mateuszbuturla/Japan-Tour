@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Switch, Route } from 'react-router-dom';
-import { AdminDashboard, AdminElementsList } from 'components/layout';
+import { AdminDashboard, AdminElementsList, AddUpdateRegionForm } from 'components/layout';
 import { useSelector, useDispatch } from 'react-redux';
 import TypesApplicationState from 'types/TypesApplicationState';
 import adminActions from 'actions/admin/actions';
@@ -53,8 +53,10 @@ function RoutingAdmin() {
                 key: item.key,
               }))
             }
+            addNewItemFormUrl="/admin/regions/add"
           />
         )}
+        exact
       />
       <Route
         path="/admin/cities"
@@ -118,6 +120,11 @@ function RoutingAdmin() {
             }
           />
         )}
+      />
+
+      <Route
+        path="/admin/regions/add"
+        component={(props: any) => <AddUpdateRegionForm {...props} title="Dodaj region" />}
       />
     </Switch>
   );

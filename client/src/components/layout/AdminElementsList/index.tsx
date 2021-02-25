@@ -14,6 +14,7 @@ import { deleteElement } from 'utils/ApiRequests';
 
 import RemoveIcon from 'assets/icons/remove.svg';
 import EditIcon from 'assets/icons/edit.svg';
+import { useHistory } from 'react-router-dom';
 
 interface DataProps {
   _id: string;
@@ -28,9 +29,11 @@ interface Props {
   title: string;
   api: string;
   removeFromAppState?: (id: string) => void;
+  addNewItemFormUrl: string;
 }
 
-function AdminElementsList({ title, data, api, removeFromAppState }: Props) {
+function AdminElementsList({ title, data, api, removeFromAppState, addNewItemFormUrl }: Props) {
+  const history = useHistory();
   const [removeModal, setRemoveModal] = useState<any>(null);
 
   const handleRemoveClick = async (id: string) => {
@@ -51,7 +54,7 @@ function AdminElementsList({ title, data, api, removeFromAppState }: Props) {
     <>
       <StyledAdminTopPanel>
         <AdminHeader text={title} />
-        <Button text="Dodaj" small />
+        <Button text="Dodaj" small onClick={() => history.push(addNewItemFormUrl)} />
       </StyledAdminTopPanel>
       <StyledAdminElementsListContainer>
         <StyledAdminElementsListCellsTitles>
