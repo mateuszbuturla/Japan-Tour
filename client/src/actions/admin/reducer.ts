@@ -6,6 +6,7 @@ const INITIAL_STATE = {
   attractions: [],
   cultures: [],
   dishes: [],
+  categories: [],
 };
 
 const adminReducer = (state = INITIAL_STATE, action: any) => {
@@ -35,6 +36,11 @@ const adminReducer = (state = INITIAL_STATE, action: any) => {
         ...state,
         dishes: action.item,
       };
+    case types.SET_ADMIN_CATEGOIES_DATA:
+      return {
+        ...state,
+        categories: action.item,
+      };
     case types.REMOVE_ADMIN_CITY_DATA:
       return {
         ...state,
@@ -54,6 +60,11 @@ const adminReducer = (state = INITIAL_STATE, action: any) => {
       return {
         ...state,
         dishes: state.dishes.filter((item: any) => item._id !== action.item),
+      };
+    case types.REMOVE_ADMIN_CATEGORY_DATA:
+      return {
+        ...state,
+        categories: state.categories.filter((item: any) => item._id !== action.item),
       };
     default:
       return state;
