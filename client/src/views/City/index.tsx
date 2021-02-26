@@ -26,7 +26,6 @@ function City({ setTitle }: Props) {
     try {
       let res = await Api.get(`/cities/${cityKey}`);
       if (!res.data) return history.push('/404');
-      console.log(res);
       setTitle(res.data.name);
       setCity(res.data);
       getAttractions(res.data._id);

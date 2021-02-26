@@ -72,7 +72,7 @@ function Input({
 
       {type === 'file' && (
         <>
-          {imgPreviewPath && <img src={imgPreviewPath} />}
+          {/* {imgPreviewPath && <img src={imgPreviewPath} />} */}
           <StyledInputContainer>
             <StyledInputLabel htmlFor={id} error={errorMessage ? true : false}>
               {label}
@@ -89,7 +89,6 @@ function Input({
               ref={inputRef}
               onChange={(e: any) => {
                 setImgPrevewPth(e.target.value);
-                console.log(e.target.value);
                 const reader = new FileReader();
 
                 reader.onload = (rEvent: any) => {

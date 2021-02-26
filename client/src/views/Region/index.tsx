@@ -24,7 +24,6 @@ function Region({ setTitle }: Props) {
   const getRegion = async () => {
     try {
       let res = await Api.get(`/regions/${regionKey}`);
-      console.log(res.data);
       if (!res.data) return history.push('/404');
       setTitle(res.data.name);
       setRegion(res.data);

@@ -36,7 +36,7 @@ export class CityController {
   }
 
   @Patch("update/:key")
-  @UsePipes(new JoiValidationPipe(AddUpdateCitySchema))
+  // @UsePipes(new JoiValidationPipe(AddUpdateCitySchema))
   updateCity(@Param("key") key: string, @Body() data: City) {
     return this.CityService.updateCity(key, data);
   }
