@@ -38,21 +38,19 @@ function AddUpdateRegionForm({ title, formType, buttonLabel }: Props) {
 
   const [regionDescription, setRegionDescription] = useState();
 
-  useEffect(() => {
-    if (!defaultValues && key && formType === 'update') {
-      const regionObj = regions.filter((item: TypesRegion) => item.key === key)[0];
-      setDefaultValues(regionObj);
+  if (!defaultValues && key && formType === 'update') {
+    const regionObj = regions.filter((item: TypesRegion) => item.key === key)[0];
+    setDefaultValues(regionObj);
 
-      const blocksFromHTML = convertFromHTML(regionObj.description);
+    const blocksFromHTML = convertFromHTML(regionObj.description);
 
-      const content = ContentState.createFromBlockArray(
-        blocksFromHTML.contentBlocks,
-        blocksFromHTML.entityMap,
-      );
+    const content = ContentState.createFromBlockArray(
+      blocksFromHTML.contentBlocks,
+      blocksFromHTML.entityMap,
+    );
 
-      setRegionDescription(EditorState.createWithContent(content));
-    }
-  }, []);
+    setRegionDescription(EditorState.createWithContent(content));
+  }
 
   const {
     fields: otherDataFields,
