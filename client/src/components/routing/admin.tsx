@@ -6,6 +6,7 @@ import {
   AddUpdateRegionForm,
   AddUpdateCityForm,
   AddUpdateDishForm,
+  AddUpdateCultureForm,
 } from 'components/layout';
 import { useSelector, useDispatch } from 'react-redux';
 import TypesApplicationState from 'types/TypesApplicationState';
@@ -107,8 +108,11 @@ function RoutingAdmin() {
                 key: item.key,
               }))
             }
+            addNewItemFormUrl="/admin/culture/add"
+            updateItemFormUrl="/admin/culture/update"
           />
         )}
+        exact
       />
       <Route
         path="/admin/kitchen"
@@ -188,6 +192,28 @@ function RoutingAdmin() {
           <AddUpdateDishForm
             {...props}
             title="Edytuj wpis o kuchni"
+            formType="update"
+            buttonLabel="Aktualizuj"
+          />
+        )}
+      />
+      <Route
+        path="/admin/culture/add"
+        component={(props: any) => (
+          <AddUpdateCultureForm
+            {...props}
+            title="Dodaj wpis o kulturze"
+            formType="add"
+            buttonLabel="Dodaj"
+          />
+        )}
+      />
+      <Route
+        path="/admin/culture/update/:key"
+        component={(props: any) => (
+          <AddUpdateCultureForm
+            {...props}
+            title="Edytuj wpis o kulturze"
             formType="update"
             buttonLabel="Aktualizuj"
           />

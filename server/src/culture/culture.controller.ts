@@ -36,7 +36,7 @@ export class CultureController {
   }
 
   @Patch("update/:key")
-  @UsePipes(new JoiValidationPipe(AddUpdateCultureSchema))
+  // @UsePipes(new JoiValidationPipe(AddUpdateCultureSchema))
   updateCulture(@Param("key") key: string, @Body() data: Culture) {
     return this.CultureService.updateCulture(key, data);
   }
