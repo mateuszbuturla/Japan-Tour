@@ -35,6 +35,7 @@ const theme = {
     lightGrey: '#d9d9d9',
     subPageHeader: '#fff',
     mainColor: '#b73ebd',
+    buttonColor: '#6d7dd1',
   },
   breakPoints: {
     xs: '0xp',

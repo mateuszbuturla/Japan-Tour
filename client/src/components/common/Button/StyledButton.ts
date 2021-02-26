@@ -11,11 +11,11 @@ const StyledButton = styled.button<StyledButtonProps>`
   border: none;
   outline: none;
   padding: 10px 30px;
-  border-radius: 50px;
+  border-radius: 11px;
   color: #fff;
   background-color: ${(props) =>
     props.bgColor === 'default'
-      ? props.theme.colors.mainColor
+      ? props.theme.colors.buttonColor
       : props.bgColor === 'red' && '#e31305'};
   cursor: pointer;
   font-weight: bold;
@@ -25,7 +25,7 @@ const StyledButton = styled.button<StyledButtonProps>`
   &:hover {
     background-color: ${(props) =>
       props.bgColor === 'default'
-        ? props.theme.colors.mainColor + '70'
+        ? props.theme.colors.buttonColor + '95'
         : props.bgColor === 'red' && '#e31305'};
   }
 `;

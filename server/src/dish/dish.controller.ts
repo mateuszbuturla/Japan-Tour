@@ -36,7 +36,7 @@ export class DishController {
   }
 
   @Patch("update/:key")
-  @UsePipes(new JoiValidationPipe(AddUpdateDishSchema))
+  // @UsePipes(new JoiValidationPipe(AddUpdateDishSchema))
   updateDish(@Param("key") key: string, @Body() data: Dish) {
     return this.DishService.updateDish(key, data);
   }
