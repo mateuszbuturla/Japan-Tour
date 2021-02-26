@@ -1,6 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Switch, Route } from 'react-router-dom';
-import { AdminDashboard, AdminElementsList, AddUpdateRegionForm } from 'components/layout';
+import {
+  AdminDashboard,
+  AdminElementsList,
+  AddUpdateRegionForm,
+  AddUpdateCityForm,
+} from 'components/layout';
 import { useSelector, useDispatch } from 'react-redux';
 import TypesApplicationState from 'types/TypesApplicationState';
 import adminActions from 'actions/admin/actions';
@@ -77,8 +82,11 @@ function RoutingAdmin() {
                 key: item.key,
               }))
             }
+            addNewItemFormUrl="/admin/cities/add"
+            updateItemFormUrl="/admin/cities/update"
           />
         )}
+        exact
       />
       <Route
         path="/admin/culture"
@@ -135,6 +143,24 @@ function RoutingAdmin() {
           <AddUpdateRegionForm
             {...props}
             title="Edytuj region"
+            formType="update"
+            buttonLabel="Aktualizuj"
+          />
+        )}
+      />
+
+      <Route
+        path="/admin/cities/add"
+        component={(props: any) => (
+          <AddUpdateCityForm {...props} title="Dodaj Miasto" formType="add" buttonLabel="Dodaj" />
+        )}
+      />
+      <Route
+        path="/admin/cities/update/:key"
+        component={(props: any) => (
+          <AddUpdateCityForm
+            {...props}
+            title="Edytuj miasto"
             formType="update"
             buttonLabel="Aktualizuj"
           />
