@@ -15,6 +15,8 @@ export class ActionHistoryService {
     try {
       const newItem = new this.actionHistoryModel(data);
       await newItem.save();
-    } catch (err) {}
+    } catch (err) {
+      console.log(err);
+    }
   }
 }

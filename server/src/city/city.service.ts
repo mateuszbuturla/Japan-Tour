@@ -3,12 +3,17 @@ import { InjectModel } from "@nestjs/mongoose";
 import { Model } from "mongoose";
 import { isNull } from "util";
 import NormalizeString from "../utils/normalizeString";
+import { ActionHistoryService } from "../actionHistory/actionHistory.service";
 
 import { City } from "./city.model";
+import { User } from "src/interface/User";
 
 @Injectable()
 export class CityService {
-  constructor(@InjectModel("City") private readonly cityModel: Model<City>) {}
+  constructor(
+    @InjectModel("City") private readonly cityModel: Model<City>,
+    private readonly actionHistoryService: ActionHistoryService
+  ) {}
 
   async getCities() {
     const cities = await this.cityModel.find().exec();
@@ -42,7 +47,7 @@ export class CityService {
     return city;
   }
 
-  async createCity(data: City) {
+  async createCity(data: City, user: User) {
     let res;
     const existCity = await this.cityModel
       .findOne({
@@ -65,6 +70,14 @@ export class CityService {
         otherData: data.otherData,
       });
       res = await newCity.save();
+      this.actionHistoryService.addNewItem({
+        section: "cities",
+        name: data.name,
+        url: `/admin/cities/update/${NormalizeString(data.name)}`,
+        date: new Date().toLocaleDateString(),
+        author: user._id,
+        action: "add",
+      });
     } else {
       throw new HttpException("City is exist.", 409);
     }
@@ -72,13 +85,21 @@ export class CityService {
     return res;
   }
 
-  async removeCity(id: string) {
+  async removeCity(id: string, user: User) {
     let res;
 
     try {
       const removedCity = await this.cityModel.remove({ _id: id });
       if (removedCity.deletedCount > 0) {
         res = "Successfully deleted.";
+        this.actionHistoryService.addNewItem({
+          section: "cities",
+          name: "none",
+          url: `none`,
+          date: new Date().toLocaleDateString(),
+          author: user._id,
+          action: "remove",
+        });
       } else if (removedCity.deletedCount === 0) {
         throw new HttpException("Could not remove city.", 409);
       }
@@ -89,7 +110,7 @@ export class CityService {
     return res;
   }
 
-  async updateCity(key: string, data: City) {
+  async updateCity(key: string, data: City, user: User) {
     let res;
 
     try {
@@ -109,6 +130,14 @@ export class CityService {
           statusCode: 200,
           message: "Successfully updated.",
         };
+        this.actionHistoryService.addNewItem({
+          section: "cities",
+          name: data.name,
+          url: `/admin/cities/update/${NormalizeString(data.name)}`,
+          date: new Date().toLocaleDateString(),
+          author: user._id,
+          action: "update",
+        });
       } else if (updatedCity.n === 0) {
         throw new HttpException("Could not update city.", 409);
       }
