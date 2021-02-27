@@ -1,7 +1,19 @@
-import { Controller, Body, Get, Param, Patch, Post } from "@nestjs/common";
+import {
+  Controller,
+  Body,
+  Get,
+  Param,
+  Patch,
+  Post,
+  Req,
+  UseGuards,
+} from "@nestjs/common";
 
 import { RegionService } from "./region.service";
 import { Region } from "./region.model";
+import { User } from "../interface/user";
+import { UserObj } from "../decorators/user-obj.decorator";
+import { AuthGuard } from "@nestjs/passport";
 
 @Controller("/api/regions")
 export class RegionController {
@@ -14,13 +26,19 @@ export class RegionController {
   }
 
   @Post("create")
-  createRegion(@Body() data: Region) {
-    return this.RegionService.createRegion(data);
+  @UseGuards(AuthGuard("jwt"))
+  createRegion(@Body() data: Region, @UserObj() user: User) {
+    return this.RegionService.createRegion(data, user);
   }
 
   @Patch("update/:key")
-  updateRegion(@Param("key") key: string, @Body() data: Region) {
-    return this.RegionService.updateRegion(key, data);
+  @UseGuards(AuthGuard("jwt"))
+  updateRegion(
+    @Param("key") key: string,
+    @Body() data: Region,
+    @UserObj() user: User
+  ) {
+    return this.RegionService.updateRegion(key, data, user);
   }
 
   @Get(":key")
