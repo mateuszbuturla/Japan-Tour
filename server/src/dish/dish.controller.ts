@@ -7,12 +7,16 @@ import {
   Delete,
   Patch,
   UsePipes,
+  UseGuards,
 } from "@nestjs/common";
 import { JoiValidationPipe } from "../pipes/JoiValidationPipe";
 
 import { DishService } from "./dish.service";
 import { Dish } from "./dish.model";
 import { AddUpdateDishSchema } from "./Schema/dish.schema";
+import { UserObj } from "src/decorators/user-obj.decorator";
+import { User } from "src/interface/User";
+import { AuthGuard } from "@nestjs/passport";
 
 @Controller("/api/dishes")
 export class DishController {
@@ -25,20 +29,27 @@ export class DishController {
   }
 
   @Post("create")
-  @UsePipes(new JoiValidationPipe(AddUpdateDishSchema))
-  createDish(@Body() data: Dish) {
-    return this.DishService.createDish(data);
+  @UseGuards(AuthGuard("jwt"))
+  // @UsePipes(new JoiValidationPipe(AddUpdateDishSchema))
+  createDish(@Body() data: Dish, @UserObj() user: User) {
+    return this.DishService.createDish(data, user);
   }
 
   @Delete("remove/:id")
-  removeDish(@Param("id") id: string) {
-    return this.DishService.removeDish(id);
+  @UseGuards(AuthGuard("jwt"))
+  removeDish(@Param("id") id: string, @UserObj() user: User) {
+    return this.DishService.removeDish(id, user);
   }
 
   @Patch("update/:key")
+  @UseGuards(AuthGuard("jwt"))
   // @UsePipes(new JoiValidationPipe(AddUpdateDishSchema))
-  updateDish(@Param("key") key: string, @Body() data: Dish) {
-    return this.DishService.updateDish(key, data);
+  updateDish(
+    @Param("key") key: string,
+    @Body() data: Dish,
+    @UserObj() user: User
+  ) {
+    return this.DishService.updateDish(key, data, user);
   }
 
   @Get(":key")

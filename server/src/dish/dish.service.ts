@@ -5,10 +5,15 @@ import { Model } from "mongoose";
 import { Dish } from "./dish.model";
 import NormalizeString from "../utils/normalizeString";
 import { isNull } from "util";
+import { ActionHistoryService } from "../actionHistory/actionHistory.service";
+import { User } from "src/interface/User";
 
 @Injectable()
 export class DishService {
-  constructor(@InjectModel("Dish") private readonly dishModel: Model<Dish>) {}
+  constructor(
+    @InjectModel("Dish") private readonly dishModel: Model<Dish>,
+    private readonly actionHistoryService: ActionHistoryService
+  ) {}
 
   async getDishes() {
     const cultures = await this.dishModel.find().exec();
@@ -33,7 +38,7 @@ export class DishService {
     return dish;
   }
 
-  async createDish(data: Dish) {
+  async createDish(data: Dish, user: User) {
     let res;
     const existDish = await this.dishModel
       .findOne({
@@ -52,6 +57,14 @@ export class DishService {
         otherData: data.otherData,
       });
       res = await newDish.save();
+      this.actionHistoryService.addNewItem({
+        section: "kitchen",
+        name: data.name,
+        url: `/admin/kitchen/update/${NormalizeString(data.name)}`,
+        date: new Date().toLocaleDateString(),
+        author: user._id,
+        action: "add",
+      });
     } else {
       throw new HttpException("Dish is exist.", 409);
     }
@@ -59,13 +72,21 @@ export class DishService {
     return res;
   }
 
-  async removeDish(id: string) {
+  async removeDish(id: string, user: User) {
     let res;
 
     try {
       const removedDish = await this.dishModel.remove({ _id: id });
       if (removedDish.deletedCount > 0) {
         res = "Successfully deleted.";
+        this.actionHistoryService.addNewItem({
+          section: "kitchen",
+          name: "none",
+          url: `none`,
+          date: new Date().toLocaleDateString(),
+          author: user._id,
+          action: "remove",
+        });
       } else if (removedDish.deletedCount === 0) {
         throw new HttpException("Could not remove dish.", 409);
       }
@@ -76,7 +97,7 @@ export class DishService {
     return res;
   }
 
-  async updateDish(key: string, data: Dish) {
+  async updateDish(key: string, data: Dish, user: User) {
     let res;
 
     try {
@@ -96,6 +117,14 @@ export class DishService {
           statusCode: 200,
           message: "Successfully updated.",
         };
+        this.actionHistoryService.addNewItem({
+          section: "kitchen",
+          name: data.name,
+          url: `/admin/kitchen/update/${NormalizeString(data.name)}`,
+          date: new Date().toLocaleDateString(),
+          author: user._id,
+          action: "update",
+        });
       } else if (updatedDishes.n === 0) {
         throw new HttpException("Could not update dish.", 409);
       }
