@@ -5,11 +5,14 @@ import { isNull } from "util";
 
 import { Region } from "./region.model";
 import NormalizeString from "../utils/normalizeString";
+import { ActionHistoryService } from "../actionHistory/actionHistory.service";
+import { User } from "src/interface/User";
 
 @Injectable()
 export class RegionService {
   constructor(
-    @InjectModel("Region") private readonly regionModel: Model<Region>
+    @InjectModel("Region") private readonly regionModel: Model<Region>,
+    private readonly actionHistoryService: ActionHistoryService
   ) {}
 
   async getRegions() {
@@ -30,7 +33,7 @@ export class RegionService {
     return region;
   }
 
-  async createRegion(data: Region) {
+  async createRegion(data: Region, user: User) {
     let res;
     const existRegion = await this.regionModel
       .findOne({
@@ -48,6 +51,14 @@ export class RegionService {
         otherData: data.otherData,
       });
       res = await newRegion.save();
+      this.actionHistoryService.addNewItem({
+        section: "regions",
+        name: data.name,
+        url: `/admin/regions/update/${NormalizeString(data.name)}`,
+        date: new Date().toLocaleDateString(),
+        author: user._id,
+        action: "add",
+      });
     } else {
       throw new HttpException("Region is exist.", 409);
     }
@@ -68,7 +79,7 @@ export class RegionService {
     return region;
   }
 
-  async updateRegion(key: string, data: Region) {
+  async updateRegion(key: string, data: Region, user: User) {
     let res;
 
     try {
@@ -87,6 +98,14 @@ export class RegionService {
           statusCode: 200,
           message: "Successfully updated.",
         };
+        this.actionHistoryService.addNewItem({
+          section: "regions",
+          name: data.name,
+          url: `/admin/regions/update/${NormalizeString(data.name)}`,
+          date: new Date().toLocaleDateString(),
+          author: user._id,
+          action: "update",
+        });
       } else if (updatedRegions.n === 0) {
         throw new HttpException("Could not update region.", 409);
       }

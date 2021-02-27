@@ -7,12 +7,16 @@ import {
   Delete,
   Patch,
   UsePipes,
+  UseGuards,
 } from "@nestjs/common";
 import { JoiValidationPipe } from "../pipes/JoiValidationPipe";
 
 import { CultureService } from "./culture.service";
 import { Culture } from "./culture.model";
 import { AddUpdateCultureSchema } from "./Schema/culture.schema";
+import { AuthGuard } from "@nestjs/passport";
+import { UserObj } from "src/decorators/user-obj.decorator";
+import { User } from "src/interface/User";
 
 @Controller("/api/cultures")
 export class CultureController {
@@ -25,20 +29,27 @@ export class CultureController {
   }
 
   @Post("create")
-  @UsePipes(new JoiValidationPipe(AddUpdateCultureSchema))
-  createCity(@Body() data: Culture) {
-    return this.CultureService.createCulture(data);
+  @UseGuards(AuthGuard("jwt"))
+  // @UsePipes(new JoiValidationPipe(AddUpdateCultureSchema))
+  createCity(@Body() data: Culture, @UserObj() user: User) {
+    return this.CultureService.createCulture(data, user);
   }
 
   @Delete("remove/:id")
-  removeCulture(@Param("id") id: string) {
-    return this.CultureService.removeCulture(id);
+  @UseGuards(AuthGuard("jwt"))
+  removeCulture(@Param("id") id: string, @UserObj() user: User) {
+    return this.CultureService.removeCulture(id, user);
   }
 
   @Patch("update/:key")
+  @UseGuards(AuthGuard("jwt"))
   // @UsePipes(new JoiValidationPipe(AddUpdateCultureSchema))
-  updateCulture(@Param("key") key: string, @Body() data: Culture) {
-    return this.CultureService.updateCulture(key, data);
+  updateCulture(
+    @Param("key") key: string,
+    @Body() data: Culture,
+    @UserObj() user: User
+  ) {
+    return this.CultureService.updateCulture(key, data, user);
   }
 
   @Get(":key")

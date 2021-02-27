@@ -5,12 +5,15 @@ import { isNull } from "util";
 
 import { Attraction } from "./attraction.model";
 import NormalizeString from "../utils/normalizeString";
+import { User } from "src/interface/User";
+import { ActionHistoryService } from "../actionHistory/actionHistory.service";
 
 @Injectable()
 export class AttractionService {
   constructor(
     @InjectModel("Attraction")
-    private readonly attractionModel: Model<Attraction>
+    private readonly attractionModel: Model<Attraction>,
+    private readonly actionHistoryService: ActionHistoryService
   ) {}
 
   async getBestAttractionsFromRegion(region: string) {
@@ -53,7 +56,7 @@ export class AttractionService {
     return attraction;
   }
 
-  async createAttraction(data: Attraction) {
+  async createAttraction(data: Attraction, user: User) {
     let res;
     const existAttraction = await this.attractionModel
       .findOne({
@@ -80,6 +83,14 @@ export class AttractionService {
         otherData: data.otherData,
       });
       res = await newAttraction.save();
+      this.actionHistoryService.addNewItem({
+        section: "attractions",
+        name: data.name,
+        url: `/admin/attractions/update/${NormalizeString(data.name)}`,
+        date: new Date().toLocaleDateString(),
+        author: user._id,
+        action: "add",
+      });
     } else {
       throw new HttpException("Attraction is exist.", 409);
     }
@@ -87,7 +98,7 @@ export class AttractionService {
     return res;
   }
 
-  async removeAttraction(id: string) {
+  async removeAttraction(id: string, user: User) {
     let res;
 
     try {
@@ -97,6 +108,14 @@ export class AttractionService {
           statusCode: 200,
           message: "Successfully deleted.",
         };
+        this.actionHistoryService.addNewItem({
+          section: "attractions",
+          name: `none`,
+          url: `none`,
+          date: new Date().toLocaleDateString(),
+          author: user._id,
+          action: "remove",
+        });
       } else if (removedAttraction.deletedCount === 0) {
         throw new HttpException("Could not remove attraction.", 409);
       }
@@ -107,7 +126,7 @@ export class AttractionService {
     return res;
   }
 
-  async updateAttraction(key: string, data: Attraction) {
+  async updateAttraction(key: string, data: Attraction, user: User) {
     let res;
 
     try {
@@ -134,6 +153,14 @@ export class AttractionService {
           statusCode: 200,
           message: "Successfully updated.",
         };
+        this.actionHistoryService.addNewItem({
+          section: "attractions",
+          name: data.name,
+          url: `/admin/attractions/update/${NormalizeString(data.name)}`,
+          date: new Date().toLocaleDateString(),
+          author: user._id,
+          action: "update",
+        });
       } else if (updatedAttraction.n === 0) {
         throw new HttpException("Could not update attraction.", 409);
       }

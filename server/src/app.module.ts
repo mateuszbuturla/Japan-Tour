@@ -9,9 +9,11 @@ import { CategoryModule } from "./category/category.module";
 import { FooterModule } from "./footer/footer.module";
 import { UserModule } from "./user/user.module";
 import { AuthModule } from "./auth/auth.module";
+import { ActionHistoryModule } from "./actionHistory/actionHistory.module";
 
 @Module({
   imports: [
+    ActionHistoryModule,
     RegionModule,
     MongooseModule.forRoot("mongodb://localhost:27017/Japan"),
     CityModule,
