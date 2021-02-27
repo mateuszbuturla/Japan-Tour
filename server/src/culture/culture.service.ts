@@ -5,11 +5,14 @@ import { isNull } from "util";
 
 import { Culture } from "./culture.model";
 import NormalizeString from "../utils/normalizeString";
+import { ActionHistoryService } from "../actionHistory/actionHistory.service";
+import { User } from "src/interface/User";
 
 @Injectable()
 export class CultureService {
   constructor(
-    @InjectModel("Culture") private readonly cultureModel: Model<Culture>
+    @InjectModel("Culture") private readonly cultureModel: Model<Culture>,
+    private readonly actionHistoryService: ActionHistoryService
   ) {}
 
   async getCultures() {
@@ -35,7 +38,7 @@ export class CultureService {
     return culture;
   }
 
-  async createCulture(data: Culture) {
+  async createCulture(data: Culture, user: User) {
     let res;
 
     const existCulture = await this.cultureModel
@@ -55,19 +58,35 @@ export class CultureService {
         otherData: data.otherData,
       });
       res = await newCulture.save();
+      this.actionHistoryService.addNewItem({
+        section: "culture",
+        name: data.name,
+        url: `/admin/culture/update/${NormalizeString(data.name)}`,
+        date: new Date().toLocaleDateString(),
+        author: user._id,
+        action: "add",
+      });
     } else {
       throw new HttpException("Culture is exist.", 409);
     }
     return res;
   }
 
-  async removeCulture(id: string) {
+  async removeCulture(id: string, user: User) {
     let res;
 
     try {
       const removedCulture = await this.cultureModel.remove({ _id: id });
       if (removedCulture.deletedCount > 0) {
         res = "Successfully deleted.";
+        this.actionHistoryService.addNewItem({
+          section: "culture",
+          name: "none",
+          url: `none`,
+          date: new Date().toLocaleDateString(),
+          author: user._id,
+          action: "remove",
+        });
       } else if (removedCulture.deletedCount === 0) {
         throw new HttpException("Could not remove culture.", 409);
       }
@@ -78,7 +97,7 @@ export class CultureService {
     return res;
   }
 
-  async updateCulture(key: string, data: Culture) {
+  async updateCulture(key: string, data: Culture, user: User) {
     let res;
 
     try {
@@ -101,6 +120,14 @@ export class CultureService {
           statusCode: 200,
           message: "Successfully updated.",
         };
+        this.actionHistoryService.addNewItem({
+          section: "culture",
+          name: data.name,
+          url: `/admin/cities/update/${NormalizeString(data.name)}`,
+          date: new Date().toLocaleDateString(),
+          author: user._id,
+          action: "update",
+        });
       } else if (updatedCultures.n === 0) {
         throw new HttpException("Could not update culture.", 409);
       }
