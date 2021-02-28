@@ -25,8 +25,8 @@ export class AttractionController {
 
   @Post("create")
   @UseGuards(AuthGuard("jwt"))
-  @UsePipes(new JoiValidationPipe(AddUpdateAttractionSchema))
-  createAttraction(@Body() data: Attraction, @UserObj() user: User) {
+  // @UsePipes(new JoiValidationPipe(AddUpdateAttractionSchema))
+  createAttraction(@Body() data: any, @UserObj() user: User) {
     return this.AttractionService.createAttraction(data, user);
   }
 
@@ -38,10 +38,10 @@ export class AttractionController {
 
   @Patch("update/:key")
   @UseGuards(AuthGuard("jwt"))
-  @UsePipes(new JoiValidationPipe(AddUpdateAttractionSchema))
+  // @UsePipes(new JoiValidationPipe(AddUpdateAttractionSchema))
   updateAttraction(
     @Param("key") key: string,
-    @Body() data: Attraction,
+    @Body() data: any,
     @UserObj() user: User
   ) {
     return this.AttractionService.updateAttraction(key, data, user);

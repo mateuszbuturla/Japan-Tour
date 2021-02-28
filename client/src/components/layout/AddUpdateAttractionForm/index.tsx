@@ -24,6 +24,8 @@ import { useSelector } from 'react-redux';
 import TypesCity from 'types/TypesCity';
 import { EditorState, ContentState, convertFromHTML } from 'draft-js';
 import TypesRegion from 'types/TypesRegion';
+import TypesAttraction from 'types/TypesAttraction';
+import TypesElementCategory from 'types/TypesElementCategory';
 
 interface Props {
   title: string;
@@ -31,15 +33,33 @@ interface Props {
   buttonLabel: 'Dodaj' | 'Aktualizuj';
 }
 
-function AddUpdateCityForm({ title, formType, buttonLabel }: Props) {
-  const { cities, regions } = useSelector((state: TypesApplicationState) => state.admin);
+function AddUpdateAttractionForm({ title, formType, buttonLabel }: Props) {
+  const { attractions, cities, regions, categories } = useSelector(
+    (state: TypesApplicationState) => state.admin,
+  );
   const { key } = useParams();
-  const [defaultValues, setDefaultValues] = useState<TypesCity>();
+  const [defaultValues, setDefaultValues] = useState<TypesAttraction>();
   const { register, handleSubmit, errors, control } = useForm();
 
-  const [cityDescription, setCityDescription] = useState();
+  const [attractionDescription, setAttractionDescription] = useState();
 
   const getRegionsNamesOnly = regions.map((item: TypesRegion) => item.name);
+  const getCitiesNamesOnly = cities.map((item: TypesCity) => item.name);
+  const getCategoriesNamesOnly = categories
+    .filter((item: TypesElementCategory) => item.section === 'attractions')
+    .map((item: TypesElementCategory) => item.name);
+
+  const getRegionNameById = (id: string) => {
+    return regions.filter((item: TypesRegion) => item._id === id)[0].name;
+  };
+
+  const getCityNameById = (id: string) => {
+    return cities.filter((item: TypesCity) => item._id === id)[0].name;
+  };
+
+  const getCategoryNameById = (id: string) => {
+    return categories.filter((item: TypesElementCategory) => item._id === id)[0].name;
+  };
 
   const {
     fields: otherDataFields,
@@ -51,17 +71,17 @@ function AddUpdateCityForm({ title, formType, buttonLabel }: Props) {
   });
 
   if (!defaultValues && key && formType === 'update') {
-    const cityObj = cities.filter((item: TypesCity) => item.key === key)[0];
-    setDefaultValues(cityObj);
+    const attractionObj = attractions.filter((item: TypesAttraction) => item.key === key)[0];
+    setDefaultValues(attractionObj);
 
-    const blocksFromHTML = convertFromHTML(cityObj.description);
+    const blocksFromHTML = convertFromHTML(attractionObj.description);
 
     const content = ContentState.createFromBlockArray(
       blocksFromHTML.contentBlocks,
       blocksFromHTML.entityMap,
     );
 
-    setCityDescription(EditorState.createWithContent(content));
+    setAttractionDescription(EditorState.createWithContent(content));
   }
 
   const addNewInputToOtherData = (e: any) => {
@@ -90,13 +110,15 @@ function AddUpdateCityForm({ title, formType, buttonLabel }: Props) {
       const imgUrl = await sendImage(data.img);
       newData.img = imgUrl !== null ? imgUrl : defaultValues && defaultValues.img;
       newData.region = regions.find((r: TypesRegion) => r.name === data.region)._id;
-      if (cityDescription) {
-        newData.description = stateToHTML(cityDescription.getCurrentContent());
+      newData.city = cities.find((r: TypesCity) => r.name === data.city)._id;
+      newData.category = categories.find((r: TypesElementCategory) => r.name === data.category)._id;
+      if (attractionDescription) {
+        newData.description = stateToHTML(attractionDescription.getCurrentContent());
       }
       if (formType === 'add') {
-        const res = await Api.post('/cities/create', newData);
+        const res = await Api.post('/attractions/create', newData);
         if (res.status === 201) {
-          AddNotification('Dodano', 'Nowe miasto zostało dodana pomyślnie', 'success');
+          AddNotification('Dodano', 'Nowa atrakcja została dodana pomyślnie', 'success');
           e.target.reset();
         }
       } else if (formType === 'update') {
@@ -104,9 +126,9 @@ function AddUpdateCityForm({ title, formType, buttonLabel }: Props) {
           if (!data.otherData) {
             newData.otherData = defaultValues.otherData;
           }
-          const res = await Api.patch(`/cities/update/${key}`, newData);
+          const res = await Api.patch(`/attractions/update/${key}`, newData);
           if (res.status === 200) {
-            AddNotification('Dodano', 'Miasto został zaktualizowany pomyślnie', 'success');
+            AddNotification('Dodano', 'Atrakcja został zaktualizowany pomyślnie', 'success');
           }
         }
       }
@@ -147,20 +169,72 @@ function AddUpdateCityForm({ title, formType, buttonLabel }: Props) {
           </StyledFormInputWrapper>
           <StyledFormInputWrapper>
             <Input
+              label="Krótki opis"
+              id="shortDescription"
+              name="shortDescription"
+              inputRef={register({ required: true })}
+              defaultValue={
+                formType === 'update' && defaultValues ? defaultValues.shortDescription : ''
+              }
+            />
+          </StyledFormInputWrapper>
+          <StyledFormInputWrapper>
+            <Input
               type="select"
               label="Region"
               id="region"
               name="region"
               inputRef={register()}
               options={getRegionsNamesOnly}
-              defaultValue={formType === 'update' && defaultValues ? defaultValues.region : ''}
+              defaultValue={
+                formType === 'update' && defaultValues
+                  ? getRegionNameById(defaultValues.region)
+                  : ''
+              }
+            />
+          </StyledFormInputWrapper>
+          <StyledFormInputWrapper>
+            <Input
+              type="select"
+              label="Miasto"
+              id="city"
+              name="city"
+              inputRef={register()}
+              options={getCitiesNamesOnly}
+              defaultValue={
+                formType === 'update' && defaultValues ? getCityNameById(defaultValues.city) : ''
+              }
+            />
+          </StyledFormInputWrapper>
+          <StyledFormInputWrapper>
+            <Input
+              type="select"
+              label="Kategoria"
+              id="category"
+              name="category"
+              inputRef={register()}
+              options={getCategoriesNamesOnly}
+              defaultValue={
+                formType === 'update' && defaultValues
+                  ? getCategoryNameById(defaultValues.category)
+                  : ''
+              }
+            />
+          </StyledFormInputWrapper>
+          <StyledFormInputWrapper>
+            <Input
+              type="checkbox"
+              label="Jedna z najciekawszych"
+              id="bestAttractions"
+              name="bestAttractions"
+              inputRef={register()}
             />
           </StyledFormInputWrapper>
         </StyledInputsContainer>
         <StyledFromDescriptionOtherDataContainer>
           <RichTextEditor
-            editorState={cityDescription}
-            onEditorStateChange={setCityDescription}
+            editorState={attractionDescription}
+            onEditorStateChange={setAttractionDescription}
             toolbar={{
               options: ['inline', 'image'],
               inline: {
@@ -207,4 +281,4 @@ function AddUpdateCityForm({ title, formType, buttonLabel }: Props) {
   );
 }
 
-export default AddUpdateCityForm;
+export default AddUpdateAttractionForm;

@@ -6,6 +6,7 @@ import AddUpdateRegionForm from './AddUpdateRegionForm';
 import AddUpdateCityForm from './AddUpdateCityForm';
 import AddUpdateDishForm from './AddUpdateDishForm';
 import AddUpdateCultureForm from './AddUpdateCultureForm';
+import AddUpdateAttractionForm from './AddUpdateAttractionForm';
 
 export {
   Footer,
@@ -16,4 +17,5 @@ export {
   AddUpdateCityForm,
   AddUpdateDishForm,
   AddUpdateCultureForm,
+  AddUpdateAttractionForm,
 };
