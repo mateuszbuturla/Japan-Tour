@@ -21,7 +21,7 @@ interface Props {
 }
 
 const elementTypeIcon: any = {
-  categories: CategoryIcon,
+  category: CategoryIcon,
   regions: RegionIcon,
   cities: CityIcon,
   attractions: AttractionIcon,

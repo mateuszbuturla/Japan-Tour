@@ -7,12 +7,16 @@ import {
   Delete,
   Patch,
   UsePipes,
+  UseGuards,
 } from "@nestjs/common";
 import { JoiValidationPipe } from "../pipes/JoiValidationPipe";
 
 import { CategoryService } from "./category.service";
 import { Category } from "./category.model";
 import { AddUpdateCategorySchema } from "./Schema/categories.schema";
+import { AuthGuard } from "@nestjs/passport";
+import { UserObj } from "src/decorators/user-obj.decorator";
+import { User } from "src/interface/User";
 
 @Controller("/api/categories")
 export class CategoryController {
@@ -25,21 +29,27 @@ export class CategoryController {
   }
 
   @Post("create")
+  @UseGuards(AuthGuard("jwt"))
   // @UsePipes(new JoiValidationPipe(AddUpdateCategorySchema))
-  createCategory(@Body() data: Category) {
-    console.log(data);
-    return this.CategoryService.createCategory(data);
+  createCategory(@Body() data: Category, @UserObj() user: User) {
+    return this.CategoryService.createCategory(data, user);
   }
 
   @Delete("remove/:id")
-  removeCategory(@Param("id") data: string) {
-    return this.CategoryService.removeCategory(data);
+  @UseGuards(AuthGuard("jwt"))
+  removeCategory(@Param("id") data: string, @UserObj() user: User) {
+    return this.CategoryService.removeCategory(data, user);
   }
 
   @Patch("update/:key")
+  @UseGuards(AuthGuard("jwt"))
   // @UsePipes(new JoiValidationPipe(AddUpdateCategorySchema))
-  updateCategory(@Param("key") key: string, @Body() data: Category) {
-    return this.CategoryService.updateCategory(key, data);
+  updateCategory(
+    @Param("key") key: string,
+    @Body() data: Category,
+    @UserObj() user: User
+  ) {
+    return this.CategoryService.updateCategory(key, data, user);
   }
 
   @Get(":section")
