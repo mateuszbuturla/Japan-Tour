@@ -3,6 +3,7 @@ interface TypesElementCategory {
   name: string;
   key: string;
   section: string;
+  img: string;
 }
 
 export default TypesElementCategory;

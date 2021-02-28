@@ -25,18 +25,19 @@ export class CategoryController {
   }
 
   @Post("create")
-  @UsePipes(new JoiValidationPipe(AddUpdateCategorySchema))
+  // @UsePipes(new JoiValidationPipe(AddUpdateCategorySchema))
   createCategory(@Body() data: Category) {
+    console.log(data);
     return this.CategoryService.createCategory(data);
   }
 
-  @Delete("remove/:key")
-  removeCategory(@Param("key") data: string) {
+  @Delete("remove/:id")
+  removeCategory(@Param("id") data: string) {
     return this.CategoryService.removeCategory(data);
   }
 
   @Patch("update/:key")
-  @UsePipes(new JoiValidationPipe(AddUpdateCategorySchema))
+  // @UsePipes(new JoiValidationPipe(AddUpdateCategorySchema))
   updateCategory(@Param("key") key: string, @Body() data: Category) {
     return this.CategoryService.updateCategory(key, data);
   }

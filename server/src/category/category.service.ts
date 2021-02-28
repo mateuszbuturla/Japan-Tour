@@ -17,8 +17,9 @@ export class CategoryService {
     const categories = await this.categoryModel.find({ section }).exec();
     return categories.map((category) => ({
       _id: category._id,
-      name: category.title,
+      name: category.name,
       key: category.key,
+      img: category.img,
     }));
   }
 
@@ -26,27 +27,29 @@ export class CategoryService {
     const categories = await this.categoryModel.find().exec();
     return categories.map((category) => ({
       _id: category._id,
-      name: category.title,
+      name: category.name,
       key: category.key,
       section: category.section,
+      img: category.img,
     }));
   }
 
   async createCategory(data: Category) {
     let res;
-    const existDish = await this.categoryModel
+    const existCategory = await this.categoryModel
       .findOne({
-        $or: [{ name: data.title }, { key: NormalizeString(data.title) }],
+        $or: [{ name: data.name }, { key: NormalizeString(data.name) }],
       })
       .exec();
 
-    if (isNull(existDish)) {
-      const newDish = new this.categoryModel({
-        name: data.title,
-        key: NormalizeString(data.title),
+    if (isNull(existCategory)) {
+      const newCategory = new this.categoryModel({
+        name: data.name,
+        key: NormalizeString(data.name),
         section: data.section,
+        img: data.img,
       });
-      res = await newDish.save();
+      res = await newCategory.save();
     } else {
       throw new HttpException("Category is exist.", 409);
     }
@@ -54,11 +57,11 @@ export class CategoryService {
     return res;
   }
 
-  async removeCategory(key: string) {
+  async removeCategory(id: string) {
     let res;
 
     try {
-      const removedCategory = await this.categoryModel.remove({ key });
+      const removedCategory = await this.categoryModel.remove({ _id: id });
       if (removedCategory.deletedCount > 0) {
         res = {
           statusCode: 200,
@@ -79,9 +82,10 @@ export class CategoryService {
 
     try {
       const newData = {
-        name: data.title,
-        key: NormalizeString(data.title),
+        name: data.name,
+        key: NormalizeString(data.name),
         section: data.section,
+        img: data.img,
       };
 
       const updatedCategory = await this.categoryModel.updateOne(

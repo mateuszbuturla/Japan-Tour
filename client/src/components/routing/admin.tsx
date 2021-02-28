@@ -12,9 +12,10 @@ import {
 import { useSelector, useDispatch } from 'react-redux';
 import TypesApplicationState from 'types/TypesApplicationState';
 import adminActions from 'actions/admin/actions';
+import AddUpdateCategoryForm from 'components/layout/AddUpdateCategoryForm';
 
 function RoutingAdmin() {
-  const { attractions, regions, cities, cultures, dishes } = useSelector(
+  const { attractions, regions, cities, cultures, dishes, categories } = useSelector(
     (state: TypesApplicationState) => state.admin,
   );
   const dispatch = useDispatch();
@@ -144,6 +145,31 @@ function RoutingAdmin() {
       />
 
       <Route
+        path="/admin/categories"
+        component={(props: any) => (
+          <AdminElementsList
+            {...props}
+            title="Kategorie"
+            api="categories"
+            removeFromAppState={(id: string) => dispatch(adminActions.removeCategoryById(id))}
+            data={
+              categories &&
+              categories.map((item: any) => ({
+                _id: item._id,
+                name: item.name,
+                author: 'Admin',
+                date: '01.01.2020',
+                key: item.key,
+              }))
+            }
+            addNewItemFormUrl="/admin/categories/add"
+            updateItemFormUrl="/admin/categories/update"
+          />
+        )}
+        exact
+      />
+
+      <Route
         path="/admin/regions/add"
         component={(props: any) => (
           <AddUpdateRegionForm {...props} title="Dodaj region" formType="add" buttonLabel="Dodaj" />
@@ -240,6 +266,29 @@ function RoutingAdmin() {
           <AddUpdateAttractionForm
             {...props}
             title="Edytuj atrakcje"
+            formType="update"
+            buttonLabel="Aktualizuj"
+          />
+        )}
+      />
+
+      <Route
+        path="/admin/categories/add"
+        component={(props: any) => (
+          <AddUpdateCategoryForm
+            {...props}
+            title="Dodaj kategorię"
+            formType="add"
+            buttonLabel="Dodaj"
+          />
+        )}
+      />
+      <Route
+        path="/admin/categories/update/:key"
+        component={(props: any) => (
+          <AddUpdateCategoryForm
+            {...props}
+            title="Edytuj kategorię"
             formType="update"
             buttonLabel="Aktualizuj"
           />
