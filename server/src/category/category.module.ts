@@ -13,5 +13,6 @@ import { ActionHistoryModule } from "../actionHistory/actionHistory.module";
   ],
   controllers: [CategoryController],
   providers: [CategoryService],
+  exports: [CategoryService],
 })
 export class CategoryModule {}

@@ -29,6 +29,7 @@ import StyledInputsContainer from './StyledInputsContainer';
 import StyledFromDescriptionOtherDataContainer from './StyledFromDescriptionOtherDataContainer';
 import RichTextEditor from './RichTextEditor';
 import * as StyledOtherDataEditor from './StyledOtherDataEditor';
+import ItemsTile from './ItemsTile';
 
 export {
   HomeHeader,
@@ -62,4 +63,5 @@ export {
   StyledFromDescriptionOtherDataContainer,
   RichTextEditor,
   StyledOtherDataEditor,
+  ItemsTile,
 };

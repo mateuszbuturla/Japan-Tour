@@ -5,11 +5,13 @@ import { CultureController } from "./culture.controller";
 import { CultureService } from "./culture.service";
 import { CultureSchema } from "./culture.model";
 import { ActionHistoryModule } from "../actionHistory/actionHistory.module";
+import { CategoryModule } from "../category/category.module";
 
 @Module({
   imports: [
     MongooseModule.forFeature([{ name: "Culture", schema: CultureSchema }]),
     ActionHistoryModule,
+    CategoryModule,
   ],
   controllers: [CultureController],
   providers: [CultureService],

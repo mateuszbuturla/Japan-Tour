@@ -7,13 +7,15 @@ import { Attraction } from "./attraction.model";
 import NormalizeString from "../utils/normalizeString";
 import { User } from "src/interface/User";
 import { ActionHistoryService } from "../actionHistory/actionHistory.service";
+import { CategoryService } from "../category/category.service";
 
 @Injectable()
 export class AttractionService {
   constructor(
     @InjectModel("Attraction")
     private readonly attractionModel: Model<Attraction>,
-    private readonly actionHistoryService: ActionHistoryService
+    private readonly actionHistoryService: ActionHistoryService,
+    private readonly categoryService: CategoryService
   ) {}
 
   async getBestAttractionsFromRegion(region: string) {
@@ -30,7 +32,14 @@ export class AttractionService {
 
   async getAllAttractions() {
     const attractions = await this.attractionModel.find().exec();
-    return attractions;
+    const categories = await this.categoryService.getCategories("attractions");
+    return {
+      items: attractions,
+      aboveItems: categories.map((item) => ({
+        _id: item._id,
+        name: item.name,
+      })),
+    };
   }
 
   async getAllFromCity(city: string) {

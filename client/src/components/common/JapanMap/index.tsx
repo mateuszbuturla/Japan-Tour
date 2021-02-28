@@ -22,7 +22,7 @@ function JapanMap() {
         const name = e.target.parentElement.parentElement.getAttribute('id').toLowerCase();
         const region = regions.find((item: TypesRegion) => item.key.toLowerCase() === name);
         if (region) {
-          ChangePath(history, `/podroze/${region.key}`);
+          ChangePath(history, `/podroze/regiony/${region.key}`);
         }
       });
     });
@@ -36,7 +36,7 @@ function JapanMap() {
         const name = e.target.parentElement.parentElement.getAttribute('id').toLowerCase();
         const city = cities.find((item: TypesCity) => item.name.toLowerCase() === name);
         if (city) {
-          ChangePath(history, `/podroze/${city.region.toLowerCase()}/${city.key}`);
+          ChangePath(history, `/podroze/miasta/${city.key}`);
         }
       });
     });
@@ -44,12 +44,12 @@ function JapanMap() {
 
   const getRegions = async () => {
     let res = await Api.get('/regions');
-    setRegionClickEvent(res.data);
+    setRegionClickEvent(res.data.items);
   };
 
   const getCities = async () => {
     let res = await Api.get('/cities');
-    setSityClickEvent(res.data);
+    setSityClickEvent(res.data.items);
   };
 
   useEffect(() => {

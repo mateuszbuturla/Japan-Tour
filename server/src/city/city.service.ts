@@ -4,6 +4,7 @@ import { Model } from "mongoose";
 import { isNull } from "util";
 import NormalizeString from "../utils/normalizeString";
 import { ActionHistoryService } from "../actionHistory/actionHistory.service";
+import { RegionService } from "../region/region.service";
 
 import { City } from "./city.model";
 import { User } from "src/interface/User";
@@ -12,21 +13,29 @@ import { User } from "src/interface/User";
 export class CityService {
   constructor(
     @InjectModel("City") private readonly cityModel: Model<City>,
-    private readonly actionHistoryService: ActionHistoryService
+    private readonly actionHistoryService: ActionHistoryService,
+    private readonly regionService: RegionService
   ) {}
 
   async getCities() {
     const cities = await this.cityModel.find().exec();
-    return cities.map((city) => ({
-      _id: city._id,
-      name: city.name,
-      url: city.url,
-      key: city.key,
-      description: city.description,
-      img: city.img,
-      region: city.region,
-      otherData: city.otherData,
-    }));
+    const regions = await this.regionService.getRegions();
+    return {
+      aboveItems: regions.items.map((region) => ({
+        _id: region._id,
+        name: region.name,
+      })),
+      items: cities.map((city) => ({
+        _id: city._id,
+        name: city.name,
+        url: city.url,
+        key: city.key,
+        description: city.description,
+        img: city.img,
+        region: city.region,
+        otherData: city.otherData,
+      })),
+    };
   }
 
   async getSingleCity(key: string) {

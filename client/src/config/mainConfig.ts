@@ -1,5 +1,5 @@
 const mainConfig = {
-  pageTransitionEffect: true,
+  pageTransitionEffect: false,
 };
 
 export default mainConfig;

@@ -7,17 +7,26 @@ import { Culture } from "./culture.model";
 import NormalizeString from "../utils/normalizeString";
 import { ActionHistoryService } from "../actionHistory/actionHistory.service";
 import { User } from "src/interface/User";
+import { CategoryService } from "../category/category.service";
 
 @Injectable()
 export class CultureService {
   constructor(
     @InjectModel("Culture") private readonly cultureModel: Model<Culture>,
-    private readonly actionHistoryService: ActionHistoryService
+    private readonly actionHistoryService: ActionHistoryService,
+    private readonly categoryService: CategoryService
   ) {}
 
   async getCultures() {
     const cultures = await this.cultureModel.find().exec();
-    return cultures;
+    const categories = await this.categoryService.getCategories("cultures");
+    return {
+      items: cultures,
+      aboveItems: categories.map((item) => ({
+        _id: item._id,
+        name: item.name,
+      })),
+    };
   }
 
   async getSingleCulture(key: string) {

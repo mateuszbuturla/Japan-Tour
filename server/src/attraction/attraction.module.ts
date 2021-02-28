@@ -5,6 +5,7 @@ import { AttractionController } from "./attraction.controller";
 import { AttractionService } from "./attraction.service";
 import { AttractionSchema } from "./attraction.model";
 import { ActionHistoryModule } from "../actionHistory/actionHistory.module";
+import { CategoryModule } from "../category/category.module";
 
 @Module({
   imports: [
@@ -12,6 +13,7 @@ import { ActionHistoryModule } from "../actionHistory/actionHistory.module";
       { name: "Attraction", schema: AttractionSchema },
     ]),
     ActionHistoryModule,
+    CategoryModule,
   ],
   controllers: [AttractionController],
   providers: [AttractionService],

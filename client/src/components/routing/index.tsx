@@ -5,16 +5,17 @@ import actions from 'actions/title/actions';
 import {
   Home,
   Travel,
-  Region,
-  City,
-  Attraction,
   OtherSection,
   OtherElement,
   Admin,
   NotFound,
   Login,
+  ItemsList,
+  Item,
 } from 'views';
 import TypesApplicationState from 'types/TypesApplicationState';
+
+import bg from 'assets/regions/chugoku.jpg';
 
 function Routing() {
   const dispatch = useDispatch();
@@ -47,6 +48,95 @@ function Routing() {
         exact
       />
       <Route
+        path="/podroze/regiony"
+        component={(props: any) => (
+          <ItemsList {...props} api="regions" url="/podroze/regions" img={bg} title="Regiony" />
+        )}
+        exact
+      />
+      <Route
+        path="/podroze/miasta"
+        component={(props: any) => (
+          <ItemsList {...props} api="cities" url="/podroze/miasta" img={bg} title="Miasta" />
+        )}
+        exact
+      />
+      <Route
+        path="/podroze/atrakcje"
+        component={(props: any) => (
+          <ItemsList
+            {...props}
+            api="attractions"
+            url="/podroze/atrakcje"
+            img={bg}
+            title="Atrakcje"
+          />
+        )}
+        exact
+      />
+      <Route
+        path="/kultura"
+        component={(props: any) => (
+          <ItemsList {...props} api="cultures" url="/kultura" img={bg} title="Kultura Japonii" />
+        )}
+        exact
+      />
+      <Route
+        path="/kuchnia"
+        component={(props: any) => (
+          <ItemsList {...props} api="dishes" url="/kuchnia" img={bg} title="Kuchnia Japonii" />
+        )}
+        exact
+      />
+      <Route
+        path="/podroze/regiony/:key"
+        component={(props: any) => (
+          <Item
+            {...props}
+            api="regions"
+            setTitle={setTitle}
+            locationPathElements={[
+              { text: 'Strona główna', url: '/' },
+              { text: 'Podróże', url: `/podroze` },
+              { text: 'Regiony', url: `/podroze/regiony` },
+            ]}
+          />
+        )}
+        exact
+      />
+      <Route
+        path="/podroze/miasta/:key"
+        component={(props: any) => (
+          <Item
+            {...props}
+            api="cities"
+            setTitle={setTitle}
+            locationPathElements={[
+              { text: 'Strona główna', url: '/' },
+              { text: 'Podróże', url: `/podroze` },
+              { text: 'Miasta', url: `/podroze/miasta` },
+            ]}
+          />
+        )}
+        exact
+      />
+      <Route
+        path="/podroze/atrakcje/:key"
+        component={(props: any) => (
+          <Item
+            {...props}
+            api="attractions"
+            setTitle={setTitle}
+            locationPathElements={[
+              { text: 'Strona główna', url: '/' },
+              { text: 'Podróże', url: `/podroze` },
+              { text: 'Atrakcje', url: `/podroze/atrakcje` },
+            ]}
+          />
+        )}
+        exact
+      />
+      {/* <Route
         path={`/podroze/:regionKey`}
         component={(props: any) => <Region {...props} setTitle={setTitle} />}
         exact
@@ -112,7 +202,7 @@ function Routing() {
           />
         )}
         exact
-      />
+      /> */}
       <Route path="/404" component={(props: any) => <NotFound {...props} setTitle={setTitle} />} />
       <Route component={(props: any) => <NotFound {...props} setTitle={setTitle} />} />
     </Switch>

@@ -31,27 +31,27 @@ function Nav() {
 
   const getRegions = async () => {
     const res = await Api.get(`/regions`);
-    setRegions(res.data);
+    setRegions(res.data.items);
   };
 
   const getCities = async () => {
     const res = await Api.get(`/cities`);
-    setCities(res.data);
+    setCities(res.data.items);
   };
 
   const getAttractions = async () => {
     const res = await Api.get(`/attractions`);
-    setAttractions(res.data);
+    setAttractions(res.data.items);
   };
 
   const getCultures = async () => {
     const res = await Api.get(`/cultures`);
-    setCultures(res.data);
+    setCultures(res.data.items);
   };
 
   const getDishes = async () => {
     const res = await Api.get(`/dishes`);
-    setDishes(res.data);
+    setDishes(res.data.items);
   };
 
   const getCategories = async () => {
@@ -109,7 +109,7 @@ function Nav() {
         />
         <NavDropdown
           title="Regiony"
-          data={regions && regions.map((a) => ({ name: a.name, url: `/podroze/${a.key}` }))}
+          data={regions && regions.map((a) => ({ name: a.name, url: `/podroze/regiony/${a.key}` }))}
           closeNav={onClose}
         />
         <NavDropdown
@@ -121,7 +121,7 @@ function Nav() {
             regions.map((a) => ({
               title: a.name,
               data: cities.map(
-                (b) => b.region === a._id && { name: b.name, url: `/podroze/${a.key}/${b.key}` },
+                (b) => b.region === a._id && { name: b.name, url: `/podroze/miasta/${b.key}` },
               ),
             }))
           }
@@ -140,7 +140,7 @@ function Nav() {
                   (b) =>
                     b.category === a._id && {
                       name: b.name,
-                      url: `/podroze/${b.region}/${b.city}/${b.key}`,
+                      url: `/podroze/atrakcje/${b.key}`,
                     },
                 ),
               }))

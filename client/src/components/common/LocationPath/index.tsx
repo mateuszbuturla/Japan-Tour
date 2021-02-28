@@ -5,7 +5,7 @@ import ChangePath from 'utils/ChangePath';
 
 interface ElementTypes {
   text: string;
-  url: string;
+  url?: string;
 }
 
 interface Props {
@@ -24,7 +24,13 @@ function LocationPath({ elements }: Props) {
       {elements.map((item, index) => (
         <>
           {index !== 0 && ' ➤ '}
-          <StyledLocationPathElement onClick={() => redirect(item.url)}>
+          <StyledLocationPathElement
+            onClick={() => {
+              if (item.url) {
+                redirect(item.url);
+              }
+            }}
+          >
             {item.text}
           </StyledLocationPathElement>
         </>

@@ -7,17 +7,26 @@ import NormalizeString from "../utils/normalizeString";
 import { isNull } from "util";
 import { ActionHistoryService } from "../actionHistory/actionHistory.service";
 import { User } from "src/interface/User";
+import { CategoryService } from "../category/category.service";
 
 @Injectable()
 export class DishService {
   constructor(
     @InjectModel("Dish") private readonly dishModel: Model<Dish>,
-    private readonly actionHistoryService: ActionHistoryService
+    private readonly actionHistoryService: ActionHistoryService,
+    private readonly categoryService: CategoryService
   ) {}
 
   async getDishes() {
-    const cultures = await this.dishModel.find().exec();
-    return cultures;
+    const dishes = await this.dishModel.find().exec();
+    const categories = await this.categoryService.getCategories("dishes");
+    return {
+      items: dishes,
+      aboveItems: categories.map((item) => ({
+        _id: item._id,
+        name: item.name,
+      })),
+    };
   }
 
   async getSingleDish(key: string) {

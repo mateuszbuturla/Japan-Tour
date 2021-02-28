@@ -13,5 +13,6 @@ import { ActionHistoryModule } from "../actionHistory/actionHistory.module";
   ],
   controllers: [RegionController],
   providers: [RegionService],
+  exports: [RegionService],
 })
 export class RegionModule {}
