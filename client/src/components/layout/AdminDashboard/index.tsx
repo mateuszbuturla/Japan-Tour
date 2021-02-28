@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { AdminHeader, AdminTiles, LatestChanges } from 'components/common';
 
 import CityIcon from 'assets/icons/city.svg';
@@ -7,11 +7,24 @@ import KitchenIcon from 'assets/icons/kitchen.svg';
 import CultureIcon from 'assets/icons/culture.svg';
 import { useSelector } from 'react-redux';
 import TypesApplicationState from 'types/TypesApplicationState';
+import Api from 'utils/Api';
+import TypesActionHistory from 'types/TypesActionHistory';
 
 function AdminDashboard() {
   const { attractions, cities, cultures, dishes } = useSelector(
     (state: TypesApplicationState) => state.admin,
   );
+
+  const [actionsHistory, setActionsHistory] = useState<TypesActionHistory[]>([]);
+
+  const getActionsHistory = async () => {
+    const res = await Api.get('/edithistory');
+    setActionsHistory(res.data);
+  };
+
+  useEffect(() => {
+    getActionsHistory();
+  }, []);
 
   return (
     <>
@@ -65,129 +78,7 @@ function AdminDashboard() {
         ]}
       />
       <AdminHeader text="Ostatnie zmiany" />
-      <LatestChanges
-        data={[
-          {
-            elementType: 'attraction',
-            name: 'Tokyo skytree',
-            author: 'Admin',
-            date: '01.01.2020',
-            action: 'Dodanie',
-          },
-          {
-            elementType: 'city',
-            name: 'Tokyo',
-            author: 'Admin',
-            date: '01.01.2020',
-            action: 'Dodanie',
-          },
-          {
-            elementType: 'region',
-            name: 'Hokkaido',
-            author: 'Admin',
-            date: '01.01.2020',
-            action: 'Edycja',
-          },
-          {
-            elementType: 'culture',
-            name: 'Hanami',
-            author: 'Admin',
-            date: '01.01.2020',
-            action: 'Edycja',
-          },
-          {
-            elementType: 'kitchen',
-            name: 'Sushi',
-            author: 'Admin',
-            date: '01.01.2020',
-            action: 'Edycja',
-          },
-          {
-            elementType: 'kitchen',
-            name: 'Sushi',
-            author: 'Admin',
-            date: '01.01.2020',
-            action: 'Edycja',
-          },
-          {
-            elementType: 'kitchen',
-            name: 'Sushi',
-            author: 'Admin',
-            date: '01.01.2020',
-            action: 'Edycja',
-          },
-          {
-            elementType: 'kitchen',
-            name: 'Sushi',
-            author: 'Admin',
-            date: '01.01.2020',
-            action: 'Edycja',
-          },
-          {
-            elementType: 'kitchen',
-            name: 'Sushi',
-            author: 'Admin',
-            date: '01.01.2020',
-            action: 'Edycja',
-          },
-          {
-            elementType: 'kitchen',
-            name: 'Sushi',
-            author: 'Admin',
-            date: '01.01.2020',
-            action: 'Edycja',
-          },
-          {
-            elementType: 'kitchen',
-            name: 'Sushi',
-            author: 'Admin',
-            date: '01.01.2020',
-            action: 'Edycja',
-          },
-          {
-            elementType: 'kitchen',
-            name: 'Sushi',
-            author: 'Admin',
-            date: '01.01.2020',
-            action: 'Edycja',
-          },
-          {
-            elementType: 'kitchen',
-            name: 'Sushi',
-            author: 'Admin',
-            date: '01.01.2020',
-            action: 'Edycja',
-          },
-          {
-            elementType: 'kitchen',
-            name: 'Sushi',
-            author: 'Admin',
-            date: '01.01.2020',
-            action: 'Edycja',
-          },
-          {
-            elementType: 'kitchen',
-            name: 'Sushi',
-            author: 'Admin',
-            date: '01.01.2020',
-            action: 'Edycja',
-          },
-          {
-            elementType: 'kitchen',
-            name: 'Sushi',
-            author: 'Admin',
-            date: '01.01.2020',
-            action: 'Edycja',
-          },
-          {
-            elementType: 'kitchen',
-            name: 'Sushi',
-            author: 'Admin',
-            date: '01.01.2020',
-            action: 'Edycja',
-          },
-        ]}
-      />
+      <LatestChanges data={actionsHistory} />
     </>
   );
 }

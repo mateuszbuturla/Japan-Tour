@@ -166,6 +166,7 @@ function AddUpdateDishForm({ title, formType, buttonLabel }: Props) {
               name="category"
               inputRef={register()}
               options={getCategoriesNamesOnly}
+              defaultValue={formType === 'update' && defaultValues ? defaultValues.category : ''}
             />
           </StyledFormInputWrapper>
         </StyledInputsContainer>

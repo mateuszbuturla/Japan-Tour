@@ -19,4 +19,12 @@ export class ActionHistoryService {
       console.log(err);
     }
   }
+
+  async getLatest15ActionHistoryItems() {
+    const attractions = await this.actionHistoryModel
+      .find()
+      .sort({ _id: -1 })
+      .limit(15);
+    return attractions;
+  }
 }
