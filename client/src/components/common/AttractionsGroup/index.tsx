@@ -21,7 +21,6 @@ interface Props {
 
 function AttractionsGroup({ header, attractions }: Props) {
   const history = useHistory();
-  const { pageTransitionEffectRef } = useSelector((state: TypesApplicationState) => state.refs);
 
   const handleTileClick = (item: TypesAttraction) => {
     ChangePath(history, `/podroze/${item.region}/${item.city}/${item.url}`);

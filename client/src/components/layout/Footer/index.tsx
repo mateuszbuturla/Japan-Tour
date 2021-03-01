@@ -17,7 +17,6 @@ import Api from 'utils/Api';
 function Footer() {
   const [footerData, setFooterData] = useState<TypesFooterData[]>([]);
   const history = useHistory();
-  const { pageTransitionEffectRef } = useSelector((state: TypesApplicationState) => state.refs);
 
   const getData = async () => {
     let res = await Api.get('/footer');
@@ -29,10 +28,7 @@ function Footer() {
   }, []);
 
   const handleLinkClick = (to: string) => {
-    PageTransitionEffect(pageTransitionEffectRef);
-    setTimeout(() => {
-      history.push(to);
-    }, 1000);
+    history.push(to);
   };
 
   return (

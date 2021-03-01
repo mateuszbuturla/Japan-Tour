@@ -12,7 +12,6 @@ import ChangePath from 'utils/ChangePath';
 
 function JapanMap() {
   const history = useHistory();
-  const { pageTransitionEffectRef } = useSelector((state: TypesApplicationState) => state.refs);
 
   const setRegionClickEvent = (regions: TypesRegion[]) => {
     const regionsFromSvg = document.querySelectorAll('.japanMap__region');

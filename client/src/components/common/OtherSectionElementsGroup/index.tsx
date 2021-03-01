@@ -25,7 +25,6 @@ interface Props {
 
 function OtherSectionElementsGroup({ categoryUrl, header, data }: Props) {
   const history = useHistory();
-  const { pageTransitionEffectRef } = useSelector((state: TypesApplicationState) => state.refs);
 
   const handleTileClick = (item: TypesDish | TypesCulture) => {
     ChangePath(history, `/${categoryUrl}/${item.category}/${item.key}`);

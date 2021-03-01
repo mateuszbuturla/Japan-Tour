@@ -1,7 +1,6 @@
 import HomeHeader from './HomeHeader';
 import HomeCategory from './HomeCategory';
 import PageHeader from './PageHeader';
-import PageTransitionEffect from './PageTransitionEffect';
 import JapanMap from './JapanMap';
 import StyledPageContainer from './StyledPageContainer';
 import StyledMainContentContainer from './StyledMainContentContainer';
@@ -35,7 +34,6 @@ export {
   HomeHeader,
   HomeCategory,
   PageHeader,
-  PageTransitionEffect,
   JapanMap,
   StyledPageContainer,
   StyledMainContentContainer,

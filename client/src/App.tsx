@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 
 import Routing from 'components/routing';
-import { PageTransitionEffect } from 'components/common';
 import { Footer, Nav } from 'components/layout';
 import { useDispatch, useSelector } from 'react-redux';
 import TypesApplicationState from 'types/TypesApplicationState';
@@ -36,7 +35,6 @@ function App() {
         pathName[1] !== '' &&
         pathName[1] !== 'admin' &&
         pathName[1] !== 'login' && <Footer />}
-      <PageTransitionEffect />
     </div>
   );
 }

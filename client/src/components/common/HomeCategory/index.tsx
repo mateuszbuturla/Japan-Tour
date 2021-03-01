@@ -20,7 +20,6 @@ interface Props {
 
 function HomeCategory({ url, header, img, refCurtain }: Props) {
   const history = useHistory();
-  const { pageTransitionEffectRef } = useSelector((state: TypesApplicationState) => state.refs);
 
   const handleCategoryClick = () => {
     ChangePath(history, url);
