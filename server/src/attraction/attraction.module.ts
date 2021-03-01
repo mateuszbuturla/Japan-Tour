@@ -6,6 +6,8 @@ import { AttractionService } from "./attraction.service";
 import { AttractionSchema } from "./attraction.model";
 import { ActionHistoryModule } from "../actionHistory/actionHistory.module";
 import { CategoryModule } from "../category/category.module";
+import { RegionModule } from "../region/region.module";
+import { CityModule } from "../city/city.module";
 
 @Module({
   imports: [
@@ -14,6 +16,8 @@ import { CategoryModule } from "../category/category.module";
     ]),
     ActionHistoryModule,
     CategoryModule,
+    RegionModule,
+    CityModule,
   ],
   controllers: [AttractionController],
   providers: [AttractionService],

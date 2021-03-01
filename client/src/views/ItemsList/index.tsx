@@ -11,6 +11,7 @@ import TypesItemTile from 'types/TypesItemTile';
 import TypesAttraction from 'types/TypesAttraction';
 import TypesCity from 'types/TypesCity';
 import TypesRegion from 'types/TypesRegion';
+import { useParams } from 'react-router-dom';
 
 interface Props {
   api: string;
@@ -20,17 +21,23 @@ interface Props {
 }
 
 function ItemsList({ api, title, img }: Props) {
+  const { key } = useParams();
+  const [pageTitle, setPageTitle] = useState(title);
   const [itemsList, setItemsList] = useState();
   const [aboveItemsList, setAboveItemsList] = useState();
 
   const getData = async () => {
-    const resItems = await Api.get(api);
+    const resItems = await Api.get(`${api}${key ? '/' + key : ''}`);
     setItemsList(resItems.data.items);
+    console.log(resItems);
     if (resItems.data.aboveItems) {
       setAboveItemsList(resItems.data.aboveItems);
       resItems.data.aboveItems.map((item: any) => {
         console.log(resItems.data.items.filter((item2: any) => item2.region == item._id));
       });
+      if (api === 'attractions/allFromCategory') {
+        setPageTitle(resItems.data.aboveItems[0].name);
+      }
     }
   };
 
@@ -76,7 +83,7 @@ function ItemsList({ api, title, img }: Props) {
               ))}
           </>
         );
-      case 'attractions':
+      case 'attractions/highlighted':
         return (
           <>
             {aboveItemsList &&
@@ -139,18 +146,29 @@ function ItemsList({ api, title, img }: Props) {
               ))}
           </>
         );
+      case 'attractions/allFromCategory':
+        return (
+          <ItemsTile
+            data={itemsList.map((item: TypesAttraction) => ({
+              name: item.name,
+              img: item.img,
+              url: `/podroze/atrakcje/${item.key}`,
+              shortDescription: item.shortDescription,
+            }))}
+          />
+        );
     }
   };
 
   return (
     <>
       <PageHeader
-        text={title}
+        text={pageTitle}
         img={img}
         locationPathElements={[
           { text: 'Strona główna', url: '/' },
           { text: 'Podróże', url: `/podroze` },
-          { text: title },
+          { text: pageTitle },
         ]}
       />
       <StyledPageContainer>

@@ -34,6 +34,7 @@ export class CityService {
         img: city.img,
         region: city.region,
         otherData: city.otherData,
+        highlighted: city.highlighted,
       })),
     };
   }
@@ -77,6 +78,7 @@ export class CityService {
         description: data.description,
         img: data.img,
         otherData: data.otherData,
+        highlighted: data.highlighted,
       });
       res = await newCity.save();
       this.actionHistoryService.addNewItem({
@@ -131,6 +133,7 @@ export class CityService {
         region: data.region,
         img: data.img,
         otherData: data.otherData,
+        highlighted: data.highlighted,
       };
 
       const updatedCity = await this.cityModel.updateOne({ key }, newData);
@@ -155,5 +158,15 @@ export class CityService {
     }
 
     return res;
+  }
+
+  async getHighlightedFromRegion(regionKey: string) {
+    const region = await this.regionService.getSingleRegion(regionKey);
+    const cities = await this.cityModel
+      .find({ region: region._id, highlighted: true })
+      .exec();
+    return {
+      items: cities,
+    };
   }
 }

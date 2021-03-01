@@ -2,18 +2,13 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import actions from 'actions/title/actions';
-import {
-  Home,
-  Travel,
-  OtherSection,
-  OtherElement,
-  Admin,
-  NotFound,
-  Login,
-  ItemsList,
-  Item,
-} from 'views';
+import { Home, Travel, Admin, NotFound, Login, ItemsList, Item } from 'views';
 import TypesApplicationState from 'types/TypesApplicationState';
+import {
+  RegionHighlightedItems,
+  CityHighlightedItems,
+  AttractionsHighlightedItemsFromThisSameCategory,
+} from 'components/layout';
 
 import bg from 'assets/regions/chugoku.jpg';
 
@@ -66,7 +61,7 @@ function Routing() {
         component={(props: any) => (
           <ItemsList
             {...props}
-            api="attractions"
+            api="attractions/highlighted"
             url="/podroze/atrakcje"
             img={bg}
             title="Atrakcje"
@@ -89,6 +84,19 @@ function Routing() {
         exact
       />
       <Route
+        path="/podroze/kategorie/:key"
+        component={(props: any) => (
+          <ItemsList
+            {...props}
+            api="attractions/allFromCategory"
+            url="/podroze/atrakcje"
+            img={bg}
+            title=""
+          />
+        )}
+        exact
+      />
+      <Route
         path="/podroze/regiony/:key"
         component={(props: any) => (
           <Item
@@ -100,6 +108,7 @@ function Routing() {
               { text: 'Podróże', url: `/podroze` },
               { text: 'Regiony', url: `/podroze/regiony` },
             ]}
+            additionalElements={[RegionHighlightedItems]}
           />
         )}
         exact
@@ -116,6 +125,7 @@ function Routing() {
               { text: 'Podróże', url: `/podroze` },
               { text: 'Miasta', url: `/podroze/miasta` },
             ]}
+            additionalElements={[CityHighlightedItems]}
           />
         )}
         exact
@@ -132,6 +142,7 @@ function Routing() {
               { text: 'Podróże', url: `/podroze` },
               { text: 'Atrakcje', url: `/podroze/atrakcje` },
             ]}
+            additionalElements={[AttractionsHighlightedItemsFromThisSameCategory]}
           />
         )}
         exact

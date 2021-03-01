@@ -8,7 +8,7 @@ export const AddUpdateAttractionSchema = Joi.object().keys({
   region: Joi.string().required(),
   city: Joi.string().required(),
   category: Joi.string().required(),
-  bestAttractions: Joi.boolean().required(),
+  highlighted: Joi.boolean().required(),
   img: Joi.string().required(),
   otherData: Joi.array().items(OtherDataShema),
 });

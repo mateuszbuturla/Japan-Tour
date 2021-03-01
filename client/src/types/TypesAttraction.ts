@@ -12,7 +12,7 @@ interface TypesAttraction {
   city: string;
   category: string;
   img: string;
-  bestAttractions: boolean;
+  highlighted: boolean;
   otherData: TypesOtherData[];
 }
 

@@ -8,6 +8,8 @@ import NormalizeString from "../utils/normalizeString";
 import { User } from "src/interface/User";
 import { ActionHistoryService } from "../actionHistory/actionHistory.service";
 import { CategoryService } from "../category/category.service";
+import { RegionService } from "../region/region.service";
+import { CityService } from "../city/city.service";
 
 @Injectable()
 export class AttractionService {
@@ -15,23 +17,76 @@ export class AttractionService {
     @InjectModel("Attraction")
     private readonly attractionModel: Model<Attraction>,
     private readonly actionHistoryService: ActionHistoryService,
-    private readonly categoryService: CategoryService
+    private readonly categoryService: CategoryService,
+    private readonly regionService: RegionService,
+    private readonly cityService: CityService
   ) {}
 
-  async getBestAttractionsFromRegion(region: string) {
+  async getHighlightedFromRegion(regionKey: string) {
+    const region = await this.regionService.getSingleRegion(regionKey);
+    console.log(region);
     const attractions = await this.attractionModel
-      .find({ region, bestAttractions: true })
+      .find({ region: region._id, highlighted: true })
       .exec();
-    return attractions;
+    return {
+      items: attractions,
+    };
+  }
+
+  async getHighlightedFromCity(cityKey: string) {
+    const city = await this.cityService.getSingleCity(cityKey);
+    const attractions = await this.attractionModel
+      .find({ city: city._id, highlighted: true })
+      .exec();
+    return {
+      items: attractions,
+    };
+  }
+
+  async getHighlightedFromCategoryByItemKey(attractionKey: string) {
+    const attraction = await this.attractionModel.findOne({
+      key: attractionKey,
+    });
+    const attractions = await this.attractionModel
+      .find({ category: attraction.category, highlighted: true })
+      .exec();
+    return {
+      items: attractions,
+    };
   }
 
   async getAllAttractionsFromCategory(category: string) {
-    const attractions = await this.attractionModel.find({ category }).exec();
-    return attractions;
+    const categories = await (
+      await this.categoryService.getCategories("attractions")
+    ).filter((item) => item.name === category);
+    const attractions = await this.attractionModel
+      .find({ category: categories[0]._id })
+      .exec();
+    return {
+      aboveItems: categories.map((item) => ({
+        _id: item._id,
+        name: item.name,
+      })),
+      items: attractions,
+    };
   }
 
   async getAllAttractions() {
     const attractions = await this.attractionModel.find().exec();
+    const categories = await this.categoryService.getCategories("attractions");
+    return {
+      items: attractions,
+      aboveItems: categories.map((item) => ({
+        _id: item._id,
+        name: item.name,
+      })),
+    };
+  }
+
+  async getAllHighlightedAttractions() {
+    const attractions = await this.attractionModel
+      .find({ highlighted: true })
+      .exec();
     const categories = await this.categoryService.getCategories("attractions");
     return {
       items: attractions,
@@ -88,7 +143,7 @@ export class AttractionService {
         city: data.city,
         category: data.category,
         img: data.img,
-        bestAttractions: data.bestAttractions,
+        highlighted: data.highlighted,
         otherData: data.otherData,
       });
       res = await newAttraction.save();
@@ -149,7 +204,7 @@ export class AttractionService {
         city: data.city,
         category: data.category,
         img: data.img,
-        bestAttractions: data.bestAttractions,
+        highlighted: data.highlighted,
         otherData: data.otherData,
       };
 

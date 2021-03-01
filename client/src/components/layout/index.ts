@@ -8,6 +8,9 @@ import AddUpdateDishForm from './AddUpdateDishForm';
 import AddUpdateCultureForm from './AddUpdateCultureForm';
 import AddUpdateAttractionForm from './AddUpdateAttractionForm';
 import AddUpdateCategoryForm from './AddUpdateCategoryForm';
+import RegionHighlightedItems from './RegionHighlightedItems';
+import CityHighlightedItems from './CityHighlightedItems';
+import AttractionsHighlightedItemsFromThisSameCategory from './AttractionsHighlightedItemsFromThisSameCategory';
 
 export {
   Footer,
@@ -20,4 +23,7 @@ export {
   AddUpdateCultureForm,
   AddUpdateAttractionForm,
   AddUpdateCategoryForm,
+  RegionHighlightedItems,
+  CityHighlightedItems,
+  AttractionsHighlightedItemsFromThisSameCategory,
 };

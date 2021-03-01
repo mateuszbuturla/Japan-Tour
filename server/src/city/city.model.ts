@@ -8,6 +8,7 @@ export const CitySchema = new mongoose.Schema({
   description: { type: String, required: true },
   img: { type: String, required: true },
   otherData: { type: Array, required: false },
+  highlighted: { type: Boolean, required: true },
 });
 
 export interface City extends mongoose.Document {
@@ -18,4 +19,5 @@ export interface City extends mongoose.Document {
   description: string;
   img: string;
   otherData: { title: string; value: string }[];
+  highlighted: boolean;
 }

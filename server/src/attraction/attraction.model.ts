@@ -10,7 +10,7 @@ export const AttractionSchema = new mongoose.Schema({
   city: { type: String, required: true },
   category: { type: String, required: true },
   img: { type: String, required: true },
-  bestAttractions: { type: Boolean, required: true },
+  highlighted: { type: Boolean, required: true },
   otherData: { type: Array, required: false },
 });
 
@@ -23,7 +23,7 @@ export class Attraction extends mongoose.Document {
   region: string;
   city: string;
   category: string;
-  bestAttractions: boolean;
+  highlighted: boolean;
   img: string;
   otherData: { title: string; value: string }[];
 }

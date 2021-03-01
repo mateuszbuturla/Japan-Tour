@@ -224,9 +224,9 @@ function AddUpdateAttractionForm({ title, formType, buttonLabel }: Props) {
           <StyledFormInputWrapper>
             <Input
               type="checkbox"
-              label="Jedna z najciekawszych"
-              id="bestAttractions"
-              name="bestAttractions"
+              label="Wyróżnij"
+              id="highlighted"
+              name="highlighted"
               inputRef={register()}
             />
           </StyledFormInputWrapper>

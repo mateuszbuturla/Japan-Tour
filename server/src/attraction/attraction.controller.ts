@@ -47,12 +47,35 @@ export class AttractionController {
     return this.AttractionService.updateAttraction(key, data, user);
   }
 
-  @Get("bestFromRegion/:region")
-  async getBestAttractionsFromRegion(@Param("region") region: string) {
-    const attractions = await this.AttractionService.getBestAttractionsFromRegion(
+  @Get("highlightedFromRegion/:region")
+  async getHighlightedFromRegion(@Param("region") region: string) {
+    const attractions = await this.AttractionService.getHighlightedFromRegion(
       region
     );
     return attractions;
+  }
+
+  @Get("highlightedFromCity/:city")
+  async getHighlightedFromCity(@Param("city") city: string) {
+    const attractions = await this.AttractionService.getHighlightedFromCity(
+      city
+    );
+    return attractions;
+  }
+
+  @Get("highlightedFromCategoryByItemKey/:attraction")
+  async getHighlightedFromCategoryByItemKey(
+    @Param("attraction") attraction: string
+  ) {
+    const attractions = await this.AttractionService.getHighlightedFromCategoryByItemKey(
+      attraction
+    );
+    return attractions;
+  }
+
+  @Get("/highlighted")
+  getAllHighLightedAttractions() {
+    return this.AttractionService.getAllHighlightedAttractions();
   }
 
   @Get("allFromCategory/:category")

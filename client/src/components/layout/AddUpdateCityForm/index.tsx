@@ -156,6 +156,15 @@ function AddUpdateCityForm({ title, formType, buttonLabel }: Props) {
               defaultValue={formType === 'update' && defaultValues ? defaultValues.region : ''}
             />
           </StyledFormInputWrapper>
+          <StyledFormInputWrapper>
+            <Input
+              type="checkbox"
+              label="Wyróżnij"
+              id="highlighted"
+              name="highlighted"
+              inputRef={register()}
+            />
+          </StyledFormInputWrapper>
         </StyledInputsContainer>
         <StyledFromDescriptionOtherDataContainer>
           <RichTextEditor

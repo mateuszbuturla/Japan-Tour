@@ -56,4 +56,10 @@ export class CityController {
   getSingleCity(@Param("key") key: string) {
     return this.CityService.getSingleCity(key);
   }
+
+  @Get("highlighted/:region")
+  async getHighlightedFromRegion(@Param("region") region: string) {
+    const cities = await this.CityService.getHighlightedFromRegion(region);
+    return cities;
+  }
 }

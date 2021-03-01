@@ -15,9 +15,10 @@ interface Props {
   api: string;
   setTitle: (value: string) => void;
   locationPathElements: any[];
+  additionalElements?: React.FunctionComponent[];
 }
 
-function Item({ api, setTitle, locationPathElements }: Props) {
+function Item({ api, setTitle, locationPathElements, additionalElements }: Props) {
   const { key } = useParams();
   const [item, setItem] = useState();
   const [error, setError] = useState(false);
@@ -60,6 +61,16 @@ function Item({ api, setTitle, locationPathElements }: Props) {
           <ItemDescription description={item.description} />
         </StyledMainContentContainer>
         <AsideInfo data={item.otherData} />
+      </StyledPageContainer>
+      <StyledPageContainer>
+        <StyledMainContentContainer>
+          {additionalElements &&
+            additionalElements.map(
+              (Component: React.FunctionComponent<{ aboveItemKey: string }>) => (
+                <Component aboveItemKey={key} />
+              ),
+            )}
+        </StyledMainContentContainer>
       </StyledPageContainer>
     </>
   );
