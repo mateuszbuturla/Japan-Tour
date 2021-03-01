@@ -28,6 +28,12 @@ export class CityController {
     return regions;
   }
 
+  @Get("/highlighted")
+  async getAllHighlightedCities() {
+    const regions = await this.CityService.getHighlightedCities();
+    return regions;
+  }
+
   @Post("create")
   @UseGuards(AuthGuard("jwt"))
   // @UsePipes(new JoiValidationPipe(AddUpdateCitySchema))
@@ -55,6 +61,12 @@ export class CityController {
   @Get(":key")
   getSingleCity(@Param("key") key: string) {
     return this.CityService.getSingleCity(key);
+  }
+
+  @Get("region/:region")
+  async getFromRegion(@Param("region") region: string) {
+    const cities = await this.CityService.getFromRegion(region);
+    return cities;
   }
 
   @Get("highlighted/:region")

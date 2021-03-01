@@ -8,13 +8,15 @@ import {
   StyledTileTitle,
   StyledTileType,
   StyledTileDescription,
+  StyledTilesShowMoreTile,
 } from './StyledItemsTile';
 
 interface Props {
   data: TypesItemTile[];
+  showMoreButtonUrl?: string;
 }
 
-function ItemsTile({ data }: Props) {
+function ItemsTile({ data, showMoreButtonUrl }: Props) {
   return (
     <StyledTilesContainer>
       {data.map((item: TypesItemTile) => (
@@ -29,6 +31,9 @@ function ItemsTile({ data }: Props) {
           )}
         </StyledTile>
       ))}
+      {showMoreButtonUrl && (
+        <StyledTilesShowMoreTile to={showMoreButtonUrl}>Pokaż wszystkie</StyledTilesShowMoreTile>
+      )}
     </StyledTilesContainer>
   );
 }

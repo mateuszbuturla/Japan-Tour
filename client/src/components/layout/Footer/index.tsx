@@ -8,7 +8,6 @@ import {
   StyledFooterCopyright,
 } from './StyledFooter';
 import { useSelector } from 'react-redux';
-import { PageTransitionEffect } from 'animations';
 import TypesFooterData from 'types/TypesFooterData';
 import TypesFooterDataElement from 'types/TypesFooterDataElement';
 import TypesApplicationState from 'types/TypesApplicationState';

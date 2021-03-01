@@ -37,6 +37,7 @@ function RegionHighlightedItems({ aboveItemKey }: Props) {
               img: item.img,
               url: `/podroze/miasta/${item.key}`,
             }))}
+            showMoreButtonUrl={`/podroze/regiony/${aboveItemKey}/miasta`}
           />
         </>
       )}
@@ -50,6 +51,7 @@ function RegionHighlightedItems({ aboveItemKey }: Props) {
               shortDescription: item.shortDescription,
               url: `/podroze/atrakcje/${item.key}`,
             }))}
+            showMoreButtonUrl={`/podroze/regiony/${aboveItemKey}/atrakcje`}
           />
         </>
       )}

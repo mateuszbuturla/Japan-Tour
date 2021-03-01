@@ -11,7 +11,6 @@ import {
   StyledTileDescription,
 } from './StyledOtherSectionElementsGroup';
 import { StyledSubHeader } from 'components/common';
-import { PageTransitionEffect } from 'animations';
 import TypesDish from 'types/TypesDish';
 import TypesCulture from 'types/TypesCulture';
 import TypesApplicationState from 'types/TypesApplicationState';

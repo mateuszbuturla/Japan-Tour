@@ -25,7 +25,6 @@ function AttractionsHighlightedItemsFromThisSameCategory({ aboveItemKey }: Props
 
   return (
     <>
-      <p>inne {aboveItemKey}</p>
       {highlightedAttractions && (
         <>
           <StyledSubHeader>Wyróżnione atrakcje</StyledSubHeader>

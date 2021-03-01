@@ -12,19 +12,23 @@ import TypesAttraction from 'types/TypesAttraction';
 import TypesCity from 'types/TypesCity';
 import TypesRegion from 'types/TypesRegion';
 import { useParams } from 'react-router-dom';
+import { StyledPageHeader } from 'components/common/PageHeader/StyledCategoryHeader';
+import titleReducer from 'actions/title';
 
 interface Props {
   api: string;
   url: string;
   title: string;
   img: string;
+  header?: string;
 }
 
-function ItemsList({ api, title, img }: Props) {
+function ItemsList({ api, title, img, header }: Props) {
   const { key } = useParams();
   const [pageTitle, setPageTitle] = useState(title);
   const [itemsList, setItemsList] = useState();
   const [aboveItemsList, setAboveItemsList] = useState();
+  const [customLocationPath, setCustomLocationPath] = useState();
 
   const getData = async () => {
     const resItems = await Api.get(`${api}${key ? '/' + key : ''}`);
@@ -35,8 +39,38 @@ function ItemsList({ api, title, img }: Props) {
       resItems.data.aboveItems.map((item: any) => {
         console.log(resItems.data.items.filter((item2: any) => item2.region == item._id));
       });
-      if (api === 'attractions/allFromCategory') {
-        setPageTitle(resItems.data.aboveItems[0].name);
+      if (
+        api === 'attractions/allFromCategory' ||
+        api === 'attractions/region' ||
+        api === 'cities/region'
+      ) {
+        setPageTitle(`${resItems.data.aboveItems[0].name} ${header ? header : ''}`);
+      }
+      if (api === 'cities/region') {
+        setCustomLocationPath([
+          { text: 'Strona główna', url: '/' },
+          { text: 'Podróże', url: `/podroze` },
+          {
+            text: resItems.data.aboveItems[0].name,
+            url: `/podroze/regiony/${resItems.data.aboveItems[0].key}`,
+          },
+          {
+            text: 'Miasta',
+          },
+        ]);
+      }
+      if (api === 'attractions/region') {
+        setCustomLocationPath([
+          { text: 'Strona główna', url: '/' },
+          { text: 'Podróże', url: `/podroze` },
+          {
+            text: resItems.data.aboveItems[0].name,
+            url: `/podroze/regiony/${resItems.data.aboveItems[0].key}`,
+          },
+          {
+            text: 'Atrakcje',
+          },
+        ]);
       }
     }
   };
@@ -63,7 +97,7 @@ function ItemsList({ api, title, img }: Props) {
             }))}
           />
         );
-      case 'cities':
+      case 'cities/highlighted':
         return (
           <>
             {aboveItemsList &&
@@ -78,6 +112,7 @@ function ItemsList({ api, title, img }: Props) {
                         img: item3.img,
                         url: `/podroze/miasta/${item3.key}`,
                       }))}
+                    showMoreButtonUrl={`/podroze/regiony/${item.key}/miasta`}
                   />
                 </>
               ))}
@@ -99,6 +134,7 @@ function ItemsList({ api, title, img }: Props) {
                         shortDescription: item3.shortDescription,
                         url: `/podroze/atrakcje/${item3.key}`,
                       }))}
+                    showMoreButtonUrl={`/podroze/kategorie/${item.key}`}
                   />
                 </>
               ))}
@@ -157,6 +193,27 @@ function ItemsList({ api, title, img }: Props) {
             }))}
           />
         );
+      case 'cities/region':
+        return (
+          <ItemsTile
+            data={itemsList.map((item: TypesCity) => ({
+              name: item.name,
+              img: item.img,
+              url: `/podroze/miasta/${item.key}`,
+            }))}
+          />
+        );
+      case 'attractions/region':
+        return (
+          <ItemsTile
+            data={itemsList.map((item: TypesAttraction) => ({
+              name: item.name,
+              img: item.img,
+              url: `/podroze/atrakcje/${item.key}`,
+              shortDescription: item.shortDescription,
+            }))}
+          />
+        );
     }
   };
 
@@ -165,11 +222,15 @@ function ItemsList({ api, title, img }: Props) {
       <PageHeader
         text={pageTitle}
         img={img}
-        locationPathElements={[
-          { text: 'Strona główna', url: '/' },
-          { text: 'Podróże', url: `/podroze` },
-          { text: pageTitle },
-        ]}
+        locationPathElements={
+          customLocationPath
+            ? customLocationPath
+            : [
+                { text: 'Strona główna', url: '/' },
+                { text: 'Podróże', url: `/podroze` },
+                { text: pageTitle },
+              ]
+        }
       />
       <StyledPageContainer>
         <StyledMainContentContainer>{generateDataToComponent()}</StyledMainContentContainer>

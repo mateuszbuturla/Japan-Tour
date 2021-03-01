@@ -9,7 +9,6 @@ import {
   StyledAttractionTileTitle,
   StyledAttractionTileDescription,
 } from './StyledAttractionsGroup';
-import { PageTransitionEffect } from 'animations';
 import TypesAttraction from 'types/TypesAttraction';
 import TypesApplicationState from 'types/TypesApplicationState';
 import ChangePath from 'utils/ChangePath';

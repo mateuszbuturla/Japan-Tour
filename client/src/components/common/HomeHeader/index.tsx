@@ -10,8 +10,6 @@ import Sushi from 'assets/sushi.jpg';
 
 import GreateWave from 'assets/kanagawaTheGreatWave.jpg';
 
-import { PageTransitionEffect } from 'animations';
-
 function HomeHeader() {
   return (
     <StyledHomeHeader>

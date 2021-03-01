@@ -85,6 +85,43 @@ const StyledTileDescription = styled.p`
   margin-top: 10px;
 `;
 
+const StyledTilesShowMoreTile = styled(Link)`
+  display: flex;
+  text-decoration: none;
+  width: 100%;
+  box-shadow: 0px 0px 16px 1px rgba(0, 0, 0, 0.2);
+  box-sizing: border-box;
+  margin-top: 20px;
+  cursor: pointer;
+  transform: scale(1);
+  background-color: ${(props) => props.theme.colors.mainColor};
+  color: #fff;
+  transition: 0.5s;
+  justify-content: center;
+  align-items: center;
+  font-size: 25px;
+
+  @media (min-width: ${(props) => props.theme.breakPoints.sm}) {
+    width: 45%;
+    margin-top: 5%;
+  }
+
+  @media (min-width: ${(props) => props.theme.breakPoints.md}) {
+    width: 30%;
+    margin-right: 3%;
+    margin-top: 3%;
+  }
+
+  @media (min-width: ${(props) => props.theme.breakPoints.lg}) {
+    width: 23%;
+    margin-right: 2%;
+  }
+
+  &:hover {
+    transform: scale(1.05) rotate(5deg);
+  }
+`;
+
 export {
   StyledTilesContainer,
   StyledTile,
@@ -93,4 +130,5 @@ export {
   StyledTileTitle,
   StyledTileType,
   StyledTileDescription,
+  StyledTilesShowMoreTile,
 };

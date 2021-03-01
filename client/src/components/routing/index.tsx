@@ -50,9 +50,43 @@ function Routing() {
         exact
       />
       <Route
+        path="/podroze/regiony/:key/miasta"
+        component={(props: any) => (
+          <ItemsList
+            {...props}
+            api="cities/region"
+            url="/podroze/miasta"
+            img={bg}
+            title=""
+            header="Miasta"
+          />
+        )}
+        exact
+      />
+      <Route
+        path="/podroze/regiony/:key/atrakcje"
+        component={(props: any) => (
+          <ItemsList
+            {...props}
+            api="attractions/region"
+            url="/podroze/atrakcje"
+            img={bg}
+            title=""
+            header="Atrakcje"
+          />
+        )}
+        exact
+      />
+      <Route
         path="/podroze/miasta"
         component={(props: any) => (
-          <ItemsList {...props} api="cities" url="/podroze/miasta" img={bg} title="Miasta" />
+          <ItemsList
+            {...props}
+            api="cities/highlighted"
+            url="/podroze/miasta"
+            img={bg}
+            title="Miasta"
+          />
         )}
         exact
       />

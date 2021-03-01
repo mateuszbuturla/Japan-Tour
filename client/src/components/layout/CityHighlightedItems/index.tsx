@@ -33,6 +33,7 @@ function CityHighlightedItems({ aboveItemKey }: Props) {
               shortDescription: item.shortDescription,
               url: `/podroze/atrakcje/${item.key}`,
             }))}
+            showMoreButtonUrl={`/podroze/miasta/${aboveItemKey}/atrakcje`}
           />
         </>
       )}

@@ -83,6 +83,23 @@ export class AttractionService {
     };
   }
 
+  async getAllAttractionsFromRegion(regionKey: string) {
+    const region = await this.regionService.getSingleRegion(regionKey);
+    const attractions = await this.attractionModel
+      .find({ region: region._id })
+      .exec();
+    return {
+      items: attractions,
+      aboveItems: [
+        {
+          _id: region._id,
+          name: region.name,
+          key: region.key,
+        },
+      ],
+    };
+  }
+
   async getAllHighlightedAttractions() {
     const attractions = await this.attractionModel
       .find({ highlighted: true })
@@ -93,6 +110,7 @@ export class AttractionService {
       aboveItems: categories.map((item) => ({
         _id: item._id,
         name: item.name,
+        key: item.key,
       })),
     };
   }

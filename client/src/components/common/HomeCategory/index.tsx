@@ -7,7 +7,6 @@ import {
   StyledCategoryImage,
   StyledCurtain,
 } from './StyledHomeCategory';
-import { PageTransitionEffect } from 'animations';
 import TypesApplicationState from 'types/TypesApplicationState';
 import ChangePath from 'utils/ChangePath';
 

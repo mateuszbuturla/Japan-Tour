@@ -97,6 +97,11 @@ export class AttractionController {
     return this.AttractionService.getSingleAttraction(key);
   }
 
+  @Get("/region/:region")
+  getAllAttractionsFromRegion(@Param("region") region: string) {
+    return this.AttractionService.getAllAttractionsFromRegion(region);
+  }
+
   @Get("")
   getAllAttractions() {
     return this.AttractionService.getAllAttractions();

@@ -39,6 +39,29 @@ export class CityService {
     };
   }
 
+  async getHighlightedCities() {
+    const cities = await this.cityModel.find({ highlighted: true }).exec();
+    const regions = await this.regionService.getRegions();
+    return {
+      aboveItems: regions.items.map((region) => ({
+        _id: region._id,
+        name: region.name,
+        key: region.key,
+      })),
+      items: cities.map((city) => ({
+        _id: city._id,
+        name: city.name,
+        url: city.url,
+        key: city.key,
+        description: city.description,
+        img: city.img,
+        region: city.region,
+        otherData: city.otherData,
+        highlighted: city.highlighted,
+      })),
+    };
+  }
+
   async getSingleCity(key: string) {
     const city = await this.findRegion(key);
     return city;
@@ -166,6 +189,21 @@ export class CityService {
       .find({ region: region._id, highlighted: true })
       .exec();
     return {
+      items: cities,
+    };
+  }
+
+  async getFromRegion(regionKey: string) {
+    const region = await this.regionService.getSingleRegion(regionKey);
+    const cities = await this.cityModel.find({ region: region._id }).exec();
+    return {
+      aboveItems: [
+        {
+          _id: region._id,
+          name: region.name,
+          key: region.key,
+        },
+      ],
       items: cities,
     };
   }
