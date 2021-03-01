@@ -7,13 +7,10 @@ import {
   StyledMainContentContainer,
 } from 'components/common';
 import Api from 'utils/Api';
-import TypesItemTile from 'types/TypesItemTile';
 import TypesAttraction from 'types/TypesAttraction';
 import TypesCity from 'types/TypesCity';
 import TypesRegion from 'types/TypesRegion';
 import { useParams } from 'react-router-dom';
-import { StyledPageHeader } from 'components/common/PageHeader/StyledCategoryHeader';
-import titleReducer from 'actions/title';
 
 interface Props {
   api: string;
@@ -43,7 +40,8 @@ function ItemsList({ api, title, img, header, curstomLocationPathFromProps }: Pr
       if (
         api === 'attractions/allFromCategory' ||
         api === 'attractions/region' ||
-        api === 'cities/region'
+        api === 'cities/region' ||
+        api === 'attractions/city'
       ) {
         setPageTitle(`${resItems.data.aboveItems[0].name} ${header ? header : ''}`);
       }
@@ -67,6 +65,20 @@ function ItemsList({ api, title, img, header, curstomLocationPathFromProps }: Pr
           {
             text: resItems.data.aboveItems[0].name,
             url: `/podroze/regiony/${resItems.data.aboveItems[0].key}`,
+          },
+          {
+            text: 'Atrakcje',
+          },
+        ]);
+      }
+
+      if (api === 'attractions/city') {
+        setCustomLocationPath([
+          { text: 'Strona główna', url: '/' },
+          { text: 'Podróże', url: `/podroze` },
+          {
+            text: resItems.data.aboveItems[0].name,
+            url: `/podroze/miasta/${resItems.data.aboveItems[0].key}`,
           },
           {
             text: 'Atrakcje',
@@ -208,6 +220,17 @@ function ItemsList({ api, title, img, header, curstomLocationPathFromProps }: Pr
           />
         );
       case 'attractions/region':
+        return (
+          <ItemsTile
+            data={itemsList.map((item: TypesAttraction) => ({
+              name: item.name,
+              img: item.img,
+              url: `/podroze/atrakcje/${item.key}`,
+              shortDescription: item.shortDescription,
+            }))}
+          />
+        );
+      case 'attractions/city':
         return (
           <ItemsTile
             data={itemsList.map((item: TypesAttraction) => ({

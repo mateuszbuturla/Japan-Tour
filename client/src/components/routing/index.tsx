@@ -185,6 +185,20 @@ function Routing() {
         exact
       />
       <Route
+        path="/podroze/miasta/:key/atrakcje"
+        component={(props: any) => (
+          <ItemsList
+            {...props}
+            api="attractions/city"
+            url="/podroze/atrakcje"
+            img={bg}
+            title=""
+            header="Atrakcje"
+          />
+        )}
+        exact
+      />
+      <Route
         path="/podroze/atrakcje/:key"
         component={(props: any) => (
           <Item

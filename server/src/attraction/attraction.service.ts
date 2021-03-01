@@ -115,9 +115,21 @@ export class AttractionService {
     };
   }
 
-  async getAllFromCity(city: string) {
-    const attractions = await this.attractionModel.find({ city }).exec();
-    return attractions;
+  async getAllFromCity(cityKey: string) {
+    const city = await this.cityService.getSingleCity(cityKey);
+    const attractions = await this.attractionModel
+      .find({ city: city._id })
+      .exec();
+    return {
+      aboveItems: [
+        {
+          _id: city._id,
+          name: city.name,
+          key: city.key,
+        },
+      ],
+      items: attractions,
+    };
   }
 
   async getSingleAttraction(key: string) {

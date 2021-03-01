@@ -86,8 +86,8 @@ export class AttractionController {
     return attractions;
   }
 
-  @Get("allFromCity/:city")
-  async getAllFromCity(@Param("city") city: string) {
+  @Get("city/:city")
+  async getAllAttractionsFromCity(@Param("city") city: string) {
     const attractions = await this.AttractionService.getAllFromCity(city);
     return attractions;
   }
