@@ -1,23 +1,17 @@
 import {
-  Controller,
   Body,
+  Controller,
+  Delete,
   Get,
   Param,
-  Post,
-  Delete,
   Patch,
-  UsePipes,
+  Post,
   UseGuards,
 } from "@nestjs/common";
-
-import { JoiValidationPipe } from "../pipes/JoiValidationPipe";
-
-import { AttractionService } from "./attraction.service";
-import { Attraction } from "./attraction.model";
-import { AddUpdateAttractionSchema } from "./Schema/attraction.schema";
 import { AuthGuard } from "@nestjs/passport";
 import { UserObj } from "src/decorators/user-obj.decorator";
 import { User } from "src/interface/User";
+import { AttractionService } from "./attraction.service";
 
 @Controller("/api/attractions")
 export class AttractionController {

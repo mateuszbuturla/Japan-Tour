@@ -1,5 +1,4 @@
 import { Controller, Get } from "@nestjs/common";
-
 import { FooterService } from "./footer.service";
 
 @Controller("/api/footer")

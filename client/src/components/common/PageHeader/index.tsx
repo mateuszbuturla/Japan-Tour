@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
 import { LocationPath } from 'components/common';
+import React, { useEffect, useState } from 'react';
 import {
   StyledPageHeader,
-  StyledPageHeaderText,
   StyledPageHeaderImage,
+  StyledPageHeaderText,
 } from './StyledCategoryHeader';
 
 interface Props {

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-import { StyledLocationPath, StyledLocationPathElement } from './StyledLocationPath';
 import ChangePath from 'utils/ChangePath';
+import { StyledLocationPath, StyledLocationPathElement } from './StyledLocationPath';
 
 interface ElementTypes {
   text: string;

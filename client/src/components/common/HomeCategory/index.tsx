@@ -1,14 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import React from 'react';
 import { useHistory } from 'react-router-dom';
+import ChangePath from 'utils/ChangePath';
 import {
   StyledCategory,
   StyledCategoryHeader,
   StyledCategoryImage,
   StyledCurtain,
 } from './StyledHomeCategory';
-import TypesApplicationState from 'types/TypesApplicationState';
-import ChangePath from 'utils/ChangePath';
 
 interface Props {
   url: string;

@@ -3,8 +3,8 @@ import { useHistory } from 'react-router-dom';
 import ChangePath from 'utils/ChangePath';
 import {
   StyledNavDropdown,
-  StyledNavDropdownTitle,
   StyledNavDropdownItem,
+  StyledNavDropdownTitle,
 } from './StyledNavDropdown';
 
 interface Data {

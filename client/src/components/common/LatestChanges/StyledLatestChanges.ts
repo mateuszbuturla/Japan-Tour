@@ -22,10 +22,6 @@ const StyledLastestChangesElementCell = styled.td`
 
 const StyledLastestChangesCellTitlesContainer = styled.tr``;
 
-interface StyledLastestChangesCellTitleProps {
-  width: string;
-}
-
 const StyledLastestChangesCellTitle = styled.td`
   width: ${(props) => props.width};
   font-size: 20px;

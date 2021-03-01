@@ -1,8 +1,8 @@
 import { Injectable } from "@nestjs/common";
-import { RegisterDto } from "./dto/register.dto";
-import { hashPwd } from "../utils/hash-pwd";
 import { InjectModel } from "@nestjs/mongoose";
 import { Model } from "mongoose";
+import { hashPwd } from "../utils/hash-pwd";
+import { RegisterDto } from "./dto/register.dto";
 import { User } from "./user.model";
 
 @Injectable()

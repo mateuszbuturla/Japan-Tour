@@ -1,14 +1,13 @@
-import React, { useEffect, useState } from 'react';
-import { AdminHeader, AdminTiles, LatestChanges } from 'components/common';
-
-import CityIcon from 'assets/icons/city.svg';
 import AttractionIcon from 'assets/icons/attraction.svg';
-import KitchenIcon from 'assets/icons/kitchen.svg';
+import CityIcon from 'assets/icons/city.svg';
 import CultureIcon from 'assets/icons/culture.svg';
+import KitchenIcon from 'assets/icons/kitchen.svg';
+import { AdminHeader, AdminTiles, LatestChanges } from 'components/common';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+import TypesActionHistory from 'types/TypesActionHistory';
 import TypesApplicationState from 'types/TypesApplicationState';
 import Api from 'utils/Api';
-import TypesActionHistory from 'types/TypesActionHistory';
 
 function AdminDashboard() {
   const { attractions, cities, cultures, dishes } = useSelector(

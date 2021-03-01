@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
-import ReactNotification, { store } from 'react-notifications-component';
+import ReactNotification from 'react-notifications-component';
 import 'react-notifications-component/dist/theme.css';
-import { AdminAside, LoadingBar } from 'components/common';
+import { AdminAside } from 'components/common';
 import { StyledAdminContainer, StyledAdminContentContainer } from './StyledAdmin';
 import Api from 'utils/Api';
 import { useDispatch } from 'react-redux';
@@ -64,7 +64,6 @@ function Admin({ setTitle }: Props) {
           <RoutingAdmin />
         </StyledAdminContentContainer>
       </StyledAdminContainer>
-      {/* <LoadingBar /> */}
     </>
   );
 }

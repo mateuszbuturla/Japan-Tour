@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyledFormListTitle, StyledFormListContainer, StyledFormList } from './StyledFormList';
+import { StyledFormList, StyledFormListContainer, StyledFormListTitle } from './StyledFormList';
 
 interface Props {
   children: any;

@@ -1,14 +1,14 @@
 import React from 'react';
 import TypesItemTile from 'types/TypesItemTile';
 import {
-  StyledTilesContainer,
   StyledTile,
+  StyledTileDescription,
   StyledTileImage,
-  StyledTitleTypeContainer,
+  StyledTilesContainer,
+  StyledTilesShowMoreTile,
   StyledTileTitle,
   StyledTileType,
-  StyledTileDescription,
-  StyledTilesShowMoreTile,
+  StyledTitleTypeContainer,
 } from './StyledItemsTile';
 
 interface Props {

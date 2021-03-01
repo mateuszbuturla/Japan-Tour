@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import Api from 'utils/Api';
-import { StyledSubHeader, ItemsTile } from 'components/common';
+import { ItemsTile, StyledSubHeader } from 'components/common';
+import React, { useEffect, useState } from 'react';
 import TypesAttraction from 'types/TypesAttraction';
 import TypesCity from 'types/TypesCity';
+import Api from 'utils/Api';
 
 interface Props {
   aboveItemKey: string;

@@ -1,20 +1,19 @@
+import EditIcon from 'assets/icons/edit.svg';
+import RemoveIcon from 'assets/icons/remove.svg';
+import { ActionDialog, AdminHeader, Button, StyledAdminTopPanel } from 'components/common';
 import React, { useState } from 'react';
-import { AdminHeader, Button, StyledAdminTopPanel, ActionDialog } from 'components/common';
-import {
-  StyledAdminElementsListContainer,
-  StyledAdminElementsListCellsTitles,
-  StyledAdminElementsListCell,
-  StyledAdminElementsListElement,
-  StyledAdminElementsListElementCell,
-  StyledAdminElementsListActionButton,
-  StyledAdminElementsListActionButtonIcon,
-} from './StyledAdminElementsList';
+import { useHistory } from 'react-router-dom';
 import AddNotification from 'utils/AddNotification';
 import { deleteElement } from 'utils/ApiRequests';
-
-import RemoveIcon from 'assets/icons/remove.svg';
-import EditIcon from 'assets/icons/edit.svg';
-import { useHistory } from 'react-router-dom';
+import {
+  StyledAdminElementsListActionButton,
+  StyledAdminElementsListActionButtonIcon,
+  StyledAdminElementsListCell,
+  StyledAdminElementsListCellsTitles,
+  StyledAdminElementsListContainer,
+  StyledAdminElementsListElement,
+  StyledAdminElementsListElementCell,
+} from './StyledAdminElementsList';
 
 interface DataProps {
   _id: string;

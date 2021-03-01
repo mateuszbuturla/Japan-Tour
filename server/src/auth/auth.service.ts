@@ -1,13 +1,13 @@
 import { Injectable } from "@nestjs/common";
+import { InjectModel } from "@nestjs/mongoose";
 import { Response } from "express";
-import { AuthLoginDto } from "./dto/auth-login.dto";
+import { sign } from "jsonwebtoken";
+import { Model } from "mongoose";
+import { v4 as uuid } from "uuid";
 import { User } from "../user/user.model";
 import { hashPwd } from "../utils/hash-pwd";
-import { v4 as uuid } from "uuid";
-import { sign } from "jsonwebtoken";
+import { AuthLoginDto } from "./dto/auth-login.dto";
 import { JwtPayload } from "./jwt.strategy";
-import { InjectModel } from "@nestjs/mongoose";
-import { Model } from "mongoose";
 
 @Injectable()
 export class AuthService {

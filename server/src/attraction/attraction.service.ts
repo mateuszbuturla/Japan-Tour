@@ -1,15 +1,14 @@
-import { Injectable, NotFoundException, HttpException } from "@nestjs/common";
+import { HttpException, Injectable, NotFoundException } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { Model } from "mongoose";
-import { isNull } from "util";
-
-import { Attraction } from "./attraction.model";
-import NormalizeString from "../utils/normalizeString";
 import { User } from "src/interface/User";
+import { isNull } from "util";
 import { ActionHistoryService } from "../actionHistory/actionHistory.service";
 import { CategoryService } from "../category/category.service";
-import { RegionService } from "../region/region.service";
 import { CityService } from "../city/city.service";
+import { RegionService } from "../region/region.service";
+import NormalizeString from "../utils/normalizeString";
+import { Attraction } from "./attraction.model";
 
 @Injectable()
 export class AttractionService {

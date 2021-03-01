@@ -1,34 +1,31 @@
-import HomeHeader from './HomeHeader';
-import HomeCategory from './HomeCategory';
-import PageHeader from './PageHeader';
-import JapanMap from './JapanMap';
-import StyledPageContainer from './StyledPageContainer';
-import StyledMainContentContainer from './StyledMainContentContainer';
-import StyledSubHeader from './StyledSubHeader';
-import ItemDescription from './ItemDescription';
-import AttractionsGroup from './AttractionsGroup';
-import AsideInfo from './AsideInfo';
-import OtherSectionElementsGroup from './OtherSectionElementsGroup';
+import ActionDialog from './ActionDialog';
 import AdminAside from './AdminAside';
-import Form from './Form';
-import Input from './Input';
-import Button from './Button';
-import FormList from './FormList';
-import LoadingBar from './LoadingBar';
-import NavDropdown from './NavDropdown';
-import LocationPath from './LocationPath';
-import LoginForm from './LoginForm';
 import AdminHeader from './AdminHeader';
 import AdminTiles from './AdminTiles';
-import LatestChanges from './LatestChanges';
-import StyledAdminTopPanel from './StyledAdminTopPanel';
-import ActionDialog from './ActionDialog';
-import StyledFormInputWrapper from './StyledFormInputWrapper';
-import StyledInputsContainer from './StyledInputsContainer';
-import StyledFromDescriptionOtherDataContainer from './StyledFromDescriptionOtherDataContainer';
-import RichTextEditor from './RichTextEditor';
-import * as StyledOtherDataEditor from './StyledOtherDataEditor';
+import AsideInfo from './AsideInfo';
+import Button from './Button';
+import Form from './Form';
+import FormList from './FormList';
+import HomeCategory from './HomeCategory';
+import HomeHeader from './HomeHeader';
+import Input from './Input';
+import ItemDescription from './ItemDescription';
 import ItemsTile from './ItemsTile';
+import JapanMap from './JapanMap';
+import LatestChanges from './LatestChanges';
+import LocationPath from './LocationPath';
+import LoginForm from './LoginForm';
+import NavDropdown from './NavDropdown';
+import PageHeader from './PageHeader';
+import RichTextEditor from './RichTextEditor';
+import StyledAdminTopPanel from './StyledAdminTopPanel';
+import StyledFormInputWrapper from './StyledFormInputWrapper';
+import StyledFromDescriptionOtherDataContainer from './StyledFromDescriptionOtherDataContainer';
+import StyledInputsContainer from './StyledInputsContainer';
+import StyledMainContentContainer from './StyledMainContentContainer';
+import * as StyledOtherDataEditor from './StyledOtherDataEditor';
+import StyledPageContainer from './StyledPageContainer';
+import StyledSubHeader from './StyledSubHeader';
 
 export {
   HomeHeader,
@@ -39,15 +36,12 @@ export {
   StyledMainContentContainer,
   StyledSubHeader,
   ItemDescription,
-  AttractionsGroup,
   AsideInfo,
-  OtherSectionElementsGroup,
   AdminAside,
   Form,
   Input,
   Button,
   FormList,
-  LoadingBar,
   NavDropdown,
   LocationPath,
   LoginForm,

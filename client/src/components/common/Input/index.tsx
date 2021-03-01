@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import {
-  StyledInputContainer,
-  StyledInputLabel,
   StyledInput,
-  StyledSelect,
-  StyledOption,
+  StyledInputContainer,
   StyledInputError,
+  StyledInputLabel,
+  StyledOption,
+  StyledSelect,
 } from './StyledInput';
 
 interface Props {

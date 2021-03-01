@@ -1,28 +1,27 @@
-import React, { useState, useEffect } from 'react';
+import DeleteIcon from 'assets/icons/remove.svg';
 import {
-  Button,
-  Input,
   AdminHeader,
-  StyledAdminTopPanel,
+  Button,
   Form,
-  StyledFormInputWrapper,
-  StyledInputsContainer,
-  StyledFromDescriptionOtherDataContainer,
+  Input,
   RichTextEditor,
+  StyledAdminTopPanel,
+  StyledFormInputWrapper,
+  StyledFromDescriptionOtherDataContainer,
+  StyledInputsContainer,
   StyledOtherDataEditor,
 } from 'components/common';
+import { ContentState, convertFromHTML, EditorState } from 'draft-js';
 import { stateToHTML } from 'draft-js-export-html';
-import UploadImage from 'utils/UploadImage';
+import React, { useState } from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
-
-import DeleteIcon from 'assets/icons/remove.svg';
-import Api from 'utils/Api';
-import AddNotification from 'utils/AddNotification';
+import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import TypesApplicationState from 'types/TypesApplicationState';
-import { useSelector } from 'react-redux';
 import TypesRegion from 'types/TypesRegion';
-import { EditorState, ContentState, convertFromHTML } from 'draft-js';
+import AddNotification from 'utils/AddNotification';
+import Api from 'utils/Api';
+import UploadImage from 'utils/UploadImage';
 
 interface Props {
   title: string;

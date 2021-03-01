@@ -1,16 +1,16 @@
-import React, { useEffect, useState } from 'react';
 import {
-  PageHeader,
   ItemsTile,
+  PageHeader,
+  StyledMainContentContainer,
   StyledPageContainer,
   StyledSubHeader,
-  StyledMainContentContainer,
 } from 'components/common';
-import Api from 'utils/Api';
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import TypesAttraction from 'types/TypesAttraction';
 import TypesCity from 'types/TypesCity';
 import TypesRegion from 'types/TypesRegion';
-import { useParams } from 'react-router-dom';
+import Api from 'utils/Api';
 
 interface Props {
   api: string;

@@ -1,22 +1,18 @@
 import {
-  Controller,
   Body,
+  Controller,
+  Delete,
   Get,
   Param,
-  Post,
-  Delete,
   Patch,
-  UsePipes,
+  Post,
   UseGuards,
 } from "@nestjs/common";
-import { JoiValidationPipe } from "../pipes/JoiValidationPipe";
-
-import { CityService } from "./city.service";
-import { City } from "./city.model";
-import { AddUpdateCitySchema } from "./Schema/city.schema";
 import { AuthGuard } from "@nestjs/passport";
 import { UserObj } from "src/decorators/user-obj.decorator";
 import { User } from "src/interface/User";
+import { City } from "./city.model";
+import { CityService } from "./city.service";
 
 @Controller("/api/cities")
 export class CityController {

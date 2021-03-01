@@ -1,22 +1,18 @@
 import {
-  Controller,
   Body,
+  Controller,
+  Delete,
   Get,
   Param,
-  Post,
-  Delete,
   Patch,
-  UsePipes,
+  Post,
   UseGuards,
 } from "@nestjs/common";
-import { JoiValidationPipe } from "../pipes/JoiValidationPipe";
-
-import { DishService } from "./dish.service";
-import { Dish } from "./dish.model";
-import { AddUpdateDishSchema } from "./Schema/dish.schema";
+import { AuthGuard } from "@nestjs/passport";
 import { UserObj } from "src/decorators/user-obj.decorator";
 import { User } from "src/interface/User";
-import { AuthGuard } from "@nestjs/passport";
+import { Dish } from "./dish.model";
+import { DishService } from "./dish.service";
 
 @Controller("/api/dishes")
 export class DishController {

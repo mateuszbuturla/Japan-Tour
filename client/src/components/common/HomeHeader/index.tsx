@@ -1,14 +1,9 @@
-import React from 'react';
-import { StyledHomeHeader, StyledMainHeader, StyledCategoriesContainer } from './StyledHomeHeader';
-import { HomeCategory } from 'components/common';
-
-import ToriGate from 'assets/toriGate.jpg';
-
 import Anime from 'assets/anime.jpg';
-
 import Sushi from 'assets/sushi.jpg';
-
-import GreateWave from 'assets/kanagawaTheGreatWave.jpg';
+import ToriGate from 'assets/toriGate.jpg';
+import { HomeCategory } from 'components/common';
+import React from 'react';
+import { StyledCategoriesContainer, StyledHomeHeader, StyledMainHeader } from './StyledHomeHeader';
 
 function HomeHeader() {
   return (

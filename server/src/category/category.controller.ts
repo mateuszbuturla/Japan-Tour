@@ -1,22 +1,18 @@
 import {
-  Controller,
   Body,
+  Controller,
+  Delete,
   Get,
   Param,
-  Post,
-  Delete,
   Patch,
-  UsePipes,
+  Post,
   UseGuards,
 } from "@nestjs/common";
-import { JoiValidationPipe } from "../pipes/JoiValidationPipe";
-
-import { CategoryService } from "./category.service";
-import { Category } from "./category.model";
-import { AddUpdateCategorySchema } from "./Schema/categories.schema";
 import { AuthGuard } from "@nestjs/passport";
 import { UserObj } from "src/decorators/user-obj.decorator";
 import { User } from "src/interface/User";
+import { Category } from "./category.model";
+import { CategoryService } from "./category.service";
 
 @Controller("/api/categories")
 export class CategoryController {

@@ -1,13 +1,12 @@
 import { HttpException, Injectable, NotFoundException } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { Model } from "mongoose";
+import { User } from "src/interface/User";
 import { isNull } from "util";
-import NormalizeString from "../utils/normalizeString";
 import { ActionHistoryService } from "../actionHistory/actionHistory.service";
 import { RegionService } from "../region/region.service";
-
+import NormalizeString from "../utils/normalizeString";
 import { City } from "./city.model";
-import { User } from "src/interface/User";
 
 @Injectable()
 export class CityService {

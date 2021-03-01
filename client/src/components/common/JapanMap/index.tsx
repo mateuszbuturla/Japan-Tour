@@ -1,13 +1,11 @@
+import { ItemsTile, StyledSubHeader } from 'components/common';
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { StyledJapanMap } from './StyledJapanMap';
-import { ItemsTile, StyledSubHeader } from 'components/common';
-import { useSelector } from 'react-redux';
-import TypesRegion from 'types/TypesRegion';
 import TypesCity from 'types/TypesCity';
-import TypesApplicationState from 'types/TypesApplicationState';
+import TypesRegion from 'types/TypesRegion';
 import Api from 'utils/Api';
 import ChangePath from 'utils/ChangePath';
+import { StyledJapanMap } from './StyledJapanMap';
 
 function JapanMap() {
   const history = useHistory();

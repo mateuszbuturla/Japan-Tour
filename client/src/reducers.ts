@@ -1,8 +1,8 @@
-import { combineReducers } from 'redux';
+import adminReducer from 'actions/admin';
 import categoriesReducer from 'actions/categories';
 import titleReducer from 'actions/title';
-import adminReducer from 'actions/admin';
 import userReducer from 'actions/user';
+import { combineReducers } from 'redux';
 
 const rootReducer = combineReducers({
   categories: categoriesReducer,

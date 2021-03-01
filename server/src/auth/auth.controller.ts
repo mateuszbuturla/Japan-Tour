@@ -7,12 +7,12 @@ import {
   Res,
   UseGuards,
 } from "@nestjs/common";
-import { AuthService } from "./auth.service";
-import { Response } from "express";
-import { AuthLoginDto } from "./dto/auth-login.dto";
 import { AuthGuard } from "@nestjs/passport";
+import { Response } from "express";
 import { UserObj } from "../decorators/user-obj.decorator";
 import { User } from "../user/user.model";
+import { AuthService } from "./auth.service";
+import { AuthLoginDto } from "./dto/auth-login.dto";
 
 @Controller("/api/auth")
 export class AuthController {

@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import {
   AsideInfo,
   ItemDescription,
-  OtherSectionElementsGroup,
   PageHeader,
   StyledMainContentContainer,
   StyledPageContainer,

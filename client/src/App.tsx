@@ -1,12 +1,11 @@
-import React, { useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
-
-import Routing from 'components/routing';
+import userActions from 'actions/user/actions';
 import { Footer, Nav } from 'components/layout';
+import Routing from 'components/routing';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useLocation } from 'react-router-dom';
 import TypesApplicationState from 'types/TypesApplicationState';
 import Api from 'utils/Api';
-import userActions from 'actions/user/actions';
 
 function App() {
   const dispatch = useDispatch();

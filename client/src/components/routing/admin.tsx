@@ -1,18 +1,18 @@
-import React, { useState, useEffect } from 'react';
-import { Switch, Route } from 'react-router-dom';
+import adminActions from 'actions/admin/actions';
 import {
+  AddUpdateAttractionForm,
+  AddUpdateCityForm,
+  AddUpdateCultureForm,
+  AddUpdateDishForm,
+  AddUpdateRegionForm,
   AdminDashboard,
   AdminElementsList,
-  AddUpdateRegionForm,
-  AddUpdateCityForm,
-  AddUpdateDishForm,
-  AddUpdateCultureForm,
-  AddUpdateAttractionForm,
 } from 'components/layout';
-import { useSelector, useDispatch } from 'react-redux';
-import TypesApplicationState from 'types/TypesApplicationState';
-import adminActions from 'actions/admin/actions';
 import AddUpdateCategoryForm from 'components/layout/AddUpdateCategoryForm';
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Route, Switch } from 'react-router-dom';
+import TypesApplicationState from 'types/TypesApplicationState';
 
 function RoutingAdmin() {
   const { attractions, regions, cities, cultures, dishes, categories } = useSelector(
@@ -22,7 +22,6 @@ function RoutingAdmin() {
 
   return (
     <Switch>
-      {/* <Route path="/admin" component={(props: any) => <AdminDashboard {...props} exact />} /> */}
       <Route path="/admin/dashboard" component={(props: any) => <AdminDashboard {...props} />} />
       <Route
         path="/admin/attractions"

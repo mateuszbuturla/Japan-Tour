@@ -1,19 +1,17 @@
 import {
-  Controller,
   Body,
+  Controller,
   Get,
   Param,
   Patch,
   Post,
-  Req,
   UseGuards,
 } from "@nestjs/common";
-
-import { RegionService } from "./region.service";
-import { Region } from "./region.model";
-import { User } from "../interface/user";
-import { UserObj } from "../decorators/user-obj.decorator";
 import { AuthGuard } from "@nestjs/passport";
+import { UserObj } from "../decorators/user-obj.decorator";
+import { User } from "../interface/user";
+import { Region } from "./region.model";
+import { RegionService } from "./region.service";
 
 @Controller("/api/regions")
 export class RegionController {

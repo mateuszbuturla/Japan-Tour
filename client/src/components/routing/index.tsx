@@ -1,16 +1,15 @@
+import actions from 'actions/title/actions';
+import bg from 'assets/regions/chugoku.jpg';
+import {
+  AttractionsHighlightedItemsFromThisSameCategory,
+  CityHighlightedItems,
+  RegionHighlightedItems,
+} from 'components/layout';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Switch, Route, Redirect } from 'react-router-dom';
-import actions from 'actions/title/actions';
-import { Home, Travel, Admin, NotFound, Login, ItemsList, Item } from 'views';
+import { Redirect, Route, Switch } from 'react-router-dom';
 import TypesApplicationState from 'types/TypesApplicationState';
-import {
-  RegionHighlightedItems,
-  CityHighlightedItems,
-  AttractionsHighlightedItemsFromThisSameCategory,
-} from 'components/layout';
-
-import bg from 'assets/regions/chugoku.jpg';
+import { Admin, Home, Item, ItemsList, Login, NotFound, Travel } from 'views';
 
 function Routing() {
   const dispatch = useDispatch();
@@ -245,73 +244,6 @@ function Routing() {
         )}
         exact
       />
-      {/* <Route
-        path={`/podroze/:regionKey`}
-        component={(props: any) => <Region {...props} setTitle={setTitle} />}
-        exact
-      />
-      <Route
-        path={`/podroze/:region/:cityKey`}
-        component={(props: any) => <City {...props} setTitle={setTitle} />}
-        exact
-      />
-      <Route
-        path={`/podroze/:region/:city/:attractionKey`}
-        component={(props: any) => <Attraction {...props} setTitle={setTitle} />}
-        exact
-      />
-      <Route
-        path={`/kuchnia`}
-        component={(props: any) => (
-          <OtherSection
-            {...props}
-            header="Kuchnia Japonii"
-            categoryUrl="kuchnia"
-            setTitle={setTitle}
-            api="dishes"
-          />
-        )}
-        exact
-      />
-      <Route
-        path={`/kuchnia/:type/:elementKey`}
-        component={(props: any) => (
-          <OtherElement
-            {...props}
-            setTitle={setTitle}
-            categoryUrl="kuchnia"
-            categoryName="Kuchnia"
-            api="dishes"
-          />
-        )}
-        exact
-      />
-      <Route
-        path={`/kultura`}
-        component={(props: any) => (
-          <OtherSection
-            {...props}
-            header="Kultura Japonii"
-            categoryUrl="kultura"
-            setTitle={setTitle}
-            api="cultures"
-          />
-        )}
-        exact
-      />
-      <Route
-        path={`/kultura/:type/:elementKey`}
-        component={(props: any) => (
-          <OtherElement
-            {...props}
-            setTitle={setTitle}
-            categoryUrl="kultura"
-            categoryName="Kultura"
-            api="cultures"
-          />
-        )}
-        exact
-      /> */}
       <Route path="/404" component={(props: any) => <NotFound {...props} setTitle={setTitle} />} />
       <Route component={(props: any) => <NotFound {...props} setTitle={setTitle} />} />
     </Switch>

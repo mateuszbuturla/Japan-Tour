@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyledAdminMainHeader, StyledAdminHeader } from './StyledAdminHeader';
+import { StyledAdminHeader, StyledAdminMainHeader } from './StyledAdminHeader';
 
 interface Props {
   text: string;

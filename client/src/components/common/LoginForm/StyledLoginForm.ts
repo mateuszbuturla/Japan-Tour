@@ -1,6 +1,5 @@
-import styled from 'styled-components';
-
 import loginBackground from 'assets/mainBG.jpg';
+import styled from 'styled-components';
 
 const StyledLoginFormWrapper = styled.div`
   width: 100vw;

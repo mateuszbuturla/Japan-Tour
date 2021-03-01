@@ -1,20 +1,19 @@
+import AttractionIcon from 'assets/icons/attraction.svg';
+import CategoryIcon from 'assets/icons/category.svg';
+import CityIcon from 'assets/icons/city.svg';
+import CultureIcon from 'assets/icons/culture.svg';
+import KitchenIcon from 'assets/icons/kitchen.svg';
+import RegionIcon from 'assets/icons/region.svg';
 import React from 'react';
+import TypesActionHistory from 'types/TypesActionHistory';
 import {
+  StyledLastestChangesCellTitle,
+  StyledLastestChangesCellTitlesContainer,
   StyledLastestChangesContainer,
   StyledLastestChangesElement,
   StyledLastestChangesElementCell,
-  StyledLastestChangesCellTitlesContainer,
-  StyledLastestChangesCellTitle,
   StyledLastestChangesElementIcon,
 } from './StyledLatestChanges';
-
-import CategoryIcon from 'assets/icons/category.svg';
-import RegionIcon from 'assets/icons/region.svg';
-import CityIcon from 'assets/icons/city.svg';
-import AttractionIcon from 'assets/icons/attraction.svg';
-import KitchenIcon from 'assets/icons/kitchen.svg';
-import CultureIcon from 'assets/icons/culture.svg';
-import TypesActionHistory from 'types/TypesActionHistory';
 
 interface Props {
   data: TypesActionHistory[];

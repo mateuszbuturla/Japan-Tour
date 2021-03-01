@@ -1,22 +1,21 @@
-import React, { useState, useEffect } from 'react';
 import {
-  Button,
-  Input,
   AdminHeader,
-  StyledAdminTopPanel,
+  Button,
   Form,
+  Input,
+  StyledAdminTopPanel,
   StyledFormInputWrapper,
   StyledInputsContainer,
 } from 'components/common';
-import UploadImage from 'utils/UploadImage';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-
-import Api from 'utils/Api';
-import AddNotification from 'utils/AddNotification';
+import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import TypesApplicationState from 'types/TypesApplicationState';
-import { useSelector } from 'react-redux';
 import TypesElementCategory from 'types/TypesElementCategory';
+import AddNotification from 'utils/AddNotification';
+import Api from 'utils/Api';
+import UploadImage from 'utils/UploadImage';
 
 interface Props {
   title: string;

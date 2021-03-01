@@ -1,17 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import TypesFooterData from 'types/TypesFooterData';
+import TypesFooterDataElement from 'types/TypesFooterDataElement';
+import Api from 'utils/Api';
 import {
   StyledFooter,
   StyledFooterContainer,
+  StyledFooterCopyright,
   StyledFooterList,
   StyledFooterListElement,
-  StyledFooterCopyright,
 } from './StyledFooter';
-import { useSelector } from 'react-redux';
-import TypesFooterData from 'types/TypesFooterData';
-import TypesFooterDataElement from 'types/TypesFooterDataElement';
-import TypesApplicationState from 'types/TypesApplicationState';
-import Api from 'utils/Api';
 
 function Footer() {
   const [footerData, setFooterData] = useState<TypesFooterData[]>([]);
