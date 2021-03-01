@@ -31,12 +31,8 @@ function ItemsList({ api, title, img, header, curstomLocationPathFromProps }: Pr
   const getData = async () => {
     const resItems = await Api.get(`${api}${key ? '/' + key : ''}`);
     setItemsList(resItems.data.items);
-    console.log(resItems);
     if (resItems.data.aboveItems) {
       setAboveItemsList(resItems.data.aboveItems);
-      resItems.data.aboveItems.map((item: any) => {
-        console.log(resItems.data.items.filter((item2: any) => item2.region == item._id));
-      });
       if (
         api === 'attractions/allFromCategory' ||
         api === 'attractions/region' ||

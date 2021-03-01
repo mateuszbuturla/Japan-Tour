@@ -24,7 +24,6 @@ export class AttractionService {
 
   async getHighlightedFromRegion(regionKey: string) {
     const region = await this.regionService.getSingleRegion(regionKey);
-    console.log(region);
     const attractions = await this.attractionModel
       .find({ region: region._id, highlighted: true })
       .exec();

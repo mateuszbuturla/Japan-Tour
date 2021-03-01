@@ -15,9 +15,7 @@ export class ActionHistoryService {
     try {
       const newItem = new this.actionHistoryModel(data);
       await newItem.save();
-    } catch (err) {
-      console.log(err);
-    }
+    } catch (err) {}
   }
 
   async getLatest15ActionHistoryItems() {

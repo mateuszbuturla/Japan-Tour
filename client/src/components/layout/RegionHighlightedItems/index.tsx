@@ -16,7 +16,6 @@ function RegionHighlightedItems({ aboveItemKey }: Props) {
     const resCities = await Api.get(`/cities/highlighted/${aboveItemKey}`);
     setHighlightedCities(resCities.data.items);
     const resAttractions = await Api.get(`/attractions/highlightedFromRegion/${aboveItemKey}`);
-    console.log(resAttractions);
     setHighlightedAttractions(resAttractions.data.items);
   };
 

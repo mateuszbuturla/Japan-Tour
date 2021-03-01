@@ -71,7 +71,6 @@ function AddUpdateCityForm({ title, formType, buttonLabel }: Props) {
 
   const uploadCallback = async (file: any) => {
     const uploadImageRes: any = await UploadImage(file);
-    console.log(uploadImageRes);
     return { data: { link: uploadImageRes.data.data.url } };
   };
 
