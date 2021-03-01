@@ -21,9 +21,10 @@ interface Props {
   title: string;
   img: string;
   header?: string;
+  curstomLocationPathFromProps?: string;
 }
 
-function ItemsList({ api, title, img, header }: Props) {
+function ItemsList({ api, title, img, header, curstomLocationPathFromProps }: Props) {
   const { key } = useParams();
   const [pageTitle, setPageTitle] = useState(title);
   const [itemsList, setItemsList] = useState();
@@ -78,6 +79,9 @@ function ItemsList({ api, title, img, header }: Props) {
   useEffect(() => {
     if (!itemsList) {
       getData();
+    }
+    if (curstomLocationPathFromProps) {
+      setCustomLocationPath(curstomLocationPathFromProps);
     }
   }, []);
 

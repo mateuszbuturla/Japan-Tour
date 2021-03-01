@@ -106,14 +106,34 @@ function Routing() {
       <Route
         path="/kultura"
         component={(props: any) => (
-          <ItemsList {...props} api="cultures" url="/kultura" img={bg} title="Kultura Japonii" />
+          <ItemsList
+            {...props}
+            api="cultures"
+            url="/kultura"
+            img={bg}
+            title="Kultura Japonii"
+            curstomLocationPathFromProps={[
+              { text: 'Strona główna', url: '/' },
+              { text: 'Kultura Japonii' },
+            ]}
+          />
         )}
         exact
       />
       <Route
         path="/kuchnia"
         component={(props: any) => (
-          <ItemsList {...props} api="dishes" url="/kuchnia" img={bg} title="Kuchnia Japonii" />
+          <ItemsList
+            {...props}
+            api="dishes"
+            url="/kuchnia"
+            img={bg}
+            title="Kuchnia Japonii"
+            curstomLocationPathFromProps={[
+              { text: 'Strona główna', url: '/' },
+              { text: 'Kuchnia Japonii' },
+            ]}
+          />
         )}
         exact
       />
@@ -177,6 +197,36 @@ function Routing() {
               { text: 'Atrakcje', url: `/podroze/atrakcje` },
             ]}
             additionalElements={[AttractionsHighlightedItemsFromThisSameCategory]}
+          />
+        )}
+        exact
+      />
+      <Route
+        path="/kultura/:key"
+        component={(props: any) => (
+          <Item
+            {...props}
+            api="cultures"
+            setTitle={setTitle}
+            locationPathElements={[
+              { text: 'Strona główna', url: '/' },
+              { text: 'Kultura Japonii', url: `/kultura` },
+            ]}
+          />
+        )}
+        exact
+      />
+      <Route
+        path="/kuchnia/:key"
+        component={(props: any) => (
+          <Item
+            {...props}
+            api="dishes"
+            setTitle={setTitle}
+            locationPathElements={[
+              { text: 'Strona główna', url: '/' },
+              { text: 'Kuchnia Japonii', url: `/kuchnia` },
+            ]}
           />
         )}
         exact
