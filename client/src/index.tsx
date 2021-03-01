@@ -13,7 +13,7 @@ ReactDOM.render(
     <Provider store={store}>
       <PageHelmet />
       <Theme>
-        <BrowserRouter>
+        <BrowserRouter basename="/">
           <App />
         </BrowserRouter>
       </Theme>
