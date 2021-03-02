@@ -1,5 +1,6 @@
 import userActions from 'actions/user/actions';
 import { Footer, Nav } from 'components/layout';
+import { LoadingScreen } from 'components/common';
 import Routing from 'components/routing';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -34,6 +35,7 @@ function App() {
         pathName[1] !== '' &&
         pathName[1] !== 'admin' &&
         pathName[1] !== 'login' && <Footer />}
+      <LoadingScreen />
     </div>
   );
 }

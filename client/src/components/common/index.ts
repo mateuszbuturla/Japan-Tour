@@ -26,6 +26,7 @@ import StyledMainContentContainer from './StyledMainContentContainer';
 import * as StyledOtherDataEditor from './StyledOtherDataEditor';
 import StyledPageContainer from './StyledPageContainer';
 import StyledSubHeader from './StyledSubHeader';
+import LoadingScreen from './LoadingScreen';
 
 export {
   HomeHeader,
@@ -56,4 +57,5 @@ export {
   RichTextEditor,
   StyledOtherDataEditor,
   ItemsTile,
+  LoadingScreen,
 };

@@ -9,6 +9,7 @@ import {
 import { NotFound } from 'views';
 import { useParams } from 'react-router-dom';
 import Api from 'utils/Api';
+import { LoadingOut, LoadingIn } from 'animations';
 
 interface Props {
   api: string;
@@ -22,6 +23,10 @@ function Item({ api, setTitle, locationPathElements, additionalElements }: Props
   const [item, setItem] = useState();
   const [error, setError] = useState(false);
 
+  if (!item) {
+    LoadingIn();
+  }
+
   const getData = async () => {
     try {
       const res = await Api.get(`${api}/${key}`);
@@ -32,6 +37,7 @@ function Item({ api, setTitle, locationPathElements, additionalElements }: Props
         setError(true);
       }
     }
+    LoadingOut();
   };
 
   useEffect(() => {

@@ -106,13 +106,6 @@ function Nav() {
             ChangePath(history, '/');
           }}
         />
-        <StyledNavLogo
-          src={logo}
-          onClick={() => {
-            onClose();
-            ChangePath(history, '/test');
-          }}
-        />
         <NavDropdown
           title="Regiony"
           data={regions && regions.map((a) => ({ name: a.name, url: `/podroze/regiony/${a.key}` }))}
