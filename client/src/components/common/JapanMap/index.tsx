@@ -69,17 +69,21 @@ function JapanMap() {
           {regions &&
             regions.map((item: any) => (
               <>
-                <StyledSubHeader>{item.name}</StyledSubHeader>
-                <ItemsTile
-                  data={cities
-                    .filter((item2: any) => item2.region == item._id)
-                    .map((item3: TypesCity) => ({
-                      name: item3.name,
-                      img: item3.img,
-                      url: `/podroze/miasta/${item3.key}`,
-                    }))}
-                  showMoreButtonUrl={`/podroze/regiony/${item.key}/miasta`}
-                />
+                {cities.filter((item2: any) => item2.region == item._id).length > 0 && (
+                  <>
+                    <StyledSubHeader>{item.name}</StyledSubHeader>
+                    <ItemsTile
+                      data={cities
+                        .filter((item2: any) => item2.region == item._id)
+                        .map((item3: TypesCity) => ({
+                          name: item3.name,
+                          img: item3.img,
+                          url: `/podroze/miasta/${item3.key}`,
+                        }))}
+                      showMoreButtonUrl={`/podroze/regiony/${item.key}/miasta`}
+                    />
+                  </>
+                )}
               </>
             ))}
         </>
