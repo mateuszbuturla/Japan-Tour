@@ -5,6 +5,12 @@ const StyledPageContainer = styled.div`
   max-width: 1500px;
   margin: 0 auto;
   display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  @media (min-width: 768px) {
+    flex-direction: row;
+  }
 `;
 
 export default StyledPageContainer;

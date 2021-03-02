@@ -19,6 +19,7 @@ const StyledPageHeaderText = styled.h2`
   letter-spacing: 4px;
   font-size: 30px;
   color: ${(props) => props.theme.colors.subPageHeader};
+  text-align: center;
 `;
 
 interface StyledPageHeaderImageProps {

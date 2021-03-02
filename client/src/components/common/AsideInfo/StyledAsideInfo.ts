@@ -1,10 +1,14 @@
 import styled from 'styled-components';
 
 const StyledAside = styled.aside`
-  width: 20%;
-  max-width: 250px;
+  width: 90%;
   padding-top: 50px;
-  margin-left: 30px;
+
+  @media (min-width: 768px) {
+    width: 20%;
+    max-width: 250px;
+    margin-left: 30px;
+  }
 `;
 
 const StyledAsideInfoField = styled.div`
