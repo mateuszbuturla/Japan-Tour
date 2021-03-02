@@ -9,7 +9,7 @@ const titleReducer = (state = INITIAL_STATE, action: any) => {
     case types.SET_TITLE:
       return {
         ...state,
-        title: `Japan Tour | ${action.item}`,
+        title: `Moja Japonia | ${action.item}`,
       };
     default:
       return state;

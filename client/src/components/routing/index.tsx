@@ -9,7 +9,9 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import TypesApplicationState from 'types/TypesApplicationState';
+import Api from 'utils/Api';
 import { Admin, Home, Item, ItemsList, Login, NotFound, Travel } from 'views';
+import Test from './tes';
 
 function Routing() {
   const dispatch = useDispatch();
@@ -18,6 +20,12 @@ function Routing() {
   const setTitle = (value: string) => {
     dispatch(actions.setTitle(value));
   };
+
+  async function fetchMyData(props: any) {
+    const res = await Api.get('/regions');
+    const tt = res;
+    props.text = tt;
+  }
 
   return (
     <Switch>
@@ -28,6 +36,7 @@ function Routing() {
           user !== null ? <Admin {...props} setTitle={setTitle} /> : <Redirect to="/login" />
         }
       />
+      <Route path="/test" component={(props: any) => <Test {...props} preload={fetchMyData} />} />
       <Route
         path="/login"
         component={(props: any) =>

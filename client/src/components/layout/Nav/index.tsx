@@ -1,17 +1,16 @@
-import React, { useCallback, useState, useEffect, useRef } from 'react';
-import { StyledNav, StyledNavLogo, StyledBurgerButton } from './StyledNav';
+import logo from 'assets/LOGO.png';
 import { NavDropdown } from 'components/common';
-import Api from 'utils/Api';
-import TypesRegion from 'types/TypesRegion';
-import TypesCity from 'types/TypesCity';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import TypesAttraction from 'types/TypesAttraction';
+import TypesCity from 'types/TypesCity';
 import TypesCulture from 'types/TypesCulture';
 import TypesDish from 'types/TypesDish';
 import TypesElementCategory from 'types/TypesElementCategory';
+import TypesRegion from 'types/TypesRegion';
+import Api from 'utils/Api';
 import ChangePath from 'utils/ChangePath';
-import { useHistory } from 'react-router-dom';
-
-import logo from 'assets/LOGO.png';
+import { StyledBurgerButton, StyledNav, StyledNavLogo } from './StyledNav';
 
 function Nav() {
   const history = useHistory();
@@ -105,6 +104,13 @@ function Nav() {
           onClick={() => {
             onClose();
             ChangePath(history, '/');
+          }}
+        />
+        <StyledNavLogo
+          src={logo}
+          onClick={() => {
+            onClose();
+            ChangePath(history, '/test');
           }}
         />
         <NavDropdown

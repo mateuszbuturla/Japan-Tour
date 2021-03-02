@@ -3,7 +3,7 @@
  <img width=300px src="logo.png" alt="Project logo"></a>
 </p>
 
-<h3 align="center">Japan Tour</h3>
+<h3 align="center">Moja Japonia</h3>
 
 ---
 
