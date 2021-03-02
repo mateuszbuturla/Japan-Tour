@@ -11,6 +11,7 @@ import CityHighlightedItems from './CityHighlightedItems';
 import Footer from './Footer';
 import Nav from './Nav';
 import RegionHighlightedItems from './RegionHighlightedItems';
+import NewNav from './NewNav';
 
 export {
   Footer,
@@ -26,4 +27,5 @@ export {
   RegionHighlightedItems,
   CityHighlightedItems,
   AttractionsHighlightedItemsFromThisSameCategory,
+  NewNav,
 };

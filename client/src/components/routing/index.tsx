@@ -253,8 +253,8 @@ function Routing() {
         )}
         exact
       />
-      <Route path="/404" component={(props: any) => <NotFound {...props} setTitle={setTitle} />} />
-      <Route component={(props: any) => <NotFound {...props} setTitle={setTitle} />} />
+      {/* <Route path="/404" component={(props: any) => <NotFound {...props} setTitle={setTitle} />} />
+      <Route component={(props: any) => <NotFound {...props} setTitle={setTitle} />} /> */}
     </Switch>
   );
 }

@@ -1,5 +1,5 @@
 import userActions from 'actions/user/actions';
-import { Footer, Nav } from 'components/layout';
+import { Footer, Nav, NewNav } from 'components/layout';
 import { LoadingScreen } from 'components/common';
 import Routing from 'components/routing';
 import React, { useEffect } from 'react';
@@ -30,6 +30,7 @@ function App() {
   return (
     <div className="App">
       <Routing />
+      <NewNav />
       {pathName[1] !== 'admin' && pathName[1] !== 'login' && <Nav />}
       {pathName[1] !== '/' &&
         pathName[1] !== '' &&
