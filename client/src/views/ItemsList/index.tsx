@@ -11,6 +11,7 @@ import TypesAttraction from 'types/TypesAttraction';
 import TypesCity from 'types/TypesCity';
 import TypesRegion from 'types/TypesRegion';
 import Api from 'utils/Api';
+import { LoadingOut, LoadingIn } from 'animations';
 
 interface Props {
   api: string;
@@ -27,6 +28,10 @@ function ItemsList({ api, title, img, header, curstomLocationPathFromProps }: Pr
   const [itemsList, setItemsList] = useState();
   const [aboveItemsList, setAboveItemsList] = useState();
   const [customLocationPath, setCustomLocationPath] = useState();
+
+  if (!itemsList) {
+    LoadingIn();
+  }
 
   const getData = async () => {
     const resItems = await Api.get(`${api}${key ? '/' + key : ''}`);
@@ -82,6 +87,7 @@ function ItemsList({ api, title, img, header, curstomLocationPathFromProps }: Pr
         ]);
       }
     }
+    LoadingOut();
   };
 
   useEffect(() => {
