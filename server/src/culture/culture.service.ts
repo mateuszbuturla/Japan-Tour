@@ -18,14 +18,7 @@ export class CultureService {
 
   async getCultures() {
     const cultures = await this.cultureModel.find().exec();
-    const categories = await this.categoryService.getCategories("cultures");
-    return {
-      items: cultures,
-      aboveItems: categories.map((item) => ({
-        _id: item._id,
-        name: item.name,
-      })),
-    };
+    return cultures;
   }
 
   async getSingleCulture(key: string) {

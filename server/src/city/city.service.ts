@@ -18,31 +18,14 @@ export class CityService {
 
   async getCities() {
     const cities = await this.cityModel.find().exec();
-    const regions = await this.regionService.getRegions();
-    return {
-      aboveItems: regions.items.map((region) => ({
-        _id: region._id,
-        name: region.name,
-      })),
-      items: cities.map((city) => ({
-        _id: city._id,
-        name: city.name,
-        url: city.url,
-        key: city.key,
-        description: city.description,
-        img: city.img,
-        region: city.region,
-        otherData: city.otherData,
-        highlighted: city.highlighted,
-      })),
-    };
+    return cities;
   }
 
   async getHighlightedCities() {
     const cities = await this.cityModel.find({ highlighted: true }).exec();
     const regions = await this.regionService.getRegions();
     return {
-      aboveItems: regions.items.map((region) => ({
+      aboveItems: regions.map((region) => ({
         _id: region._id,
         name: region.name,
         key: region.key,

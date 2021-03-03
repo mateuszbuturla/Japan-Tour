@@ -16,7 +16,7 @@ export class RegionService {
 
   async getRegions() {
     const regions = await this.regionModel.find().exec();
-    return { items: regions };
+    return regions;
   }
 
   async getSingleRegion(key: string) {

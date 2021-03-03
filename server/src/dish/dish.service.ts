@@ -18,14 +18,7 @@ export class DishService {
 
   async getDishes() {
     const dishes = await this.dishModel.find().exec();
-    const categories = await this.categoryService.getCategories("dishes");
-    return {
-      items: dishes,
-      aboveItems: categories.map((item) => ({
-        _id: item._id,
-        name: item.name,
-      })),
-    };
+    return dishes;
   }
 
   async getSingleDish(key: string) {

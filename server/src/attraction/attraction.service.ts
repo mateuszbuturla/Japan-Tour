@@ -36,9 +36,7 @@ export class AttractionService {
     const attractions = await this.attractionModel
       .find({ city: city._id, highlighted: true })
       .exec();
-    return {
-      items: attractions,
-    };
+    return attractions;
   }
 
   async getHighlightedFromCategoryByItemKey(attractionKey: string) {
@@ -71,14 +69,7 @@ export class AttractionService {
 
   async getAllAttractions() {
     const attractions = await this.attractionModel.find().exec();
-    const categories = await this.categoryService.getCategories("attractions");
-    return {
-      items: attractions,
-      aboveItems: categories.map((item) => ({
-        _id: item._id,
-        name: item.name,
-      })),
-    };
+    return attractions;
   }
 
   async getAllAttractionsFromRegion(regionKey: string) {
