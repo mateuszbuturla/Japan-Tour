@@ -19,7 +19,6 @@ const StyledTile = styled(Link)`
   display: block;
   text-decoration: none;
   width: 100%;
-  padding: 10px;
   box-shadow: 0px 0px 16px 1px rgba(0, 0, 0, 0.2);
   box-sizing: border-box;
   margin-top: 20px;
@@ -27,6 +26,9 @@ const StyledTile = styled(Link)`
   transform: scale(1);
   color: #000;
   transition: 0.5s;
+  border-radius: 11px;
+  overflow: hidden;
+  padding-bottom: 30px;
 
   @media (min-width: ${(props) => props.theme.breakPoints.sm}) {
     width: 45%;
@@ -40,7 +42,7 @@ const StyledTile = styled(Link)`
   }
 
   @media (min-width: ${(props) => props.theme.breakPoints.lg}) {
-    width: 23%;
+    width: 250px;
     margin-right: 2%;
   }
 
@@ -56,10 +58,11 @@ const StyledTileImage = styled.img`
 const StyledTitleTypeContainer = styled.div``;
 
 const StyledTileTitle = styled.h4`
-  display: inline;
+  display: block;
   font-weight: bold;
-  font-size: 20px;
-  margin-top: 10px;
+  font-size: 25px;
+  margin-top: 20px;
+  padding: 0px 10px;
 `;
 
 const StyledTileType = styled.p`
@@ -82,7 +85,8 @@ const StyledTileType = styled.p`
 `;
 
 const StyledTileDescription = styled.p`
-  margin-top: 10px;
+  margin-top: 20px;
+  padding: 0px 10px;
 `;
 
 const StyledTilesShowMoreTile = styled(Link)`
