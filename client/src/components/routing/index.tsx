@@ -21,6 +21,8 @@ import {
   RegionsList,
   CitiesList,
   AttractionsList,
+  CulturesList,
+  KitchenList,
 } from 'views';
 
 function Routing() {
@@ -131,6 +133,11 @@ function Routing() {
       /> */}
       <Route
         path="/kultura"
+        component={(props: any) => <CulturesList {...props} setTitle={setTitle} />}
+        exact
+      />
+      {/* <Route
+        path="/kultura"
         component={(props: any) => (
           <ItemsList
             {...props}
@@ -145,8 +152,13 @@ function Routing() {
           />
         )}
         exact
-      />
+      /> */}
       <Route
+        path="/kuchnia"
+        component={(props: any) => <KitchenList {...props} setTitle={setTitle} />}
+        exact
+      />
+      {/* <Route
         path="/kuchnia"
         component={(props: any) => (
           <ItemsList
@@ -162,7 +174,7 @@ function Routing() {
           />
         )}
         exact
-      />
+      /> */}
       <Route
         path="/podroze/kategorie/:key"
         component={(props: any) => (

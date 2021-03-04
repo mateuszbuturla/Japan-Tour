@@ -8,6 +8,8 @@ import Item from './Item';
 import RegionsList from './RegionsList';
 import CitiesList from './CitiesList';
 import AttractionsList from './AttractionsList';
+import CulturesList from './CulturesList';
+import KitchenList from './KitchenList';
 
 export {
   Home,
@@ -20,4 +22,6 @@ export {
   RegionsList,
   CitiesList,
   AttractionsList,
+  CulturesList,
+  KitchenList,
 };
