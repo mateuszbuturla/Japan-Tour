@@ -32,24 +32,6 @@ function App() {
         dispatch(userActions.setUser(res.data));
       } catch (e) {}
     }
-    const tt = await RegionsFetcher();
-    console.log(tt);
-    const tt1 = await RegionsCitiesFetcher();
-    console.log(tt1);
-    const tt2 = await KitchenSimpleFetcher('ewqrewqr');
-    console.log(tt2);
-    const tt3 = await KitchenCategoriesFetcher();
-    console.log(tt3);
-    const tt4 = await CultureSimpleFetcher('ewqrqwrqre');
-    console.log(tt4);
-    const tt5 = await CulturesCategoriesFetcher();
-    console.log(tt5);
-    const tt6 = await CityAttractionsFetcher('tokyo');
-    console.log(tt6);
-    const tt8 = await AttractionSimpleFetcher('rqerqwreq');
-    console.log(tt8);
-    const tt9 = await AttractionsCategoriesFetcher();
-    console.log(tt9);
   };
 
   useEffect(() => {

@@ -10,8 +10,18 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import TypesApplicationState from 'types/TypesApplicationState';
 import Api from 'utils/Api';
-import { Admin, Home, Item, ItemsList, Login, NotFound, Travel } from 'views';
-import Test from './tes';
+import {
+  Admin,
+  Home,
+  Item,
+  ItemsList,
+  Login,
+  NotFound,
+  Travel,
+  RegionsList,
+  CitiesList,
+  AttractionsList,
+} from 'views';
 
 function Routing() {
   const dispatch = useDispatch();
@@ -20,12 +30,6 @@ function Routing() {
   const setTitle = (value: string) => {
     dispatch(actions.setTitle(value));
   };
-
-  async function fetchMyData(props: any) {
-    const res = await Api.get('/regions');
-    const tt = res;
-    props.text = tt;
-  }
 
   return (
     <Switch>
@@ -36,7 +40,6 @@ function Routing() {
           user !== null ? <Admin {...props} setTitle={setTitle} /> : <Redirect to="/login" />
         }
       />
-      <Route path="/test" component={(props: any) => <Test {...props} preload={fetchMyData} />} />
       <Route
         path="/login"
         component={(props: any) =>
@@ -52,11 +55,16 @@ function Routing() {
       />
       <Route
         path="/podroze/regiony"
+        component={(props: any) => <RegionsList {...props} setTitle={setTitle} />}
+        exact
+      />
+      {/* <Route
+        path="/podroze/regiony"
         component={(props: any) => (
           <ItemsList {...props} api="regions" url="/podroze/regions" img={bg} title="Regiony" />
         )}
         exact
-      />
+      /> */}
       <Route
         path="/podroze/regiony/:key/miasta"
         component={(props: any) => (
@@ -87,6 +95,11 @@ function Routing() {
       />
       <Route
         path="/podroze/miasta"
+        component={(props: any) => <CitiesList {...props} setTitle={setTitle} />}
+        exact
+      />
+      {/* <Route
+        path="/podroze/miasta"
         component={(props: any) => (
           <ItemsList
             {...props}
@@ -97,8 +110,13 @@ function Routing() {
           />
         )}
         exact
-      />
+      /> */}
       <Route
+        path="/podroze/atrakcje"
+        component={(props: any) => <AttractionsList {...props} setTitle={setTitle} />}
+        exact
+      />
+      {/* <Route
         path="/podroze/atrakcje"
         component={(props: any) => (
           <ItemsList
@@ -110,7 +128,7 @@ function Routing() {
           />
         )}
         exact
-      />
+      /> */}
       <Route
         path="/kultura"
         component={(props: any) => (

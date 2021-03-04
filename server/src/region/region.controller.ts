@@ -19,8 +19,6 @@ export class RegionController {
 
   @Get()
   async getAllRegions() {
-    await delay(3000);
-
     const regions = await this.RegionService.getRegions();
     return regions;
   }
