@@ -29,6 +29,7 @@ const StyledTile = styled(Link)`
   border-radius: 11px;
   overflow: hidden;
   padding-bottom: 30px;
+  position: relative;
 
   @media (min-width: ${(props) => props.theme.breakPoints.sm}) {
     width: 45%;
@@ -126,6 +127,46 @@ const StyledTilesShowMoreTile = styled(Link)`
   }
 `;
 
+const StyledTileHighlight = styled.div`
+  position: absolute;
+  top: 0;
+  right: 15px;
+  width: 30px;
+  height: 50px;
+  background-color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &:before,
+  &:after {
+    content: '';
+    width: 0;
+    height: 0;
+    border-style: solid;
+    position: absolute;
+    top: 49px;
+  }
+
+  &:before {
+    border-width: 15px 15px 0 0;
+    border-color: #fff transparent transparent transparent;
+    top: 49px;
+    left: 0px;
+  }
+
+  &:after {
+    border-width: 0 15px 15px 0;
+    border-color: transparent #fff transparent transparent;
+    top: 49px;
+    right: 0px;
+  }
+`;
+
+const StyledTileHighlightStar = styled.img`
+  width: 90%;
+`;
+
 export {
   StyledTilesContainer,
   StyledTile,
@@ -135,4 +176,6 @@ export {
   StyledTileType,
   StyledTileDescription,
   StyledTilesShowMoreTile,
+  StyledTileHighlight,
+  StyledTileHighlightStar,
 };

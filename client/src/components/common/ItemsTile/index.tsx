@@ -9,7 +9,11 @@ import {
   StyledTileTitle,
   StyledTileType,
   StyledTitleTypeContainer,
+  StyledTileHighlight,
+  StyledTileHighlightStar,
 } from './StyledItemsTile';
+
+import StarIcon from 'assets/icons/star.svg';
 
 interface Props {
   data: TypesItemTile[];
@@ -28,6 +32,11 @@ function ItemsTile({ data, showMoreButtonUrl }: Props) {
           </StyledTitleTypeContainer>
           {item.shortDescription && (
             <StyledTileDescription>{item.shortDescription}</StyledTileDescription>
+          )}
+          {item.highlighted && (
+            <StyledTileHighlight>
+              <StyledTileHighlightStar src={StarIcon} />
+            </StyledTileHighlight>
           )}
         </StyledTile>
       ))}

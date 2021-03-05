@@ -51,6 +51,7 @@ function RegionsList({ setTitle }: Props) {
                 img: item.img,
                 shortDescription: 'krotki opis regionu',
                 url: `/podroze/regiony/${item.key}`,
+                highlighted: true,
               }))}
             />
           )}

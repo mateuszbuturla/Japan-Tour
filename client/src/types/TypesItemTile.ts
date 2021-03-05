@@ -4,6 +4,7 @@ interface TypesItemTile {
   aboveItem?: string;
   shortDescription?: string;
   url: string;
+  highlighted?: boolean;
 }
 
 export default TypesItemTile;
