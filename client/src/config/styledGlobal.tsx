@@ -47,7 +47,7 @@ const theme = {
   maxWidth: '1500px',
   transition: {
     slow: '0.4s',
-    fast: '0.2s',
+    fast: '0.1s',
   },
 };
 
