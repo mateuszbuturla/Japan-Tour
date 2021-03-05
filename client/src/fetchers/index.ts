@@ -7,6 +7,8 @@ import CulturesCategoriesFetcher from './CulturesCategoriesFetcher';
 import CityAttractionsFetcher from './CityAttractionsFetcher';
 import AttractionSimpleFetcher from './AttractionSimpleFetcher';
 import AttractionsCategoriesFetcher from './AttractionsCategoriesFetcher';
+import RegionSimpleFetcher from './RegionSimpleFetcher';
+import SimpleCityFetcher from './SimpleCityFetcher';
 
 export {
   RegionsFetcher,
@@ -18,4 +20,6 @@ export {
   CityAttractionsFetcher,
   AttractionSimpleFetcher,
   AttractionsCategoriesFetcher,
+  RegionSimpleFetcher,
+  SimpleCityFetcher,
 };
