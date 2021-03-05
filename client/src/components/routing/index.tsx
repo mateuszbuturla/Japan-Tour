@@ -1,10 +1,5 @@
 import actions from 'actions/title/actions';
 import bg from 'assets/regions/chugoku.jpg';
-import {
-  AttractionsHighlightedItemsFromThisSameCategory,
-  CityHighlightedItems,
-  RegionHighlightedItems,
-} from 'components/layout';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect, Route, Switch } from 'react-router-dom';
@@ -13,8 +8,6 @@ import Api from 'utils/Api';
 import {
   Admin,
   Home,
-  Item,
-  ItemsList,
   Login,
   NotFound,
   Travel,

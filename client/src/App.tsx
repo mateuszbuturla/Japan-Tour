@@ -7,17 +7,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import TypesApplicationState from 'types/TypesApplicationState';
 import Api from 'utils/Api';
-import {
-  RegionsFetcher,
-  RegionsCitiesFetcher,
-  KitchenSimpleFetcher,
-  KitchenCategoriesFetcher,
-  CultureSimpleFetcher,
-  CulturesCategoriesFetcher,
-  CityAttractionsFetcher,
-  AttractionSimpleFetcher,
-  AttractionsCategoriesFetcher,
-} from 'fetchers';
 
 function App() {
   const dispatch = useDispatch();
