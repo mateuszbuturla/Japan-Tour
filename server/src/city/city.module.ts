@@ -5,12 +5,14 @@ import { RegionModule } from "../region/region.module";
 import { CityController } from "./city.controller";
 import { CitySchema } from "./city.model";
 import { CityService } from "./city.service";
+import { AttractionModule } from "../attraction/attraction.module";
 
 @Module({
   imports: [
     MongooseModule.forFeature([{ name: "City", schema: CitySchema }]),
     forwardRef(() => ActionHistoryModule),
     forwardRef(() => RegionModule),
+    forwardRef(() => AttractionModule),
   ],
   controllers: [CityController],
   providers: [CityService],

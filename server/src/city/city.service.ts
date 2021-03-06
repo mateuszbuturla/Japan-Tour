@@ -13,6 +13,7 @@ import { ActionHistoryService } from "../actionHistory/actionHistory.service";
 import { RegionService } from "../region/region.service";
 import NormalizeString from "../utils/normalizeString";
 import { City } from "./city.model";
+import { AttractionService } from "../attraction/attraction.service";
 
 @Injectable()
 export class CityService {
@@ -21,7 +22,9 @@ export class CityService {
     @Inject(forwardRef(() => ActionHistoryService))
     private readonly actionHistoryService: ActionHistoryService,
     @Inject(forwardRef(() => RegionService))
-    private readonly regionService: RegionService
+    private readonly regionService: RegionService,
+    @Inject(forwardRef(() => AttractionService))
+    private readonly attractionService: AttractionService
   ) {}
 
   async getCities() {
@@ -52,9 +55,20 @@ export class CityService {
     };
   }
 
-  async getSingleCity(key: string) {
+  async getSingleCity(key: string, withAttractions: boolean) {
     const city = await this.findRegion(key);
-    return city;
+    let attractions = null;
+
+    let res = {
+      city: city,
+    };
+
+    if (withAttractions) {
+      attractions = await this.attractionService.getAllFromCity(key);
+      res["attractions"] = attractions;
+    }
+
+    return res;
   }
 
   private async findRegion(key: string): Promise<City> {

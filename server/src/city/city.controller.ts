@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  DefaultValuePipe,
   Delete,
   Get,
   Param,
@@ -54,9 +55,13 @@ export class CityController {
     return this.CityService.updateCity(key, data, user);
   }
 
-  @Get(":key")
-  getSingleCity(@Param("key") key: string) {
-    return this.CityService.getSingleCity(key);
+  @Get(":key/:withAttractions?")
+  getSingleCity(
+    @Param("key") key: string,
+    @Param("withAttractions", new DefaultValuePipe(false))
+    withAttractions: boolean
+  ) {
+    return this.CityService.getSingleCity(key, withAttractions);
   }
 
   @Get("region/:region")

@@ -44,9 +44,9 @@ export class AttractionService {
   }
 
   async getHighlightedFromCity(cityKey: string) {
-    const city = await this.cityService.getSingleCity(cityKey);
+    const city = await this.cityService.getSingleCity(cityKey, false);
     const attractions = await this.attractionModel
-      .find({ city: city._id, highlighted: true })
+      .find({ city: city.city._id, highlighted: true })
       .exec();
     return attractions;
   }
@@ -112,20 +112,11 @@ export class AttractionService {
   }
 
   async getAllFromCity(cityKey: string) {
-    const city = await this.cityService.getSingleCity(cityKey);
+    const city = await this.cityService.getSingleCity(cityKey, false);
     const attractions = await this.attractionModel
-      .find({ city: city._id })
+      .find({ city: city.city._id })
       .exec();
-    return {
-      aboveItems: [
-        {
-          _id: city._id,
-          name: city.name,
-          key: city.key,
-        },
-      ],
-      items: attractions,
-    };
+    return attractions;
   }
 
   async getSingleAttraction(key: string) {
