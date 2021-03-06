@@ -1,4 +1,10 @@
-import { HttpException, Injectable, NotFoundException } from "@nestjs/common";
+import {
+  forwardRef,
+  HttpException,
+  Inject,
+  Injectable,
+  NotFoundException,
+} from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { Model } from "mongoose";
 import { User } from "src/interface/User";
@@ -12,7 +18,9 @@ import { City } from "./city.model";
 export class CityService {
   constructor(
     @InjectModel("City") private readonly cityModel: Model<City>,
+    @Inject(forwardRef(() => ActionHistoryService))
     private readonly actionHistoryService: ActionHistoryService,
+    @Inject(forwardRef(() => RegionService))
     private readonly regionService: RegionService
   ) {}
 
@@ -166,9 +174,13 @@ export class CityService {
   }
 
   async getHighlightedFromRegion(regionKey: string) {
-    const region = await this.regionService.getSingleRegion(regionKey);
+    const region = await this.regionService.getSingleRegion(
+      regionKey,
+      false,
+      false
+    );
     const cities = await this.cityModel
-      .find({ region: region._id, highlighted: true })
+      .find({ region: region.region._id, highlighted: true })
       .exec();
     return {
       items: cities,
@@ -176,17 +188,14 @@ export class CityService {
   }
 
   async getFromRegion(regionKey: string) {
-    const region = await this.regionService.getSingleRegion(regionKey);
-    const cities = await this.cityModel.find({ region: region._id }).exec();
-    return {
-      aboveItems: [
-        {
-          _id: region._id,
-          name: region.name,
-          key: region.key,
-        },
-      ],
-      items: cities,
-    };
+    const region = await this.regionService.getSingleRegion(
+      regionKey,
+      false,
+      false
+    );
+    const cities = await this.cityModel
+      .find({ region: region.region._id })
+      .exec();
+    return cities;
   }
 }

@@ -1,4 +1,10 @@
-import { HttpException, Injectable, NotFoundException } from "@nestjs/common";
+import {
+  forwardRef,
+  HttpException,
+  Inject,
+  Injectable,
+  NotFoundException,
+} from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { Model } from "mongoose";
 import { User } from "src/interface/User";
@@ -15,20 +21,26 @@ export class AttractionService {
   constructor(
     @InjectModel("Attraction")
     private readonly attractionModel: Model<Attraction>,
+    @Inject(forwardRef(() => ActionHistoryService))
     private readonly actionHistoryService: ActionHistoryService,
+    @Inject(forwardRef(() => CategoryService))
     private readonly categoryService: CategoryService,
+    @Inject(forwardRef(() => RegionService))
     private readonly regionService: RegionService,
+    @Inject(forwardRef(() => CityService))
     private readonly cityService: CityService
   ) {}
 
   async getHighlightedFromRegion(regionKey: string) {
-    const region = await this.regionService.getSingleRegion(regionKey);
+    const region = await this.regionService.getSingleRegion(
+      regionKey,
+      false,
+      false
+    );
     const attractions = await this.attractionModel
-      .find({ region: region._id, highlighted: true })
+      .find({ region: region.region._id })
       .exec();
-    return {
-      items: attractions,
-    };
+    return attractions;
   }
 
   async getHighlightedFromCity(cityKey: string) {
@@ -73,20 +85,15 @@ export class AttractionService {
   }
 
   async getAllAttractionsFromRegion(regionKey: string) {
-    const region = await this.regionService.getSingleRegion(regionKey);
+    const region = await this.regionService.getSingleRegion(
+      regionKey,
+      false,
+      false
+    );
     const attractions = await this.attractionModel
-      .find({ region: region._id })
+      .find({ region: region.region._id })
       .exec();
-    return {
-      items: attractions,
-      aboveItems: [
-        {
-          _id: region._id,
-          name: region.name,
-          key: region.key,
-        },
-      ],
-    };
+    return attractions;
   }
 
   async getAllHighlightedAttractions() {

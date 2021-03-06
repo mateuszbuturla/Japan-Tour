@@ -1,4 +1,4 @@
-import { Module } from "@nestjs/common";
+import { forwardRef, Module } from "@nestjs/common";
 import { MongooseModule } from "@nestjs/mongoose";
 import { ActionHistoryModule } from "../actionHistory/actionHistory.module";
 import { RegionModule } from "../region/region.module";
@@ -9,8 +9,8 @@ import { CityService } from "./city.service";
 @Module({
   imports: [
     MongooseModule.forFeature([{ name: "City", schema: CitySchema }]),
-    ActionHistoryModule,
-    RegionModule,
+    forwardRef(() => ActionHistoryModule),
+    forwardRef(() => RegionModule),
   ],
   controllers: [CityController],
   providers: [CityService],

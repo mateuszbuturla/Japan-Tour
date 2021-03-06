@@ -1,9 +1,17 @@
-import { HttpException, Injectable, NotFoundException } from "@nestjs/common";
+import {
+  forwardRef,
+  HttpException,
+  Inject,
+  Injectable,
+  NotFoundException,
+} from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { Model } from "mongoose";
 import { User } from "src/interface/User";
 import { isNull } from "util";
 import { ActionHistoryService } from "../actionHistory/actionHistory.service";
+import { CityService } from "../city/city.service";
+import { AttractionService } from "../attraction/attraction.service";
 import NormalizeString from "../utils/normalizeString";
 import { Region } from "./region.model";
 
@@ -11,7 +19,11 @@ import { Region } from "./region.model";
 export class RegionService {
   constructor(
     @InjectModel("Region") private readonly regionModel: Model<Region>,
-    private readonly actionHistoryService: ActionHistoryService
+    private readonly actionHistoryService: ActionHistoryService,
+    @Inject(forwardRef(() => CityService))
+    private readonly cityService: CityService,
+    @Inject(forwardRef(() => AttractionService))
+    private readonly attractionService: AttractionService
   ) {}
 
   async getRegions() {
@@ -19,9 +31,37 @@ export class RegionService {
     return regions;
   }
 
-  async getSingleRegion(key: string) {
+  async getSingleRegion(
+    key: string,
+    withCities: boolean,
+    withAttractions: boolean
+  ) {
     const region = await this.findRegion(key);
-    return region;
+    let cities = null;
+    let attractions = null;
+    if (withCities) {
+      cities = await this.cityService.getFromRegion(key);
+    }
+
+    if (withAttractions) {
+      attractions = await this.attractionService.getAllAttractionsFromRegion(
+        key
+      );
+    }
+
+    let res = {
+      region,
+    };
+
+    if (withCities) {
+      res["cities"] = cities;
+    }
+
+    if (withAttractions) {
+      res["attractions"] = attractions;
+    }
+
+    return res;
   }
 
   async createRegion(data: Region, user: User) {
