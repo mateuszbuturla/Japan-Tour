@@ -79,6 +79,13 @@ export class AttractionService {
     };
   }
 
+  async getAllAttractionsFromCategoryById(id: string) {
+    const attractions = await this.attractionModel
+      .find({ category: id })
+      .exec();
+    return attractions;
+  }
+
   async getAllAttractions() {
     const attractions = await this.attractionModel.find().exec();
     return attractions;
@@ -119,9 +126,21 @@ export class AttractionService {
     return attractions;
   }
 
-  async getSingleAttraction(key: string) {
+  async getSingleAttraction(key: string, withSimilary: boolean) {
     const attraction = await this.findAttraction(key);
-    return attraction;
+
+    let res = {
+      attraction,
+    };
+
+    if (withSimilary) {
+      const similaryAttraction = await this.getAllAttractionsFromCategoryById(
+        attraction.category
+      );
+      res["similaryAttractions"] = similaryAttraction;
+    }
+
+    return res;
   }
 
   private async findAttraction(key: string): Promise<Attraction> {

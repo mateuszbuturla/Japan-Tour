@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  DefaultValuePipe,
   Delete,
   Get,
   Param,
@@ -86,9 +87,12 @@ export class AttractionController {
     return attractions;
   }
 
-  @Get(":key")
-  getSingleAttraction(@Param("key") key: string) {
-    return this.AttractionService.getSingleAttraction(key);
+  @Get(":key/:withSimilary?")
+  getSingleAttraction(
+    @Param("key") key: string,
+    @Param("withSimilary", new DefaultValuePipe(false)) withSimilary: boolean
+  ) {
+    return this.AttractionService.getSingleAttraction(key, withSimilary);
   }
 
   @Get("/region/:region")
