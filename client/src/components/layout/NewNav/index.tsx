@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   StyledNav,
   StyledNavLinkList,
@@ -15,14 +15,40 @@ import {
 } from './StyledNav';
 import ChangePath from 'utils/ChangePath';
 import { useHistory } from 'react-router-dom';
+import { CategoriesFetcher } from 'fetchers';
+import TypesElementCategory from 'types/TypesElementCategory';
 
 function NewNav() {
   const history = useHistory();
   const [dropDownIsHover, setDropDownIsHover] = useState<boolean>(false);
+  const [fetchedData, setFetchedData] = useState(false);
+  const [categoriesAttractions, setCategoriesAttractions] = useState();
+  const [categoriesCulture, setCategoriesCulture] = useState();
+  const [categoriesKitchen, setCategoriesKitchen] = useState();
 
   const Redirect = (url: string) => {
     ChangePath(history, url);
   };
+
+  const getData = async () => {
+    const resCategories = await CategoriesFetcher();
+    setCategoriesAttractions(
+      resCategories.filter((item: TypesElementCategory) => item.section === 'attractions'),
+    );
+    setCategoriesCulture(
+      resCategories.filter((item: TypesElementCategory) => item.section === 'cultures'),
+    );
+    setCategoriesKitchen(
+      resCategories.filter((item: TypesElementCategory) => item.section === 'dishes'),
+    );
+    setFetchedData(true);
+  };
+
+  useEffect(() => {
+    if (!fetchedData) {
+      getData();
+    }
+  });
 
   return (
     <>
@@ -285,7 +311,17 @@ function NewNav() {
                 </StyledNavDropDownItem>
                 <StyledNavDropDownItem>
                   <a>Atrakcje</a>
-                  <StyledNavSubDropDown></StyledNavSubDropDown>
+                  <StyledNavSubDropDown>
+                    {categoriesAttractions &&
+                      categoriesAttractions.map((item: TypesElementCategory, index: number) => (
+                        <StyledNavSubDropDownItem
+                          onClick={() => Redirect(`/podroze/${item.key}`)}
+                          key={index}
+                        >
+                          {item.name}
+                        </StyledNavSubDropDownItem>
+                      ))}
+                  </StyledNavSubDropDown>
                   <StyledNavBlancSpace height="280px" />
                 </StyledNavDropDownItem>
               </StyledNavDropDownWrapper>

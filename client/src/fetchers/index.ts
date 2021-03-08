@@ -9,6 +9,7 @@ import AttractionSimpleFetcher from './AttractionSimpleFetcher';
 import AttractionsCategoriesFetcher from './AttractionsCategoriesFetcher';
 import RegionSimpleFetcher from './RegionSimpleFetcher';
 import SimpleCityFetcher from './SimpleCityFetcher';
+import CategoriesFetcher from './CategoriesFetcher';
 
 export {
   RegionsFetcher,
@@ -22,4 +23,5 @@ export {
   AttractionsCategoriesFetcher,
   RegionSimpleFetcher,
   SimpleCityFetcher,
+  CategoriesFetcher,
 };

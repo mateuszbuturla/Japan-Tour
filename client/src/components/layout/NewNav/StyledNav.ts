@@ -6,6 +6,7 @@ interface StyledNavProps {
 }
 
 const StyledNav = styled.nav<StyledNavProps>`
+  display: none;
   position: absolute;
   top: 0;
   left: 0;
@@ -17,6 +18,10 @@ const StyledNav = styled.nav<StyledNavProps>`
   border-bottom: ${(props) => (props.dropDownIsHover ? '1px solid rgba(0,0,0,0.2)' : 'none')};
   box-sizing: border-box;
   color: ${(props) => (props.dropDownIsHover ? '#000' : '#fff')};
+
+  @media (min-width: 1200px) {
+    display: block;
+  }
 `;
 
 const StyledNavLinkList = styled.ul`
