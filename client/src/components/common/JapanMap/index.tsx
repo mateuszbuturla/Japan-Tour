@@ -8,14 +8,14 @@ import ChangePath from 'utils/ChangePath';
 import { StyledJapanMap } from './StyledJapanMap';
 import { LoadingOut, LoadingIn } from 'animations';
 
-function JapanMap() {
-  const history = useHistory();
-  const [regions, setRegions] = useState();
-  const [cities, setCities] = useState();
+interface Props {
+  data: any;
+}
 
-  if (!regions || !cities) {
-    LoadingIn();
-  }
+function JapanMap({ data }: Props) {
+  const history = useHistory();
+  const regions = data.regions;
+  const cities = data.cities;
 
   const setRegionClickEvent = (regions: TypesRegion[]) => {
     const regionsFromSvg = document.querySelectorAll('.japanMap__region');
@@ -45,19 +45,9 @@ function JapanMap() {
     });
   };
 
-  const getData = async () => {
-    let resCities = await Api.get('/cities');
-    setSityClickEvent(resCities.data.items);
-    setCities(resCities.data.items);
-
-    let resRegions = await Api.get('/regions');
-    setRegionClickEvent(resRegions.data.items);
-    setRegions(resRegions.data.items);
-    LoadingOut();
-  };
-
   useEffect(() => {
-    getData();
+    setSityClickEvent(cities);
+    setRegionClickEvent(regions);
   }, []);
 
   return (

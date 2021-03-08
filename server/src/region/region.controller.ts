@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  DefaultValuePipe,
   Get,
   Param,
   Patch,
@@ -8,11 +9,12 @@ import {
   UseGuards,
 } from "@nestjs/common";
 import { AuthGuard } from "@nestjs/passport";
-import * as delay from "delay";
 import { UserObj } from "../decorators/user-obj.decorator";
 import { User } from "../interface/user";
 import { Region } from "./region.model";
 import { RegionService } from "./region.service";
+import { CityService } from "../city/city.service";
+
 @Controller("/api/regions")
 export class RegionController {
   constructor(private readonly RegionService: RegionService) {}
@@ -39,8 +41,13 @@ export class RegionController {
     return this.RegionService.updateRegion(key, data, user);
   }
 
-  @Get(":key")
-  getSingleRegion(@Param("key") key: string) {
-    return this.RegionService.getSingleRegion(key);
+  @Get(":key/:withCities?/:withAttractions?")
+  getSingleRegion(
+    @Param("key") key: string,
+    @Param("withCities", new DefaultValuePipe(false)) withCities: boolean,
+    @Param("withAttractions", new DefaultValuePipe(false))
+    withAttractions: boolean
+  ) {
+    return this.RegionService.getSingleRegion(key, withCities, withAttractions);
   }
 }

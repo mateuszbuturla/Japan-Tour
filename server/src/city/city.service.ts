@@ -1,4 +1,10 @@
-import { HttpException, Injectable, NotFoundException } from "@nestjs/common";
+import {
+  forwardRef,
+  HttpException,
+  Inject,
+  Injectable,
+  NotFoundException,
+} from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { Model } from "mongoose";
 import { User } from "src/interface/User";
@@ -7,13 +13,18 @@ import { ActionHistoryService } from "../actionHistory/actionHistory.service";
 import { RegionService } from "../region/region.service";
 import NormalizeString from "../utils/normalizeString";
 import { City } from "./city.model";
+import { AttractionService } from "../attraction/attraction.service";
 
 @Injectable()
 export class CityService {
   constructor(
     @InjectModel("City") private readonly cityModel: Model<City>,
+    @Inject(forwardRef(() => ActionHistoryService))
     private readonly actionHistoryService: ActionHistoryService,
-    private readonly regionService: RegionService
+    @Inject(forwardRef(() => RegionService))
+    private readonly regionService: RegionService,
+    @Inject(forwardRef(() => AttractionService))
+    private readonly attractionService: AttractionService
   ) {}
 
   async getCities() {
@@ -44,9 +55,20 @@ export class CityService {
     };
   }
 
-  async getSingleCity(key: string) {
+  async getSingleCity(key: string, withAttractions: boolean) {
     const city = await this.findRegion(key);
-    return city;
+    let attractions = null;
+
+    let res = {
+      city: city,
+    };
+
+    if (withAttractions) {
+      attractions = await this.attractionService.getAllFromCity(key);
+      res["attractions"] = attractions;
+    }
+
+    return res;
   }
 
   private async findRegion(key: string): Promise<City> {
@@ -166,9 +188,13 @@ export class CityService {
   }
 
   async getHighlightedFromRegion(regionKey: string) {
-    const region = await this.regionService.getSingleRegion(regionKey);
+    const region = await this.regionService.getSingleRegion(
+      regionKey,
+      false,
+      false
+    );
     const cities = await this.cityModel
-      .find({ region: region._id, highlighted: true })
+      .find({ region: region.region._id, highlighted: true })
       .exec();
     return {
       items: cities,
@@ -176,17 +202,14 @@ export class CityService {
   }
 
   async getFromRegion(regionKey: string) {
-    const region = await this.regionService.getSingleRegion(regionKey);
-    const cities = await this.cityModel.find({ region: region._id }).exec();
-    return {
-      aboveItems: [
-        {
-          _id: region._id,
-          name: region.name,
-          key: region.key,
-        },
-      ],
-      items: cities,
-    };
+    const region = await this.regionService.getSingleRegion(
+      regionKey,
+      false,
+      false
+    );
+    const cities = await this.cityModel
+      .find({ region: region.region._id })
+      .exec();
+    return cities;
   }
 }

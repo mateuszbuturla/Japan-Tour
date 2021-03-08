@@ -1,4 +1,10 @@
-import { HttpException, Injectable, NotFoundException } from "@nestjs/common";
+import {
+  forwardRef,
+  HttpException,
+  Inject,
+  Injectable,
+  NotFoundException,
+} from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { Model } from "mongoose";
 import { User } from "src/interface/User";
@@ -15,26 +21,32 @@ export class AttractionService {
   constructor(
     @InjectModel("Attraction")
     private readonly attractionModel: Model<Attraction>,
+    @Inject(forwardRef(() => ActionHistoryService))
     private readonly actionHistoryService: ActionHistoryService,
+    @Inject(forwardRef(() => CategoryService))
     private readonly categoryService: CategoryService,
+    @Inject(forwardRef(() => RegionService))
     private readonly regionService: RegionService,
+    @Inject(forwardRef(() => CityService))
     private readonly cityService: CityService
   ) {}
 
   async getHighlightedFromRegion(regionKey: string) {
-    const region = await this.regionService.getSingleRegion(regionKey);
+    const region = await this.regionService.getSingleRegion(
+      regionKey,
+      false,
+      false
+    );
     const attractions = await this.attractionModel
-      .find({ region: region._id, highlighted: true })
+      .find({ region: region.region._id })
       .exec();
-    return {
-      items: attractions,
-    };
+    return attractions;
   }
 
   async getHighlightedFromCity(cityKey: string) {
-    const city = await this.cityService.getSingleCity(cityKey);
+    const city = await this.cityService.getSingleCity(cityKey, false);
     const attractions = await this.attractionModel
-      .find({ city: city._id, highlighted: true })
+      .find({ city: city.city._id, highlighted: true })
       .exec();
     return attractions;
   }
@@ -67,26 +79,28 @@ export class AttractionService {
     };
   }
 
+  async getAllAttractionsFromCategoryById(id: string) {
+    const attractions = await this.attractionModel
+      .find({ category: id })
+      .exec();
+    return attractions;
+  }
+
   async getAllAttractions() {
     const attractions = await this.attractionModel.find().exec();
     return attractions;
   }
 
   async getAllAttractionsFromRegion(regionKey: string) {
-    const region = await this.regionService.getSingleRegion(regionKey);
+    const region = await this.regionService.getSingleRegion(
+      regionKey,
+      false,
+      false
+    );
     const attractions = await this.attractionModel
-      .find({ region: region._id })
+      .find({ region: region.region._id })
       .exec();
-    return {
-      items: attractions,
-      aboveItems: [
-        {
-          _id: region._id,
-          name: region.name,
-          key: region.key,
-        },
-      ],
-    };
+    return attractions;
   }
 
   async getAllHighlightedAttractions() {
@@ -105,25 +119,28 @@ export class AttractionService {
   }
 
   async getAllFromCity(cityKey: string) {
-    const city = await this.cityService.getSingleCity(cityKey);
+    const city = await this.cityService.getSingleCity(cityKey, false);
     const attractions = await this.attractionModel
-      .find({ city: city._id })
+      .find({ city: city.city._id })
       .exec();
-    return {
-      aboveItems: [
-        {
-          _id: city._id,
-          name: city.name,
-          key: city.key,
-        },
-      ],
-      items: attractions,
-    };
+    return attractions;
   }
 
-  async getSingleAttraction(key: string) {
+  async getSingleAttraction(key: string, withSimilary: boolean) {
     const attraction = await this.findAttraction(key);
-    return attraction;
+
+    let res = {
+      attraction,
+    };
+
+    if (withSimilary) {
+      const similaryAttraction = await this.getAllAttractionsFromCategoryById(
+        attraction.category
+      );
+      res["similaryAttractions"] = similaryAttraction;
+    }
+
+    return res;
   }
 
   private async findAttraction(key: string): Promise<Attraction> {
