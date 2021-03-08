@@ -2,12 +2,16 @@ import React, { useEffect, useState } from 'react';
 import {
   AsideInfo,
   ItemDescription,
+  ItemsTile,
   PageHeader,
   StyledMainContentContainer,
   StyledPageContainer,
+  StyledSubHeader,
 } from 'components/common';
 import { useParams } from 'react-router-dom';
 import { RegionSimpleFetcher } from 'fetchers';
+import TypesCity from 'types/TypesCity';
+import TypesAttraction from 'types/TypesAttraction';
 
 interface Props {
   setTitle: (value: string) => void;
@@ -16,10 +20,14 @@ interface Props {
 function Region({ setTitle }: Props) {
   const { key } = useParams();
   const [region, setRegion] = useState();
+  const [cities, setCities] = useState();
+  const [attractions, setAttractions] = useState();
 
   const getData = async () => {
-    const resRegion = await RegionSimpleFetcher(key);
-    setRegion(resRegion);
+    const resRegion = await RegionSimpleFetcher(key, true, true);
+    setRegion(resRegion.region);
+    setCities(resRegion.cities);
+    setAttractions(resRegion.attractions);
   };
 
   useEffect(() => {
@@ -51,7 +59,36 @@ function Region({ setTitle }: Props) {
         <AsideInfo data={region.otherData} />
       </StyledPageContainer>
       <StyledPageContainer>
-        <StyledMainContentContainer></StyledMainContentContainer>
+        <StyledMainContentContainer>
+          {cities && (
+            <>
+              <StyledSubHeader>Miasta</StyledSubHeader>
+              <ItemsTile
+                data={cities.map((item: TypesCity) => ({
+                  name: item.name,
+                  img: item.img,
+                  shortDescription: 'krotki opis miasta',
+                  url: `/podroze/miasta/${item.key}`,
+                  highlighted: true,
+                }))}
+              />
+            </>
+          )}
+          {attractions && (
+            <>
+              <StyledSubHeader>Atrakcje</StyledSubHeader>
+              <ItemsTile
+                data={attractions.map((item: TypesAttraction) => ({
+                  name: item.name,
+                  img: item.img,
+                  shortDescription: item.shortDescription,
+                  url: `/podroze/atrakcje/${item.key}`,
+                  highlighted: item.highlighted,
+                }))}
+              />
+            </>
+          )}
+        </StyledMainContentContainer>
       </StyledPageContainer>
     </>
   );
