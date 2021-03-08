@@ -70,7 +70,6 @@ function JapanMap({ data }: Props) {
                           img: item3.img,
                           url: `/podroze/miasta/${item3.key}`,
                         }))}
-                      showMoreButtonUrl={`/podroze/regiony/${item.key}/miasta`}
                     />
                   </>
                 )}
