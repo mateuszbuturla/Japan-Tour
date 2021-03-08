@@ -13,22 +13,29 @@ import {
   StyledNavSubDropDownHeader,
   StyledNavSubDropDownItem,
 } from './StyledNav';
+import ChangePath from 'utils/ChangePath';
+import { useHistory } from 'react-router-dom';
 
 function NewNav() {
+  const history = useHistory();
   const [dropDownIsHover, setDropDownIsHover] = useState<boolean>(false);
+
+  const Redirect = (url: string) => {
+    ChangePath(history, url);
+  };
 
   return (
     <>
       <StyledNav dropDownIsHover={dropDownIsHover}>
         <StyledNavLinkList>
           <StyledNavLink>
-            <StyledNavLinkLabel>sdasdsad</StyledNavLinkLabel>
+            <StyledNavLinkLabel onClick={() => Redirect('/')}>Strona główna</StyledNavLinkLabel>
           </StyledNavLink>
           <StyledNavLink
             onMouseEnter={() => setDropDownIsHover(true)}
             onMouseLeave={() => setDropDownIsHover(false)}
           >
-            <StyledNavLinkLabel>Podróże</StyledNavLinkLabel>
+            <StyledNavLinkLabel onClick={() => Redirect('/podroze')}>Podróże</StyledNavLinkLabel>
             <StyledNavDropDown>
               <StyledNavDropDownWrapper>
                 <StyledNavDropDownHeader>
@@ -37,75 +44,243 @@ function NewNav() {
                 <StyledNavDropDownItem>
                   <a>Regiony</a>
                   <StyledNavSubDropDown>
-                    <StyledNavSubDropDownItem>Hokkaidō</StyledNavSubDropDownItem>
-                    <StyledNavSubDropDownItem>Tōhoku</StyledNavSubDropDownItem>
-                    <StyledNavSubDropDownItem>Kantō</StyledNavSubDropDownItem>
-                    <StyledNavSubDropDownItem>Chūbu</StyledNavSubDropDownItem>
-                    <StyledNavSubDropDownItem>Kansai</StyledNavSubDropDownItem>
-                    <StyledNavSubDropDownItem>Chūgoku</StyledNavSubDropDownItem>
-                    <StyledNavSubDropDownItem>Shikoku</StyledNavSubDropDownItem>
-                    <StyledNavSubDropDownItem>Kyūshū</StyledNavSubDropDownItem>
-                    <StyledNavSubDropDownItem>Okinawa</StyledNavSubDropDownItem>
+                    <StyledNavSubDropDownItem onClick={() => Redirect('/podroze/regiony/hokkaido')}>
+                      Hokkaidō
+                    </StyledNavSubDropDownItem>
+                    <StyledNavSubDropDownItem onClick={() => Redirect('/podroze/regiony/tohoku')}>
+                      Tōhoku
+                    </StyledNavSubDropDownItem>
+                    <StyledNavSubDropDownItem onClick={() => Redirect('/podroze/regiony/kanto')}>
+                      Kantō
+                    </StyledNavSubDropDownItem>
+                    <StyledNavSubDropDownItem onClick={() => Redirect('/podroze/regiony/chubu')}>
+                      Chūbu
+                    </StyledNavSubDropDownItem>
+                    <StyledNavSubDropDownItem onClick={() => Redirect('/podroze/regiony/kansai')}>
+                      Kansai
+                    </StyledNavSubDropDownItem>
+                    <StyledNavSubDropDownItem onClick={() => Redirect('/podroze/regiony/chugoku')}>
+                      Chūgoku
+                    </StyledNavSubDropDownItem>
+                    <StyledNavSubDropDownItem onClick={() => Redirect('/podroze/regiony/shikoku')}>
+                      Shikoku
+                    </StyledNavSubDropDownItem>
+                    <StyledNavSubDropDownItem onClick={() => Redirect('/podroze/regiony/kyushu')}>
+                      Kyūshū
+                    </StyledNavSubDropDownItem>
+                    <StyledNavSubDropDownItem onClick={() => Redirect('/podroze/regiony/okinawa')}>
+                      Okinawa
+                    </StyledNavSubDropDownItem>
                   </StyledNavSubDropDown>
                 </StyledNavDropDownItem>
                 <StyledNavDropDownItem>
                   <a>Prefektury</a>
                   <StyledNavSubDropDown>
                     <StyledNavSubDropDownHeader>Hokkaidō</StyledNavSubDropDownHeader>
-                    <StyledNavSubDropDownItem>Hokkaidō</StyledNavSubDropDownItem>
+                    <StyledNavSubDropDownItem
+                      onClick={() => Redirect('/podroze/prefektury/hokkaido')}
+                    >
+                      Hokkaidō
+                    </StyledNavSubDropDownItem>
                     <StyledNavSubDropDownHeader>Tōhoku</StyledNavSubDropDownHeader>
-                    <StyledNavSubDropDownItem>Aomori</StyledNavSubDropDownItem>
-                    <StyledNavSubDropDownItem>Iwate</StyledNavSubDropDownItem>
-                    <StyledNavSubDropDownItem>Miyagi</StyledNavSubDropDownItem>
-                    <StyledNavSubDropDownItem>Akita</StyledNavSubDropDownItem>
-                    <StyledNavSubDropDownItem>Yamagata</StyledNavSubDropDownItem>
-                    <StyledNavSubDropDownItem>Fukushima</StyledNavSubDropDownItem>
+                    <StyledNavSubDropDownItem
+                      onClick={() => Redirect('/podroze/prefektury/aomori')}
+                    >
+                      Aomori
+                    </StyledNavSubDropDownItem>
+                    <StyledNavSubDropDownItem onClick={() => Redirect('/podroze/prefektury/iwate')}>
+                      Iwate
+                    </StyledNavSubDropDownItem>
+                    <StyledNavSubDropDownItem
+                      onClick={() => Redirect('/podroze/prefektury/miyagi')}
+                    >
+                      Miyagi
+                    </StyledNavSubDropDownItem>
+                    <StyledNavSubDropDownItem onClick={() => Redirect('/podroze/prefektury/akita')}>
+                      Akita
+                    </StyledNavSubDropDownItem>
+                    <StyledNavSubDropDownItem
+                      onClick={() => Redirect('/podroze/prefektury/yamagata')}
+                    >
+                      Yamagata
+                    </StyledNavSubDropDownItem>
+                    <StyledNavSubDropDownItem
+                      onClick={() => Redirect('/podroze/prefektury/fukushima')}
+                    >
+                      Fukushima
+                    </StyledNavSubDropDownItem>
                     <StyledNavSubDropDownHeader>Kantō</StyledNavSubDropDownHeader>
-                    <StyledNavSubDropDownItem>Ibaraki</StyledNavSubDropDownItem>
-                    <StyledNavSubDropDownItem>Tochigi</StyledNavSubDropDownItem>
-                    <StyledNavSubDropDownItem>Gunma</StyledNavSubDropDownItem>
-                    <StyledNavSubDropDownItem>Saitama</StyledNavSubDropDownItem>
-                    <StyledNavSubDropDownItem>Chibi</StyledNavSubDropDownItem>
-                    <StyledNavSubDropDownItem>Tokyo</StyledNavSubDropDownItem>
-                    <StyledNavSubDropDownItem>Kanagawa</StyledNavSubDropDownItem>
+                    <StyledNavSubDropDownItem
+                      onClick={() => Redirect('/podroze/prefektury/ibaarki')}
+                    >
+                      Ibaraki
+                    </StyledNavSubDropDownItem>
+                    <StyledNavSubDropDownItem
+                      onClick={() => Redirect('/podroze/prefektury/tochigi')}
+                    >
+                      Tochigi
+                    </StyledNavSubDropDownItem>
+                    <StyledNavSubDropDownItem onClick={() => Redirect('/podroze/prefektury/gunma')}>
+                      Gunma
+                    </StyledNavSubDropDownItem>
+                    <StyledNavSubDropDownItem
+                      onClick={() => Redirect('/podroze/prefektury/saitama')}
+                    >
+                      Saitama
+                    </StyledNavSubDropDownItem>
+                    <StyledNavSubDropDownItem onClick={() => Redirect('/podroze/prefektury/chibi')}>
+                      Chibi
+                    </StyledNavSubDropDownItem>
+                    <StyledNavSubDropDownItem onClick={() => Redirect('/podroze/prefektury/tokyo')}>
+                      Tokyo
+                    </StyledNavSubDropDownItem>
+                    <StyledNavSubDropDownItem
+                      onClick={() => Redirect('/podroze/prefektury/kanagawa')}
+                    >
+                      Kanagawa
+                    </StyledNavSubDropDownItem>
                     <StyledNavSubDropDownHeader>Chūbu</StyledNavSubDropDownHeader>
-                    <StyledNavSubDropDownItem>Niigata</StyledNavSubDropDownItem>
-                    <StyledNavSubDropDownItem>Toyama</StyledNavSubDropDownItem>
-                    <StyledNavSubDropDownItem>Ishikawa</StyledNavSubDropDownItem>
-                    <StyledNavSubDropDownItem>Fukui</StyledNavSubDropDownItem>
-                    <StyledNavSubDropDownItem>Yamanashi</StyledNavSubDropDownItem>
-                    <StyledNavSubDropDownItem>Nagano</StyledNavSubDropDownItem>
-                    <StyledNavSubDropDownItem>Gifu</StyledNavSubDropDownItem>
-                    <StyledNavSubDropDownItem>Shizuoka</StyledNavSubDropDownItem>
-                    <StyledNavSubDropDownItem>Aichi</StyledNavSubDropDownItem>
+                    <StyledNavSubDropDownItem
+                      onClick={() => Redirect('/podroze/prefektury/niigata')}
+                    >
+                      Niigata
+                    </StyledNavSubDropDownItem>
+                    <StyledNavSubDropDownItem
+                      onClick={() => Redirect('/podroze/prefektury/toyama')}
+                    >
+                      Toyama
+                    </StyledNavSubDropDownItem>
+                    <StyledNavSubDropDownItem
+                      onClick={() => Redirect('/podroze/prefektury/ishikawa')}
+                    >
+                      Ishikawa
+                    </StyledNavSubDropDownItem>
+                    <StyledNavSubDropDownItem onClick={() => Redirect('/podroze/prefektury/fukui')}>
+                      Fukui
+                    </StyledNavSubDropDownItem>
+                    <StyledNavSubDropDownItem
+                      onClick={() => Redirect('/podroze/prefektury/yamanashi')}
+                    >
+                      Yamanashi
+                    </StyledNavSubDropDownItem>
+                    <StyledNavSubDropDownItem
+                      onClick={() => Redirect('/podroze/prefektury/nagano')}
+                    >
+                      Nagano
+                    </StyledNavSubDropDownItem>
+                    <StyledNavSubDropDownItem onClick={() => Redirect('/podroze/prefektury/gifu')}>
+                      Gifu
+                    </StyledNavSubDropDownItem>
+                    <StyledNavSubDropDownItem
+                      onClick={() => Redirect('/podroze/prefektury/shizuoka')}
+                    >
+                      Shizuoka
+                    </StyledNavSubDropDownItem>
+                    <StyledNavSubDropDownItem onClick={() => Redirect('/podroze/prefektury/aichi')}>
+                      Aichi
+                    </StyledNavSubDropDownItem>
                     <StyledNavSubDropDownHeader>Kansai</StyledNavSubDropDownHeader>
-                    <StyledNavSubDropDownItem>Mie</StyledNavSubDropDownItem>
-                    <StyledNavSubDropDownItem>Shiga</StyledNavSubDropDownItem>
-                    <StyledNavSubDropDownItem>Ōsaka</StyledNavSubDropDownItem>
-                    <StyledNavSubDropDownItem>Hyogo</StyledNavSubDropDownItem>
-                    <StyledNavSubDropDownItem>Nara</StyledNavSubDropDownItem>
-                    <StyledNavSubDropDownItem>Wakayama</StyledNavSubDropDownItem>
+                    <StyledNavSubDropDownItem onClick={() => Redirect('/podroze/prefektury/mie')}>
+                      Mie
+                    </StyledNavSubDropDownItem>
+                    <StyledNavSubDropDownItem onClick={() => Redirect('/podroze/prefektury/shiga')}>
+                      Shiga
+                    </StyledNavSubDropDownItem>
+                    <StyledNavSubDropDownItem onClick={() => Redirect('/podroze/prefektury/osaka')}>
+                      Ōsaka
+                    </StyledNavSubDropDownItem>
+                    <StyledNavSubDropDownItem onClick={() => Redirect('/podroze/prefektury/hyogo')}>
+                      Hyogo
+                    </StyledNavSubDropDownItem>
+                    <StyledNavSubDropDownItem onClick={() => Redirect('/podroze/prefektury/nara')}>
+                      Nara
+                    </StyledNavSubDropDownItem>
+                    <StyledNavSubDropDownItem
+                      onClick={() => Redirect('/podroze/prefektury/wakayama')}
+                    >
+                      Wakayama
+                    </StyledNavSubDropDownItem>
                     <StyledNavSubDropDownHeader>Chūgoku</StyledNavSubDropDownHeader>
-                    <StyledNavSubDropDownItem>Tottori</StyledNavSubDropDownItem>
-                    <StyledNavSubDropDownItem>Shimane</StyledNavSubDropDownItem>
-                    <StyledNavSubDropDownItem>Okayama</StyledNavSubDropDownItem>
-                    <StyledNavSubDropDownItem>Hiroshima</StyledNavSubDropDownItem>
-                    <StyledNavSubDropDownItem>Yamaguchi</StyledNavSubDropDownItem>
+                    <StyledNavSubDropDownItem
+                      onClick={() => Redirect('/podroze/prefektury/tottori')}
+                    >
+                      Tottori
+                    </StyledNavSubDropDownItem>
+                    <StyledNavSubDropDownItem
+                      onClick={() => Redirect('/podroze/prefektury/shimane')}
+                    >
+                      Shimane
+                    </StyledNavSubDropDownItem>
+                    <StyledNavSubDropDownItem
+                      onClick={() => Redirect('/podroze/prefektury/okayama')}
+                    >
+                      Okayama
+                    </StyledNavSubDropDownItem>
+                    <StyledNavSubDropDownItem
+                      onClick={() => Redirect('/podroze/prefektury/hiroshima')}
+                    >
+                      Hiroshima
+                    </StyledNavSubDropDownItem>
+                    <StyledNavSubDropDownItem
+                      onClick={() => Redirect('/podroze/prefektury/yamaguchi')}
+                    >
+                      Yamaguchi
+                    </StyledNavSubDropDownItem>
                     <StyledNavSubDropDownHeader>Shikoku</StyledNavSubDropDownHeader>
-                    <StyledNavSubDropDownItem>Tokushima</StyledNavSubDropDownItem>
-                    <StyledNavSubDropDownItem>Kagawa</StyledNavSubDropDownItem>
-                    <StyledNavSubDropDownItem>Ehima</StyledNavSubDropDownItem>
-                    <StyledNavSubDropDownItem>Kochi</StyledNavSubDropDownItem>
+                    <StyledNavSubDropDownItem
+                      onClick={() => Redirect('/podroze/prefektury/tokushima')}
+                    >
+                      Tokushima
+                    </StyledNavSubDropDownItem>
+                    <StyledNavSubDropDownItem
+                      onClick={() => Redirect('/podroze/prefektury/kagawa')}
+                    >
+                      Kagawa
+                    </StyledNavSubDropDownItem>
+                    <StyledNavSubDropDownItem onClick={() => Redirect('/podroze/prefektury/ehima')}>
+                      Ehima
+                    </StyledNavSubDropDownItem>
+                    <StyledNavSubDropDownItem onClick={() => Redirect('/podroze/prefektury/kochi')}>
+                      Kochi
+                    </StyledNavSubDropDownItem>
                     <StyledNavSubDropDownHeader>Kyūshū</StyledNavSubDropDownHeader>
-                    <StyledNavSubDropDownItem>Fukuoka</StyledNavSubDropDownItem>
-                    <StyledNavSubDropDownItem>Saga</StyledNavSubDropDownItem>
-                    <StyledNavSubDropDownItem>Nagasaki</StyledNavSubDropDownItem>
-                    <StyledNavSubDropDownItem>Kumamoto</StyledNavSubDropDownItem>
-                    <StyledNavSubDropDownItem>Ōita</StyledNavSubDropDownItem>
-                    <StyledNavSubDropDownItem>Miyazaki</StyledNavSubDropDownItem>
-                    <StyledNavSubDropDownItem>Kagoshima</StyledNavSubDropDownItem>
+                    <StyledNavSubDropDownItem
+                      onClick={() => Redirect('/podroze/prefektury/fukuoka')}
+                    >
+                      Fukuoka
+                    </StyledNavSubDropDownItem>
+                    <StyledNavSubDropDownItem onClick={() => Redirect('/podroze/prefektury/saga')}>
+                      Saga
+                    </StyledNavSubDropDownItem>
+                    <StyledNavSubDropDownItem
+                      onClick={() => Redirect('/podroze/prefektury/nagasaki')}
+                    >
+                      Nagasaki
+                    </StyledNavSubDropDownItem>
+                    <StyledNavSubDropDownItem
+                      onClick={() => Redirect('/podroze/prefektury/kumamoto')}
+                    >
+                      Kumamoto
+                    </StyledNavSubDropDownItem>
+                    <StyledNavSubDropDownItem onClick={() => Redirect('/podroze/prefektury/oita')}>
+                      Ōita
+                    </StyledNavSubDropDownItem>
+                    <StyledNavSubDropDownItem
+                      onClick={() => Redirect('/podroze/prefektury/miyazaki')}
+                    >
+                      Miyazaki
+                    </StyledNavSubDropDownItem>
+                    <StyledNavSubDropDownItem
+                      onClick={() => Redirect('/podroze/prefektury/kagoshima')}
+                    >
+                      Kagoshima
+                    </StyledNavSubDropDownItem>
                     <StyledNavSubDropDownHeader>Okinawa</StyledNavSubDropDownHeader>
-                    <StyledNavSubDropDownItem>Okinawa</StyledNavSubDropDownItem>
+                    <StyledNavSubDropDownItem
+                      onClick={() => Redirect('/podroze/prefektury/okinawa')}
+                    >
+                      Okinawa
+                    </StyledNavSubDropDownItem>
                   </StyledNavSubDropDown>
                 </StyledNavDropDownItem>
                 <StyledNavDropDownItem>

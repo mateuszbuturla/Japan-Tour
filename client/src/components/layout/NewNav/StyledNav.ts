@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 interface StyledNavProps {
   dropDownIsHover: boolean;
@@ -168,6 +169,21 @@ const StyledNavSubDropDownItem = styled.a`
   }
 `;
 
+interface StyledNavLinkUrlProps {
+  dropDownIsHover: boolean;
+}
+
+const StyledNavLinkUrl = styled(Link)<StyledNavLinkUrlProps>`
+  text-decoration: none;
+  color: ${(props) => (props.dropDownIsHover ? '#000' : '#fff')};
+`;
+
+const StyledNavDropdownLinkUrl = styled(Link)<StyledNavLinkUrlProps>`
+  text-decoration: none;
+  padding: 0;
+  margin: 0;
+`;
+
 export {
   StyledNav,
   StyledNavLinkList,
@@ -181,4 +197,6 @@ export {
   StyledNavBlancSpace,
   StyledNavSubDropDownHeader,
   StyledNavSubDropDownItem,
+  StyledNavLinkUrl,
+  StyledNavDropdownLinkUrl,
 };
