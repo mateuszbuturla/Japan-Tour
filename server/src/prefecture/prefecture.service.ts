@@ -48,14 +48,14 @@ export class PrefectureService {
     };
 
     if (withCities) {
-      // const cities = await this.citiesService.getAllFromCity(key);
-      // res["cities"] = cities;
+      const cities = await this.citiesService.getFromPrefecture(key);
+      res["cities"] = cities;
     }
 
-    if (withAttractions) {
-      // const attractions = await this.attractionService.getAllFromCity(key);
-      // res["attractions"] = attractions;
-    }
+    // if (withAttractions) {
+    //   const attractions = await this.attractionService.getAllFromCity(key);
+    //   res["attractions"] = attractions;
+    // }
 
     return res;
   }

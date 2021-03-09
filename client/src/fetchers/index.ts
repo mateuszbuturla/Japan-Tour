@@ -11,6 +11,7 @@ import RegionSimpleFetcher from './RegionSimpleFetcher';
 import SimpleCityFetcher from './SimpleCityFetcher';
 import CategoriesFetcher from './CategoriesFetcher';
 import RegionsPrefecturesFetcher from './RegionsPrefecturesFetcher';
+import PrefectureSimpleFetcher from './PrefectureSimpleFetcher';
 
 export {
   RegionsFetcher,
@@ -26,4 +27,5 @@ export {
   SimpleCityFetcher,
   CategoriesFetcher,
   RegionsPrefecturesFetcher,
+  PrefectureSimpleFetcher,
 };

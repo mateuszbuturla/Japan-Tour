@@ -4,7 +4,6 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import TypesApplicationState from 'types/TypesApplicationState';
-import Api from 'utils/Api';
 import {
   Admin,
   Home,
@@ -22,6 +21,7 @@ import {
   Culture,
   Kitchen,
   PrefecturesList,
+  Prefecture,
 } from 'views';
 
 function Routing() {
@@ -87,6 +87,11 @@ function Routing() {
       <Route
         path="/podroze/regiony/:key"
         component={(props: any) => <Region {...props} setTitle={setTitle} />}
+        exact
+      />
+      <Route
+        path="/podroze/prefektury/:key"
+        component={(props: any) => <Prefecture {...props} setTitle={setTitle} />}
         exact
       />
 

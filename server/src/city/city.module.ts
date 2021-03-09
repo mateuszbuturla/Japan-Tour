@@ -6,6 +6,7 @@ import { CityController } from "./city.controller";
 import { CitySchema } from "./city.model";
 import { CityService } from "./city.service";
 import { AttractionModule } from "../attraction/attraction.module";
+import { PrefectureModule } from "../prefecture/prefecture.module";
 
 @Module({
   imports: [
@@ -13,6 +14,7 @@ import { AttractionModule } from "../attraction/attraction.module";
     forwardRef(() => ActionHistoryModule),
     forwardRef(() => RegionModule),
     forwardRef(() => AttractionModule),
+    forwardRef(() => PrefectureModule),
   ],
   controllers: [CityController],
   providers: [CityService],
