@@ -9,7 +9,7 @@ import {
 import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import userActions from 'actions/user/actions';
-import Logo from 'assets/logo.png';
+import Logo from 'assets/LOGO.png';
 import Api from 'utils/Api';
 import HomeIcon from 'assets/icons/home.svg';
 import CategoryIcon from 'assets/icons/category.svg';
