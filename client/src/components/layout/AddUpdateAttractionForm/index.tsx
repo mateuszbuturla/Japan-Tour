@@ -21,6 +21,7 @@ import TypesApplicationState from 'types/TypesApplicationState';
 import TypesAttraction from 'types/TypesAttraction';
 import TypesCity from 'types/TypesCity';
 import TypesElementCategory from 'types/TypesElementCategory';
+import TypesPrefecture from 'types/TypesPrefecture';
 import TypesRegion from 'types/TypesRegion';
 import AddNotification from 'utils/AddNotification';
 import Api from 'utils/Api';
@@ -33,7 +34,7 @@ interface Props {
 }
 
 function AddUpdateAttractionForm({ title, formType, buttonLabel }: Props) {
-  const { attractions, cities, regions, categories } = useSelector(
+  const { attractions, cities, regions, categories, prefectures } = useSelector(
     (state: TypesApplicationState) => state.admin,
   );
   const { key } = useParams();
@@ -43,6 +44,7 @@ function AddUpdateAttractionForm({ title, formType, buttonLabel }: Props) {
   const [attractionDescription, setAttractionDescription] = useState();
 
   const getRegionsNamesOnly = regions.map((item: TypesRegion) => item.name);
+  const getPrefecturesNamesOnly = prefectures.map((item: TypesPrefecture) => item.name);
   const getCitiesNamesOnly = cities.map((item: TypesCity) => item.name);
   const getCategoriesNamesOnly = categories
     .filter((item: TypesElementCategory) => item.section === 'attractions')
@@ -108,6 +110,7 @@ function AddUpdateAttractionForm({ title, formType, buttonLabel }: Props) {
       const imgUrl = await sendImage(data.img);
       newData.img = imgUrl !== null ? imgUrl : defaultValues && defaultValues.img;
       newData.region = regions.find((r: TypesRegion) => r.name === data.region)._id;
+      newData.prefecture = prefectures.find((r: TypesPrefecture) => r.name === data.prefecture)._id;
       newData.city = cities.find((r: TypesCity) => r.name === data.city)._id;
       newData.category = categories.find((r: TypesElementCategory) => r.name === data.category)._id;
       if (attractionDescription) {
@@ -189,6 +192,17 @@ function AddUpdateAttractionForm({ title, formType, buttonLabel }: Props) {
                   ? getRegionNameById(defaultValues.region)
                   : ''
               }
+            />
+          </StyledFormInputWrapper>
+          <StyledFormInputWrapper>
+            <Input
+              type="select"
+              label="Prefektura"
+              id="prefecture"
+              name="prefecture"
+              inputRef={register()}
+              options={getPrefecturesNamesOnly}
+              defaultValue={formType === 'update' && defaultValues ? defaultValues.prefecture : ''}
             />
           </StyledFormInputWrapper>
           <StyledFormInputWrapper>

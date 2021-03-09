@@ -7,6 +7,7 @@ export const AttractionSchema = new mongoose.Schema({
   shortDescription: { type: String, required: true },
   description: { type: String, required: true },
   region: { type: String, required: true },
+  prefecture: { type: String, required: true },
   city: { type: String, required: true },
   category: { type: String, required: true },
   img: { type: String, required: true },
@@ -21,6 +22,7 @@ export class Attraction extends mongoose.Document {
   shortDescription: string;
   description: string;
   region: string;
+  prefecture: string;
   city: string;
   category: string;
   highlighted: boolean;

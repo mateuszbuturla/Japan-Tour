@@ -44,7 +44,11 @@ function PrefecturesList({ setTitle }: Props) {
       <PageHeader
         text={'Lista prefektur'}
         img={HeaderBg}
-        locationPathElements={[{ text: 'Strona główna', url: '/' }, { text: 'Kuchnia' }]}
+        locationPathElements={[
+          { text: 'Strona główna', url: '/' },
+          { text: 'Podróże', url: `/podroze` },
+          { text: 'Lista prefektur' },
+        ]}
       />
       <StyledPageContainer>
         <StyledMainContentContainer>

@@ -6,6 +6,7 @@ export const AddUpdateAttractionSchema = Joi.object().keys({
   shortDescription: Joi.string().required(),
   description: Joi.string().required(),
   region: Joi.string().required(),
+  prefecture: Joi.string().required(),
   city: Joi.string().required(),
   category: Joi.string().required(),
   highlighted: Joi.boolean().required(),

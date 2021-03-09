@@ -52,10 +52,10 @@ export class PrefectureService {
       res["cities"] = cities;
     }
 
-    // if (withAttractions) {
-    //   const attractions = await this.attractionService.getAllFromCity(key);
-    //   res["attractions"] = attractions;
-    // }
+    if (withAttractions) {
+      const attractions = await this.attractionService.getFromPrefecture(key);
+      res["attractions"] = attractions;
+    }
 
     return res;
   }

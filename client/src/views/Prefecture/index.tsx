@@ -25,7 +25,6 @@ function Prefecture({ setTitle }: Props) {
 
   const getData = async () => {
     const resPrefecture = await PrefectureSimpleFetcher(key, true, true);
-    console.log(resPrefecture);
     setPrefecture(resPrefecture.prefecture);
     setCities(resPrefecture.cities);
     setAttractions(resPrefecture.attractions);

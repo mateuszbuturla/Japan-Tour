@@ -9,6 +9,7 @@ interface TypesAttraction {
   shortDescription: string;
   description: string;
   region: string;
+  prefecture: string;
   city: string;
   category: string;
   img: string;

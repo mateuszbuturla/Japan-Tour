@@ -8,6 +8,7 @@ import {
 import { InjectModel } from "@nestjs/mongoose";
 import { Model } from "mongoose";
 import { User } from "src/interface/User";
+import { PrefectureService } from "src/prefecture/prefecture.service";
 import { isNull } from "util";
 import { ActionHistoryService } from "../actionHistory/actionHistory.service";
 import { CategoryService } from "../category/category.service";
@@ -28,7 +29,9 @@ export class AttractionService {
     @Inject(forwardRef(() => RegionService))
     private readonly regionService: RegionService,
     @Inject(forwardRef(() => CityService))
-    private readonly cityService: CityService
+    private readonly cityService: CityService,
+    @Inject(forwardRef(() => PrefectureService))
+    private readonly prefectureService: PrefectureService
   ) {}
 
   async getHighlightedFromRegion(regionKey: string) {
@@ -128,6 +131,18 @@ export class AttractionService {
     return attractions;
   }
 
+  async getFromPrefecture(prefectureKey: string) {
+    const prefecture = await this.prefectureService.getSinglePrefecture(
+      prefectureKey,
+      false,
+      false
+    );
+    const attractions = await this.attractionModel
+      .find({ prefecture: prefecture.prefecture._id })
+      .exec();
+    return attractions;
+  }
+
   async getSingleAttraction(key: string, withSimilary: boolean) {
     const attraction = await this.findAttraction(key);
 
@@ -183,6 +198,7 @@ export class AttractionService {
         img: data.img,
         highlighted: data.highlighted,
         otherData: data.otherData,
+        prefecture: data.prefecture,
       });
       res = await newAttraction.save();
       this.actionHistoryService.addNewItem({
@@ -244,6 +260,7 @@ export class AttractionService {
         img: data.img,
         highlighted: data.highlighted,
         otherData: data.otherData,
+        prefecture: data.prefecture,
       };
 
       const updatedAttraction = await this.attractionModel.updateOne(
