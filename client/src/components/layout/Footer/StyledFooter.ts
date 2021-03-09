@@ -35,7 +35,7 @@ const StyledFooterListElement = styled.li<StyledFooterListElementTypes>`
   font-size: ${(props) => (props.header ? '20px' : '16px')};
   margin-bottom: ${(props) => (props.header ? '20px' : '10px')};
   cursor: ${(props) => (props.header ? 'auto' : 'pointer')};
-  transition: 0.3s;
+  transition: ${(props) => props.theme.transition.fast};
 
   &:hover {
     color: ${(props) => (props.header ? 'none' : props.theme.colors.mainColor)};
