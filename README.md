@@ -3,8 +3,6 @@
  <img width=300px src="logo.png" alt="Project logo"></a>
 </p>
 
-<h3 align="center">Moja Japonia</h3>
-
 ---
 
 <p align="center"> Comprehensive guide for the country of the blooming cherry 
@@ -74,7 +72,6 @@ cd client && npm start
 - [Redux](https://redux.js.org) - Library for managing the state of the application
 - [StyledComponents](https://styled-components.com) - Styling library
 - [GSAP](https://greensock.com/gsap/) - Animation library
-- [ReactHookForm](https://react-hook-form.com) - Forms
 - [NodeJs](https://nodejs.org/en/) - Server Environment
 - [NestJs](https://nestjs.com) - Server Framework
 - [MongoDB](https://www.mongodb.com/) - Database

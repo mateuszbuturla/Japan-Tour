@@ -1,4 +1,4 @@
-import logo from 'assets/LOGO.png';
+import logo from 'assets/logo.png';
 import { NavDropdown } from 'components/common';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useHistory } from 'react-router-dom';
