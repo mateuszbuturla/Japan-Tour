@@ -41,13 +41,20 @@ export class RegionController {
     return this.RegionService.updateRegion(key, data, user);
   }
 
-  @Get(":key/:withCities?/:withAttractions?")
+  @Get(":key/:widthPrefectures?/:withCities?/:withAttractions?")
   getSingleRegion(
     @Param("key") key: string,
+    @Param("widthPrefectures", new DefaultValuePipe(false))
+    widthPrefectures: boolean,
     @Param("withCities", new DefaultValuePipe(false)) withCities: boolean,
     @Param("withAttractions", new DefaultValuePipe(false))
     withAttractions: boolean
   ) {
-    return this.RegionService.getSingleRegion(key, withCities, withAttractions);
+    return this.RegionService.getSingleRegion(
+      key,
+      widthPrefectures,
+      withCities,
+      withAttractions
+    );
   }
 }

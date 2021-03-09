@@ -1,3 +1,4 @@
+import { PrefectureModule } from "../prefecture/prefecture.module";
 import { forwardRef, Module } from "@nestjs/common";
 import { MongooseModule } from "@nestjs/mongoose";
 import { ActionHistoryModule } from "../actionHistory/actionHistory.module";
@@ -13,6 +14,7 @@ import { AttractionModule } from "../attraction/attraction.module";
     forwardRef(() => ActionHistoryModule),
     forwardRef(() => CityModule),
     forwardRef(() => AttractionModule),
+    forwardRef(() => PrefectureModule),
   ],
   controllers: [RegionController],
   providers: [RegionService],

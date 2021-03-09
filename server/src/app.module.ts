@@ -10,6 +10,7 @@ import { DishModule } from "./dish/dish.module";
 import { FooterModule } from "./footer/footer.module";
 import { RegionModule } from "./region/region.module";
 import { UserModule } from "./user/user.module";
+import { PrefectureModule } from "./prefecture/prefecture.module";
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { UserModule } from "./user/user.module";
     FooterModule,
     UserModule,
     AuthModule,
+    PrefectureModule,
   ],
   controllers: [],
   providers: [],
