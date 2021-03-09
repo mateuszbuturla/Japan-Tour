@@ -7,10 +7,8 @@ import AddUpdateRegionForm from './AddUpdateRegionForm';
 import AdminDashboard from './AdminDashboard';
 import AdminElementsList from './AdminElementsList';
 import AttractionsHighlightedItemsFromThisSameCategory from './AttractionsHighlightedItemsFromThisSameCategory';
-import CityHighlightedItems from './CityHighlightedItems';
 import Footer from './Footer';
 import Nav from './Nav';
-import RegionHighlightedItems from './RegionHighlightedItems';
 import NewNav from './NewNav';
 
 export {
@@ -24,8 +22,6 @@ export {
   AddUpdateCultureForm,
   AddUpdateAttractionForm,
   AddUpdateCategoryForm,
-  RegionHighlightedItems,
-  CityHighlightedItems,
   AttractionsHighlightedItemsFromThisSameCategory,
   NewNav,
 };

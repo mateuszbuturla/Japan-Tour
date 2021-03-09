@@ -35,6 +35,7 @@ export class AttractionService {
     const region = await this.regionService.getSingleRegion(
       regionKey,
       false,
+      false,
       false
     );
     const attractions = await this.attractionModel
@@ -94,6 +95,7 @@ export class AttractionService {
   async getAllAttractionsFromRegion(regionKey: string) {
     const region = await this.regionService.getSingleRegion(
       regionKey,
+      false,
       false,
       false
     );

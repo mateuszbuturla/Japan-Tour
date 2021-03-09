@@ -191,6 +191,7 @@ export class CityService {
     const region = await this.regionService.getSingleRegion(
       regionKey,
       false,
+      false,
       false
     );
     const cities = await this.cityModel
@@ -204,6 +205,7 @@ export class CityService {
   async getFromRegion(regionKey: string) {
     const region = await this.regionService.getSingleRegion(
       regionKey,
+      false,
       false,
       false
     );

@@ -14,6 +14,7 @@ import { CityService } from "../city/city.service";
 import { AttractionService } from "../attraction/attraction.service";
 import NormalizeString from "../utils/normalizeString";
 import { Region } from "./region.model";
+import { PrefectureService } from "../prefecture/prefecture.service";
 
 @Injectable()
 export class RegionService {
@@ -23,7 +24,9 @@ export class RegionService {
     @Inject(forwardRef(() => CityService))
     private readonly cityService: CityService,
     @Inject(forwardRef(() => AttractionService))
-    private readonly attractionService: AttractionService
+    private readonly attractionService: AttractionService,
+    @Inject(forwardRef(() => PrefectureService))
+    private readonly prefectureService: PrefectureService
   ) {}
 
   async getRegions() {
@@ -33,31 +36,30 @@ export class RegionService {
 
   async getSingleRegion(
     key: string,
+    widthPrefectures: boolean,
     withCities: boolean,
     withAttractions: boolean
   ) {
     const region = await this.findRegion(key);
-    let cities = null;
-    let attractions = null;
-    if (withCities) {
-      cities = await this.cityService.getFromRegion(key);
-    }
-
-    if (withAttractions) {
-      attractions = await this.attractionService.getAllAttractionsFromRegion(
-        key
-      );
-    }
 
     let res = {
       region,
     };
 
+    if (widthPrefectures) {
+      const prefectures = await this.prefectureService.getFromRegion(key);
+      res["prefectures"] = prefectures;
+    }
+
     if (withCities) {
+      const cities = await this.cityService.getFromRegion(key);
       res["cities"] = cities;
     }
 
     if (withAttractions) {
+      const attractions = await this.attractionService.getAllAttractionsFromRegion(
+        key
+      );
       res["attractions"] = attractions;
     }
 
