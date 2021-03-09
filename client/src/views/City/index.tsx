@@ -5,9 +5,12 @@ import {
   PageHeader,
   StyledMainContentContainer,
   StyledPageContainer,
+  StyledSubHeader,
+  ItemsTile,
 } from 'components/common';
 import { useParams } from 'react-router-dom';
 import { SimpleCityFetcher } from 'fetchers';
+import TypesAttraction from 'types/TypesAttraction';
 
 interface Props {
   setTitle: (value: string) => void;
@@ -16,10 +19,12 @@ interface Props {
 function City({ setTitle }: Props) {
   const { key } = useParams();
   const [city, setCity] = useState();
+  const [attractions, setAttractions] = useState();
 
   const getData = async () => {
-    const resCity = await SimpleCityFetcher(key);
-    setCity(resCity);
+    const resCity = await SimpleCityFetcher(key, true);
+    setCity(resCity.city);
+    setAttractions(resCity.attractions);
   };
 
   useEffect(() => {
@@ -51,7 +56,22 @@ function City({ setTitle }: Props) {
         <AsideInfo data={city.otherData} />
       </StyledPageContainer>
       <StyledPageContainer>
-        <StyledMainContentContainer></StyledMainContentContainer>
+        <StyledMainContentContainer>
+          {attractions && (
+            <>
+              <StyledSubHeader>Atrakcje</StyledSubHeader>
+              <ItemsTile
+                data={attractions.map((item: TypesAttraction) => ({
+                  name: item.name,
+                  img: item.img,
+                  shortDescription: item.shortDescription,
+                  url: `/podroze/atrakcje/${item.key}`,
+                  highlighted: item.highlighted,
+                }))}
+              />
+            </>
+          )}
+        </StyledMainContentContainer>
       </StyledPageContainer>
     </>
   );

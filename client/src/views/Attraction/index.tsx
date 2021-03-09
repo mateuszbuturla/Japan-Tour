@@ -2,12 +2,15 @@ import React, { useEffect, useState } from 'react';
 import {
   AsideInfo,
   ItemDescription,
+  ItemsTile,
   PageHeader,
   StyledMainContentContainer,
   StyledPageContainer,
+  StyledSubHeader,
 } from 'components/common';
 import { useParams } from 'react-router-dom';
 import { AttractionSimpleFetcher } from 'fetchers';
+import TypesAttraction from 'types/TypesAttraction';
 
 interface Props {
   setTitle: (value: string) => void;
@@ -16,10 +19,14 @@ interface Props {
 function Attraction({ setTitle }: Props) {
   const { key } = useParams();
   const [attraction, setAttraction] = useState();
+  const [similaryAttraction, setSimilaryAttraction] = useState();
 
   const getData = async () => {
-    const resAttraction = await AttractionSimpleFetcher(key);
-    setAttraction(resAttraction);
+    const resAttraction = await AttractionSimpleFetcher(key, true);
+    setAttraction(resAttraction.attraction);
+    setSimilaryAttraction(resAttraction.similaryAttractions);
+    console.log(resAttraction);
+    console.log(resAttraction.similaryAttractions);
   };
 
   useEffect(() => {
@@ -51,7 +58,24 @@ function Attraction({ setTitle }: Props) {
         <AsideInfo data={attraction.otherData} />
       </StyledPageContainer>
       <StyledPageContainer>
-        <StyledMainContentContainer></StyledMainContentContainer>
+        <StyledMainContentContainer>
+          {similaryAttraction && (
+            <>
+              <StyledSubHeader>Podobne atrakcje</StyledSubHeader>
+              <ItemsTile
+                data={similaryAttraction
+                  .filter((item: TypesAttraction) => item._id !== attraction._id)
+                  .map((item: TypesAttraction) => ({
+                    name: item.name,
+                    img: item.img,
+                    shortDescription: item.shortDescription,
+                    url: `/podroze/atrakcje/${item.key}`,
+                    highlighted: item.highlighted,
+                  }))}
+              />
+            </>
+          )}
+        </StyledMainContentContainer>
       </StyledPageContainer>
     </>
   );

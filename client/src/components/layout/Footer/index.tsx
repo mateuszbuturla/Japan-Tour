@@ -45,7 +45,7 @@ function Footer() {
         </StyledFooterContainer>
       )}
       <StyledFooterCopyright>
-        Copyright © 2020-2020 Japan Tour Mateusz Buturla All Rights Reserved.
+        Copyright © 2020-2021 Mateusz Buturla moja-japonia.com
       </StyledFooterCopyright>
     </StyledFooter>
   );
