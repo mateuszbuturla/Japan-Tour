@@ -10,6 +10,7 @@ import AttractionsCategoriesFetcher from './AttractionsCategoriesFetcher';
 import RegionSimpleFetcher from './RegionSimpleFetcher';
 import SimpleCityFetcher from './SimpleCityFetcher';
 import CategoriesFetcher from './CategoriesFetcher';
+import RegionsPrefecturesFetcher from './RegionsPrefecturesFetcher';
 
 export {
   RegionsFetcher,
@@ -24,4 +25,5 @@ export {
   RegionSimpleFetcher,
   SimpleCityFetcher,
   CategoriesFetcher,
+  RegionsPrefecturesFetcher,
 };

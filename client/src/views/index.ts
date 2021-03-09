@@ -13,6 +13,7 @@ import City from './City';
 import Attraction from './Attraction';
 import Culture from './Culture';
 import Kitchen from './Kitchen';
+import PrefecturesList from './PrefecturesList';
 
 export {
   Home,
@@ -30,4 +31,5 @@ export {
   Attraction,
   Culture,
   Kitchen,
+  PrefecturesList,
 };

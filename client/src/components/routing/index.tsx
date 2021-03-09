@@ -21,6 +21,7 @@ import {
   Attraction,
   Culture,
   Kitchen,
+  PrefecturesList,
 } from 'views';
 
 function Routing() {
@@ -56,6 +57,11 @@ function Routing() {
       <Route
         path="/podroze/regiony"
         component={(props: any) => <RegionsList {...props} setTitle={setTitle} />}
+        exact
+      />
+      <Route
+        path="/podroze/prefektury"
+        component={(props: any) => <PrefecturesList {...props} setTitle={setTitle} />}
         exact
       />
       <Route
