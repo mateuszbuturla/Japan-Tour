@@ -7,6 +7,7 @@ const INITIAL_STATE = {
   cultures: [],
   dishes: [],
   categories: [],
+  prefectures: [],
 };
 
 const adminReducer = (state = INITIAL_STATE, action: any) => {
@@ -40,6 +41,11 @@ const adminReducer = (state = INITIAL_STATE, action: any) => {
       return {
         ...state,
         categories: action.item,
+      };
+    case types.SET_ADMIN_PREFECTURES_DATA:
+      return {
+        ...state,
+        prefectures: action.item,
       };
     case types.REMOVE_ADMIN_CITY_DATA:
       return {

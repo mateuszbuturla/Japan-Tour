@@ -20,6 +20,7 @@ import { useParams } from 'react-router-dom';
 import TypesApplicationState from 'types/TypesApplicationState';
 import TypesCity from 'types/TypesCity';
 import TypesRegion from 'types/TypesRegion';
+import TypesPrefecture from 'types/TypesPrefecture';
 import AddNotification from 'utils/AddNotification';
 import Api from 'utils/Api';
 import UploadImage from 'utils/UploadImage';
@@ -31,7 +32,9 @@ interface Props {
 }
 
 function AddUpdateCityForm({ title, formType, buttonLabel }: Props) {
-  const { cities, regions } = useSelector((state: TypesApplicationState) => state.admin);
+  const { cities, regions, prefectures } = useSelector(
+    (state: TypesApplicationState) => state.admin,
+  );
   const { key } = useParams();
   const [defaultValues, setDefaultValues] = useState<TypesCity>();
   const { register, handleSubmit, errors, control } = useForm();
@@ -39,6 +42,8 @@ function AddUpdateCityForm({ title, formType, buttonLabel }: Props) {
   const [cityDescription, setCityDescription] = useState();
 
   const getRegionsNamesOnly = regions.map((item: TypesRegion) => item.name);
+
+  const getPrefecturesNamesOnly = prefectures.map((item: TypesPrefecture) => item.name);
 
   const {
     fields: otherDataFields,
@@ -88,6 +93,7 @@ function AddUpdateCityForm({ title, formType, buttonLabel }: Props) {
       const imgUrl = await sendImage(data.img);
       newData.img = imgUrl !== null ? imgUrl : defaultValues && defaultValues.img;
       newData.region = regions.find((r: TypesRegion) => r.name === data.region)._id;
+      newData.prefecture = prefectures.find((r: TypesPrefecture) => r.name === data.prefecture)._id;
       if (cityDescription) {
         newData.description = stateToHTML(cityDescription.getCurrentContent());
       }
@@ -152,6 +158,17 @@ function AddUpdateCityForm({ title, formType, buttonLabel }: Props) {
               inputRef={register()}
               options={getRegionsNamesOnly}
               defaultValue={formType === 'update' && defaultValues ? defaultValues.region : ''}
+            />
+          </StyledFormInputWrapper>
+          <StyledFormInputWrapper>
+            <Input
+              type="select"
+              label="Prefektura"
+              id="prefecture"
+              name="prefecture"
+              inputRef={register()}
+              options={getPrefecturesNamesOnly}
+              defaultValue={formType === 'update' && defaultValues ? defaultValues.prefecture : ''}
             />
           </StyledFormInputWrapper>
           <StyledFormInputWrapper>

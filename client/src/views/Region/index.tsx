@@ -12,6 +12,7 @@ import { useParams } from 'react-router-dom';
 import { RegionSimpleFetcher } from 'fetchers';
 import TypesCity from 'types/TypesCity';
 import TypesAttraction from 'types/TypesAttraction';
+import TypesPrefecture from 'types/TypesPrefecture';
 
 interface Props {
   setTitle: (value: string) => void;
@@ -66,7 +67,7 @@ function Region({ setTitle }: Props) {
             <>
               <StyledSubHeader>Prefektury</StyledSubHeader>
               <ItemsTile
-                data={prefectures.map((item: TypesCity) => ({
+                data={prefectures.map((item: TypesPrefecture) => ({
                   name: item.name,
                   img: item.img,
                   shortDescription: 'krotki opis prefektory',

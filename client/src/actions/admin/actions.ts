@@ -42,6 +42,13 @@ const setCategoriesData = (item: any) => {
   };
 };
 
+const setPrefecturesData = (item: any) => {
+  return {
+    type: types.SET_ADMIN_PREFECTURES_DATA,
+    item,
+  };
+};
+
 const removedCityById = (item: any) => {
   return {
     type: types.REMOVE_ADMIN_CITY_DATA,
@@ -84,6 +91,7 @@ export default {
   setCulturesData,
   setDishesData,
   setCategoriesData,
+  setPrefecturesData,
   removedCityById,
   removedAttractionById,
   removeDishById,

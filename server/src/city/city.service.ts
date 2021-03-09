@@ -106,6 +106,7 @@ export class CityService {
         img: data.img,
         otherData: data.otherData,
         highlighted: data.highlighted,
+        prefecture: data.prefecture,
       });
       res = await newCity.save();
       this.actionHistoryService.addNewItem({
@@ -161,6 +162,7 @@ export class CityService {
         img: data.img,
         otherData: data.otherData,
         highlighted: data.highlighted,
+        prefecture: data.prefecture,
       };
 
       const updatedCity = await this.cityModel.updateOne({ key }, newData);

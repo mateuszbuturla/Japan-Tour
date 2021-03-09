@@ -45,6 +45,11 @@ function Admin({ setTitle }: Props) {
     dispatch(actions.setCategoriesData(res.data));
   };
 
+  const getPrefectures = async () => {
+    const res = await Api.get('/prefectures');
+    dispatch(actions.setPrefecturesData(res.data));
+  };
+
   useEffect(() => {
     setTitle('Admin');
     getRegions();
@@ -53,6 +58,7 @@ function Admin({ setTitle }: Props) {
     getCultures();
     getDishes();
     getCategories();
+    getPrefectures();
   }, []);
 
   return (
