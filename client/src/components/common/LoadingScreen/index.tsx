@@ -7,7 +7,7 @@ import {
 } from './StyledLoadingScreen';
 import actions from 'actions/ref/actions';
 
-import Logo from 'assets/logo.png';
+import Logo from 'assets/LOGO.png';
 
 function LoadingScreen() {
   const dispatch = useDispatch();

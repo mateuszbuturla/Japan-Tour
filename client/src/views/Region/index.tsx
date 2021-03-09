@@ -19,15 +19,17 @@ interface Props {
 
 function Region({ setTitle }: Props) {
   const { key } = useParams();
+  const [prefectures, setPrefectures] = useState();
   const [region, setRegion] = useState();
   const [cities, setCities] = useState();
   const [attractions, setAttractions] = useState();
 
   const getData = async () => {
-    const resRegion = await RegionSimpleFetcher(key, true, true);
+    const resRegion = await RegionSimpleFetcher(key, true, true, true);
     setRegion(resRegion.region);
     setCities(resRegion.cities);
     setAttractions(resRegion.attractions);
+    setPrefectures(resRegion.prefectures);
   };
 
   useEffect(() => {
@@ -60,6 +62,20 @@ function Region({ setTitle }: Props) {
       </StyledPageContainer>
       <StyledPageContainer>
         <StyledMainContentContainer>
+          {prefectures && (
+            <>
+              <StyledSubHeader>Prefektury</StyledSubHeader>
+              <ItemsTile
+                data={prefectures.map((item: TypesCity) => ({
+                  name: item.name,
+                  img: item.img,
+                  shortDescription: 'krotki opis prefektory',
+                  url: `/podroze/prefektury/${item.key}`,
+                  highlighted: true,
+                }))}
+              />
+            </>
+          )}
           {cities && (
             <>
               <StyledSubHeader>Miasta</StyledSubHeader>
