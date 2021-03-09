@@ -17,6 +17,9 @@ import ChangePath from 'utils/ChangePath';
 import { useHistory } from 'react-router-dom';
 import { CategoriesFetcher } from 'fetchers';
 import TypesElementCategory from 'types/TypesElementCategory';
+import Api from 'utils/Api';
+import TypesCulture from 'types/TypesCulture';
+import TypesDish from 'types/TypesDish';
 
 function NewNav() {
   const history = useHistory();
@@ -25,6 +28,8 @@ function NewNav() {
   const [categoriesAttractions, setCategoriesAttractions] = useState();
   const [categoriesCulture, setCategoriesCulture] = useState();
   const [categoriesKitchen, setCategoriesKitchen] = useState();
+  const [cultures, setCultures] = useState();
+  const [kitchen, setKitchen] = useState();
 
   const Redirect = (url: string) => {
     ChangePath(history, url);
@@ -41,6 +46,10 @@ function NewNav() {
     setCategoriesKitchen(
       resCategories.filter((item: TypesElementCategory) => item.section === 'dishes'),
     );
+    const resCultures = await Api.get('/cultures');
+    const resKitchen = await Api.get('/dishes');
+    setCultures(resCultures.data);
+    setKitchen(resKitchen.data);
     setFetchedData(true);
   };
 
@@ -337,10 +346,25 @@ function NewNav() {
                 <StyledNavDropDownHeader>
                   <a>Kultura</a>
                 </StyledNavDropDownHeader>
-                <StyledNavDropDownItem>
-                  <a>1</a>
-                  <StyledNavSubDropDown></StyledNavSubDropDown>
-                </StyledNavDropDownItem>
+                {categoriesCulture &&
+                  categoriesCulture.map((category: TypesElementCategory) => (
+                    <StyledNavDropDownItem>
+                      <a>{category.name}</a>
+                      <StyledNavSubDropDown>
+                        {cultures &&
+                          cultures
+                            .filter((culture: TypesCulture) => culture.category === category._id)
+                            .map((culture: TypesCulture, index: number) => (
+                              <StyledNavSubDropDownItem
+                                onClick={() => Redirect(`/kultura/${culture.key}`)}
+                                key={index}
+                              >
+                                {culture.name}
+                              </StyledNavSubDropDownItem>
+                            ))}
+                      </StyledNavSubDropDown>
+                    </StyledNavDropDownItem>
+                  ))}
               </StyledNavDropDownWrapper>
             </StyledNavDropDown>
           </StyledNavLink>
@@ -348,16 +372,31 @@ function NewNav() {
             onMouseEnter={() => setDropDownIsHover(true)}
             onMouseLeave={() => setDropDownIsHover(false)}
           >
-            <StyledNavLinkLabel>Kultura</StyledNavLinkLabel>
+            <StyledNavLinkLabel>Kuchnia</StyledNavLinkLabel>
             <StyledNavDropDown>
               <StyledNavDropDownWrapper>
                 <StyledNavDropDownHeader>
                   <a>Kuchnia</a>
                 </StyledNavDropDownHeader>
-                <StyledNavDropDownItem>
-                  <a>1</a>
-                  <StyledNavSubDropDown></StyledNavSubDropDown>
-                </StyledNavDropDownItem>
+                {categoriesKitchen &&
+                  categoriesKitchen.map((category: TypesElementCategory) => (
+                    <StyledNavDropDownItem>
+                      <a>{category.name}</a>
+                      <StyledNavSubDropDown>
+                        {kitchen &&
+                          kitchen
+                            .filter((kitchen: TypesDish) => kitchen.category === category._id)
+                            .map((kitchen: TypesDish, index: number) => (
+                              <StyledNavSubDropDownItem
+                                onClick={() => Redirect(`/kuchnia/${kitchen.key}`)}
+                                key={index}
+                              >
+                                {kitchen.name}
+                              </StyledNavSubDropDownItem>
+                            ))}
+                      </StyledNavSubDropDown>
+                    </StyledNavDropDownItem>
+                  ))}
               </StyledNavDropDownWrapper>
             </StyledNavDropDown>
           </StyledNavLink>

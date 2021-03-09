@@ -17,27 +17,27 @@ function Admin({ setTitle }: Props) {
 
   const getRegions = async () => {
     let res = await Api.get('/regions');
-    dispatch(actions.setRegionsData(res.data.items));
+    dispatch(actions.setRegionsData(res.data));
   };
 
   const getCities = async () => {
     let res = await Api.get('/cities');
-    dispatch(actions.setCitiesData(res.data.items));
+    dispatch(actions.setCitiesData(res.data));
   };
 
   const getAttractions = async () => {
     let res = await Api.get('/attractions');
-    dispatch(actions.setAttractionsData(res.data.items));
+    dispatch(actions.setAttractionsData(res.data));
   };
 
   const getCultures = async () => {
     let res = await Api.get('/cultures');
-    dispatch(actions.setCulturesData(res.data.items));
+    dispatch(actions.setCulturesData(res.data));
   };
 
   const getDishes = async () => {
     let res = await Api.get('/dishes');
-    dispatch(actions.setDishesData(res.data.items));
+    dispatch(actions.setDishesData(res.data));
   };
 
   const getCategories = async () => {
