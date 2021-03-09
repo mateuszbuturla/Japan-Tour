@@ -9,7 +9,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { AttractionsCategoriesFetcher } from 'fetchers';
 
-import HeaderBg from 'assets/regions/kanto.jpg';
+import HeaderBg from 'assets/attractions.jpg';
 import TypesAttraction from 'types/TypesAttraction';
 
 interface Props {

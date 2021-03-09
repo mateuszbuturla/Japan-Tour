@@ -9,7 +9,7 @@ import { useParams } from 'react-router-dom';
 import TypesRegion from 'types/TypesRegion';
 import { RegionsFetcher } from 'fetchers';
 
-import HeaderBg from 'assets/regions/kanto.jpg';
+import HeaderBg from 'assets/region.jpg';
 
 interface Props {
   setTitle: (title: string) => void;

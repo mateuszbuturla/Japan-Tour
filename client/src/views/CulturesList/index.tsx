@@ -9,7 +9,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { CulturesCategoriesFetcher } from 'fetchers';
 
-import HeaderBg from 'assets/regions/kanto.jpg';
+import HeaderBg from 'assets/culture.jpg';
 import TypesCulture from 'types/TypesCulture';
 
 interface Props {

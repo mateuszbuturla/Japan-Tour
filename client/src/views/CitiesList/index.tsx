@@ -10,7 +10,7 @@ import { useParams } from 'react-router-dom';
 import TypesRegion from 'types/TypesRegion';
 import { RegionsCitiesFetcher } from 'fetchers';
 
-import HeaderBg from 'assets/regions/kanto.jpg';
+import HeaderBg from 'assets/city.jpg';
 import TypesCity from 'types/TypesCity';
 
 interface Props {

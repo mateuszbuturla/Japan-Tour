@@ -1,4 +1,4 @@
-import Anime from 'assets/anime.jpg';
+import Culture from 'assets/culture.jpg';
 import Sushi from 'assets/sushi.jpg';
 import ToriGate from 'assets/toriGate.jpg';
 import { HomeCategory } from 'components/common';
@@ -10,7 +10,7 @@ function HomeHeader() {
     <StyledHomeHeader>
       <StyledCategoriesContainer>
         <HomeCategory url="/podroze" header="Podróże" img={ToriGate} />
-        <HomeCategory url="/kultura" header="Kultura" img={Anime} />
+        <HomeCategory url="/kultura" header="Kultura" img={Culture} />
         <HomeCategory url="/kuchnia" header="Kuchnia" img={Sushi} />
         {/* <HomeCategory
           url="/sztuka-i-rozrywka"

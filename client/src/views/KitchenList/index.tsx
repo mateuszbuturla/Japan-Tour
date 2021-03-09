@@ -9,7 +9,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { KitchenCategoriesFetcher } from 'fetchers';
 
-import HeaderBg from 'assets/regions/kanto.jpg';
+import HeaderBg from 'assets/sushi.jpg';
 import TypesDish from 'types/TypesDish';
 
 interface Props {

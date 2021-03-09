@@ -1,4 +1,4 @@
-import Anime from 'assets/anime.jpg';
+import Anime from 'assets/culture.jpg';
 import Sushi from 'assets/sushi.jpg';
 import ToriGate from 'assets/toriGate.jpg';
 
