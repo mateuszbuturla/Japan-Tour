@@ -77,7 +77,7 @@ function NewNav() {
                   <a>Podróże</a>
                 </StyledNavDropDownHeader>
                 <StyledNavDropDownItem>
-                  <a>Regiony</a>
+                  <a onClick={() => Redirect('/podroze/regiony')}>Regiony</a>
                   <StyledNavSubDropDown>
                     <StyledNavSubDropDownItem onClick={() => Redirect('/podroze/regiony/hokkaido')}>
                       Hokkaidō
@@ -109,7 +109,7 @@ function NewNav() {
                   </StyledNavSubDropDown>
                 </StyledNavDropDownItem>
                 <StyledNavDropDownItem>
-                  <a>Prefektury</a>
+                  <a onClick={() => Redirect('/podroze/prefektury')}>Prefektury</a>
                   <StyledNavSubDropDown>
                     <StyledNavSubDropDownHeader>Hokkaidō</StyledNavSubDropDownHeader>
                     <StyledNavSubDropDownItem
@@ -319,7 +319,7 @@ function NewNav() {
                   </StyledNavSubDropDown>
                 </StyledNavDropDownItem>
                 <StyledNavDropDownItem>
-                  <a>Atrakcje</a>
+                  <a onClick={() => Redirect('/podroze/atrakcje')}>Atrakcje</a>
                   <StyledNavSubDropDown>
                     {categoriesAttractions &&
                       categoriesAttractions.map((item: TypesElementCategory, index: number) => (
