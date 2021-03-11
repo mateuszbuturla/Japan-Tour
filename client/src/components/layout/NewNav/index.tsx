@@ -340,7 +340,7 @@ function NewNav() {
             onMouseEnter={() => setDropDownIsHover(true)}
             onMouseLeave={() => setDropDownIsHover(false)}
           >
-            <StyledNavLinkLabel>Kultura</StyledNavLinkLabel>
+            <StyledNavLinkLabel onClick={() => Redirect('/kultura')}>Kultura</StyledNavLinkLabel>
             <StyledNavDropDown>
               <StyledNavDropDownWrapper>
                 <StyledNavDropDownHeader>
@@ -372,7 +372,7 @@ function NewNav() {
             onMouseEnter={() => setDropDownIsHover(true)}
             onMouseLeave={() => setDropDownIsHover(false)}
           >
-            <StyledNavLinkLabel>Kuchnia</StyledNavLinkLabel>
+            <StyledNavLinkLabel onClick={() => Redirect('/kuchnia')}>Kuchnia</StyledNavLinkLabel>
             <StyledNavDropDown>
               <StyledNavDropDownWrapper>
                 <StyledNavDropDownHeader>
