@@ -54,29 +54,15 @@ function JapanMap({ data }: Props) {
     <>
       <StyledSubHeader center>Mapa Japonii</StyledSubHeader>
       <StyledJapanMap />
-      {regions && cities && (
-        <>
-          {regions &&
-            regions.map((item: any) => (
-              <>
-                {cities.filter((item2: any) => item2.region == item._id).length > 0 && (
-                  <>
-                    <StyledSubHeader>{item.name}</StyledSubHeader>
-                    <ItemsTile
-                      data={cities
-                        .filter((item2: any) => item2.region == item._id)
-                        .map((item3: TypesCity) => ({
-                          name: item3.name,
-                          img: item3.img,
-                          url: `/podroze/miasta/${item3.key}`,
-                          shortDescription: item3.shortDescription,
-                        }))}
-                    />
-                  </>
-                )}
-              </>
-            ))}
-        </>
+      {regions && (
+        <ItemsTile
+          data={regions.map((item3: TypesRegion) => ({
+            name: item3.name,
+            img: item3.img,
+            url: `/podroze/regiony/${item3.key}`,
+            shortDescription: item3.shortDescription,
+          }))}
+        />
       )}
     </>
   );
