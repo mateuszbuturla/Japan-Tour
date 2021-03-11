@@ -1,5 +1,10 @@
 import React, { useEffect } from 'react';
-import { StyleContainer, StyledNotFoundImage, StyledNotFoundDescription } from './StyledNotFound';
+import {
+  StyledContainer,
+  StyledCode,
+  StyledDescription,
+  StyledDescription2,
+} from './StyledNotFound';
 import { PageHeader } from 'components/common';
 import BG from 'assets/mainBG.jpg';
 
@@ -14,19 +19,13 @@ function NotFound({ setTitle }: Props) {
 
   return (
     <>
-      <PageHeader
-        text="404"
-        img={BG}
-        small
-        locationPathElements={[
-          { text: 'Strona główna', url: '/' },
-          { text: 'Strona nie istnieje', url: '/404' },
-        ]}
-      />
-      <StyleContainer>
-        <StyledNotFoundImage />
-        <StyledNotFoundDescription>Podana strona nie istnieje</StyledNotFoundDescription>
-      </StyleContainer>
+      <StyledContainer>
+        <StyledCode>404</StyledCode>
+        <StyledDescription>Oppps! Podana strona nie została znaleziona.</StyledDescription>
+        <StyledDescription2>
+          Niestety taka strona nie istnieje. Sprawdź adres strony.
+        </StyledDescription2>
+      </StyledContainer>
     </>
   );
 }

@@ -1,21 +1,24 @@
 import styled from 'styled-components';
-import { ReactComponent as NotFoundImage } from '../../assets/notFound.svg';
 
-const StyleContainer = styled.div`
+const StyledContainer = styled.div`
   width: 90vw;
-  margin: 0 auto;
+  margin: 100px auto;
   text-align: center;
   max-width: ${(props) => props.theme.maxWidth};
 `;
 
-const StyledNotFoundImage = styled(NotFoundImage)`
-  width: 100%;
-  max-width: 300px;
+const StyledCode = styled.h2`
+  font-size: 220px;
 `;
 
-const StyledNotFoundDescription = styled.p`
-  width: 100%;
-  font-size: 25px;
+const StyledDescription = styled.p`
+  font-size: 50px;
+  margin-top: 10px;
 `;
 
-export { StyleContainer, StyledNotFoundImage, StyledNotFoundDescription };
+const StyledDescription2 = styled.p`
+  font-size: 30px;
+  margin-top: 30px;
+`;
+
+export { StyledContainer, StyledCode, StyledDescription, StyledDescription2 };

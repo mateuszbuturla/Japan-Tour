@@ -84,7 +84,7 @@ const StyledNavSubDropDown = styled.div`
   height: 100%;
   position: absolute;
   top: 0;
-  left: -100vw;
+  left: -1000vw;
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
