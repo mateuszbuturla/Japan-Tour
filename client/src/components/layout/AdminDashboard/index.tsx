@@ -10,7 +10,7 @@ import TypesApplicationState from 'types/TypesApplicationState';
 import Api from 'utils/Api';
 
 function AdminDashboard() {
-  const { attractions, cities, cultures, dishes } = useSelector(
+  const { attractions, cities, cultures, kitchens } = useSelector(
     (state: TypesApplicationState) => state.admin,
   );
 
@@ -68,7 +68,7 @@ function AdminDashboard() {
             icon: CultureIcon,
             description: 'Ilość wpisów o kuchni',
             url: '/admin/kitchen',
-            count: dishes.length,
+            count: kitchens.length,
             color: {
               color1: '#E56C91',
               color2: '#AF2634',

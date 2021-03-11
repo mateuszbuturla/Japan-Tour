@@ -123,7 +123,7 @@ function Footer() {
     newFooterData.push({ header: 'Kultura', data: cultures });
 
     const kitchen = resCategories.data
-      .filter((item: TypesElementCategory) => item.section === 'dishes')
+      .filter((item: TypesElementCategory) => item.section === 'kitchens')
       .map((item: TypesElementCategory) => ({
         title: item.name,
         url: `/kuchnia/${item.key}`,

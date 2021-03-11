@@ -1,7 +1,7 @@
 import TypesItemDescription from './TypesItemDescription';
 import TypesOtherData from './TypesOtherData';
 
-interface TypesDish {
+interface TypesKitchen {
   _id: string;
   name: string;
   category: string;
@@ -12,4 +12,4 @@ interface TypesDish {
   otherData: TypesOtherData[];
 }
 
-export default TypesDish;
+export default TypesKitchen;

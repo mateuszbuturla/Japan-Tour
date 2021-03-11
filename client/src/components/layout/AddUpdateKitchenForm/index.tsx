@@ -18,7 +18,7 @@ import { useFieldArray, useForm } from 'react-hook-form';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import TypesApplicationState from 'types/TypesApplicationState';
-import TypesDish from 'types/TypesDish';
+import TypesKitchen from 'types/TypesKitchen';
 import TypesElementCategory from 'types/TypesElementCategory';
 import AddNotification from 'utils/AddNotification';
 import Api from 'utils/Api';
@@ -30,16 +30,16 @@ interface Props {
   buttonLabel: 'Dodaj' | 'Aktualizuj';
 }
 
-function AddUpdateDishForm({ title, formType, buttonLabel }: Props) {
-  const { dishes, categories } = useSelector((state: TypesApplicationState) => state.admin);
+function AddUpdateKitchenForm({ title, formType, buttonLabel }: Props) {
+  const { kitchens, categories } = useSelector((state: TypesApplicationState) => state.admin);
   const { key } = useParams();
-  const [defaultValues, setDefaultValues] = useState<TypesDish>();
+  const [defaultValues, setDefaultValues] = useState<TypesKitchen>();
   const { register, handleSubmit, errors, control } = useForm();
 
-  const [dishDescription, setDishDescription] = useState();
+  const [kitchenDescription, setKitchenDescription] = useState();
 
   const getCategoriesNamesOnly = categories
-    .filter((item: TypesElementCategory) => item.section === 'dishes')
+    .filter((item: TypesElementCategory) => item.section === 'kitchens')
     .map((item: TypesElementCategory) => item.name);
 
   const {
@@ -52,17 +52,17 @@ function AddUpdateDishForm({ title, formType, buttonLabel }: Props) {
   });
 
   if (!defaultValues && key && formType === 'update') {
-    const dishObj = dishes.filter((item: TypesDish) => item.key === key)[0];
-    setDefaultValues(dishObj);
+    const kitchenObj = kitchens.filter((item: TypesKitchen) => item.key === key)[0];
+    setDefaultValues(kitchenObj);
 
-    const blocksFromHTML = convertFromHTML(dishObj.description);
+    const blocksFromHTML = convertFromHTML(kitchenObj.description);
 
     const content = ContentState.createFromBlockArray(
       blocksFromHTML.contentBlocks,
       blocksFromHTML.entityMap,
     );
 
-    setDishDescription(EditorState.createWithContent(content));
+    setKitchenDescription(EditorState.createWithContent(content));
   }
 
   const addNewInputToOtherData = (e: any) => {
@@ -90,11 +90,11 @@ function AddUpdateDishForm({ title, formType, buttonLabel }: Props) {
       const imgUrl = await sendImage(data.img);
       newData.img = imgUrl !== null ? imgUrl : defaultValues && defaultValues.img;
       newData.category = categories.find((r: TypesElementCategory) => r.name === data.category)._id;
-      if (dishDescription) {
-        newData.description = stateToHTML(dishDescription.getCurrentContent());
+      if (kitchenDescription) {
+        newData.description = stateToHTML(kitchenDescription.getCurrentContent());
       }
       if (formType === 'add') {
-        const res = await Api.post('/dishes/create', newData);
+        const res = await Api.post('/kitchens/create', newData);
         if (res.status === 201) {
           AddNotification('Dodano', 'Nowy wpis o kuchni został dodany pomyślnie', 'success');
           e.target.reset();
@@ -104,7 +104,7 @@ function AddUpdateDishForm({ title, formType, buttonLabel }: Props) {
           if (!data.otherData) {
             newData.otherData = defaultValues.otherData;
           }
-          const res = await Api.patch(`/dishes/update/${key}`, newData);
+          const res = await Api.patch(`/kitchens/update/${key}`, newData);
           if (res.status === 200) {
             AddNotification('Dodano', 'Wpis o kuchni został zaktualizowany pomyślnie', 'success');
           }
@@ -170,8 +170,8 @@ function AddUpdateDishForm({ title, formType, buttonLabel }: Props) {
         </StyledInputsContainer>
         <StyledFromDescriptionOtherDataContainer>
           <RichTextEditor
-            editorState={dishDescription}
-            onEditorStateChange={setDishDescription}
+            editorState={kitchenDescription}
+            onEditorStateChange={setKitchenDescription}
             toolbar={{
               options: ['inline', 'image'],
               inline: {
@@ -218,4 +218,4 @@ function AddUpdateDishForm({ title, formType, buttonLabel }: Props) {
   );
 }
 
-export default AddUpdateDishForm;
+export default AddUpdateKitchenForm;

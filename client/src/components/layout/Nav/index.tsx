@@ -5,7 +5,7 @@ import { useHistory } from 'react-router-dom';
 import TypesAttraction from 'types/TypesAttraction';
 import TypesCity from 'types/TypesCity';
 import TypesCulture from 'types/TypesCulture';
-import TypesDish from 'types/TypesDish';
+import TypesKitchen from 'types/TypesKitchen';
 import TypesElementCategory from 'types/TypesElementCategory';
 import TypesRegion from 'types/TypesRegion';
 import Api from 'utils/Api';
@@ -21,7 +21,7 @@ function Nav() {
   const [cities, setCities] = useState<TypesCity[]>();
   const [attractions, setAttractions] = useState<TypesAttraction[]>();
   const [cultures, setCultures] = useState<TypesCulture[]>();
-  const [dishes, setDishes] = useState<TypesDish[]>();
+  const [kitchens, setKitchens] = useState<TypesKitchen[]>();
   const [categories, setCategories] = useState<TypesElementCategory[]>();
 
   const onClose = () => {
@@ -48,9 +48,9 @@ function Nav() {
     setCultures(res.data.items);
   };
 
-  const getDishes = async () => {
-    const res = await Api.get(`/dishes`);
-    setDishes(res.data.items);
+  const getKitchens = async () => {
+    const res = await Api.get(`/kitchens`);
+    setKitchens(res.data.items);
   };
 
   const getCategories = async () => {
@@ -63,7 +63,7 @@ function Nav() {
     getCities();
     getAttractions();
     getCultures();
-    getDishes();
+    getKitchens();
     getCategories();
   }, []);
 
@@ -170,12 +170,12 @@ function Nav() {
           closeNav={onClose}
           dropdownData={
             categories &&
-            dishes &&
+            kitchens &&
             categories
-              .filter((obj) => obj.section === 'dishes')
+              .filter((obj) => obj.section === 'kitchens')
               .map((a) => ({
                 title: a.name,
-                data: dishes.map(
+                data: kitchens.map(
                   (b) =>
                     b.category === a._id && {
                       name: b.name,

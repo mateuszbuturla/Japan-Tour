@@ -10,7 +10,7 @@ import { useParams } from 'react-router-dom';
 import { KitchenCategoriesFetcher } from 'fetchers';
 
 import HeaderBg from 'assets/sushi.jpg';
-import TypesDish from 'types/TypesDish';
+import TypesKitchen from 'types/TypesKitchen';
 
 interface Props {
   setTitle: (title: string) => void;
@@ -55,8 +55,8 @@ function KitchenList({ setTitle }: Props) {
                   <StyledSubHeader>{category.name}</StyledSubHeader>
                   <ItemsTile
                     data={kitchens
-                      .filter((kitchen: TypesDish) => kitchen.category == category._id)
-                      .map((kitchen: TypesDish) => ({
+                      .filter((kitchen: TypesKitchen) => kitchen.category == category._id)
+                      .map((kitchen: TypesKitchen) => ({
                         name: kitchen.name,
                         img: kitchen.img,
                         shortDescription: kitchen.shortDescription,

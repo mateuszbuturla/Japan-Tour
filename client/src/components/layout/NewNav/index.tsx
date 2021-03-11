@@ -19,7 +19,7 @@ import { CategoriesFetcher } from 'fetchers';
 import TypesElementCategory from 'types/TypesElementCategory';
 import Api from 'utils/Api';
 import TypesCulture from 'types/TypesCulture';
-import TypesDish from 'types/TypesDish';
+import TypesKitchen from 'types/TypesKitchen';
 
 function NewNav() {
   const history = useHistory();
@@ -44,10 +44,10 @@ function NewNav() {
       resCategories.filter((item: TypesElementCategory) => item.section === 'cultures'),
     );
     setCategoriesKitchen(
-      resCategories.filter((item: TypesElementCategory) => item.section === 'dishes'),
+      resCategories.filter((item: TypesElementCategory) => item.section === 'kitchens'),
     );
     const resCultures = await Api.get('/cultures');
-    const resKitchen = await Api.get('/dishes');
+    const resKitchen = await Api.get('/kitchens');
     setCultures(resCultures.data);
     setKitchen(resKitchen.data);
     setFetchedData(true);
@@ -385,8 +385,8 @@ function NewNav() {
                       <StyledNavSubDropDown>
                         {kitchen &&
                           kitchen
-                            .filter((kitchen: TypesDish) => kitchen.category === category._id)
-                            .map((kitchen: TypesDish, index: number) => (
+                            .filter((kitchen: TypesKitchen) => kitchen.category === category._id)
+                            .map((kitchen: TypesKitchen, index: number) => (
                               <StyledNavSubDropDownItem
                                 onClick={() => Redirect(`/kuchnia/${kitchen.key}`)}
                                 key={index}

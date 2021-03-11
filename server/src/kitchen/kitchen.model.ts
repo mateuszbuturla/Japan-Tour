@@ -1,6 +1,6 @@
 import * as mongoose from "mongoose";
 
-export const DishSchema = new mongoose.Schema({
+export const KitchenSchema = new mongoose.Schema({
   name: { type: String, required: true },
   category: { type: String, required: true },
   img: { type: String, required: true },
@@ -10,7 +10,7 @@ export const DishSchema = new mongoose.Schema({
   otherData: { type: Array, required: false },
 });
 
-export interface Dish extends mongoose.Document {
+export interface Kitchen extends mongoose.Document {
   name: string;
   category: string;
   img: string;

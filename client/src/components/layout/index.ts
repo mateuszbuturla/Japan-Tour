@@ -2,7 +2,7 @@ import AddUpdateAttractionForm from './AddUpdateAttractionForm';
 import AddUpdateCategoryForm from './AddUpdateCategoryForm';
 import AddUpdateCityForm from './AddUpdateCityForm';
 import AddUpdateCultureForm from './AddUpdateCultureForm';
-import AddUpdateDishForm from './AddUpdateDishForm';
+import AddUpdateKitchenForm from './AddUpdateKitchenForm';
 import AddUpdateRegionForm from './AddUpdateRegionForm';
 import AdminDashboard from './AdminDashboard';
 import AdminElementsList from './AdminElementsList';
@@ -19,7 +19,7 @@ export {
   AdminElementsList,
   AddUpdateRegionForm,
   AddUpdateCityForm,
-  AddUpdateDishForm,
+  AddUpdateKitchenForm,
   AddUpdateCultureForm,
   AddUpdateAttractionForm,
   AddUpdateCategoryForm,

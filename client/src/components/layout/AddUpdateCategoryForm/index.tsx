@@ -103,7 +103,7 @@ function AddUpdateCategoryForm({ title, formType, buttonLabel }: Props) {
               id="section"
               name="section"
               inputRef={register()}
-              options={['attractions', 'cultures', 'dishes']}
+              options={['attractions', 'cultures', 'kitchens']}
               defaultValue={formType === 'update' && defaultValues ? defaultValues.section : ''}
             />
           </StyledFormInputWrapper>

@@ -28,9 +28,9 @@ const setCulturesData = (item: any) => {
   };
 };
 
-const setDishesData = (item: any) => {
+const setKitchensData = (item: any) => {
   return {
-    type: types.SET_ADMIN_DISHES_DATA,
+    type: types.SET_ADMIN_KITCHENS_DATA,
     item,
   };
 };
@@ -63,9 +63,9 @@ const removedAttractionById = (item: any) => {
   };
 };
 
-const removeDishById = (item: any) => {
+const removeKitchenById = (item: any) => {
   return {
-    type: types.REMOVE_ADMIN_DISH_DATA,
+    type: types.REMOVE_ADMIN_KITCHEN_DATA,
     item,
   };
 };
@@ -89,12 +89,12 @@ export default {
   setCitiesData,
   setAttractionsData,
   setCulturesData,
-  setDishesData,
+  setKitchensData,
   setCategoriesData,
   setPrefecturesData,
   removedCityById,
   removedAttractionById,
-  removeDishById,
+  removeKitchenById,
   removeCultureById,
   removeCategoryById,
 };

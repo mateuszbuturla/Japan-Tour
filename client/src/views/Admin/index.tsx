@@ -35,9 +35,9 @@ function Admin({ setTitle }: Props) {
     dispatch(actions.setCulturesData(res.data));
   };
 
-  const getDishes = async () => {
-    let res = await Api.get('/dishes');
-    dispatch(actions.setDishesData(res.data));
+  const getKitchens = async () => {
+    let res = await Api.get('/kitchens');
+    dispatch(actions.setKitchensData(res.data));
   };
 
   const getCategories = async () => {
@@ -56,7 +56,7 @@ function Admin({ setTitle }: Props) {
     getCities();
     getAttractions();
     getCultures();
-    getDishes();
+    getKitchens();
     getCategories();
     getPrefectures();
   }, []);

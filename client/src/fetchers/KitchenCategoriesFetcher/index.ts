@@ -4,8 +4,8 @@ import { LoadingOut, LoadingIn } from 'animations';
 const KitchenCategoriesFetcher = async () => {
   LoadingIn();
   try {
-    const kitchens = await Api.get('/dishes');
-    const categories = await Api.get('/categories/dishes');
+    const kitchens = await Api.get('/kitchens');
+    const categories = await Api.get('/categories/kitchens');
     LoadingOut();
     return {
       kitchens: kitchens.data,

@@ -6,49 +6,49 @@ import { isNull } from "util";
 import { ActionHistoryService } from "../actionHistory/actionHistory.service";
 import { CategoryService } from "../category/category.service";
 import NormalizeString from "../utils/normalizeString";
-import { Dish } from "./dish.model";
+import { Kitchen } from "./kitchen.model";
 
 @Injectable()
-export class DishService {
+export class KitchenService {
   constructor(
-    @InjectModel("Dish") private readonly dishModel: Model<Dish>,
+    @InjectModel("Kitchen") private readonly kitchenModel: Model<Kitchen>,
     private readonly actionHistoryService: ActionHistoryService,
     private readonly categoryService: CategoryService
   ) {}
 
-  async getDishes() {
-    const dishes = await this.dishModel.find().exec();
-    return dishes;
+  async getKitchens() {
+    const kitchens = await this.kitchenModel.find().exec();
+    return kitchens;
   }
 
-  async getSingleDish(key: string) {
-    const culture = await this.findDish(key);
-    return culture;
+  async getSingleKitchen(key: string) {
+    const kitchen = await this.findKitchen(key);
+    return kitchen;
   }
 
-  private async findDish(key: string): Promise<Dish> {
-    let dish;
+  private async findKitchen(key: string): Promise<Kitchen> {
+    let kitchen;
     try {
-      dish = await this.dishModel.findOne({ key }).exec();
+      kitchen = await this.kitchenModel.findOne({ key }).exec();
     } catch (error) {
-      throw new NotFoundException("Could not find dish.");
+      throw new NotFoundException("Could not find kitchen.");
     }
-    if (!dish) {
-      throw new NotFoundException("Could not find dish.");
+    if (!kitchen) {
+      throw new NotFoundException("Could not find kitchen.");
     }
-    return dish;
+    return kitchen;
   }
 
-  async createDish(data: Dish, user: User) {
+  async createKitchen(data: Kitchen, user: User) {
     let res;
-    const existDish = await this.dishModel
+    const existKitchen = await this.kitchenModel
       .findOne({
         $or: [{ name: data.name }, { key: NormalizeString(data.name) }],
       })
       .exec();
 
-    if (isNull(existDish)) {
-      const newDish = new this.dishModel({
+    if (isNull(existKitchen)) {
+      const newKitchen = new this.kitchenModel({
         name: data.name,
         key: NormalizeString(data.name),
         category: data.category,
@@ -57,7 +57,7 @@ export class DishService {
         description: data.description,
         otherData: data.otherData,
       });
-      res = await newDish.save();
+      res = await newKitchen.save();
       this.actionHistoryService.addNewItem({
         section: "kitchen",
         name: data.name,
@@ -67,18 +67,18 @@ export class DishService {
         action: "add",
       });
     } else {
-      throw new HttpException("Dish is exist.", 409);
+      throw new HttpException("Kitchen is exist.", 409);
     }
 
     return res;
   }
 
-  async removeDish(id: string, user: User) {
+  async removeKitchen(id: string, user: User) {
     let res;
 
     try {
-      const removedDish = await this.dishModel.remove({ _id: id });
-      if (removedDish.deletedCount > 0) {
+      const removedKitchen = await this.kitchenModel.remove({ _id: id });
+      if (removedKitchen.deletedCount > 0) {
         res = "Successfully deleted.";
         this.actionHistoryService.addNewItem({
           section: "kitchen",
@@ -88,17 +88,17 @@ export class DishService {
           author: user._id,
           action: "remove",
         });
-      } else if (removedDish.deletedCount === 0) {
-        throw new HttpException("Could not remove dish.", 409);
+      } else if (removedKitchen.deletedCount === 0) {
+        throw new HttpException("Could not remove kitchen.", 409);
       }
     } catch (error) {
-      throw new HttpException("Could not remove dish.", 409);
+      throw new HttpException("Could not remove kitchen.", 409);
     }
 
     return res;
   }
 
-  async updateDish(key: string, data: Dish, user: User) {
+  async updateKitchen(key: string, data: Kitchen, user: User) {
     let res;
 
     try {
@@ -112,8 +112,11 @@ export class DishService {
         otherData: data.otherData,
       };
 
-      const updatedDishes = await this.dishModel.updateOne({ key }, newData);
-      if (updatedDishes.n > 0) {
+      const updatedKitchens = await this.kitchenModel.updateOne(
+        { key },
+        newData
+      );
+      if (updatedKitchens.n > 0) {
         res = {
           statusCode: 200,
           message: "Successfully updated.",
@@ -126,11 +129,11 @@ export class DishService {
           author: user._id,
           action: "update",
         });
-      } else if (updatedDishes.n === 0) {
-        throw new HttpException("Could not update dish.", 409);
+      } else if (updatedKitchens.n === 0) {
+        throw new HttpException("Could not update kitchen.", 409);
       }
     } catch (error) {
-      throw new HttpException("Could not update dish.", 409);
+      throw new HttpException("Could not update kitchen.", 409);
     }
 
     return res;

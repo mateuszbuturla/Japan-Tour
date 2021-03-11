@@ -6,7 +6,7 @@ import { AuthModule } from "./auth/auth.module";
 import { CategoryModule } from "./category/category.module";
 import { CityModule } from "./city/city.module";
 import { CultureModule } from "./culture/culture.module";
-import { DishModule } from "./dish/dish.module";
+import { KitchenModule } from "./kitchen/kitchen.module";
 import { FooterModule } from "./footer/footer.module";
 import { RegionModule } from "./region/region.module";
 import { UserModule } from "./user/user.module";
@@ -20,7 +20,7 @@ import { PrefectureModule } from "./prefecture/prefecture.module";
     CityModule,
     AttractionModule,
     CultureModule,
-    DishModule,
+    KitchenModule,
     CategoryModule,
     FooterModule,
     UserModule,

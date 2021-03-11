@@ -3,7 +3,7 @@ import {
   AddUpdateAttractionForm,
   AddUpdateCityForm,
   AddUpdateCultureForm,
-  AddUpdateDishForm,
+  AddUpdateKitchenForm,
   AddUpdateRegionForm,
   AdminDashboard,
   AdminElementsList,
@@ -16,7 +16,7 @@ import { Route, Switch } from 'react-router-dom';
 import TypesApplicationState from 'types/TypesApplicationState';
 
 function RoutingAdmin() {
-  const { attractions, regions, cities, cultures, dishes, categories, prefectures } = useSelector(
+  const { attractions, regions, cities, cultures, kitchens, categories, prefectures } = useSelector(
     (state: TypesApplicationState) => state.admin,
   );
   const dispatch = useDispatch();
@@ -148,11 +148,11 @@ function RoutingAdmin() {
           <AdminElementsList
             {...props}
             title="Kuchnia"
-            api="dishes"
-            removeFromAppState={(id: string) => dispatch(adminActions.removeDishById(id))}
+            api="kitchens"
+            removeFromAppState={(id: string) => dispatch(adminActions.removeKitchenById(id))}
             data={
-              dishes &&
-              dishes.map((item: any) => ({
+              kitchens &&
+              kitchens.map((item: any) => ({
                 _id: item._id,
                 name: item.name,
                 author: 'Admin',
@@ -231,7 +231,7 @@ function RoutingAdmin() {
       <Route
         path="/admin/kitchen/add"
         component={(props: any) => (
-          <AddUpdateDishForm
+          <AddUpdateKitchenForm
             {...props}
             title="Dodaj wpis o kuchni"
             formType="add"
@@ -242,7 +242,7 @@ function RoutingAdmin() {
       <Route
         path="/admin/kitchen/update/:key"
         component={(props: any) => (
-          <AddUpdateDishForm
+          <AddUpdateKitchenForm
             {...props}
             title="Edytuj wpis o kuchni"
             formType="update"

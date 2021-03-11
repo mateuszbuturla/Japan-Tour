@@ -1,7 +1,7 @@
 import * as Joi from "joi";
 import { OtherDataShema } from "../../Schema/OtherDataShema";
 
-export const AddUpdateDishSchema = Joi.object().keys({
+export const AddUpdateKitchenSchema = Joi.object().keys({
   name: Joi.string().required(),
   category: Joi.string().required(),
   img: Joi.string().required(),
