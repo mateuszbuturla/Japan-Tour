@@ -139,6 +139,17 @@ function AddUpdateRegionForm({ title, formType, buttonLabel }: Props) {
               inputRef={register({ required: formType === 'add' })}
             />
           </StyledFormInputWrapper>
+          <StyledFormInputWrapper>
+            <Input
+              label="Krótki opis"
+              id="shortDescription"
+              name="shortDescription"
+              inputRef={register({ required: true })}
+              defaultValue={
+                formType === 'update' && defaultValues ? defaultValues.shortDescription : ''
+              }
+            />
+          </StyledFormInputWrapper>
         </StyledInputsContainer>
         <StyledFromDescriptionOtherDataContainer>
           <RichTextEditor

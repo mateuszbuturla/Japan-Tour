@@ -8,6 +8,7 @@ interface TypesPrefecture {
   description: string;
   region: string;
   img: string;
+  shortDescription: string;
   otherData: TypesOtherData[];
 }
 

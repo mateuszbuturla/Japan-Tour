@@ -64,7 +64,7 @@ function CitiesList({ setTitle }: Props) {
                       .map((city: TypesCity) => ({
                         name: city.name,
                         img: city.img,
-                        shortDescription: 'krotki opis miasta',
+                        shortDescription: city.shortDescription,
                         url: `/podroze/miasta/${city.key}`,
                       }))}
                   />

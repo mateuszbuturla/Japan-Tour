@@ -82,6 +82,7 @@ export class RegionService {
         img: data.img,
         description: data.description,
         otherData: data.otherData,
+        shortDescription: data.shortDescription,
       });
       res = await newRegion.save();
       this.actionHistoryService.addNewItem({
@@ -123,6 +124,7 @@ export class RegionService {
         description: data.description,
         otherData: data.otherData,
         img: data.img,
+        shortDescription: data.shortDescription,
       };
 
       const updatedRegions = await this.regionModel.updateOne({ key }, newData);

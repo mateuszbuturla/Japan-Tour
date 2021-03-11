@@ -9,6 +9,7 @@ interface TypesCity {
   region: string;
   prefecture: string;
   img: string;
+  shortDescription: string;
   otherData: TypesOtherData[];
 }
 

@@ -69,6 +69,7 @@ function JapanMap({ data }: Props) {
                           name: item3.name,
                           img: item3.img,
                           url: `/podroze/miasta/${item3.key}`,
+                          shortDescription: item3.shortDescription,
                         }))}
                     />
                   </>

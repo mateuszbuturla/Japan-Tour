@@ -8,6 +8,7 @@ interface TypesRegion {
   key: string;
   description: string;
   img: string;
+  shortDescription: string;
   otherData: TypesOtherData[];
 }
 

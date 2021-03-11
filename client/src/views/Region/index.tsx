@@ -70,7 +70,7 @@ function Region({ setTitle }: Props) {
                 data={prefectures.map((item: TypesPrefecture) => ({
                   name: item.name,
                   img: item.img,
-                  shortDescription: 'krotki opis prefektory',
+                  shortDescription: item.shortDescription,
                   url: `/podroze/prefektury/${item.key}`,
                   highlighted: true,
                 }))}
@@ -84,7 +84,7 @@ function Region({ setTitle }: Props) {
                 data={cities.map((item: TypesCity) => ({
                   name: item.name,
                   img: item.img,
-                  shortDescription: 'krotki opis miasta',
+                  shortDescription: item.shortDescription,
                   url: `/podroze/miasta/${item.key}`,
                   highlighted: true,
                 }))}

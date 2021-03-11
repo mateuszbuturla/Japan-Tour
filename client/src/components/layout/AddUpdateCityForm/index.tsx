@@ -173,6 +173,17 @@ function AddUpdateCityForm({ title, formType, buttonLabel }: Props) {
           </StyledFormInputWrapper>
           <StyledFormInputWrapper>
             <Input
+              label="Krótki opis"
+              id="shortDescription"
+              name="shortDescription"
+              inputRef={register({ required: true })}
+              defaultValue={
+                formType === 'update' && defaultValues ? defaultValues.shortDescription : ''
+              }
+            />
+          </StyledFormInputWrapper>
+          <StyledFormInputWrapper>
+            <Input
               type="checkbox"
               label="Wyróżnij"
               id="highlighted"

@@ -49,7 +49,7 @@ function RegionsList({ setTitle }: Props) {
               data={regions.map((item: TypesRegion) => ({
                 name: item.name,
                 img: item.img,
-                shortDescription: 'krotki opis regionu',
+                shortDescription: item.shortDescription,
                 url: `/podroze/regiony/${item.key}`,
                 highlighted: true,
               }))}

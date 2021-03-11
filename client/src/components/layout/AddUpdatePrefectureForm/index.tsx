@@ -31,7 +31,7 @@ interface Props {
 }
 
 function AddUpdatePrefectureForm({ title, formType, buttonLabel }: Props) {
-  const { regions } = useSelector((state: TypesApplicationState) => state.admin);
+  const { regions, prefectures } = useSelector((state: TypesApplicationState) => state.admin);
   const { key } = useParams();
   const [defaultValues, setDefaultValues] = useState<TypesPrefecture>();
   const { register, handleSubmit, errors, control } = useForm();
@@ -41,10 +41,10 @@ function AddUpdatePrefectureForm({ title, formType, buttonLabel }: Props) {
   const getRegionsNamesOnly = regions.map((item: TypesRegion) => item.name);
 
   if (!defaultValues && key && formType === 'update') {
-    const regionObj = regions.filter((item: TypesRegion) => item.key === key)[0];
-    setDefaultValues(regionObj);
+    const prefectureObj = prefectures.filter((item: TypesPrefecture) => item.key === key)[0];
+    setDefaultValues(prefectureObj);
 
-    const blocksFromHTML = convertFromHTML(regionObj.description);
+    const blocksFromHTML = convertFromHTML(prefectureObj.description);
 
     const content = ContentState.createFromBlockArray(
       blocksFromHTML.contentBlocks,
@@ -152,6 +152,17 @@ function AddUpdatePrefectureForm({ title, formType, buttonLabel }: Props) {
               inputRef={register()}
               options={getRegionsNamesOnly}
               defaultValue={formType === 'update' && defaultValues ? defaultValues.region : ''}
+            />
+          </StyledFormInputWrapper>
+          <StyledFormInputWrapper>
+            <Input
+              label="Krótki opis"
+              id="shortDescription"
+              name="shortDescription"
+              inputRef={register({ required: true })}
+              defaultValue={
+                formType === 'update' && defaultValues ? defaultValues.shortDescription : ''
+              }
             />
           </StyledFormInputWrapper>
           <StyledFormInputWrapper>

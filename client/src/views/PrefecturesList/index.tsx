@@ -64,7 +64,7 @@ function PrefecturesList({ setTitle }: Props) {
                       .map((prefecture: TypesPrefecture) => ({
                         name: prefecture.name,
                         img: prefecture.img,
-                        shortDescription: 'krotki opis',
+                        shortDescription: prefecture.shortDescription,
                         url: `/podroze/prefektury/${prefecture.key}`,
                       }))}
                   />

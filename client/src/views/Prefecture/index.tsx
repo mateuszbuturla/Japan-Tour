@@ -67,7 +67,7 @@ function Prefecture({ setTitle }: Props) {
                 data={cities.map((item: TypesCity) => ({
                   name: item.name,
                   img: item.img,
-                  shortDescription: 'krotki opis miasta',
+                  shortDescription: item.shortDescription,
                   url: `/podroze/miasta/${item.key}`,
                   highlighted: true,
                 }))}

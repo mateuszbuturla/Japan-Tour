@@ -95,6 +95,7 @@ export class PrefectureService {
         img: data.img,
         otherData: data.otherData,
         highlighted: data.highlighted,
+        shortDescription: data.shortDescription,
       });
       res = await newPrefecture.save();
       this.actionHistoryService.addNewItem({
@@ -150,6 +151,7 @@ export class PrefectureService {
         img: data.img,
         otherData: data.otherData,
         highlighted: data.highlighted,
+        shortDescription: data.shortDescription,
       };
 
       const updatedPrefecture = await this.prefectureModel.updateOne(

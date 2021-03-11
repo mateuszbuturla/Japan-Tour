@@ -54,6 +54,7 @@ export class CityService {
         region: city.region,
         otherData: city.otherData,
         highlighted: city.highlighted,
+        shortDescription: city.shortDescription,
       })),
     };
   }
@@ -110,6 +111,7 @@ export class CityService {
         otherData: data.otherData,
         highlighted: data.highlighted,
         prefecture: data.prefecture,
+        shortDescription: data.shortDescription,
       });
       console.log(newCity);
       res = await newCity.save();
@@ -167,6 +169,7 @@ export class CityService {
         otherData: data.otherData,
         highlighted: data.highlighted,
         prefecture: data.prefecture,
+        shortDescription: data.shortDescription,
       };
 
       const updatedCity = await this.cityModel.updateOne({ key }, newData);
