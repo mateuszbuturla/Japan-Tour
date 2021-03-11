@@ -13,6 +13,7 @@ import { RegionSimpleFetcher } from 'fetchers';
 import TypesCity from 'types/TypesCity';
 import TypesAttraction from 'types/TypesAttraction';
 import TypesPrefecture from 'types/TypesPrefecture';
+import { NotFound } from 'views';
 
 interface Props {
   setTitle: (value: string) => void;
@@ -24,9 +25,14 @@ function Region({ setTitle }: Props) {
   const [region, setRegion] = useState();
   const [cities, setCities] = useState();
   const [attractions, setAttractions] = useState();
+  const [error, setError] = useState();
 
   const getData = async () => {
     const resRegion = await RegionSimpleFetcher(key, true, true, true);
+    if (resRegion === 404) {
+      setError(404);
+      return;
+    }
     setRegion(resRegion.region);
     setCities(resRegion.cities);
     setAttractions(resRegion.attractions);
@@ -34,13 +40,17 @@ function Region({ setTitle }: Props) {
   };
 
   useEffect(() => {
-    if (!region) {
+    if (!region && error !== 404) {
       getData();
     }
   }, []);
 
+  if (error === 404) {
+    return <NotFound setTitle={setTitle} />;
+  }
+
   if (!region) {
-    return <>Loading</>;
+    return null;
   }
 
   return (

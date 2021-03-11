@@ -12,6 +12,7 @@ import { useParams } from 'react-router-dom';
 import { PrefectureSimpleFetcher } from 'fetchers';
 import TypesCity from 'types/TypesCity';
 import TypesAttraction from 'types/TypesAttraction';
+import { NotFound } from 'views';
 
 interface Props {
   setTitle: (value: string) => void;
@@ -22,9 +23,14 @@ function Prefecture({ setTitle }: Props) {
   const [prefecture, setPrefecture] = useState();
   const [cities, setCities] = useState();
   const [attractions, setAttractions] = useState();
+  const [error, setError] = useState();
 
   const getData = async () => {
     const resPrefecture = await PrefectureSimpleFetcher(key, true, true);
+    if (resPrefecture === 404) {
+      setError(404);
+      return;
+    }
     setPrefecture(resPrefecture.prefecture);
     setCities(resPrefecture.cities);
     setAttractions(resPrefecture.attractions);
@@ -36,8 +42,12 @@ function Prefecture({ setTitle }: Props) {
     }
   }, []);
 
+  if (error === 404) {
+    return <NotFound setTitle={setTitle} />;
+  }
+
   if (!prefecture) {
-    return <>Loading</>;
+    return null;
   }
 
   return (

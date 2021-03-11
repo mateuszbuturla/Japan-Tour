@@ -9,6 +9,7 @@ const KitchenSimpleFetcher = async (key: string) => {
     return kitchen.data;
   } catch (e) {
     LoadingOut();
+    return 404;
   }
 };
 

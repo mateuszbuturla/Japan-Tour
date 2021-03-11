@@ -11,6 +11,7 @@ const PrefectureSimpleFetcher = async (key: string, cities?: boolean, attraction
     return region.data;
   } catch (e) {
     LoadingOut();
+    return 404;
   }
 };
 

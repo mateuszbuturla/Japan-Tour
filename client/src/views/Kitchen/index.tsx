@@ -8,6 +8,7 @@ import {
 } from 'components/common';
 import { useParams } from 'react-router-dom';
 import { KitchenSimpleFetcher } from 'fetchers';
+import { NotFound } from 'views';
 
 interface Props {
   setTitle: (value: string) => void;
@@ -16,9 +17,14 @@ interface Props {
 function Kitchen({ setTitle }: Props) {
   const { key } = useParams();
   const [kitchen, setKitchen] = useState();
+  const [error, setError] = useState();
 
   const getData = async () => {
     const resKitchen = await KitchenSimpleFetcher(key);
+    if (resKitchen === 404) {
+      setError(404);
+      return;
+    }
     setKitchen(resKitchen);
   };
 
@@ -28,8 +34,12 @@ function Kitchen({ setTitle }: Props) {
     }
   }, []);
 
+  if (error === 404) {
+    return <NotFound setTitle={setTitle} />;
+  }
+
   if (!kitchen) {
-    return <>Loading</>;
+    return null;
   }
 
   return (

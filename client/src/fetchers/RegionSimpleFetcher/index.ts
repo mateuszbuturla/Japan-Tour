@@ -18,6 +18,7 @@ const RegionSimpleFetcher = async (
     return region.data;
   } catch (e) {
     LoadingOut();
+    return 404;
   }
 };
 
