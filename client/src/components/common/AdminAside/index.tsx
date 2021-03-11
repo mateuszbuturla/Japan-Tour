@@ -45,6 +45,10 @@ function AdminAside() {
         <StyledAdminAsideLinkIcon src={RegionIcon} />
         Regiony
       </StyledAdminAsideLink>
+      <StyledAdminAsideLink to="/admin/prefectures">
+        <StyledAdminAsideLinkIcon src={RegionIcon} />
+        Prefektury
+      </StyledAdminAsideLink>
       <StyledAdminAsideLink to="/admin/cities">
         <StyledAdminAsideLinkIcon src={CityIcon} />
         Miasta

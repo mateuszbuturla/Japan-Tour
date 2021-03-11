@@ -7,6 +7,7 @@ import {
   AddUpdateRegionForm,
   AdminDashboard,
   AdminElementsList,
+  AddUpdatePrefectureForm,
 } from 'components/layout';
 import AddUpdateCategoryForm from 'components/layout/AddUpdateCategoryForm';
 import React from 'react';
@@ -15,7 +16,7 @@ import { Route, Switch } from 'react-router-dom';
 import TypesApplicationState from 'types/TypesApplicationState';
 
 function RoutingAdmin() {
-  const { attractions, regions, cities, cultures, dishes, categories } = useSelector(
+  const { attractions, regions, cities, cultures, dishes, categories, prefectures } = useSelector(
     (state: TypesApplicationState) => state.admin,
   );
   const dispatch = useDispatch();
@@ -66,6 +67,29 @@ function RoutingAdmin() {
             }
             addNewItemFormUrl="/admin/regions/add"
             updateItemFormUrl="/admin/regions/update"
+          />
+        )}
+        exact
+      />
+      <Route
+        path="/admin/prefectures"
+        component={(props: any) => (
+          <AdminElementsList
+            {...props}
+            title="Prefektury"
+            api="prefectures"
+            data={
+              prefectures &&
+              prefectures.map((item: any) => ({
+                _id: item._id,
+                name: item.name,
+                author: 'Admin',
+                date: '01.01.2020',
+                key: item.key,
+              }))
+            }
+            addNewItemFormUrl="/admin/prefectures/add"
+            updateItemFormUrl="/admin/prefectures/update"
           />
         )}
         exact
@@ -288,6 +312,29 @@ function RoutingAdmin() {
           <AddUpdateCategoryForm
             {...props}
             title="Edytuj kategorię"
+            formType="update"
+            buttonLabel="Aktualizuj"
+          />
+        )}
+      />
+
+      <Route
+        path="/admin/prefectures/add"
+        component={(props: any) => (
+          <AddUpdatePrefectureForm
+            {...props}
+            title="Dodaj prefekture"
+            formType="add"
+            buttonLabel="Dodaj"
+          />
+        )}
+      />
+      <Route
+        path="/admin/prefectures/update/:key"
+        component={(props: any) => (
+          <AddUpdatePrefectureForm
+            {...props}
+            title="Edytuj prefekture"
             formType="update"
             buttonLabel="Aktualizuj"
           />

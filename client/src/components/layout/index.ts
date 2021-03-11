@@ -10,6 +10,7 @@ import AttractionsHighlightedItemsFromThisSameCategory from './AttractionsHighli
 import Footer from './Footer';
 import Nav from './Nav';
 import NewNav from './NewNav';
+import AddUpdatePrefectureForm from './AddUpdatePrefectureForm';
 
 export {
   Footer,
@@ -24,4 +25,5 @@ export {
   AddUpdateCategoryForm,
   AttractionsHighlightedItemsFromThisSameCategory,
   NewNav,
+  AddUpdatePrefectureForm,
 };

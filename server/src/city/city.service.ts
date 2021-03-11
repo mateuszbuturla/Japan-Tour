@@ -111,6 +111,7 @@ export class CityService {
         highlighted: data.highlighted,
         prefecture: data.prefecture,
       });
+      console.log(newCity);
       res = await newCity.save();
       this.actionHistoryService.addNewItem({
         section: "cities",

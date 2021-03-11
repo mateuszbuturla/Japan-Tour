@@ -395,6 +395,7 @@ function NewNav() {
                               </StyledNavSubDropDownItem>
                             ))}
                       </StyledNavSubDropDown>
+                      <StyledNavBlancSpace height="280px" />
                     </StyledNavDropDownItem>
                   ))}
               </StyledNavDropDownWrapper>
