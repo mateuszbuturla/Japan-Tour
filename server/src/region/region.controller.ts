@@ -1,8 +1,19 @@
-import { Get } from '@nestjs/common';
+import { Get, Post } from '@nestjs/common';
 import { Param } from '@nestjs/common';
+import { UseInterceptors } from '@nestjs/common';
+import { Body } from '@nestjs/common';
 import { Controller } from '@nestjs/common';
+import { FileFieldsInterceptor } from '@nestjs/platform-express';
 import { RegionInterface } from 'src/interfaces/region';
 import { RegionService } from './region.service';
+import { multerStorage } from 'src/utils/storage';
+import * as path from 'path';
+import { UploadedFiles } from '@nestjs/common';
+import { MulterDiskUploadedFiles } from 'src/interfaces/files';
+import AddRegionDto from './dto/AddRegionDto';
+import { UsePipes } from '@nestjs/common';
+import { JoiValidationPipe } from 'src/pipes/JoiValidationPipe';
+import { AddRegionValidator } from './validation/AddRegionValidator';
 
 @Controller('region')
 export class RegionController {
@@ -12,6 +23,29 @@ export class RegionController {
   async getRegions(): Promise<RegionInterface[]> {
     const regions = await this.regionService.getRegions();
     return regions;
+  }
+
+  @Post('/create')
+  @UsePipes(new JoiValidationPipe(AddRegionValidator))
+  @UseInterceptors(
+    FileFieldsInterceptor(
+      [
+        {
+          name: 'img',
+          maxCount: 1,
+        },
+      ],
+      {
+        storage: multerStorage(),
+      },
+    ),
+  )
+  async createRegion(
+    @Body() data: AddRegionDto,
+    @UploadedFiles() img: MulterDiskUploadedFiles,
+  ) {
+    const region = await this.regionService.createRegion(data, img);
+    return region;
   }
 
   @Get('/:key')
