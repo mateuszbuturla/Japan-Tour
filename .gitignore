@@ -3,3 +3,4 @@
 /client/node_modules
 /client/public/upload
 /client/build
+/client/.next
