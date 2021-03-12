@@ -3,6 +3,7 @@ import { RegionInterface } from '../interfaces/region';
 import { Region } from './region.entity';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
+import { NotFoundException } from '@nestjs/common';
 
 @Injectable()
 export class RegionService {
@@ -20,5 +21,22 @@ export class RegionService {
       description: region.description,
       img: region.img,
     }));
+  }
+
+  async getSingleRegions(key: string): Promise<RegionInterface> {
+    const region = await this.regionModel.findOne({ key });
+
+    if (!region) {
+      throw new NotFoundException();
+    }
+
+    return {
+      id: region._id,
+      name: region.name,
+      key: region.key,
+      shortDescription: region.shortDescription,
+      description: region.description,
+      img: region.img,
+    };
   }
 }
