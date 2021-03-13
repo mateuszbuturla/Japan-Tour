@@ -109,7 +109,7 @@ export class RegionService {
         })
         .exec();
       if (existRegion.length > 0 && data.name !== regionToUpdate.name) {
-        throw new HttpException('Region is exist.', 409);
+        throw new HttpException('Region is already exist.', 409);
       } else {
         let newData = {
           name: data.name,
