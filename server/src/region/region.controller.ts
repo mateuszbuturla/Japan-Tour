@@ -25,7 +25,7 @@ export class RegionController {
     return regions;
   }
 
-  @Post('/create')
+  @Post('/')
   @UsePipes(new JoiValidationPipe(AddRegionValidator))
   @UseInterceptors(
     FileFieldsInterceptor(
@@ -48,7 +48,7 @@ export class RegionController {
     return region;
   }
 
-  @Patch('/update/:id')
+  @Patch('/:id')
   // @UsePipes(new JoiValidationPipe(AddRegionValidator))
   @UseInterceptors(
     FileFieldsInterceptor(
@@ -72,7 +72,7 @@ export class RegionController {
     return region;
   }
 
-  @Delete('/remove/:id')
+  @Delete('/:id')
   async removeRegion(@Param('id') id: string): Promise<RegionInterface> {
     const region = await this.regionService.removeRegion(id);
     return region;
