@@ -190,4 +190,26 @@ export class PrefectureService {
       throw e;
     }
   }
+
+  async removePrefecture(id: string) {
+    const prefectureToRemove = await this.prefectureModel.findOne({ _id: id });
+
+    if (!prefectureToRemove) {
+      throw new HttpException('Prefecture is not exist', 404);
+    }
+
+    if (prefectureToRemove) {
+      const removedPrefecture = await this.prefectureModel.remove({ _id: id });
+      if (removedPrefecture.deletedCount > 0) {
+        try {
+          if (prefectureToRemove.img) {
+            fs.unlinkSync(path.join(storageDir(), prefectureToRemove.img));
+          }
+        } catch (e2) {}
+        return prefectureToRemove;
+      } else {
+        throw new HttpException('Could not remove prefecture.', 409);
+      }
+    }
+  }
 }

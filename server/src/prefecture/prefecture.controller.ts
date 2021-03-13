@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Param,
   Patch,
@@ -86,6 +87,14 @@ export class PrefectureController {
       id,
       img,
     );
+    return prefecture;
+  }
+
+  @Delete('/remove/:id')
+  async removePrefecture(
+    @Param('id') id: string,
+  ): Promise<PrefectureInterface> {
+    const prefecture = await this.prefectureService.removePrefecture(id);
     return prefecture;
   }
 
