@@ -1,8 +1,8 @@
 export interface RegionInterface {
-  id: string;
+  id?: string;
   name: string;
   key: string;
   shortDescription: string;
-  description: string;
+  description?: string;
   img: string;
 }

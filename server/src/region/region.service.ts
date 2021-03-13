@@ -144,4 +144,26 @@ export class RegionService {
       throw e;
     }
   }
+
+  async removeRegion(id: string) {
+    const regionToRemove = await this.regionModel.findOne({ _id: id });
+
+    if (!regionToRemove) {
+      throw new HttpException('Region is not exist', 404);
+    }
+
+    if (regionToRemove) {
+      const removedRegion = await this.regionModel.remove({ _id: id });
+      if (removedRegion.deletedCount > 0) {
+        try {
+          if (regionToRemove.img) {
+            fs.unlinkSync(path.join(storageDir(), regionToRemove.img));
+          }
+        } catch (e2) {}
+        return regionToRemove;
+      } else {
+        throw new HttpException('Could not remove region.', 409);
+      }
+    }
+  }
 }

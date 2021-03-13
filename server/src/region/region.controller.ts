@@ -1,4 +1,4 @@
-import { Get, Patch, Post } from '@nestjs/common';
+import { Delete, Get, Patch, Post } from '@nestjs/common';
 import { Param } from '@nestjs/common';
 import { UseInterceptors } from '@nestjs/common';
 import { Body } from '@nestjs/common';
@@ -69,6 +69,12 @@ export class RegionController {
     @UploadedFiles() img: MulterDiskUploadedFiles,
   ) {
     const region = await this.regionService.updateRegion(data, id, img);
+    return region;
+  }
+
+  @Delete('/remove/:id')
+  async removeRegion(@Param('id') id: string): Promise<RegionInterface> {
+    const region = await this.regionService.removeRegion(id);
     return region;
   }
 
