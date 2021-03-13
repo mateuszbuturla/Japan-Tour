@@ -39,7 +39,7 @@ export class PrefectureController {
     return prefectures;
   }
 
-  @Post('/create')
+  @Post('/')
   @UsePipes(new JoiValidationPipe(AddPrefectureValidator))
   @UseInterceptors(
     FileFieldsInterceptor(
