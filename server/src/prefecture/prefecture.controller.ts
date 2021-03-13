@@ -62,7 +62,7 @@ export class PrefectureController {
     return prefecture;
   }
 
-  @Patch('/update/:id')
+  @Patch('/:id')
   //   @UsePipes(new JoiValidationPipe(AddPrefectureValidator))
   @UseInterceptors(
     FileFieldsInterceptor(
@@ -90,7 +90,7 @@ export class PrefectureController {
     return prefecture;
   }
 
-  @Delete('/remove/:id')
+  @Delete('/:id')
   async removePrefecture(
     @Param('id') id: string,
   ): Promise<PrefectureInterface> {
