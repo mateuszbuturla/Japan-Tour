@@ -3,6 +3,7 @@ import {
   Controller,
   Get,
   Param,
+  Patch,
   Post,
   UploadedFiles,
   UseInterceptors,
@@ -57,6 +58,34 @@ export class PrefectureController {
     @UploadedFiles() img: MulterDiskUploadedFiles,
   ) {
     const prefecture = await this.prefectureService.createPrefecture(data, img);
+    return prefecture;
+  }
+
+  @Patch('/update/:id')
+  //   @UsePipes(new JoiValidationPipe(AddPrefectureValidator))
+  @UseInterceptors(
+    FileFieldsInterceptor(
+      [
+        {
+          name: 'img',
+          maxCount: 1,
+        },
+      ],
+      {
+        storage: multerStorage(),
+      },
+    ),
+  )
+  async updatePrefecture(
+    @Body() data: AddPrefectureDto,
+    @Param('id') id: string,
+    @UploadedFiles() img: MulterDiskUploadedFiles,
+  ) {
+    const prefecture = await this.prefectureService.updatePrefecture(
+      data,
+      id,
+      img,
+    );
     return prefecture;
   }
 
