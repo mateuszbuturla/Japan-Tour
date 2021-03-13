@@ -12,11 +12,21 @@ export class PrefectureController {
     return prefectures;
   }
 
+  @Get('/region/:key')
+  async getPrefecturesFromRegion(
+    @Param('key') key: string,
+  ): Promise<PrefectureInterface[]> {
+    const prefectures = await this.prefectureService.getPrefecturesFromRegion(
+      key,
+    );
+    return prefectures;
+  }
+
   @Get('/:key')
   async getSinglePrefecture(
     @Param('key') key: string,
   ): Promise<PrefectureInterface> {
-    const region = await this.prefectureService.getSinglePrefecture(key);
-    return region;
+    const prefecture = await this.prefectureService.getSinglePrefecture(key);
+    return prefecture;
   }
 }
