@@ -1,4 +1,4 @@
-import { Get, Post } from '@nestjs/common';
+import { Get, Patch, Post } from '@nestjs/common';
 import { Param } from '@nestjs/common';
 import { UseInterceptors } from '@nestjs/common';
 import { Body } from '@nestjs/common';
@@ -45,6 +45,30 @@ export class RegionController {
     @UploadedFiles() img: MulterDiskUploadedFiles,
   ) {
     const region = await this.regionService.createRegion(data, img);
+    return region;
+  }
+
+  @Patch('/update/:id')
+  // @UsePipes(new JoiValidationPipe(AddRegionValidator))
+  @UseInterceptors(
+    FileFieldsInterceptor(
+      [
+        {
+          name: 'img',
+          maxCount: 1,
+        },
+      ],
+      {
+        storage: multerStorage(),
+      },
+    ),
+  )
+  async updateRegion(
+    @Body() data: AddRegionDto,
+    @Param('id') id: string,
+    @UploadedFiles() img: MulterDiskUploadedFiles,
+  ) {
+    const region = await this.regionService.updateRegion(data, id, img);
     return region;
   }
 

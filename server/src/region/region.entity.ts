@@ -9,6 +9,7 @@ export const RegionSchema = new mongoose.Schema({
 });
 
 export interface Region extends mongoose.Document {
+  _id: string;
   name: string;
   key: string;
   description?: string;

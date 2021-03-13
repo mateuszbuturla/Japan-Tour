@@ -84,4 +84,64 @@ export class RegionService {
       throw e;
     }
   }
+
+  async updateRegion(
+    data: AddRegionDto,
+    id: string,
+    imgs: MulterDiskUploadedFiles,
+  ) {
+    const img = imgs?.img?.[0] ?? null;
+
+    if (!img) {
+      throw new HttpException('Validation failed', 400);
+    }
+
+    try {
+      let regionToUpdate = null;
+      try {
+        regionToUpdate = await this.regionModel.findOne({ _id: id });
+      } catch (e) {
+        throw new HttpException('Region is not exist', 404);
+      }
+      const existRegion = await this.regionModel
+        .find({
+          $or: [{ name: data.name }, { key: NormalizeString(data.name) }],
+        })
+        .exec();
+      if (existRegion.length > 0 && data.name !== regionToUpdate.name) {
+        throw new HttpException('Region is exist.', 409);
+      } else {
+        let newData = {
+          name: data.name,
+          key: NormalizeString(data.name),
+          description: data.description,
+          img: img.filename,
+          shortDescription: data.shortDescription,
+        };
+
+        const updatedRegions = await this.regionModel.updateOne(
+          { key: regionToUpdate.key },
+          newData,
+        );
+        if (updatedRegions.n > 0) {
+          try {
+            if (regionToUpdate.img) {
+              fs.unlinkSync(path.join(storageDir(), regionToUpdate.img));
+            }
+          } catch (e2) {}
+          return { status: 200, message: 'Succesfully updated' };
+        } else if (updatedRegions.n === 0) {
+          throw new HttpException('Could not update region.', 409);
+        }
+      }
+    } catch (e: any) {
+      try {
+        if (img) {
+          fs.unlinkSync(path.join(storageDir(), img.filename));
+        }
+      } catch (e2) {}
+
+      throw e;
+    }
+  }
 }
