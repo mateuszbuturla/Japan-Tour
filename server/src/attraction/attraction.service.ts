@@ -1,3 +1,4 @@
+import { PrefectureService } from 'src/prefecture/prefecture.service';
 import { Attraction } from './attraction.entity';
 import {
   forwardRef,
@@ -17,6 +18,8 @@ export class AttractionService {
     private readonly attractionModel: Model<Attraction>,
     @Inject(forwardRef(() => RegionService))
     private readonly regionService: RegionService,
+    @Inject(forwardRef(() => PrefectureService))
+    private readonly prefectureService: PrefectureService,
   ) {}
 
   async getAttractions(): Promise<AttractionInterface[]> {
@@ -58,6 +61,28 @@ export class AttractionService {
     const region = await this.regionService.getSingleRegions(key);
 
     const attractions = await this.attractionModel.find({ region: region.id });
+    return attractions.map((attraction) => ({
+      id: attraction._id,
+      name: attraction.name,
+      key: attraction.key,
+      shortDescription: attraction.shortDescription,
+      description: attraction.description,
+      img: attraction.img,
+      region: attraction.region,
+      prefecture: attraction.prefecture,
+      city: attraction.city,
+      highlight: attraction.highlight,
+    }));
+  }
+
+  async getAttractionsFromPrefecture(
+    key: string,
+  ): Promise<AttractionInterface[]> {
+    const prefecture = await this.prefectureService.getSinglePrefecture(key);
+
+    const attractions = await this.attractionModel.find({
+      prefecture: prefecture.id,
+    });
     return attractions.map((attraction) => ({
       id: attraction._id,
       name: attraction.name,
