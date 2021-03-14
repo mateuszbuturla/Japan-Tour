@@ -44,6 +44,23 @@ export class CityService {
     }));
   }
 
+  async getCitiesFromRegion(key: string): Promise<CityInterface[]> {
+    const region = await this.regionService.getSingleRegions(key);
+
+    const cities = await this.cityModel.find({ region: region.id });
+    return cities.map((city) => ({
+      id: city._id,
+      name: city.name,
+      key: city.key,
+      shortDescription: city.shortDescription,
+      description: city.description,
+      img: city.img,
+      region: city.region,
+      prefecture: city.prefecture,
+      highlight: city.highlight,
+    }));
+  }
+
   async getSingleCity(key: string): Promise<CityInterface> {
     const city = await this.findCity(key);
 

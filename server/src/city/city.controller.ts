@@ -29,6 +29,14 @@ export class CityController {
     return cities;
   }
 
+  @Get('/region/:key')
+  async getCitiesFromRegion(
+    @Param('key') key: string,
+  ): Promise<CityInterface[]> {
+    const cities = await this.cityService.getCitiesFromRegion(key);
+    return cities;
+  }
+
   @Post('/')
   @UsePipes(new JoiValidationPipe(AddCityValidator))
   @UseInterceptors(
