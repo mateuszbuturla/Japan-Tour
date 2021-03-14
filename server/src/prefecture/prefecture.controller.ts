@@ -33,16 +33,6 @@ export class PrefectureController {
     return prefectures;
   }
 
-  @Get('/region/:key')
-  async getPrefecturesFromRegion(
-    @Param('key') key: string,
-  ): Promise<PrefectureInterface[]> {
-    const prefectures = await this.prefectureService.getPrefecturesFromRegion(
-      key,
-    );
-    return prefectures;
-  }
-
   @Post('/')
   @UsePipes(new JoiValidationPipe(AddPrefectureValidator))
   @UseInterceptors(
