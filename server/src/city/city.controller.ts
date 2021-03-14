@@ -6,6 +6,7 @@ import {
   Param,
   Patch,
   Post,
+  Query,
   UploadedFiles,
   UseInterceptors,
   UsePipes,
@@ -17,6 +18,7 @@ import { JoiValidationPipe } from 'src/pipes/JoiValidationPipe';
 import { multerStorage } from 'src/utils/storage';
 import { CityService } from './city.service';
 import AddCityDto from './dto/AddCityDto';
+import GetCitiesDto from './dto/GetCitiesDto';
 import { AddCityValidator } from './validation/AddCityValidator';
 
 @Controller('city')
@@ -24,24 +26,8 @@ export class CityController {
   constructor(private readonly cityService: CityService) {}
 
   @Get('/')
-  async getCities(): Promise<CityInterface[]> {
-    const cities = await this.cityService.getCities();
-    return cities;
-  }
-
-  @Get('/region/:key')
-  async getCitiesFromRegion(
-    @Param('key') key: string,
-  ): Promise<CityInterface[]> {
-    const cities = await this.cityService.getCitiesFromRegion(key);
-    return cities;
-  }
-
-  @Get('/prefecture/:key')
-  async getCitiesFromPrefecture(
-    @Param('key') key: string,
-  ): Promise<CityInterface[]> {
-    const cities = await this.cityService.getCitiesFromPrefecture(key);
+  async getCities(@Query() query: GetCitiesDto): Promise<CityInterface[]> {
+    const cities = await this.cityService.getCities(query);
     return cities;
   }
 
