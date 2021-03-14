@@ -17,6 +17,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 import { RegionService } from 'src/region/region.service';
 import { PrefectureService } from 'src/prefecture/prefecture.service';
+import GetCitiesDto from './dto/GetCitiesDto';
 
 @Injectable()
 export class CityService {
@@ -29,19 +30,26 @@ export class CityService {
     private readonly prefectureService: PrefectureService,
   ) {}
 
-  async getCities(): Promise<CityInterface[]> {
-    const cities = await this.cityModel.find();
-    return cities.map((city) => ({
-      id: city._id,
-      name: city.name,
-      key: city.key,
-      shortDescription: city.shortDescription,
-      description: city.description,
-      img: city.img,
-      region: city.region,
-      prefecture: city.prefecture,
-      highlight: city.highlight,
-    }));
+  async getCities({
+    region,
+    prefecture,
+  }: GetCitiesDto): Promise<CityInterface[]> {
+    let findQueries = {};
+
+    if (region) {
+      const res = await this.regionService.getSingleRegions(region);
+      findQueries['region'] = res.id;
+    }
+
+    if (prefecture) {
+      const res = await await this.prefectureService.getSinglePrefecture(
+        prefecture,
+      );
+      findQueries['prefecture'] = res.id;
+    }
+
+    const cities = await this.cityModel.find(findQueries);
+    return cities;
   }
 
   async getCitiesFromRegion(key: string): Promise<CityInterface[]> {
