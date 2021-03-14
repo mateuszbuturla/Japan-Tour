@@ -37,6 +37,14 @@ export class CityController {
     return cities;
   }
 
+  @Get('/prefecture/:key')
+  async getCitiesFromPrefecture(
+    @Param('key') key: string,
+  ): Promise<CityInterface[]> {
+    const cities = await this.cityService.getCitiesFromPrefecture(key);
+    return cities;
+  }
+
   @Post('/')
   @UsePipes(new JoiValidationPipe(AddCityValidator))
   @UseInterceptors(

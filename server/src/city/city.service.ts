@@ -61,6 +61,23 @@ export class CityService {
     }));
   }
 
+  async getCitiesFromPrefecture(key: string): Promise<CityInterface[]> {
+    const prefecture = await this.prefectureService.getSinglePrefecture(key);
+
+    const cities = await this.cityModel.find({ prefecture: prefecture.id });
+    return cities.map((city) => ({
+      id: city._id,
+      name: city.name,
+      key: city.key,
+      shortDescription: city.shortDescription,
+      description: city.description,
+      img: city.img,
+      region: city.region,
+      prefecture: city.prefecture,
+      highlight: city.highlight,
+    }));
+  }
+
   async getSingleCity(key: string): Promise<CityInterface> {
     const city = await this.findCity(key);
 
