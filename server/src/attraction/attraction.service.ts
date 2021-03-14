@@ -153,4 +153,92 @@ export class AttractionService {
       throw e;
     }
   }
+
+  async updateAttraction(
+    data: AddAttractionDto,
+    id: string,
+    imgs: MulterDiskUploadedFiles,
+  ) {
+    const img = imgs?.img?.[0] ?? null;
+    if (!img) {
+      throw new HttpException('Validation failed', 400);
+    }
+    try {
+      const existAttraction = await this.attractionModel
+        .find({
+          $or: [{ name: data.name }, { key: NormalizeString(data.name) }],
+        })
+        .exec();
+      let attractionToUpdate = null;
+      try {
+        attractionToUpdate = await this.attractionModel.findOne({ _id: id });
+      } catch (e) {
+        throw new HttpException('Attraction is not exist', 404);
+      }
+      if (existAttraction.length > 0 && data.name !== attractionToUpdate.name) {
+        throw new HttpException('Attraction is already exist.', 409);
+      } else {
+        const region = await this.regionService.getSingleRegions(data.region);
+        if (!region) {
+          throw new HttpException('Validation failed', 400);
+        }
+        const prefecture = await this.prefectureService.getSinglePrefecture(
+          data.prefecture,
+        );
+        if (!prefecture || prefecture.region !== region.id) {
+          throw new HttpException('Validation failed', 400);
+        }
+
+        let city;
+
+        if (data.city) {
+          city = await this.cityService.getSingleCity(data.city);
+          if (
+            !city ||
+            city.region !== region.id ||
+            city.prefecture !== prefecture.id
+          ) {
+            throw new HttpException('Validation failed', 400);
+          }
+        }
+
+        let newData = {
+          name: data.name,
+          key: NormalizeString(data.name),
+          description: data.description,
+          img: img.filename,
+          shortDescription: data.shortDescription,
+          region: region.id,
+          highlight: data.highlight,
+        };
+
+        if (data.city) {
+          newData['city'] = city.id;
+        }
+
+        const updatedCity = await this.attractionModel.updateOne(
+          { key: attractionToUpdate.key },
+          newData,
+        );
+        if (updatedCity.n > 0) {
+          try {
+            if (attractionToUpdate.img) {
+              fs.unlinkSync(path.join(storageDir(), attractionToUpdate.img));
+            }
+          } catch (e2) {}
+          return { status: 200, message: 'Succesfully updated' };
+        } else if (updatedCity.n === 0) {
+          throw new HttpException('Could not update city.', 409);
+        }
+      }
+    } catch (e: any) {
+      try {
+        if (img) {
+          fs.unlinkSync(path.join(storageDir(), img.filename));
+        }
+      } catch (e2) {}
+
+      throw e;
+    }
+  }
 }

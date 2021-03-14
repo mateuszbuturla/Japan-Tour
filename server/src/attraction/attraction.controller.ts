@@ -3,6 +3,7 @@ import {
   Controller,
   Get,
   Param,
+  Patch,
   Post,
   Query,
   UploadedFiles,
@@ -51,6 +52,34 @@ export class AttractionController {
     @UploadedFiles() img: MulterDiskUploadedFiles,
   ) {
     const attraction = await this.attractionService.createAttraction(data, img);
+    return attraction;
+  }
+
+  @Patch('/:id')
+  //   @UsePipes(new JoiValidationPipe(AddPrefectureValidator))
+  @UseInterceptors(
+    FileFieldsInterceptor(
+      [
+        {
+          name: 'img',
+          maxCount: 1,
+        },
+      ],
+      {
+        storage: multerStorage(),
+      },
+    ),
+  )
+  async updateAttraction(
+    @Body() data: AddAttractionDto,
+    @Param('id') id: string,
+    @UploadedFiles() img: MulterDiskUploadedFiles,
+  ) {
+    const attraction = await this.attractionService.updateAttraction(
+      data,
+      id,
+      img,
+    );
     return attraction;
   }
 
