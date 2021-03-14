@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Param,
   Patch,
@@ -73,6 +74,12 @@ export class CityController {
   ) {
     const city = await this.cityService.updateCity(data, id, img);
     return city;
+  }
+
+  @Delete('/:id')
+  async removePrefecture(@Param('id') id: string): Promise<CityInterface> {
+    const prefecture = await this.cityService.removeCity(id);
+    return prefecture;
   }
 
   @Get('/:key')

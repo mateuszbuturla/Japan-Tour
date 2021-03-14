@@ -187,4 +187,26 @@ export class CityService {
       throw e;
     }
   }
+
+  async removeCity(id: string) {
+    const cityToRemove = await this.cityModel.findOne({ _id: id });
+
+    if (!cityToRemove) {
+      throw new HttpException('City is not exist', 404);
+    }
+
+    if (cityToRemove) {
+      const removedCity = await this.cityModel.remove({ _id: id });
+      if (removedCity.deletedCount > 0) {
+        try {
+          if (cityToRemove.img) {
+            fs.unlinkSync(path.join(storageDir(), cityToRemove.img));
+          }
+        } catch (e2) {}
+        return cityToRemove;
+      } else {
+        throw new HttpException('Could not remove city.', 409);
+      }
+    }
+  }
 }
