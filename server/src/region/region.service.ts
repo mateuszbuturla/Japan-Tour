@@ -32,20 +32,22 @@ export class RegionService {
   }
 
   async getSingleRegions(key: string): Promise<RegionInterface> {
-    const region = await this.regionModel.findOne({ key });
+    const region = await this.findRegion(key);
 
-    if (!region) {
-      throw new NotFoundException();
+    return region;
+  }
+
+  private async findRegion(key: string): Promise<RegionInterface> {
+    let region;
+    try {
+      region = await this.regionModel.findOne({ key }).exec();
+    } catch (error) {
+      throw new NotFoundException('Could not find region.');
     }
-
-    return {
-      id: region._id,
-      name: region.name,
-      key: region.key,
-      shortDescription: region.shortDescription,
-      description: region.description,
-      img: region.img,
-    };
+    if (!region) {
+      throw new NotFoundException('Could not find region.');
+    }
+    return region;
   }
 
   async createRegion(data: AddRegionDto, imgs: MulterDiskUploadedFiles) {

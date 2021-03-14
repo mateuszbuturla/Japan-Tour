@@ -41,22 +41,9 @@ export class PrefectureService {
   }
 
   async getSinglePrefecture(key: string): Promise<PrefectureInterface> {
-    const prefecture = await this.prefectureModel.findOne({ key });
+    const prefecture = await this.findPrefecture(key);
 
-    if (!prefecture) {
-      throw new NotFoundException();
-    }
-
-    return {
-      id: prefecture._id,
-      name: prefecture.name,
-      key: prefecture.key,
-      shortDescription: prefecture.shortDescription,
-      description: prefecture.description,
-      img: prefecture.img,
-      region: prefecture.region,
-      highlight: prefecture.highlight,
-    };
+    return prefecture;
   }
 
   async getPrefecturesFromRegion(key: string): Promise<PrefectureInterface[]> {
@@ -75,6 +62,19 @@ export class PrefectureService {
     }));
   }
 
+  private async findPrefecture(key: string): Promise<PrefectureInterface> {
+    let prefecture;
+    try {
+      prefecture = await this.prefectureModel.findOne({ key }).exec();
+    } catch (error) {
+      throw new NotFoundException('Could not find prefecture.');
+    }
+    if (!prefecture) {
+      throw new NotFoundException('Could not find prefecture.');
+    }
+    return prefecture;
+  }
+
   async createPrefecture(
     data: AddPrefectureDto,
     imgs: MulterDiskUploadedFiles,
@@ -86,20 +86,21 @@ export class PrefectureService {
     }
 
     try {
-      const region = await this.regionService.getSingleRegions(data.region);
-
-      if (!region) {
-        throw new HttpException('Validation failed', 400);
-      }
-
       const existPrefecture = await this.prefectureModel
         .find({
           $or: [{ name: data.name }, { key: NormalizeString(data.name) }],
         })
         .exec();
+
       if (existPrefecture.length > 0) {
         throw new HttpException('Prefecture is exist.', 409);
       } else {
+        const region = await this.regionService.getSingleRegions(data.region);
+
+        if (!region) {
+          throw new HttpException('Validation failed', 400);
+        }
+
         const newPrefecture = new this.prefectureModel({
           name: data.name,
           key: NormalizeString(data.name),

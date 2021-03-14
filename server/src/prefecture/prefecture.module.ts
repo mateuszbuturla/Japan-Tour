@@ -14,5 +14,6 @@ import { RegionModule } from 'src/region/region.module';
   ],
   controllers: [PrefectureController],
   providers: [PrefectureService],
+  exports: [PrefectureService],
 })
 export class PrefectureModule {}
