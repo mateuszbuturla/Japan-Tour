@@ -3,6 +3,7 @@ import {
   Controller,
   Get,
   Param,
+  Patch,
   Post,
   UploadedFiles,
   UseInterceptors,
@@ -47,6 +48,30 @@ export class CityController {
     @UploadedFiles() img: MulterDiskUploadedFiles,
   ) {
     const city = await this.cityService.createCity(data, img);
+    return city;
+  }
+
+  @Patch('/:id')
+  //   @UsePipes(new JoiValidationPipe(AddPrefectureValidator))
+  @UseInterceptors(
+    FileFieldsInterceptor(
+      [
+        {
+          name: 'img',
+          maxCount: 1,
+        },
+      ],
+      {
+        storage: multerStorage(),
+      },
+    ),
+  )
+  async updateCity(
+    @Body() data: AddCityDto,
+    @Param('id') id: string,
+    @UploadedFiles() img: MulterDiskUploadedFiles,
+  ) {
+    const city = await this.cityService.updateCity(data, id, img);
     return city;
   }
 

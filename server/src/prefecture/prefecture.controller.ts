@@ -54,7 +54,7 @@ export class PrefectureController {
       },
     ),
   )
-  async createRegion(
+  async createPrefecture(
     @Body() data: AddPrefectureDto,
     @UploadedFiles() img: MulterDiskUploadedFiles,
   ) {

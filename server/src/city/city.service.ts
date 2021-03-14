@@ -117,4 +117,74 @@ export class CityService {
       throw e;
     }
   }
+
+  async updateCity(
+    data: AddCityDto,
+    id: string,
+    imgs: MulterDiskUploadedFiles,
+  ) {
+    const img = imgs?.img?.[0] ?? null;
+    if (!img) {
+      throw new HttpException('Validation failed', 400);
+    }
+    try {
+      const region = await this.regionService.getSingleRegions(data.region);
+      if (!region) {
+        throw new HttpException('Validation failed', 400);
+      }
+      const prefecture = await this.prefectureService.getSinglePrefecture(
+        data.prefecture,
+      );
+      if (!prefecture || prefecture.region !== region.id) {
+        throw new HttpException('Validation failed', 400);
+      }
+      let cityToUpdate = null;
+      try {
+        cityToUpdate = await this.cityModel.findOne({ _id: id });
+      } catch (e) {
+        throw new HttpException('City is not exist', 404);
+      }
+      const existCity = await this.cityModel
+        .find({
+          $or: [{ name: data.name }, { key: NormalizeString(data.name) }],
+        })
+        .exec();
+      if (existCity.length > 0 && data.name !== cityToUpdate.name) {
+        throw new HttpException('City is already exist.', 409);
+      } else {
+        let newData = {
+          name: data.name,
+          key: NormalizeString(data.name),
+          description: data.description,
+          img: img.filename,
+          shortDescription: data.shortDescription,
+          region: region.id,
+          highlight: data.highlight,
+        };
+
+        const updatedCity = await this.cityModel.updateOne(
+          { key: cityToUpdate.key },
+          newData,
+        );
+        if (updatedCity.n > 0) {
+          try {
+            if (cityToUpdate.img) {
+              fs.unlinkSync(path.join(storageDir(), cityToUpdate.img));
+            }
+          } catch (e2) {}
+          return { status: 200, message: 'Succesfully updated' };
+        } else if (updatedCity.n === 0) {
+          throw new HttpException('Could not update city.', 409);
+        }
+      }
+    } catch (e: any) {
+      try {
+        if (img) {
+          fs.unlinkSync(path.join(storageDir(), img.filename));
+        }
+      } catch (e2) {}
+
+      throw e;
+    }
+  }
 }
