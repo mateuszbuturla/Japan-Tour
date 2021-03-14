@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { CityInterface } from 'src/interfaces/city';
@@ -24,5 +24,24 @@ export class CityService {
       prefecture: city.prefecture,
       highlight: city.highlight,
     }));
+  }
+
+  async getSingleCity(key: string): Promise<CityInterface> {
+    const city = await this.findCity(key);
+
+    return city;
+  }
+
+  private async findCity(key: string): Promise<CityInterface> {
+    let city;
+    try {
+      city = await this.cityModel.findOne({ key }).exec();
+    } catch (error) {
+      throw new NotFoundException('Could not find city.');
+    }
+    if (!city) {
+      throw new NotFoundException('Could not find city.');
+    }
+    return city;
   }
 }
