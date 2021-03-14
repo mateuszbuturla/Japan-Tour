@@ -16,6 +16,7 @@ import NormalizeString from 'src/utils/normalizeString';
 import { storageDir } from 'src/utils/storage';
 import * as fs from 'fs';
 import * as path from 'path';
+import GetPrefectureDto from './dto/GetPrefectureDto';
 
 @Injectable()
 export class PrefectureService {
@@ -26,40 +27,24 @@ export class PrefectureService {
     private readonly regionService: RegionService,
   ) {}
 
-  async getPrefectures(): Promise<PrefectureInterface[]> {
-    const prefectures = await this.prefectureModel.find();
-    return prefectures.map((prefecture) => ({
-      id: prefecture._id,
-      name: prefecture.name,
-      key: prefecture.key,
-      shortDescription: prefecture.shortDescription,
-      description: prefecture.description,
-      img: prefecture.img,
-      region: prefecture.region,
-      highlight: prefecture.highlight,
-    }));
+  async getPrefectures({
+    region,
+  }: GetPrefectureDto): Promise<PrefectureInterface[]> {
+    let findQueries = {};
+
+    if (region) {
+      const res = await this.regionService.getSingleRegions(region);
+      findQueries['region'] = res.id;
+    }
+
+    const prefectures = await this.prefectureModel.find(findQueries);
+    return prefectures;
   }
 
   async getSinglePrefecture(key: string): Promise<PrefectureInterface> {
     const prefecture = await this.findPrefecture(key);
 
     return prefecture;
-  }
-
-  async getPrefecturesFromRegion(key: string): Promise<PrefectureInterface[]> {
-    const region = await this.regionService.getSingleRegions(key);
-
-    const prefectures = await this.prefectureModel.find({ region: region.id });
-    return prefectures.map((prefecture) => ({
-      id: prefecture._id,
-      name: prefecture.name,
-      key: prefecture.key,
-      shortDescription: prefecture.shortDescription,
-      description: prefecture.description,
-      img: prefecture.img,
-      region: prefecture.region,
-      highlight: prefecture.highlight,
-    }));
   }
 
   private async findPrefecture(key: string): Promise<PrefectureInterface> {
