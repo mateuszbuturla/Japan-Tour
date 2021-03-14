@@ -11,6 +11,7 @@ import { Model } from 'mongoose';
 import { AttractionInterface } from 'src/interfaces/attraction';
 import { RegionService } from 'src/region/region.service';
 import { CityService } from 'src/city/city.service';
+import GetAttractionsDto from './dto/GetAttractionsDto';
 
 @Injectable()
 export class AttractionService {
@@ -25,20 +26,32 @@ export class AttractionService {
     private readonly cityService: CityService,
   ) {}
 
-  async getAttractions(): Promise<AttractionInterface[]> {
-    const cities = await this.attractionModel.find();
-    return cities.map((attraction) => ({
-      id: attraction._id,
-      name: attraction.name,
-      key: attraction.key,
-      shortDescription: attraction.shortDescription,
-      description: attraction.description,
-      img: attraction.img,
-      region: attraction.region,
-      prefecture: attraction.prefecture,
-      city: attraction.city,
-      highlight: attraction.highlight,
-    }));
+  async getAttractions({
+    region,
+    prefecture,
+    city,
+  }: GetAttractionsDto): Promise<AttractionInterface[]> {
+    let findQueries = {};
+
+    if (region) {
+      const res = await this.regionService.getSingleRegions(region);
+      findQueries['region'] = res.id;
+    }
+
+    if (prefecture) {
+      const res = await await this.prefectureService.getSinglePrefecture(
+        prefecture,
+      );
+      findQueries['prefecture'] = res.id;
+    }
+
+    if (city) {
+      const res = await this.cityService.getSingleCity(city);
+      findQueries['city'] = res.id;
+    }
+
+    const attractions = await this.attractionModel.find(findQueries);
+    return attractions;
   }
 
   async getSingleAttraction(key: string): Promise<AttractionInterface> {
@@ -58,65 +71,5 @@ export class AttractionService {
       throw new NotFoundException('Could not find attraction.');
     }
     return attraction;
-  }
-
-  async getAttractionsFromRegion(key: string): Promise<AttractionInterface[]> {
-    const region = await this.regionService.getSingleRegions(key);
-
-    const attractions = await this.attractionModel.find({ region: region.id });
-    return attractions.map((attraction) => ({
-      id: attraction._id,
-      name: attraction.name,
-      key: attraction.key,
-      shortDescription: attraction.shortDescription,
-      description: attraction.description,
-      img: attraction.img,
-      region: attraction.region,
-      prefecture: attraction.prefecture,
-      city: attraction.city,
-      highlight: attraction.highlight,
-    }));
-  }
-
-  async getAttractionsFromPrefecture(
-    key: string,
-  ): Promise<AttractionInterface[]> {
-    const prefecture = await this.prefectureService.getSinglePrefecture(key);
-
-    const attractions = await this.attractionModel.find({
-      prefecture: prefecture.id,
-    });
-    return attractions.map((attraction) => ({
-      id: attraction._id,
-      name: attraction.name,
-      key: attraction.key,
-      shortDescription: attraction.shortDescription,
-      description: attraction.description,
-      img: attraction.img,
-      region: attraction.region,
-      prefecture: attraction.prefecture,
-      city: attraction.city,
-      highlight: attraction.highlight,
-    }));
-  }
-
-  async getAttractionsFromCity(key: string): Promise<AttractionInterface[]> {
-    const city = await this.cityService.getSingleCity(key);
-
-    const attractions = await this.attractionModel.find({
-      city: city.id,
-    });
-    return attractions.map((attraction) => ({
-      id: attraction._id,
-      name: attraction.name,
-      key: attraction.key,
-      shortDescription: attraction.shortDescription,
-      description: attraction.description,
-      img: attraction.img,
-      region: attraction.region,
-      prefecture: attraction.prefecture,
-      city: attraction.city,
-      highlight: attraction.highlight,
-    }));
   }
 }

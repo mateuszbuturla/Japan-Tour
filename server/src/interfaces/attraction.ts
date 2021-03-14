@@ -1,5 +1,5 @@
 export interface AttractionInterface {
-  id?: string;
+  _id?: string;
   name: string;
   key: string;
   shortDescription: string;

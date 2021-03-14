@@ -1,44 +1,17 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import { Controller, Get, Param, Query } from '@nestjs/common';
 import { AttractionInterface } from 'src/interfaces/attraction';
 import { AttractionService } from './attraction.service';
+import GetAttractionsDto from './dto/GetAttractionsDto';
 
 @Controller('attraction')
 export class AttractionController {
   constructor(private readonly attractionService: AttractionService) {}
 
   @Get('/')
-  async getCities(): Promise<AttractionInterface[]> {
-    const attractions = await this.attractionService.getAttractions();
-    return attractions;
-  }
-
-  @Get('/region/:key')
-  async getAttractionsFromRegion(
-    @Param('key') key: string,
+  async getAttractions(
+    @Query() query: GetAttractionsDto,
   ): Promise<AttractionInterface[]> {
-    const attractions = await this.attractionService.getAttractionsFromRegion(
-      key,
-    );
-    return attractions;
-  }
-
-  @Get('/prefecture/:key')
-  async getAttractionsFromPrefecture(
-    @Param('key') key: string,
-  ): Promise<AttractionInterface[]> {
-    const attractions = await this.attractionService.getAttractionsFromPrefecture(
-      key,
-    );
-    return attractions;
-  }
-
-  @Get('/city/:key')
-  async getAttractionsFromCity(
-    @Param('key') key: string,
-  ): Promise<AttractionInterface[]> {
-    const attractions = await this.attractionService.getAttractionsFromCity(
-      key,
-    );
+    const attractions = await this.attractionService.getAttractions(query);
     return attractions;
   }
 
@@ -49,4 +22,7 @@ export class AttractionController {
     const attraction = await this.attractionService.getSingleAttraction(key);
     return attraction;
   }
+}
+function QueryParams() {
+  throw new Error('Function not implemented.');
 }
