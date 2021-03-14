@@ -241,4 +241,26 @@ export class AttractionService {
       throw e;
     }
   }
+
+  async removeAttraction(id: string) {
+    const attractionToRemove = await this.attractionModel.findOne({ _id: id });
+
+    if (!attractionToRemove) {
+      throw new HttpException('Attraction is not exist', 404);
+    }
+
+    if (attractionToRemove) {
+      const removedAttraction = await this.attractionModel.remove({ _id: id });
+      if (removedAttraction.deletedCount > 0) {
+        try {
+          if (attractionToRemove.img) {
+            fs.unlinkSync(path.join(storageDir(), attractionToRemove.img));
+          }
+        } catch (e2) {}
+        return attractionToRemove;
+      } else {
+        throw new HttpException('Could not remove attraction.', 409);
+      }
+    }
+  }
 }

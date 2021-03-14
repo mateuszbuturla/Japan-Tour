@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Param,
   Patch,
@@ -80,6 +81,14 @@ export class AttractionController {
       id,
       img,
     );
+    return attraction;
+  }
+
+  @Delete('/:id')
+  async removeAttraction(
+    @Param('id') id: string,
+  ): Promise<AttractionInterface> {
+    const attraction = await this.attractionService.removeAttraction(id);
     return attraction;
   }
 

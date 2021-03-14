@@ -94,8 +94,8 @@ export class CityController {
 
   @Delete('/:id')
   async removePrefecture(@Param('id') id: string): Promise<CityInterface> {
-    const prefecture = await this.cityService.removeCity(id);
-    return prefecture;
+    const city = await this.cityService.removeCity(id);
+    return city;
   }
 
   @Get('/:key')
