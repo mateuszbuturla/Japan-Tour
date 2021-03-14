@@ -10,6 +10,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { AttractionInterface } from 'src/interfaces/attraction';
 import { RegionService } from 'src/region/region.service';
+import { CityService } from 'src/city/city.service';
 
 @Injectable()
 export class AttractionService {
@@ -20,6 +21,8 @@ export class AttractionService {
     private readonly regionService: RegionService,
     @Inject(forwardRef(() => PrefectureService))
     private readonly prefectureService: PrefectureService,
+    @Inject(forwardRef(() => CityService))
+    private readonly cityService: CityService,
   ) {}
 
   async getAttractions(): Promise<AttractionInterface[]> {
@@ -82,6 +85,26 @@ export class AttractionService {
 
     const attractions = await this.attractionModel.find({
       prefecture: prefecture.id,
+    });
+    return attractions.map((attraction) => ({
+      id: attraction._id,
+      name: attraction.name,
+      key: attraction.key,
+      shortDescription: attraction.shortDescription,
+      description: attraction.description,
+      img: attraction.img,
+      region: attraction.region,
+      prefecture: attraction.prefecture,
+      city: attraction.city,
+      highlight: attraction.highlight,
+    }));
+  }
+
+  async getAttractionsFromCity(key: string): Promise<AttractionInterface[]> {
+    const city = await this.cityService.getSingleCity(key);
+
+    const attractions = await this.attractionModel.find({
+      city: city.id,
     });
     return attractions.map((attraction) => ({
       id: attraction._id,

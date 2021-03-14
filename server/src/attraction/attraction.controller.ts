@@ -32,6 +32,16 @@ export class AttractionController {
     return attractions;
   }
 
+  @Get('/city/:key')
+  async getAttractionsFromCity(
+    @Param('key') key: string,
+  ): Promise<AttractionInterface[]> {
+    const attractions = await this.attractionService.getAttractionsFromCity(
+      key,
+    );
+    return attractions;
+  }
+
   @Get('/:key')
   async getSingleAttraction(
     @Param('key') key: string,

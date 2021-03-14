@@ -5,6 +5,7 @@ import { AttractionSchema } from './attraction.entity';
 import { AttractionService } from './attraction.service';
 import { RegionModule } from 'src/region/region.module';
 import { PrefectureModule } from 'src/prefecture/prefecture.module';
+import { CityModule } from 'src/city/city.module';
 
 @Module({
   imports: [
@@ -13,6 +14,7 @@ import { PrefectureModule } from 'src/prefecture/prefecture.module';
     ]),
     forwardRef(() => RegionModule),
     forwardRef(() => PrefectureModule),
+    forwardRef(() => CityModule),
   ],
   controllers: [AttractionController],
   providers: [AttractionService],
