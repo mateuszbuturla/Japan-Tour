@@ -6,6 +6,7 @@ import {
   Param,
   Patch,
   Post,
+  Query,
   UploadedFiles,
   UseInterceptors,
   UsePipes,
@@ -16,6 +17,7 @@ import { PrefectureInterface } from 'src/interfaces/prefecture';
 import { JoiValidationPipe } from 'src/pipes/JoiValidationPipe';
 import { multerStorage } from 'src/utils/storage';
 import AddPrefectureDto from './dto/AddPrefectureDto';
+import GetPrefectureDto from './dto/GetPrefectureDto';
 import { PrefectureService } from './prefecture.service';
 import { AddPrefectureValidator } from './validation/AddPrefectureValidator';
 
@@ -24,8 +26,10 @@ export class PrefectureController {
   constructor(private readonly prefectureService: PrefectureService) {}
 
   @Get('/')
-  async getPrefectures(): Promise<PrefectureInterface[]> {
-    const prefectures = await this.prefectureService.getPrefectures();
+  async getPrefectures(
+    @Query() query: GetPrefectureDto,
+  ): Promise<PrefectureInterface[]> {
+    const prefectures = await this.prefectureService.getPrefectures(query);
     return prefectures;
   }
 
