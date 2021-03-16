@@ -5,6 +5,9 @@ const GlobalStyle = createGlobalStyle`
     margin: 0;
     padding: 0;
     font-family: 'Roboto', sans-serif;
+    border: none;
+    outline: none;
+    box-sizing: border-box;
   }
   body {
     overflow-x: hidden;
@@ -52,6 +55,7 @@ const theme = {
     slow: "0.4s",
     fast: "0.1s",
   },
+  borderRadius: "8px",
 };
 
 const Theme = ({ children }: Props) => (
