@@ -56,6 +56,7 @@ const theme = {
     fast: "0.1s",
   },
   borderRadius: "8px",
+  shadow: "0px 0px 7px 2px rgba(0, 0, 0, 0.24)",
 };
 
 const Theme = ({ children }: Props) => (

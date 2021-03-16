@@ -3,7 +3,7 @@ import styled from "styled-components";
 const StyledSearchBar = styled.div`
   width: 100%;
   border-radius: ${(props) => props.theme.borderRadius};
-  box-shadow: 0px 0px 7px 2px rgba(0, 0, 0, 0.24);
+  box-shadow: ${(props) => props.theme.shadow};
   padding: 10px 30px;
   display: flex;
   background-color: ${(props) => props.theme.colors.bg};
