@@ -4,5 +4,16 @@ import SubHeader from "./SubHeader";
 import JapanMap from "./JapanMap";
 import Tile from "./Tile";
 import Paragraph from "./Paragraph";
+import Input from "./Input";
+import Textarea from "./Textarea";
 
-export { SearchBar, Header, SubHeader, JapanMap, Tile, Paragraph };
+export {
+  SearchBar,
+  Header,
+  SubHeader,
+  JapanMap,
+  Tile,
+  Paragraph,
+  Input,
+  Textarea,
+};
