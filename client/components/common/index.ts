@@ -6,6 +6,8 @@ import Tile from "./Tile";
 import Paragraph from "./Paragraph";
 import Input from "./Input";
 import Textarea from "./Textarea";
+import RegionHeader from "./RegionHeader";
+import MostVisitedTile from "./MostVisitedTile";
 
 export {
   SearchBar,
@@ -16,4 +18,6 @@ export {
   Paragraph,
   Input,
   Textarea,
+  RegionHeader,
+  MostVisitedTile,
 };
