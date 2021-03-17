@@ -3,6 +3,7 @@ import PageContainer from "./PageContainer";
 import TilesContainer from "./TilesContainer";
 import InputContainer from "./InputContainer";
 import MostVisitedTilesContainer from "./MostVisitedTilesContainer";
+import Footer from "./Footer";
 
 export {
   Banner,
@@ -10,4 +11,5 @@ export {
   TilesContainer,
   InputContainer,
   MostVisitedTilesContainer,
+  Footer,
 };
