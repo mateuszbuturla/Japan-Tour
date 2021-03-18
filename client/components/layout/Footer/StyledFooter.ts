@@ -2,6 +2,9 @@ import styled from "styled-components";
 
 const StyledFooter = styled.footer`
   width: 100vw;
+  background-color: ${(props) => props.theme.colors.bg};
+  position: relative;
+  z-index: 1;
 `;
 
 const StyledSectionsContainer = styled.div`

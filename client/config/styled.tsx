@@ -57,6 +57,7 @@ const theme = {
   },
   borderRadius: "8px",
   shadow: "0px 0px 7px 2px rgba(0, 0, 0, 0.24)",
+  mobileHeaderWithImageHeight: "180px",
 };
 
 const Theme = ({ children }: Props) => (

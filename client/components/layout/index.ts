@@ -4,6 +4,7 @@ import TilesContainer from "./TilesContainer";
 import InputContainer from "./InputContainer";
 import MostVisitedTilesContainer from "./MostVisitedTilesContainer";
 import Footer from "./Footer";
+import Container from "./Container";
 
 export {
   Banner,
@@ -12,4 +13,5 @@ export {
   InputContainer,
   MostVisitedTilesContainer,
   Footer,
+  Container,
 };
