@@ -1,8 +1,20 @@
 import styled from "styled-components";
 
-const PageContainer = styled.div`
+interface Props {
+  marginTop?: boolean;
+}
+
+const PageContainer = styled.div<Props>`
+  position: relative;
   width: 100vw;
-  padding: 40px 5vw;
+  padding: 0px 5vw 30px;
+  margin-top: ${(props) =>
+    props.marginTop
+      ? "calc(" + props.theme.mobileHeaderWithImageHeight + " - 20px)"
+      : "0px"};
+  border-radius: ${(props) => props.theme.borderRadius}
+    ${(props) => props.theme.borderRadius} 0px 0px;
+  background-color: ${(props) => props.theme.colors.bg};
 `;
 
 export default PageContainer;

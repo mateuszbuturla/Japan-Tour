@@ -24,4 +24,33 @@ const StyledText2 = styled.p`
   color: #fff;
 `;
 
-export { StyledBanner, StyledBannerContainer, StyledText, StyledText2 };
+interface BannerWithImgProps {
+  img: string;
+}
+
+const StyledBannerWithImg = styled.div<BannerWithImgProps>`
+  background: url(${(props) => props.img});
+  background-position: center center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: ${(props) => props.theme.mobileHeaderWithImageHeight};
+`;
+
+const StyledBannerWithImgContainer = styled.div`
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: -1;
+`;
+
+export {
+  StyledBanner,
+  StyledBannerContainer,
+  StyledText,
+  StyledText2,
+  StyledBannerWithImg,
+  StyledBannerWithImgContainer,
+};
