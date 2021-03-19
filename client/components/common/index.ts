@@ -9,6 +9,7 @@ import Textarea from "./Textarea";
 import RegionHeader from "./RegionHeader";
 import MostVisitedTile from "./MostVisitedTile";
 import Description from "./Description";
+import BurgerButton from "./BurgerButton";
 
 export {
   SearchBar,
@@ -22,4 +23,5 @@ export {
   RegionHeader,
   MostVisitedTile,
   Description,
+  BurgerButton,
 };
