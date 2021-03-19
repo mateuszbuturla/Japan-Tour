@@ -1,6 +1,7 @@
 import { BurgerButton, NavDropdown } from "components/common";
 import { useSwitch } from "hooks";
 import Link from "next/link";
+import { useCallback, useEffect, useRef } from "react";
 import {
   StyledNav,
   StyledTopBar,
@@ -9,12 +10,45 @@ import {
 } from "./StyledNav";
 
 export default function Nav() {
-  const [navIsOpen, toggleNavIsOpen] = useSwitch(false);
+  const [navIsOpen, toggleNavIsOpen, closeNav] = useSwitch(false);
+  const navRef = useRef(null);
+  const burgerButtonRef = useRef(null);
+
+  const escapeListener = useCallback((e: KeyboardEvent) => {
+    if (e.key === "Escape") {
+      closeNav();
+    }
+  }, []);
+
+  const clickListener = useCallback(
+    (e: MouseEvent) => {
+      if (
+        !(navRef.current! as any).contains(e.target) &&
+        !(burgerButtonRef.current! as any).contains(e.target)
+      ) {
+        closeNav();
+      }
+    },
+    [navRef.current]
+  );
+
+  useEffect(() => {
+    document.addEventListener("click", clickListener);
+    document.addEventListener("keyup", escapeListener);
+    return () => {
+      document.removeEventListener("click", clickListener);
+      document.removeEventListener("keyup", escapeListener);
+    };
+  }, []);
 
   return (
     <>
-      <BurgerButton state={navIsOpen} handleClick={toggleNavIsOpen} />
-      <StyledNav active={navIsOpen}>
+      <BurgerButton
+        state={navIsOpen}
+        handleClick={toggleNavIsOpen}
+        itemRef={burgerButtonRef}
+      />
+      <StyledNav active={navIsOpen} ref={navRef}>
         <StyledTopBar>Aktualna strona</StyledTopBar>
         <StyledNavContainer>
           <StyledNavItem>
