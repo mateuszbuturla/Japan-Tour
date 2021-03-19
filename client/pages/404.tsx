@@ -1,6 +1,6 @@
 import Head from "next/head";
 import { Paragraph } from "components/common";
-import { Banner, PageContainer } from "components/layout";
+import { Banner, PageContainer, Container } from "components/layout";
 import React from "react";
 
 export default function Home() {
@@ -11,10 +11,12 @@ export default function Home() {
       </Head>
       <Banner text="404" text2="Opsss! Nie znaleziono!" />
       <PageContainer>
-        <Paragraph>
-          Podana strona nie istnieje lub została przeniesiona. Sprawdź adres
-          strony
-        </Paragraph>
+        <Container withMargin>
+          <Paragraph>
+            Podana strona nie istnieje lub została przeniesiona. Sprawdź adres
+            strony
+          </Paragraph>
+        </Container>
       </PageContainer>
     </>
   );

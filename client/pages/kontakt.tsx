@@ -1,6 +1,11 @@
 import Head from "next/head";
 import { Paragraph, Input, Textarea, SubHeader } from "components/common";
-import { Banner, PageContainer, InputContainer } from "components/layout";
+import {
+  Banner,
+  PageContainer,
+  InputContainer,
+  Container,
+} from "components/layout";
 import React from "react";
 import { useForm } from "react-hook-form";
 
@@ -18,7 +23,9 @@ export default function Home() {
       </Head>
       <Banner text="Kontakt" text2="Skontaktuj się z nami!" />
       <PageContainer>
-        <SubHeader>Formularz kontaktowy</SubHeader>
+        <Container withMargin>
+          <SubHeader>Formularz kontaktowy</SubHeader>
+        </Container>
         <form onSubmit={handleSubmit(onSubmit)}>
           <InputContainer>
             <Input name="e-mail" placeholder="E-mail" />

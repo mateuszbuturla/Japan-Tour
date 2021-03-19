@@ -4,6 +4,7 @@ import {
   Banner,
   PageContainer,
   MostVisitedTilesContainer,
+  Container,
 } from "components/layout";
 
 export default function MostVisited() {
@@ -18,7 +19,9 @@ export default function MostVisited() {
         searchBar={true}
       />
       <PageContainer>
-        <Header>Najczęściej odwiedzane</Header>
+        <Container withMargin>
+          <Header>Najczęściej odwiedzane</Header>
+        </Container>
         <RegionHeader region="Hokkaido" />
         <MostVisitedTilesContainer>
           {Array(4)
