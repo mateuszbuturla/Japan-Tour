@@ -10,6 +10,7 @@ import RegionHeader from "./RegionHeader";
 import MostVisitedTile from "./MostVisitedTile";
 import Description from "./Description";
 import BurgerButton from "./BurgerButton";
+import NavDropdown from "./NavDropdown";
 
 export {
   SearchBar,
@@ -24,4 +25,5 @@ export {
   MostVisitedTile,
   Description,
   BurgerButton,
+  NavDropdown,
 };

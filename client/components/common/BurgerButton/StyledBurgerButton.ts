@@ -11,6 +11,7 @@ const StyledBurgerButton = styled.button<Props>`
   width: 40px;
   height: 40px;
   background: transparent;
+  z-index: 3;
 
   &::before,
   &::after {

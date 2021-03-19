@@ -5,8 +5,10 @@ function MyApp({ Component, pageProps }: any) {
   return (
     <Theme>
       <Nav />
-      <Component {...pageProps} />
-      <Footer />
+      <div>
+        <Component {...pageProps} />
+        <Footer />
+      </div>
     </Theme>
   );
 }
