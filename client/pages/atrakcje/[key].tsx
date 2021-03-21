@@ -1,6 +1,6 @@
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { Header, Description, SubHeader, Tile, Map } from "components/common";
+import { Header, Description, SubHeader, Tile } from "components/common";
 import {
   Banner,
   PageContainer,
