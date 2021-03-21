@@ -19,6 +19,10 @@ const PageContainer = styled.div<Props>`
   max-width: ${(props) => props.theme.maxWidth};
   margin-left: auto;
   margin-right: auto;
+
+  @media (min-width: 1024px) {
+    padding: 0px 0px 30px;
+  }
 `;
 
 export default PageContainer;
