@@ -6,22 +6,51 @@ const StyledBanner = styled.div`
   padding: 40px 0px;
   background: url("/assets/mobileBanner.png");
   background-size: 100% 100%;
+
+  @media (min-width: 1024px) {
+    text-align: left;
+    padding: 10vh 0px;
+    background: url("/assets/desktopBanner.png");
+    background-size: 100% auto;
+    background-position: center center;
+    background-repeat: no-repeat;
+  }
+
+  @media (min-width: 1200px) {
+    padding: 20vh 0px;
+  }
 `;
 
 const StyledBannerContainer = styled.div`
   width: 90%;
   margin: 0 auto;
+
+  @media (min-width: 1024px) {
+    width: 45%;
+    margin: 0px 5vw;
+  }
 `;
 
 const StyledText = styled.h1`
   font-size: ${(props) => props.theme.fontSize.mainHeader.small};
   color: #fff;
+  @media (min-width: 1200px) {
+    font-size: ${(props) => props.theme.fontSize.mainHeader.big};
+  }
 `;
 
 const StyledText2 = styled.p`
   margin: 10px 0px;
   font-size: ${(props) => props.theme.fontSize.text.small};
   color: #fff;
+
+  @media (min-width: 1024px) {
+    margin: 2vh 0px;
+  }
+
+  @media (min-width: 1200px) {
+    font-size: ${(props) => props.theme.fontSize.text.big};
+  }
 `;
 
 interface BannerWithImgProps {
