@@ -21,6 +21,7 @@ const PageContainer = styled.div<Props>`
   margin-right: auto;
 
   @media (min-width: 1024px) {
+    width: 90vw;
     padding: 0px 0px 30px;
   }
 `;
