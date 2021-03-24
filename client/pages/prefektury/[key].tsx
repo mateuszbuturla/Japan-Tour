@@ -16,7 +16,7 @@ export default function City({ prefecture, highlighted }) {
         <title>Moja Japonia | {UppercaseFirstLetter(prefecture.name)}</title>
       </Head>
       <Banner
-        text="Tokyo"
+        text={UppercaseFirstLetter(prefecture.name)}
         img="https://www.telegraph.co.uk/content/dam/Travel/2019/August/iStock-1047662500.jpg"
       />
       <PageContainer marginTop={true}>

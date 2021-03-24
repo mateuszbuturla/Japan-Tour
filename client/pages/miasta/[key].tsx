@@ -1,45 +1,61 @@
 import Head from "next/head";
-import { useRouter } from "next/router";
-import { Header, Description, SubHeader, Tile, Map } from "components/common";
+import { Header, Description, SubHeader, Tile } from "components/common";
 import {
   Banner,
   PageContainer,
   Container,
   TilesContainer,
 } from "components/layout";
+import Api from "utils/Api";
+import UppercaseFirstLetter from "utils/UppercaseFirstLetter";
 
-export default function City() {
-  const router = useRouter();
-  const { key } = router.query;
-
+export default function City({ city, highlighted }) {
   return (
     <>
       <Head>
-        <title>Moja Japonia | Tokyo</title>
+        <title>Moja Japonia | {UppercaseFirstLetter(city.name)}</title>
       </Head>
       <Banner
-        text="Tokyo"
+        text={UppercaseFirstLetter(city.name)}
         img="https://www.telegraph.co.uk/content/dam/Travel/2019/August/iStock-1047662500.jpg"
       />
       <PageContainer marginTop={true}>
         <Container withMargin>
-          <Header>Tokyo</Header>
+          <Header>{UppercaseFirstLetter(city.name)}</Header>
         </Container>
-        <Description />
-        <SubHeader>Najciekawsze miejsca w Tokyo</SubHeader>
+        <Description content={city.description} />
+        <SubHeader>
+          Najciekawsze miejsca w {UppercaseFirstLetter(city.name)}
+        </SubHeader>
         <TilesContainer>
-          {Array(7)
-            .fill(0)
-            .map((item: any, index: number) => (
-              <Tile
-                name="Tokyo"
-                img="https://www.telegraph.co.uk/content/dam/Travel/2019/August/iStock-1047662500.jpg"
-                description="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five "
-                key={index}
-              />
-            ))}
+          {highlighted.map((item, index: number) => (
+            <Tile
+              name={item.name}
+              img="https://www.telegraph.co.uk/content/dam/Travel/2019/August/iStock-1047662500.jpg"
+              description={item.description}
+              key={index}
+            />
+          ))}
         </TilesContainer>
       </PageContainer>
     </>
   );
+}
+
+export async function getServerSideProps({ params }) {
+  try {
+    const city = await Api.get(`/city/${params.key}`);
+    const attractions = await Api.get(`/attraction?city=${params.key}`);
+
+    return {
+      props: {
+        city: city.data,
+        highlighted: [...attractions.data],
+      },
+    };
+  } catch {
+    return {
+      notFound: true,
+    };
+  }
 }

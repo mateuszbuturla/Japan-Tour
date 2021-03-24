@@ -16,7 +16,7 @@ export default function Region({ region, highlighted }) {
         <title>Moja Japonia | Region {UppercaseFirstLetter(region.name)}</title>
       </Head>
       <Banner
-        text="Hokkaido"
+        text={UppercaseFirstLetter(region.name)}
         img="https://www.telegraph.co.uk/content/dam/Travel/2019/August/iStock-1047662500.jpg"
       />
       <PageContainer marginTop={true}>
