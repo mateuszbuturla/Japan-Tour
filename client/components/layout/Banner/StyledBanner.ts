@@ -65,6 +65,11 @@ const StyledBannerWithImg = styled.div<BannerWithImgProps>`
   left: 0;
   width: 100vw;
   height: ${(props) => props.theme.mobileHeaderWithImageHeight};
+
+  @media (min-width: 1024px) {
+    position: relative;
+    height: auto;
+  }
 `;
 
 const StyledBannerWithImgContainer = styled.div`
@@ -73,6 +78,18 @@ const StyledBannerWithImgContainer = styled.div`
   justify-content: center;
   align-items: center;
   z-index: -1;
+
+  @media (min-width: 1024px) {
+    display: block;
+    width: 90vw;
+    max-width: ${(props) => props.theme.maxWidth};
+    margin: 0 auto;
+    padding: 10vh 0px;
+  }
+
+  @media (min-width: 1200px) {
+    padding: 20vh 0px;
+  }
 `;
 
 export {

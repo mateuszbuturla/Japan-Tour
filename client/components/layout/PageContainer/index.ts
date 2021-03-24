@@ -23,6 +23,7 @@ const PageContainer = styled.div<Props>`
   @media (min-width: 1024px) {
     width: 90vw;
     padding: 0px 0px 30px;
+    margin-top: 0px;
   }
 `;
 
