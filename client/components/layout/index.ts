@@ -5,6 +5,7 @@ import InputContainer from "./InputContainer";
 import MostVisitedTilesContainer from "./MostVisitedTilesContainer";
 import Footer from "./Footer";
 import Container from "./Container";
+import Nav from "./Nav";
 import SearchBarContainer from "./SearchBarContainer";
 import TilesWithHeaderContainer from "./TilesWithHeaderContainer";
 
@@ -16,6 +17,7 @@ export {
   MostVisitedTilesContainer,
   Footer,
   Container,
+  Nav,
   SearchBarContainer,
   TilesWithHeaderContainer,
 };

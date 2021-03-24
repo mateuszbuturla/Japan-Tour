@@ -1,11 +1,14 @@
 import Theme from "config/styled";
-import { Footer } from "components/layout";
+import { Footer, Nav } from "components/layout";
 
 function MyApp({ Component, pageProps }: any) {
   return (
     <Theme>
-      <Component {...pageProps} />
-      <Footer />
+      <Nav />
+      <div>
+        <Component {...pageProps} />
+        <Footer />
+      </div>
     </Theme>
   );
 }

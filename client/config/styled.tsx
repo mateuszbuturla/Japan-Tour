@@ -8,6 +8,7 @@ const GlobalStyle = createGlobalStyle`
     border: none;
     outline: none;
     box-sizing: border-box;
+    text-decoration: none;
   }
   body {
     overflow-x: hidden;
@@ -24,6 +25,7 @@ const theme = {
     first: "#C850C0",
     second: "#4158D0",
     textColor: "#000",
+    grey: "#717171",
   },
   fontSize: {
     mainHeader: {
@@ -41,6 +43,14 @@ const theme = {
     text: {
       small: "15px",
       big: "26px",
+    },
+    nav: {
+      header: {
+        small: "17px",
+      },
+      text: {
+        small: "20px",
+      },
     },
   },
   breakPoints: {
