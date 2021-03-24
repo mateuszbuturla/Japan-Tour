@@ -8,6 +8,7 @@ import {
 } from "./StyledBanner";
 
 import { SearchBar } from "components/common";
+import { SearchBarContainer } from "components/layout";
 
 interface Props {
   text: string;
@@ -23,7 +24,11 @@ export default function Banner({ text, text2, searchBar, img }: Props) {
         <StyledBannerContainer>
           <StyledText>{text}</StyledText>
           {text2 && <StyledText2>{text2}</StyledText2>}
-          {searchBar && <SearchBar />}
+          {searchBar && (
+            <SearchBarContainer>
+              <SearchBar />
+            </SearchBarContainer>
+          )}
         </StyledBannerContainer>
       </StyledBanner>
     );

@@ -2,6 +2,8 @@ import styled from "styled-components";
 
 const StyledFooter = styled.footer`
   width: 100vw;
+  max-width: ${(props) => props.theme.maxWidth};
+  margin: 0 auto;
   background-color: ${(props) => props.theme.colors.bg};
   position: relative;
   z-index: 1;
@@ -12,6 +14,11 @@ const StyledSectionsContainer = styled.div`
   margin: 0 auto;
   display: flex;
   flex-direction: column;
+
+  @media (min-width: 1024px) {
+    width: 100%;
+    flex-direction: row;
+  }
 `;
 
 const StyledSection = styled.div`
@@ -28,8 +35,11 @@ const StyledSectionHeader = styled.p`
 `;
 
 const StyledSectionLink = styled.a`
-  font-size: ${(props) => props.theme.fontSize.text.small};
   padding: 3px 0px;
+
+  @media (min-width: 1024px) {
+    padding: 7px 0px;
+  }
 `;
 
 const StyledBottomBar = styled.div`
@@ -37,6 +47,11 @@ const StyledBottomBar = styled.div`
   margin: 0 auto;
   font-size: ${(props) => props.theme.fontSize.text.small};
   padding: 10px 0px;
+
+  @media (min-width: 1024px) {
+    width: 100%;
+    padding: 20px 0px;
+  }
 `;
 
 export {

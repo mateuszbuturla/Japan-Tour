@@ -60,7 +60,7 @@ const theme = {
     lg: "1280px",
     xl: "1920px",
   },
-  maxWidth: "1500px",
+  maxWidth: "1700px",
   transition: {
     slow: "0.4s",
     fast: "0.1s",
