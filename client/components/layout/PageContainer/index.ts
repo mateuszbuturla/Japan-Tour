@@ -15,6 +15,16 @@ const PageContainer = styled.div<Props>`
   border-radius: ${(props) => props.theme.borderRadius}
     ${(props) => props.theme.borderRadius} 0px 0px;
   background-color: ${(props) => props.theme.colors.bg};
+
+  max-width: ${(props) => props.theme.maxWidth};
+  margin-left: auto;
+  margin-right: auto;
+
+  @media (min-width: 1024px) {
+    width: 90vw;
+    padding: 0px 0px 30px;
+    margin-top: 0px;
+  }
 `;
 
 export default PageContainer;

@@ -6,6 +6,11 @@ const StyledJapanMapContainer = styled.div`
 
 const StyledJapanMap = styled.img`
   width: 100%;
+
+  @media (min-width: 1200px) {
+    width: 80%;
+    margin: 0 auto;
+  }
 `;
 
 export { StyledJapanMapContainer, StyledJapanMap };
