@@ -16,7 +16,6 @@ const StyledSectionsContainer = styled.div`
   flex-direction: column;
 
   @media (min-width: 1024px) {
-    width: 100%;
     flex-direction: row;
   }
 `;
@@ -49,7 +48,6 @@ const StyledBottomBar = styled.div`
   padding: 10px 0px;
 
   @media (min-width: 1024px) {
-    width: 100%;
     padding: 20px 0px;
   }
 `;
