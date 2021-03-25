@@ -7,6 +7,7 @@ import {
   TilesContainer,
 } from "components/layout";
 import Api from "utils/Api";
+import UppercaseFirstLetter from "utils/UppercaseFirstLetter";
 
 export default function Attraction({ attraction, similaryAttraction }) {
   console.log(attraction);
@@ -16,17 +17,17 @@ export default function Attraction({ attraction, similaryAttraction }) {
   return (
     <>
       <Head>
-        <title>Moja Japonia | Tokyo skytree</title>
+        <title>Moja Japonia | {UppercaseFirstLetter(attraction.name)}</title>
       </Head>
       <Banner
-        text="Tokyo"
+        text={UppercaseFirstLetter(attraction.name)}
         img="https://www.telegraph.co.uk/content/dam/Travel/2019/August/iStock-1047662500.jpg"
       />
       <PageContainer marginTop={true}>
         <Container withMargin>
-          <Header>Tokyo skytree</Header>
+          <Header>{UppercaseFirstLetter(attraction.name)}</Header>
         </Container>
-        <Description />
+        <Description content={attraction.description} />
         <SubHeader>Podobne atrakcje w pobliżu</SubHeader>
         <TilesContainer>
           {similaryAttraction.map((item, index: number) => (
