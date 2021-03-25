@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post, UploadedFiles, UseInterceptors, UsePipes } from '@nestjs/common';
+import { Body, Controller, Get, Param, Patch, Post, UploadedFiles, UseInterceptors, UsePipes } from '@nestjs/common';
 import { FileFieldsInterceptor } from '@nestjs/platform-express';
 import { CategoryInterface } from 'src/interfaces/category';
 import { MulterDiskUploadedFiles } from 'src/interfaces/files';
@@ -38,6 +38,30 @@ export class CategoryController {
     @UploadedFiles() img: MulterDiskUploadedFiles,
   ) {
     const category = await this.categoryService.createCategory(data, img);
+    return category;
+  }
+
+  @Patch('/:id')
+  //   @UsePipes(new JoiValidationPipe(AddPrefectureValidator))
+  @UseInterceptors(
+    FileFieldsInterceptor(
+      [
+        {
+          name: 'img',
+          maxCount: 1,
+        },
+      ],
+      {
+        storage: multerStorage(),
+      },
+    ),
+  )
+  async updateCategory(
+    @Body() data: AddCategoryDto,
+    @Param('id') id: string,
+    @UploadedFiles() img: MulterDiskUploadedFiles,
+  ) {
+    const category = await this.categoryService.updateCategory(data, id, img);
     return category;
   }
 

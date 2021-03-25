@@ -79,4 +79,61 @@ export class CategoryService {
     }
   }
 
+  async updateCategory(
+    data: AddCategoryDto,
+    id: string,
+    imgs: MulterDiskUploadedFiles,
+  ) {
+    const img = imgs?.img?.[0] ?? null;
+    if (!img) {
+      throw new HttpException('Validation failed', 400);
+    }
+    try {
+      let categoryToUpdate = null;
+      try {
+        categoryToUpdate = await this.categoryModel.findOne({ _id: id });
+      } catch (e) {
+        throw new HttpException('Cateory is not exist', 404);
+      }
+      const existCategory = await this.categoryModel
+        .find({
+          $or: [{ name: data.name }, { key: NormalizeString(data.name) }],
+        })
+        .exec();
+      if (existCategory.length > 0 && data.name !== categoryToUpdate.name) {
+        throw new HttpException('Category is already exist.', 409);
+      } else {
+        let newData = {
+          name: data.name,
+          key: NormalizeString(data.name),
+          description: data.description,
+          img: img.filename,
+        };
+
+        const updatedCategory = await this.categoryModel.updateOne(
+          { key: categoryToUpdate.key },
+          newData,
+        );
+        if (updatedCategory.n > 0) {
+          try {
+            if (categoryToUpdate.img) {
+              fs.unlinkSync(path.join(storageDir(), categoryToUpdate.img));
+            }
+          } catch (e2) {}
+          return { status: 200, message: 'Succesfully updated' };
+        } else if (updatedCategory.n === 0) {
+          throw new HttpException('Could not update category.', 409);
+        }
+      }
+    } catch (e: any) {
+      try {
+        if (img) {
+          fs.unlinkSync(path.join(storageDir(), img.filename));
+        }
+      } catch (e2) {}
+
+      throw e;
+    }
+  }
+
 }
