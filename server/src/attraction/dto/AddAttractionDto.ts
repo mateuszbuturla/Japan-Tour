@@ -6,4 +6,5 @@ export default interface AddAttractionDto {
   prefecture: string;
   city?: string;
   highlight: boolean;
+  category:string;
 }

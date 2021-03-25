@@ -19,6 +19,7 @@ import { storageDir } from 'src/utils/storage';
 import * as fs from 'fs';
 import * as path from 'path';
 import { MulterDiskUploadedFiles } from 'src/interfaces/files';
+import { CategoryService } from 'src/category/category.service';
 
 @Injectable()
 export class AttractionService {
@@ -31,12 +32,16 @@ export class AttractionService {
     private readonly prefectureService: PrefectureService,
     @Inject(forwardRef(() => CityService))
     private readonly cityService: CityService,
+    @Inject(forwardRef(() => CategoryService))
+    private readonly categoryService: CategoryService,
   ) {}
 
   async getAttractions({
     region,
     prefecture,
     city,
+    category,
+    categoryId
   }: GetAttractionsDto): Promise<AttractionInterface[]> {
     let findQueries = {};
 
@@ -55,6 +60,14 @@ export class AttractionService {
     if (city) {
       const res = await this.cityService.getSingleCity(city);
       findQueries['city'] = res.id;
+    }
+
+    if (category) {
+      const res = await this.categoryService.getSingleCategory(category);
+      findQueries['category'] = res.id;
+    }
+    else if (categoryId) {
+      findQueries['category'] = categoryId;
     }
 
     const attractions = await this.attractionModel.find(findQueries);
@@ -127,6 +140,12 @@ export class AttractionService {
           }
         }
 
+        const category = await this.categoryService.getSingleCategory(data.category);
+
+        if (!category) {
+          throw new HttpException('Validation failed', 400);
+        }
+
         const newAttraction = new this.attractionModel({
           name: data.name,
           key: NormalizeString(data.name),
@@ -136,6 +155,7 @@ export class AttractionService {
           region: region.id,
           prefecture: prefecture.id,
           highlight: data.highlight,
+          category: category.id,
         });
         if (data.city) {
           newAttraction.city = city.id;
@@ -189,6 +209,12 @@ export class AttractionService {
           throw new HttpException('Validation failed', 400);
         }
 
+        const category = await this.categoryService.getSingleCategory(data.category);
+
+        if (!category) {
+          throw new HttpException('Validation failed', 400);
+        }
+
         let city;
 
         if (data.city) {
@@ -210,6 +236,7 @@ export class AttractionService {
           shortDescription: data.shortDescription,
           region: region.id,
           highlight: data.highlight,
+          category: category.id,
         };
 
         if (data.city) {

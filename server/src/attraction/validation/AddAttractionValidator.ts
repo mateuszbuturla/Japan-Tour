@@ -8,4 +8,5 @@ export const AddAttractionValidator = Joi.object().keys({
   prefecture: Joi.string().required(),
   city: Joi.string(),
   highlight: Joi.boolean().required(),
+  category: Joi.boolean().required()
 });
