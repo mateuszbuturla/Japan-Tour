@@ -10,6 +10,7 @@ export const AttractionSchema = new mongoose.Schema({
   prefecture: { type: String, required: true },
   city: { type: String, required: false },
   highlight: { type: Boolean, required: true },
+  category: { type: String, required: true}
 });
 
 export interface Attraction extends mongoose.Document {
@@ -23,4 +24,5 @@ export interface Attraction extends mongoose.Document {
   prefecture: string;
   city?: string;
   highlight: boolean;
+  category:string;
 }
