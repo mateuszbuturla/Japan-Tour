@@ -39,6 +39,7 @@ export class AttractionService {
   async getAttractions({
     region,
     prefecture,
+    prefectureId,
     city,
     category,
     categoryId
@@ -55,6 +56,9 @@ export class AttractionService {
         prefecture,
       );
       findQueries['prefecture'] = res.id;
+    }
+    else if (prefectureId) {
+      findQueries['prefecture'] = prefectureId;
     }
 
     if (city) {
