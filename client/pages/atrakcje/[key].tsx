@@ -1,5 +1,4 @@
 import Head from "next/head";
-import { useRouter } from "next/router";
 import { Header, Description, SubHeader, Tile } from "components/common";
 import {
   Banner,
@@ -7,10 +6,12 @@ import {
   Container,
   TilesContainer,
 } from "components/layout";
+import Api from "utils/Api";
 
-export default function Attraction() {
-  const router = useRouter();
-  const { key } = router.query;
+export default function Attraction({ attraction, similaryAttraction }) {
+  console.log(attraction);
+
+  console.log(similaryAttraction);
 
   return (
     <>
@@ -28,18 +29,36 @@ export default function Attraction() {
         <Description />
         <SubHeader>Podobne atrakcje w pobliżu</SubHeader>
         <TilesContainer>
-          {Array(7)
-            .fill(0)
-            .map((item: any, index: number) => (
-              <Tile
-                name="Tokyo"
-                img="https://www.telegraph.co.uk/content/dam/Travel/2019/August/iStock-1047662500.jpg"
-                description="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five "
-                key={index}
-              />
-            ))}
+          {similaryAttraction.map((item, index: number) => (
+            <Tile
+              name={item.name}
+              img="https://www.telegraph.co.uk/content/dam/Travel/2019/August/iStock-1047662500.jpg"
+              description={item.description}
+              key={index}
+            />
+          ))}
         </TilesContainer>
       </PageContainer>
     </>
   );
+}
+
+export async function getServerSideProps({ params }) {
+  try {
+    const attraction = await Api.get(`/attraction/${params.key}`);
+    const similaryAttraction = await Api.get(
+      `/attraction?categoryId=${attraction.data.category}&prefectureId=${attraction.data.prefecture}`
+    );
+
+    return {
+      props: {
+        attraction: attraction.data,
+        similaryAttraction: [...similaryAttraction.data],
+      },
+    };
+  } catch {
+    return {
+      notFound: true,
+    };
+  }
 }
