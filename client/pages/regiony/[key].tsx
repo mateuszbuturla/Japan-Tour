@@ -8,12 +8,15 @@ import {
 } from "components/layout";
 import Api from "utils/Api";
 import UppercaseFirstLetter from "utils/UppercaseFirstLetter";
+import config from "config/config";
 
 export default function Region({ region, highlighted }) {
   return (
     <>
       <Head>
-        <title>Moja Japonia | Region {UppercaseFirstLetter(region.name)}</title>
+        <title>
+          {config.pageName} | Region {UppercaseFirstLetter(region.name)}
+        </title>
       </Head>
       <Banner
         text={UppercaseFirstLetter(region.name)}

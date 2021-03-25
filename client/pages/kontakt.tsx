@@ -8,6 +8,7 @@ import {
 } from "components/layout";
 import React from "react";
 import { useForm } from "react-hook-form";
+import config from "config/config";
 
 export default function Home() {
   const { register, handleSubmit, errors } = useForm();
@@ -19,7 +20,7 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>Moja Japonia | Kontakt</title>
+        <title>{config.pageName} | Kontakt</title>
       </Head>
       <Banner text="Kontakt" text2="Skontaktuj się z nami!" />
       <PageContainer>

@@ -14,12 +14,15 @@ import {
 } from "components/layout";
 import Api from "utils/Api";
 import UppercaseFirstLetter from "utils/UppercaseFirstLetter";
+import config from "config/config";
 
 export default function Attraction({ category, regions, attractions }) {
   return (
     <>
       <Head>
-        <title>Moja Japonia | {UppercaseFirstLetter(category.name)}</title>
+        <title>
+          {config.pageName} | {UppercaseFirstLetter(category.name)}
+        </title>
       </Head>
       <Banner
         text={UppercaseFirstLetter(category.name)}

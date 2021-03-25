@@ -8,16 +8,15 @@ import {
 } from "components/layout";
 import Api from "utils/Api";
 import UppercaseFirstLetter from "utils/UppercaseFirstLetter";
+import config from "config/config";
 
 export default function Attraction({ attraction, similaryAttraction }) {
-  console.log(attraction);
-
-  console.log(similaryAttraction);
-
   return (
     <>
       <Head>
-        <title>Moja Japonia | {UppercaseFirstLetter(attraction.name)}</title>
+        <title>
+          {config.pageName} | {UppercaseFirstLetter(attraction.name)}
+        </title>
       </Head>
       <Banner
         text={UppercaseFirstLetter(attraction.name)}
