@@ -3,8 +3,8 @@ import {
   BadRequestException,
   Injectable,
   PipeTransform,
-} from "@nestjs/common";
-import { ObjectSchema } from "joi";
+} from '@nestjs/common';
+import { ObjectSchema } from 'joi';
 
 @Injectable()
 export class JoiValidationPipe implements PipeTransform {
@@ -13,7 +13,7 @@ export class JoiValidationPipe implements PipeTransform {
   transform(value: any, metadata: ArgumentMetadata) {
     const { error } = this.schema.validate(value);
     if (error) {
-      throw new BadRequestException("Validation failed");
+      throw new BadRequestException('Validation failed');
     }
     return value;
   }

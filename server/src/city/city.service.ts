@@ -4,235 +4,217 @@ import {
   Inject,
   Injectable,
   NotFoundException,
-} from "@nestjs/common";
-import { InjectModel } from "@nestjs/mongoose";
-import { Model } from "mongoose";
-import { User } from "src/interface/User";
-import { isNull } from "util";
-import { ActionHistoryService } from "../actionHistory/actionHistory.service";
-import { RegionService } from "../region/region.service";
-import NormalizeString from "../utils/normalizeString";
-import { City } from "./city.model";
-import { AttractionService } from "../attraction/attraction.service";
-import { PrefectureService } from "../prefecture/prefecture.service";
+} from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
+import { CityInterface } from 'src/interfaces/city';
+import { MulterDiskUploadedFiles } from 'src/interfaces/files';
+import NormalizeString from 'src/utils/normalizeString';
+import { storageDir } from 'src/utils/storage';
+import { City } from './city.entity';
+import AddCityDto from './dto/AddCityDto';
+import * as fs from 'fs';
+import * as path from 'path';
+import { RegionService } from 'src/region/region.service';
+import { PrefectureService } from 'src/prefecture/prefecture.service';
+import GetCitiesDto from './dto/GetCitiesDto';
 
 @Injectable()
 export class CityService {
   constructor(
-    @InjectModel("City") private readonly cityModel: Model<City>,
-    @Inject(forwardRef(() => ActionHistoryService))
-    private readonly actionHistoryService: ActionHistoryService,
+    @InjectModel('City')
+    private readonly cityModel: Model<City>,
     @Inject(forwardRef(() => RegionService))
     private readonly regionService: RegionService,
-    @Inject(forwardRef(() => AttractionService))
-    private readonly attractionService: AttractionService,
     @Inject(forwardRef(() => PrefectureService))
-    private readonly prefectureService: PrefectureService
+    private readonly prefectureService: PrefectureService,
   ) {}
 
-  async getCities() {
-    const cities = await this.cityModel.find().exec();
+  async getCities({
+    region,
+    prefecture,
+  }: GetCitiesDto): Promise<CityInterface[]> {
+    let findQueries = {};
+
+    if (region) {
+      const res = await this.regionService.getSingleRegions(region);
+      findQueries['region'] = res.id;
+    }
+
+    if (prefecture) {
+      const res = await await this.prefectureService.getSinglePrefecture(
+        prefecture,
+      );
+      findQueries['prefecture'] = res.id;
+    }
+
+    const cities = await this.cityModel.find(findQueries);
     return cities;
   }
 
-  async getHighlightedCities() {
-    const cities = await this.cityModel.find({ highlighted: true }).exec();
-    const regions = await this.regionService.getRegions();
-    return {
-      aboveItems: regions.map((region) => ({
-        _id: region._id,
-        name: region.name,
-        key: region.key,
-      })),
-      items: cities.map((city) => ({
-        _id: city._id,
-        name: city.name,
-        url: city.url,
-        key: city.key,
-        description: city.description,
-        img: city.img,
-        region: city.region,
-        otherData: city.otherData,
-        highlighted: city.highlighted,
-        shortDescription: city.shortDescription,
-      })),
-    };
+  async getSingleCity(key: string): Promise<CityInterface> {
+    const city = await this.findCity(key);
+
+    return city;
   }
 
-  async getSingleCity(key: string, withAttractions: boolean) {
-    const city = await this.findRegion(key);
-    let attractions = null;
-
-    let res = {
-      city: city,
-    };
-
-    if (withAttractions) {
-      attractions = await this.attractionService.getAllFromCity(key);
-      res["attractions"] = attractions;
-    }
-
-    return res;
-  }
-
-  private async findRegion(key: string): Promise<City> {
+  private async findCity(key: string): Promise<CityInterface> {
     let city;
     try {
       city = await this.cityModel.findOne({ key }).exec();
     } catch (error) {
-      throw new NotFoundException("Could not find city.");
+      throw new NotFoundException('Could not find city.');
     }
     if (!city) {
-      throw new NotFoundException("Could not find city.");
+      throw new NotFoundException('Could not find city.');
     }
     return city;
   }
 
-  async createCity(data: City, user: User) {
-    let res;
-    const existCity = await this.cityModel
-      .findOne({
-        $or: [
-          { name: data.name },
-          { url: NormalizeString(data.name) },
-          { key: NormalizeString(data.name) },
-        ],
-      })
-      .exec();
+  async createCity(data: AddCityDto, imgs: MulterDiskUploadedFiles) {
+    const img = imgs?.img?.[0] ?? null;
 
-    if (isNull(existCity)) {
-      const newCity = new this.cityModel({
-        name: data.name,
-        url: NormalizeString(data.name),
-        key: NormalizeString(data.name),
-        region: data.region,
-        description: data.description,
-        img: data.img,
-        otherData: data.otherData,
-        highlighted: data.highlighted,
-        prefecture: data.prefecture,
-        shortDescription: data.shortDescription,
-      });
-      console.log(newCity);
-      res = await newCity.save();
-      this.actionHistoryService.addNewItem({
-        section: "cities",
-        name: data.name,
-        url: `/admin/cities/update/${NormalizeString(data.name)}`,
-        date: new Date().toLocaleDateString(),
-        author: user._id,
-        action: "add",
-      });
-    } else {
-      throw new HttpException("City is exist.", 409);
+    if (!img) {
+      throw new HttpException('Validation failed', 400);
     }
 
-    return res;
+    try {
+      const existCity = await this.cityModel
+        .find({
+          $or: [{ name: data.name }, { key: NormalizeString(data.name) }],
+        })
+        .exec();
+
+      if (existCity.length > 0) {
+        throw new HttpException('City is exist.', 409);
+      } else {
+        const region = await this.regionService.getSingleRegions(data.region);
+
+        if (!region) {
+          throw new HttpException('Validation failed', 400);
+        }
+
+        const prefecture = await this.prefectureService.getSinglePrefecture(
+          data.prefecture,
+        );
+
+        if (!prefecture || prefecture.region !== region.id) {
+          throw new HttpException('Validation failed', 400);
+        }
+
+        const newCity = new this.cityModel({
+          name: data.name,
+          key: NormalizeString(data.name),
+          img: img.filename,
+          description: data.description,
+          shortDescription: data.shortDescription,
+          region: region.id,
+          prefecture: prefecture.id,
+          highlight: data.highlight,
+        });
+        const res = await newCity.save();
+        return res;
+      }
+    } catch (e: any) {
+      try {
+        if (img) {
+          fs.unlinkSync(path.join(storageDir(), img.filename));
+        }
+      } catch (e2) {}
+
+      throw e;
+    }
   }
 
-  async removeCity(id: string, user: User) {
-    let res;
-
+  async updateCity(
+    data: AddCityDto,
+    id: string,
+    imgs: MulterDiskUploadedFiles,
+  ) {
+    const img = imgs?.img?.[0] ?? null;
+    if (!img) {
+      throw new HttpException('Validation failed', 400);
+    }
     try {
+      const region = await this.regionService.getSingleRegions(data.region);
+      if (!region) {
+        throw new HttpException('Validation failed', 400);
+      }
+      const prefecture = await this.prefectureService.getSinglePrefecture(
+        data.prefecture,
+      );
+      if (!prefecture || prefecture.region !== region.id) {
+        throw new HttpException('Validation failed', 400);
+      }
+      let cityToUpdate = null;
+      try {
+        cityToUpdate = await this.cityModel.findOne({ _id: id });
+      } catch (e) {
+        throw new HttpException('City is not exist', 404);
+      }
+      const existCity = await this.cityModel
+        .find({
+          $or: [{ name: data.name }, { key: NormalizeString(data.name) }],
+        })
+        .exec();
+      if (existCity.length > 0 && data.name !== cityToUpdate.name) {
+        throw new HttpException('City is already exist.', 409);
+      } else {
+        let newData = {
+          name: data.name,
+          key: NormalizeString(data.name),
+          description: data.description,
+          img: img.filename,
+          shortDescription: data.shortDescription,
+          region: region.id,
+          highlight: data.highlight,
+        };
+
+        const updatedCity = await this.cityModel.updateOne(
+          { key: cityToUpdate.key },
+          newData,
+        );
+        if (updatedCity.n > 0) {
+          try {
+            if (cityToUpdate.img) {
+              fs.unlinkSync(path.join(storageDir(), cityToUpdate.img));
+            }
+          } catch (e2) {}
+          return { status: 200, message: 'Succesfully updated' };
+        } else if (updatedCity.n === 0) {
+          throw new HttpException('Could not update city.', 409);
+        }
+      }
+    } catch (e: any) {
+      try {
+        if (img) {
+          fs.unlinkSync(path.join(storageDir(), img.filename));
+        }
+      } catch (e2) {}
+
+      throw e;
+    }
+  }
+
+  async removeCity(id: string) {
+    const cityToRemove = await this.cityModel.findOne({ _id: id });
+
+    if (!cityToRemove) {
+      throw new HttpException('City is not exist', 404);
+    }
+
+    if (cityToRemove) {
       const removedCity = await this.cityModel.remove({ _id: id });
       if (removedCity.deletedCount > 0) {
-        res = "Successfully deleted.";
-        this.actionHistoryService.addNewItem({
-          section: "cities",
-          name: "none",
-          url: `none`,
-          date: new Date().toLocaleDateString(),
-          author: user._id,
-          action: "remove",
-        });
-      } else if (removedCity.deletedCount === 0) {
-        throw new HttpException("Could not remove city.", 409);
+        try {
+          if (cityToRemove.img) {
+            fs.unlinkSync(path.join(storageDir(), cityToRemove.img));
+          }
+        } catch (e2) {}
+        return cityToRemove;
+      } else {
+        throw new HttpException('Could not remove city.', 409);
       }
-    } catch (error) {
-      throw new HttpException("Could not remove city.", 409);
     }
-
-    return res;
-  }
-
-  async updateCity(key: string, data: City, user: User) {
-    let res;
-
-    try {
-      const newData = {
-        name: data.name,
-        key: NormalizeString(data.name),
-        url: NormalizeString(data.name),
-        description: data.description,
-        region: data.region,
-        img: data.img,
-        otherData: data.otherData,
-        highlighted: data.highlighted,
-        prefecture: data.prefecture,
-        shortDescription: data.shortDescription,
-      };
-
-      const updatedCity = await this.cityModel.updateOne({ key }, newData);
-      if (updatedCity.n > 0) {
-        res = {
-          statusCode: 200,
-          message: "Successfully updated.",
-        };
-        this.actionHistoryService.addNewItem({
-          section: "cities",
-          name: data.name,
-          url: `/admin/cities/update/${NormalizeString(data.name)}`,
-          date: new Date().toLocaleDateString(),
-          author: user._id,
-          action: "update",
-        });
-      } else if (updatedCity.n === 0) {
-        throw new HttpException("Could not update city.", 409);
-      }
-    } catch (error) {
-      throw new HttpException("Could not update city.", 409);
-    }
-
-    return res;
-  }
-
-  async getHighlightedFromRegion(regionKey: string) {
-    const region = await this.regionService.getSingleRegion(
-      regionKey,
-      false,
-      false,
-      false
-    );
-    const cities = await this.cityModel
-      .find({ region: region.region._id, highlighted: true })
-      .exec();
-    return {
-      items: cities,
-    };
-  }
-
-  async getFromRegion(regionKey: string) {
-    const region = await this.regionService.getSingleRegion(
-      regionKey,
-      false,
-      false,
-      false
-    );
-    const cities = await this.cityModel
-      .find({ region: region.region._id })
-      .exec();
-    return cities;
-  }
-
-  async getFromPrefecture(prefectureKey: string) {
-    const prefecture = await this.prefectureService.getSinglePrefecture(
-      prefectureKey,
-      false,
-      false
-    );
-    const cities = await this.cityModel
-      .find({ prefecture: prefecture.prefecture._id })
-      .exec();
-    return cities;
   }
 }

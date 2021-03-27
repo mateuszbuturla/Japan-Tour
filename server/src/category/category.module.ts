@@ -1,17 +1,13 @@
-import { Module } from "@nestjs/common";
-import { MongooseModule } from "@nestjs/mongoose";
-import { ActionHistoryModule } from "../actionHistory/actionHistory.module";
-import { CategoryController } from "./category.controller";
-import { CategorySchema } from "./category.model";
-import { CategoryService } from "./category.service";
+import { Module } from '@nestjs/common';
+import { MongooseModule } from '@nestjs/mongoose';
+import { CategoryController } from './category.controller';
+import { CategoryService } from './category.service';
+import { CategorySchema } from './category.entity';
 
 @Module({
-  imports: [
-    MongooseModule.forFeature([{ name: "Category", schema: CategorySchema }]),
-    ActionHistoryModule,
-  ],
+  imports: [MongooseModule.forFeature([{ name: 'Category', schema: CategorySchema }])],
   controllers: [CategoryController],
   providers: [CategoryService],
-  exports: [CategoryService],
+  exports: [CategoryService]
 })
 export class CategoryModule {}

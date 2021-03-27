@@ -1,20 +1,12 @@
-import { PrefectureModule } from "../prefecture/prefecture.module";
-import { forwardRef, Module } from "@nestjs/common";
-import { MongooseModule } from "@nestjs/mongoose";
-import { ActionHistoryModule } from "../actionHistory/actionHistory.module";
-import { RegionController } from "./region.controller";
-import { RegionSchema } from "./region.model";
-import { RegionService } from "./region.service";
-import { CityModule } from "../city/city.module";
-import { AttractionModule } from "../attraction/attraction.module";
+import { MongooseModule } from '@nestjs/mongoose';
+import { Module } from '@nestjs/common';
+import { RegionController } from './region.controller';
+import { RegionService } from './region.service';
+import { RegionSchema } from './region.entity';
 
 @Module({
   imports: [
-    MongooseModule.forFeature([{ name: "Region", schema: RegionSchema }]),
-    forwardRef(() => ActionHistoryModule),
-    forwardRef(() => CityModule),
-    forwardRef(() => AttractionModule),
-    forwardRef(() => PrefectureModule),
+    MongooseModule.forFeature([{ name: 'Region', schema: RegionSchema }]),
   ],
   controllers: [RegionController],
   providers: [RegionService],

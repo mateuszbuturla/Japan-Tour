@@ -1,32 +1,13 @@
-import { Module } from "@nestjs/common";
-import { MongooseModule } from "@nestjs/mongoose";
-import { ActionHistoryModule } from "./actionHistory/actionHistory.module";
-import { AttractionModule } from "./attraction/attraction.module";
-import { AuthModule } from "./auth/auth.module";
-import { CategoryModule } from "./category/category.module";
-import { CityModule } from "./city/city.module";
-import { CultureModule } from "./culture/culture.module";
-import { KitchenModule } from "./kitchen/kitchen.module";
-import { FooterModule } from "./footer/footer.module";
-import { RegionModule } from "./region/region.module";
-import { UserModule } from "./user/user.module";
-import { PrefectureModule } from "./prefecture/prefecture.module";
+import { Module } from '@nestjs/common';
+import { MongooseModule } from '@nestjs/mongoose';
+import { RegionModule } from './region/region.module';
+import { PrefectureModule } from './prefecture/prefecture.module';
+import { CityModule } from './city/city.module';
+import { AttractionModule } from './attraction/attraction.module';
+import { CategoryModule } from './category/category.module';
 
 @Module({
-  imports: [
-    ActionHistoryModule,
-    RegionModule,
-    MongooseModule.forRoot("mongodb://localhost:27017/Japan"),
-    CityModule,
-    AttractionModule,
-    CultureModule,
-    KitchenModule,
-    CategoryModule,
-    FooterModule,
-    UserModule,
-    AuthModule,
-    PrefectureModule,
-  ],
+  imports: [MongooseModule.forRoot('mongodb://localhost/MojaJaponia'), RegionModule, PrefectureModule, CityModule, AttractionModule, CategoryModule],
   controllers: [],
   providers: [],
 })

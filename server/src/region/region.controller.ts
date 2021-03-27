@@ -1,60 +1,86 @@
-import {
-  Body,
-  Controller,
-  DefaultValuePipe,
-  Get,
-  Param,
-  Patch,
-  Post,
-  UseGuards,
-} from "@nestjs/common";
-import { AuthGuard } from "@nestjs/passport";
-import { UserObj } from "../decorators/user-obj.decorator";
-import { User } from "../interface/user";
-import { Region } from "./region.model";
-import { RegionService } from "./region.service";
-import { CityService } from "../city/city.service";
+import { Delete, Get, Patch, Post } from '@nestjs/common';
+import { Param } from '@nestjs/common';
+import { UseInterceptors } from '@nestjs/common';
+import { Body } from '@nestjs/common';
+import { Controller } from '@nestjs/common';
+import { FileFieldsInterceptor } from '@nestjs/platform-express';
+import { RegionInterface } from 'src/interfaces/region';
+import { RegionService } from './region.service';
+import { multerStorage } from 'src/utils/storage';
+import * as path from 'path';
+import { UploadedFiles } from '@nestjs/common';
+import { MulterDiskUploadedFiles } from 'src/interfaces/files';
+import AddRegionDto from './dto/AddRegionDto';
+import { UsePipes } from '@nestjs/common';
+import { JoiValidationPipe } from 'src/pipes/JoiValidationPipe';
+import { AddRegionValidator } from './validation/AddRegionValidator';
 
-@Controller("/api/regions")
+@Controller('region')
 export class RegionController {
-  constructor(private readonly RegionService: RegionService) {}
+  constructor(private readonly regionService: RegionService) {}
 
-  @Get()
-  async getAllRegions() {
-    const regions = await this.RegionService.getRegions();
+  @Get('/')
+  async getRegions(): Promise<RegionInterface[]> {
+    const regions = await this.regionService.getRegions();
     return regions;
   }
 
-  @Post("create")
-  @UseGuards(AuthGuard("jwt"))
-  createRegion(@Body() data: Region, @UserObj() user: User) {
-    return this.RegionService.createRegion(data, user);
+  @Post('/')
+  @UsePipes(new JoiValidationPipe(AddRegionValidator))
+  @UseInterceptors(
+    FileFieldsInterceptor(
+      [
+        {
+          name: 'img',
+          maxCount: 1,
+        },
+      ],
+      {
+        storage: multerStorage(),
+      },
+    ),
+  )
+  async createRegion(
+    @Body() data: AddRegionDto,
+    @UploadedFiles() img: MulterDiskUploadedFiles,
+  ) {
+    const region = await this.regionService.createRegion(data, img);
+    return region;
   }
 
-  @Patch("update/:key")
-  @UseGuards(AuthGuard("jwt"))
-  updateRegion(
-    @Param("key") key: string,
-    @Body() data: Region,
-    @UserObj() user: User
+  @Patch('/:id')
+  // @UsePipes(new JoiValidationPipe(AddRegionValidator))
+  @UseInterceptors(
+    FileFieldsInterceptor(
+      [
+        {
+          name: 'img',
+          maxCount: 1,
+        },
+      ],
+      {
+        storage: multerStorage(),
+      },
+    ),
+  )
+  async updateRegion(
+    @Body() data: AddRegionDto,
+    @Param('id') id: string,
+    @UploadedFiles() img: MulterDiskUploadedFiles,
   ) {
-    return this.RegionService.updateRegion(key, data, user);
+    const region = await this.regionService.updateRegion(data, id, img);
+    return region;
   }
 
-  @Get(":key/:widthPrefectures?/:withCities?/:withAttractions?")
-  getSingleRegion(
-    @Param("key") key: string,
-    @Param("widthPrefectures", new DefaultValuePipe(false))
-    widthPrefectures: boolean,
-    @Param("withCities", new DefaultValuePipe(false)) withCities: boolean,
-    @Param("withAttractions", new DefaultValuePipe(false))
-    withAttractions: boolean
-  ) {
-    return this.RegionService.getSingleRegion(
-      key,
-      widthPrefectures,
-      withCities,
-      withAttractions
-    );
+  @Delete('/:id')
+  async removeRegion(@Param('id') id: string): Promise<RegionInterface> {
+    const region = await this.regionService.removeRegion(id);
+    return region;
+  }
+
+  @Get('/:key')
+  async getSingleRegions(@Param('key') key: string): Promise<RegionInterface> {
+    const region = await this.regionService.getSingleRegions(key);
+    return region;
   }
 }

@@ -1,65 +1,102 @@
 import {
   Body,
   Controller,
-  DefaultValuePipe,
   Delete,
   Get,
   Param,
   Patch,
   Post,
-  UseGuards,
-} from "@nestjs/common";
-import { AuthGuard } from "@nestjs/passport";
-import { UserObj } from "src/decorators/user-obj.decorator";
-import { User } from "src/interface/User";
-import { Prefecture } from "./prefecture.model";
-import { PrefectureService } from "./prefecture.service";
+  Query,
+  UploadedFiles,
+  UseInterceptors,
+  UsePipes,
+} from '@nestjs/common';
+import { FileFieldsInterceptor } from '@nestjs/platform-express';
+import { MulterDiskUploadedFiles } from 'src/interfaces/files';
+import { PrefectureInterface } from 'src/interfaces/prefecture';
+import { JoiValidationPipe } from 'src/pipes/JoiValidationPipe';
+import { multerStorage } from 'src/utils/storage';
+import AddPrefectureDto from './dto/AddPrefectureDto';
+import GetPrefectureDto from './dto/GetPrefectureDto';
+import { PrefectureService } from './prefecture.service';
+import { AddPrefectureValidator } from './validation/AddPrefectureValidator';
 
-@Controller("/api/prefectures")
+@Controller('prefecture')
 export class PrefectureController {
-  constructor(private readonly PrefectureService: PrefectureService) {}
+  constructor(private readonly prefectureService: PrefectureService) {}
 
-  @Get()
-  async getAllPrefectures() {
-    const regions = await this.PrefectureService.getPrefectures();
-    return regions;
+  @Get('/')
+  async getPrefectures(
+    @Query() query: GetPrefectureDto,
+  ): Promise<PrefectureInterface[]> {
+    const prefectures = await this.prefectureService.getPrefectures(query);
+    return prefectures;
   }
 
-  @Post("create")
-  @UseGuards(AuthGuard("jwt"))
-  // @UsePipes(new JoiValidationPipe(AddUpdateCitySchema))
-  createPrefecture(@Body() data: Prefecture, @UserObj() user: User) {
-    return this.PrefectureService.createPrefecture(data, user);
-  }
-
-  @Patch("update/:key")
-  @UseGuards(AuthGuard("jwt"))
-  // @UsePipes(new JoiValidationPipe(AddUpdateCitySchema))
-  updatePrefecture(
-    @Param("key") key: string,
-    @Body() data: Prefecture,
-    @UserObj() user: User
+  @Post('/')
+  @UsePipes(new JoiValidationPipe(AddPrefectureValidator))
+  @UseInterceptors(
+    FileFieldsInterceptor(
+      [
+        {
+          name: 'img',
+          maxCount: 1,
+        },
+      ],
+      {
+        storage: multerStorage(),
+      },
+    ),
+  )
+  async createPrefecture(
+    @Body() data: AddPrefectureDto,
+    @UploadedFiles() img: MulterDiskUploadedFiles,
   ) {
-    return this.PrefectureService.updatePrefecture(key, data, user);
+    const prefecture = await this.prefectureService.createPrefecture(data, img);
+    return prefecture;
   }
 
-  @Get(":key/:widthCities?/:withAttractions?")
-  getSinglePrefecture(
-    @Param("key") key: string,
-    @Param("widthCities", new DefaultValuePipe(false)) widthCities: boolean,
-    @Param("withAttractions", new DefaultValuePipe(false))
-    withAttractions: boolean
+  @Patch('/:id')
+  //   @UsePipes(new JoiValidationPipe(AddPrefectureValidator))
+  @UseInterceptors(
+    FileFieldsInterceptor(
+      [
+        {
+          name: 'img',
+          maxCount: 1,
+        },
+      ],
+      {
+        storage: multerStorage(),
+      },
+    ),
+  )
+  async updatePrefecture(
+    @Body() data: AddPrefectureDto,
+    @Param('id') id: string,
+    @UploadedFiles() img: MulterDiskUploadedFiles,
   ) {
-    return this.PrefectureService.getSinglePrefecture(
-      key,
-      widthCities,
-      withAttractions
+    const prefecture = await this.prefectureService.updatePrefecture(
+      data,
+      id,
+      img,
     );
+    return prefecture;
   }
 
-  @Get("region/:region")
-  async getFromRegion(@Param("region") region: string) {
-    const cities = await this.PrefectureService.getFromRegion(region);
-    return cities;
+  @Delete('/:id')
+  async removePrefecture(
+    @Param('id') id: string,
+  ): Promise<PrefectureInterface> {
+    const prefecture = await this.prefectureService.removePrefecture(id);
+    return prefecture;
+  }
+
+  @Get('/:key')
+  async getSinglePrefecture(
+    @Param('key') key: string,
+  ): Promise<PrefectureInterface> {
+    const prefecture = await this.prefectureService.getSinglePrefecture(key);
+    return prefecture;
   }
 }

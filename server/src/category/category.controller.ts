@@ -1,56 +1,73 @@
-import {
-  Body,
-  Controller,
-  Delete,
-  Get,
-  Param,
-  Patch,
-  Post,
-  UseGuards,
-} from "@nestjs/common";
-import { AuthGuard } from "@nestjs/passport";
-import { UserObj } from "src/decorators/user-obj.decorator";
-import { User } from "src/interface/User";
-import { Category } from "./category.model";
-import { CategoryService } from "./category.service";
+import { Body, Controller, Get, Param, Patch, Post, UploadedFiles, UseInterceptors, UsePipes } from '@nestjs/common';
+import { FileFieldsInterceptor } from '@nestjs/platform-express';
+import { CategoryInterface } from 'src/interfaces/category';
+import { MulterDiskUploadedFiles } from 'src/interfaces/files';
+import { JoiValidationPipe } from 'src/pipes/JoiValidationPipe';
+import { multerStorage } from 'src/utils/storage';
+import { CategoryService } from './category.service';
+import AddCategoryDto from './dto/AddCategoryDto';
+import { AddCategoryValidator } from './validation/AddCategoryValidator';
 
-@Controller("/api/categories")
+@Controller('category')
 export class CategoryController {
-  constructor(private readonly CategoryService: CategoryService) {}
+    constructor(private readonly categoryService: CategoryService) {}
 
-  @Get()
-  async getAllCategories() {
-    const categories = await this.CategoryService.getAllCategories();
+  @Get('/')
+  async getCategories(): Promise<CategoryInterface[]> {
+    const categories = await this.categoryService.getCategories();
     return categories;
   }
 
-  @Post("create")
-  @UseGuards(AuthGuard("jwt"))
-  // @UsePipes(new JoiValidationPipe(AddUpdateCategorySchema))
-  createCategory(@Body() data: Category, @UserObj() user: User) {
-    return this.CategoryService.createCategory(data, user);
-  }
-
-  @Delete("remove/:id")
-  @UseGuards(AuthGuard("jwt"))
-  removeCategory(@Param("id") data: string, @UserObj() user: User) {
-    return this.CategoryService.removeCategory(data, user);
-  }
-
-  @Patch("update/:key")
-  @UseGuards(AuthGuard("jwt"))
-  // @UsePipes(new JoiValidationPipe(AddUpdateCategorySchema))
-  updateCategory(
-    @Param("key") key: string,
-    @Body() data: Category,
-    @UserObj() user: User
+  @Post('/')
+  @UsePipes(new JoiValidationPipe(AddCategoryValidator))
+  @UseInterceptors(
+    FileFieldsInterceptor(
+      [
+        {
+          name: 'img',
+          maxCount: 1,
+        },
+      ],
+      {
+        storage: multerStorage(),
+      },
+    ),
+  )
+  async createCategory(
+    @Body() data: AddCategoryDto,
+    @UploadedFiles() img: MulterDiskUploadedFiles,
   ) {
-    return this.CategoryService.updateCategory(key, data, user);
+    const category = await this.categoryService.createCategory(data, img);
+    return category;
   }
 
-  @Get(":section")
-  async getAllCategoriesFromSection(@Param("section") section: string) {
-    const categories = await this.CategoryService.getCategories(section);
-    return categories;
+  @Patch('/:id')
+  //   @UsePipes(new JoiValidationPipe(AddPrefectureValidator))
+  @UseInterceptors(
+    FileFieldsInterceptor(
+      [
+        {
+          name: 'img',
+          maxCount: 1,
+        },
+      ],
+      {
+        storage: multerStorage(),
+      },
+    ),
+  )
+  async updateCategory(
+    @Body() data: AddCategoryDto,
+    @Param('id') id: string,
+    @UploadedFiles() img: MulterDiskUploadedFiles,
+  ) {
+    const category = await this.categoryService.updateCategory(data, id, img);
+    return category;
+  }
+
+  @Get('/:key')
+  async getSingleCity(@Param('key') key: string): Promise<CategoryInterface> {
+    const category = await this.categoryService.getSingleCategory(key);
+    return category;
   }
 }

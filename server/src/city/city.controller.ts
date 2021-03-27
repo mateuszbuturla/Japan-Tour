@@ -7,72 +7,87 @@ import {
   Param,
   Patch,
   Post,
-  UseGuards,
-} from "@nestjs/common";
-import { AuthGuard } from "@nestjs/passport";
-import { UserObj } from "src/decorators/user-obj.decorator";
-import { User } from "src/interface/User";
-import { City } from "./city.model";
-import { CityService } from "./city.service";
+  Query,
+  UploadedFiles,
+  UseInterceptors,
+  UsePipes,
+} from '@nestjs/common';
+import { FileFieldsInterceptor } from '@nestjs/platform-express';
+import { CityInterface } from 'src/interfaces/city';
+import { MulterDiskUploadedFiles } from 'src/interfaces/files';
+import { JoiValidationPipe } from 'src/pipes/JoiValidationPipe';
+import { multerStorage } from 'src/utils/storage';
+import { CityService } from './city.service';
+import AddCityDto from './dto/AddCityDto';
+import GetCitiesDto from './dto/GetCitiesDto';
+import { AddCityValidator } from './validation/AddCityValidator';
 
-@Controller("/api/cities")
+@Controller('city')
 export class CityController {
-  constructor(private readonly CityService: CityService) {}
+  constructor(private readonly cityService: CityService) {}
 
-  @Get()
-  async getAllCities() {
-    const regions = await this.CityService.getCities();
-    return regions;
-  }
-
-  @Get("/highlighted")
-  async getAllHighlightedCities() {
-    const regions = await this.CityService.getHighlightedCities();
-    return regions;
-  }
-
-  @Post("create")
-  @UseGuards(AuthGuard("jwt"))
-  // @UsePipes(new JoiValidationPipe(AddUpdateCitySchema))
-  createCity(@Body() data: City, @UserObj() user: User) {
-    return this.CityService.createCity(data, user);
-  }
-
-  @Delete("remove/:id")
-  @UseGuards(AuthGuard("jwt"))
-  removeCity(@Param("id") id: string, @UserObj() user: User) {
-    return this.CityService.removeCity(id, user);
-  }
-
-  @Patch("update/:key")
-  @UseGuards(AuthGuard("jwt"))
-  // @UsePipes(new JoiValidationPipe(AddUpdateCitySchema))
-  updateCity(
-    @Param("key") key: string,
-    @Body() data: City,
-    @UserObj() user: User
-  ) {
-    return this.CityService.updateCity(key, data, user);
-  }
-
-  @Get(":key/:withAttractions?")
-  getSingleCity(
-    @Param("key") key: string,
-    @Param("withAttractions", new DefaultValuePipe(false))
-    withAttractions: boolean
-  ) {
-    return this.CityService.getSingleCity(key, withAttractions);
-  }
-
-  @Get("region/:region")
-  async getFromRegion(@Param("region") region: string) {
-    const cities = await this.CityService.getFromRegion(region);
+  @Get('/')
+  async getCities(@Query() query: GetCitiesDto): Promise<CityInterface[]> {
+    const cities = await this.cityService.getCities(query);
     return cities;
   }
 
-  @Get("highlighted/:region")
-  async getHighlightedFromRegion(@Param("region") region: string) {
-    const cities = await this.CityService.getHighlightedFromRegion(region);
-    return cities;
+  @Post('/')
+  @UsePipes(new JoiValidationPipe(AddCityValidator))
+  @UseInterceptors(
+    FileFieldsInterceptor(
+      [
+        {
+          name: 'img',
+          maxCount: 1,
+        },
+      ],
+      {
+        storage: multerStorage(),
+      },
+    ),
+  )
+  async createRegion(
+    @Body() data: AddCityDto,
+    @UploadedFiles() img: MulterDiskUploadedFiles,
+  ) {
+    const city = await this.cityService.createCity(data, img);
+    return city;
+  }
+
+  @Patch('/:id')
+  //   @UsePipes(new JoiValidationPipe(AddPrefectureValidator))
+  @UseInterceptors(
+    FileFieldsInterceptor(
+      [
+        {
+          name: 'img',
+          maxCount: 1,
+        },
+      ],
+      {
+        storage: multerStorage(),
+      },
+    ),
+  )
+  async updateCity(
+    @Body() data: AddCityDto,
+    @Param('id') id: string,
+    @UploadedFiles() img: MulterDiskUploadedFiles,
+  ) {
+    const city = await this.cityService.updateCity(data, id, img);
+    return city;
+  }
+
+  @Delete('/:id')
+  async removePrefecture(@Param('id') id: string): Promise<CityInterface> {
+    const city = await this.cityService.removeCity(id);
+    return city;
+  }
+
+  @Get('/:key')
+  async getSingleCity(@Param('key') key: string): Promise<CityInterface> {
+    const city = await this.cityService.getSingleCity(key);
+    return city;
   }
 }
