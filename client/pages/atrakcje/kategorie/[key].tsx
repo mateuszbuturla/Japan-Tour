@@ -1,5 +1,4 @@
 import Head from "next/head";
-import { useRouter } from "next/router";
 import {
   Header,
   Description,
@@ -10,86 +9,68 @@ import {
   Banner,
   PageContainer,
   Container,
-  TilesContainer,
   MostVisitedTilesContainer,
   TilesWithHeaderContainer,
 } from "components/layout";
+import Api from "utils/Api";
+import UppercaseFirstLetter from "utils/UppercaseFirstLetter";
+import config from "config/config";
 
-export default function Attraction() {
-  const router = useRouter();
-  const { key } = router.query;
-
+export default function Attraction({ category, regions, attractions }) {
   return (
     <>
       <Head>
-        <title>Moja Japonia | Zamki</title>
+        <title>
+          {config.pageName} | {UppercaseFirstLetter(category.name)}
+        </title>
       </Head>
       <Banner
-        text="Zamki"
+        text={UppercaseFirstLetter(category.name)}
         img="https://www.telegraph.co.uk/content/dam/Travel/2019/August/iStock-1047662500.jpg"
       />
       <PageContainer marginTop={true}>
         <Container withMargin>
-          <Header>Zamki</Header>
+          <Header>{UppercaseFirstLetter(category.name)}</Header>
         </Container>
-        <Description />
-        <TilesWithHeaderContainer>
-          <RegionHeader region="Hokkaido" />
-          <MostVisitedTilesContainer>
-            {Array(4)
-              .fill(0)
-              .map((item: any, index: number) => (
-                <MostVisitedTile
-                  img="https://www.telegraph.co.uk/content/dam/Travel/2019/August/iStock-1047662500.jpg"
-                  name="Sapporo"
-                  description="Lorem ipsum dolor sit amet, consectetur adipiscing elit"
-                />
-              ))}
-          </MostVisitedTilesContainer>
-        </TilesWithHeaderContainer>
-        <TilesWithHeaderContainer>
-          <RegionHeader region="Tohoku" />
-          <MostVisitedTilesContainer>
-            {Array(4)
-              .fill(0)
-              .map((item: any, index: number) => (
-                <MostVisitedTile
-                  img="https://www.telegraph.co.uk/content/dam/Travel/2019/August/iStock-1047662500.jpg"
-                  name="Sapporo"
-                  description="Lorem ipsum dolor sit amet, consectetur adipiscing elit"
-                />
-              ))}
-          </MostVisitedTilesContainer>
-        </TilesWithHeaderContainer>
-        <TilesWithHeaderContainer>
-          <RegionHeader region="Kanto" />
-          <MostVisitedTilesContainer>
-            {Array(4)
-              .fill(0)
-              .map((item: any, index: number) => (
-                <MostVisitedTile
-                  img="https://www.telegraph.co.uk/content/dam/Travel/2019/August/iStock-1047662500.jpg"
-                  name="Sapporo"
-                  description="Lorem ipsum dolor sit amet, consectetur adipiscing elit"
-                />
-              ))}
-          </MostVisitedTilesContainer>
-        </TilesWithHeaderContainer>
-        <TilesWithHeaderContainer>
-          <RegionHeader region="Chubu" />
-          <MostVisitedTilesContainer>
-            {Array(4)
-              .fill(0)
-              .map((item: any, index: number) => (
-                <MostVisitedTile
-                  img="https://www.telegraph.co.uk/content/dam/Travel/2019/August/iStock-1047662500.jpg"
-                  name="Sapporo"
-                  description="Lorem ipsum dolor sit amet, consectetur adipiscing elit"
-                />
-              ))}
-          </MostVisitedTilesContainer>
-        </TilesWithHeaderContainer>
+        <Description content={category.description} />
+        {regions.map((region, index: number) => (
+          <TilesWithHeaderContainer key={index}>
+            <RegionHeader region={UppercaseFirstLetter(region.name)} />
+            <MostVisitedTilesContainer>
+              {attractions
+                .filter((item) => item.region === region.id)
+                .map((item, index: number) => (
+                  <MostVisitedTile
+                    name={item.name}
+                    img="https://www.telegraph.co.uk/content/dam/Travel/2019/August/iStock-1047662500.jpg"
+                    description={item.description}
+                    key={index}
+                  />
+                ))}
+            </MostVisitedTilesContainer>
+          </TilesWithHeaderContainer>
+        ))}
       </PageContainer>
     </>
   );
+}
+
+export async function getServerSideProps({ params }) {
+  try {
+    const category = await Api.get(`/category/${params.key}`);
+    const regions = await Api.get("/region");
+    const attractions = await Api.get(`/attraction`);
+
+    return {
+      props: {
+        category: category.data,
+        regions: regions.data,
+        attractions: [...attractions.data],
+      },
+    };
+  } catch {
+    return {
+      notFound: true,
+    };
+  }
 }

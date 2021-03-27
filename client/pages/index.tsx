@@ -6,15 +6,16 @@ import {
   TilesContainer,
   Container,
 } from "components/layout";
+import config from "config/config";
 
 export default function Home() {
   return (
     <>
       <Head>
-        <title>Moja Japonia | Strona główna</title>
+        <title>{config.pageName} | Strona główna</title>
       </Head>
       <Banner
-        text="Moja Japonia"
+        text={config.pageName}
         text2="Znajdź cel swojej pordóży!"
         searchBar={true}
       />

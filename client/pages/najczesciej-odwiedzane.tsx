@@ -7,12 +7,13 @@ import {
   Container,
   TilesWithHeaderContainer,
 } from "components/layout";
+import config from "config/config";
 
 export default function MostVisited() {
   return (
     <>
       <Head>
-        <title>Moja Japonia | Najczęściej odwiedzane</title>
+        <title>{config.pageName} | Najczęściej odwiedzane</title>
       </Head>
       <Banner
         text="Moja Japonia"

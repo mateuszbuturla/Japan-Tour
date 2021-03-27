@@ -8,12 +8,15 @@ import {
 } from "components/layout";
 import Api from "utils/Api";
 import UppercaseFirstLetter from "utils/UppercaseFirstLetter";
+import config from "config/config";
 
 export default function City({ city, highlighted }) {
   return (
     <>
       <Head>
-        <title>Moja Japonia | {UppercaseFirstLetter(city.name)}</title>
+        <title>
+          {config.pageName} | {UppercaseFirstLetter(city.name)}
+        </title>
       </Head>
       <Banner
         text={UppercaseFirstLetter(city.name)}
