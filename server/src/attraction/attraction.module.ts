@@ -20,6 +20,5 @@ import { CategoryModule } from 'src/category/category.module';
   ],
   controllers: [AttractionController],
   providers: [AttractionService],
-  exports: [AttractionService],
 })
 export class AttractionModule {}
