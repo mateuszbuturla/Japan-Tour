@@ -5,6 +5,7 @@ const StyledTile = styled.div`
   flex-shrink: 0;
   border-radius: ${(props) => props.theme.borderRadius};
   overflow: hidden;
+  cursor: pointer;
 
   @media (min-width: 1024px) {
     width: 30%;

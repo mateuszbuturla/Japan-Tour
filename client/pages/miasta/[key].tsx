@@ -37,6 +37,7 @@ export default function City({ city, highlighted }) {
               img="https://www.telegraph.co.uk/content/dam/Travel/2019/August/iStock-1047662500.jpg"
               description={item.description}
               key={index}
+              url={`/atrakcje/${item.name}`}
             />
           ))}
         </TilesContainer>

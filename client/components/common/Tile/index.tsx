@@ -1,3 +1,4 @@
+import { useRouter } from "next/router";
 import {
   StyledTile,
   StyledImg,
@@ -12,11 +13,20 @@ interface Props {
   name: string;
   description?: string;
   category?: string;
+  url?: string;
 }
 
-export default function Tile({ img, name, description, category }: Props) {
+export default function Tile({ img, name, description, category, url }: Props) {
+  const router = useRouter();
+
+  const redirect = () => {
+    if (url) {
+      router.push(url);
+    }
+  };
+
   return (
-    <StyledTile>
+    <StyledTile onClick={redirect}>
       <StyledTileTop img={img}>
         <StyledImg src={img} />
         <StyledName>{name}</StyledName>
