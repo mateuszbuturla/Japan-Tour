@@ -8,6 +8,7 @@
     "start": "next start"
   },
   "dependencies": {
+    "@badrap/bar-of-progress": "^0.1.2",
     "@types/styled-components": "^5.1.8",
     "axios": "^0.21.1",
     "next": "10.0.8",

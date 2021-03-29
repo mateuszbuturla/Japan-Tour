@@ -1,3 +1,4 @@
+import { useRouter } from "next/router";
 import {
   StyledFooter,
   StyledSectionsContainer,
@@ -8,20 +9,35 @@ import {
 } from "./StyledFooter";
 
 export default function Footer() {
+  const router = useRouter();
+
+  const redirect = (url: string) => {
+    if (url) {
+      router.push(url);
+    }
+  };
+
   return (
     <StyledFooter>
       <StyledSectionsContainer>
         <StyledSection>
           <StyledSectionHeader>Najczęściej odwiedzane</StyledSectionHeader>
-          <StyledSectionLink>Tokyo</StyledSectionLink>
-          <StyledSectionLink>Tokyo</StyledSectionLink>
-          <StyledSectionLink>Tokyo</StyledSectionLink>
-          <StyledSectionLink>Tokyo</StyledSectionLink>
-          <StyledSectionLink>Tokyo</StyledSectionLink>
-          <StyledSectionLink>Tokyo</StyledSectionLink>
-          <StyledSectionLink>Tokyo</StyledSectionLink>
-          <StyledSectionLink>Tokyo</StyledSectionLink>
-          <StyledSectionLink>Tokyo</StyledSectionLink>
+          {/* {mostVisited.city.map((city, index) => (
+            <StyledSectionLink
+              key={index}
+              onClick={() => redirect(`/miasta/${city.key}`)}
+            >
+              {city.name}
+            </StyledSectionLink>
+          ))}
+          {mostVisited.attraction.map((attraction, index) => (
+            <StyledSectionLink
+              key={index}
+              onClick={() => redirect(`/atrakcje/${attraction.key}`)}
+            >
+              {attraction.name}
+            </StyledSectionLink>
+          ))} */}
         </StyledSection>
         <StyledSection>
           <StyledSectionHeader>Regiony</StyledSectionHeader>

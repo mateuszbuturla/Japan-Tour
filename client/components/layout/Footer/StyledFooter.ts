@@ -34,6 +34,7 @@ const StyledSectionHeader = styled.p`
 
 const StyledSectionLink = styled.a`
   padding: 3px 0px;
+  cursor: pointer;
 
   @media (min-width: 1024px) {
     padding: 7px 0px;

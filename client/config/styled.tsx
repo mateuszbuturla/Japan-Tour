@@ -79,3 +79,5 @@ const Theme = ({ children }: Props) => (
 );
 
 export default Theme;
+
+export { theme };

@@ -1,7 +1,7 @@
 import { BurgerButton, NavDropdown } from "components/common";
 import { useSwitch } from "hooks";
 import Link from "next/link";
-import { useCallback, useEffect, useRef } from "react";
+import { useCallback, useContext, useEffect, useRef } from "react";
 import {
   StyledNav,
   StyledTopBar,
@@ -10,9 +10,12 @@ import {
 } from "./StyledNav";
 
 export default function Nav() {
+  // const [context, setContext] = useContext(Context);
   const [navIsOpen, toggleNavIsOpen, closeNav] = useSwitch(false);
   const navRef = useRef(null);
   const burgerButtonRef = useRef(null);
+
+  // console.log(context);
 
   const escapeListener = useCallback((e: KeyboardEvent) => {
     if (e.key === "Escape") {
@@ -58,6 +61,7 @@ export default function Nav() {
             <NavDropdown
               title="Najczęściej odwiedzane"
               data={[
+                { name: "Wszystkie", href: "/najczesciej-odwiedzane" },
                 { name: "Tokyo", href: "/miasto/tokyo1" },
                 { name: "Tokyo", href: "/miasto/tokyo2" },
                 { name: "Tokyo", href: "/miasto/tokyo3" },
