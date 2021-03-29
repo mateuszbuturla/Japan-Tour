@@ -23,6 +23,7 @@ const theme = {
   colors: {
     bg: "#fff",
     first: "#C850C0",
+    firstDark: "#a3349c",
     second: "#4158D0",
     textColor: "#000",
     grey: "#717171",

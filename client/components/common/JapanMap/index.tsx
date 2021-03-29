@@ -1,9 +1,11 @@
 import { StyledJapanMapContainer, StyledJapanMap } from "./StyledJapanMap";
+import { JapanMapSvg } from "components/svg";
 
 export default function JapanMap() {
   return (
     <StyledJapanMapContainer>
-      <StyledJapanMap src="/assets/japanMap.svg" />
+      {/* <JapanMapSvg /> */}
+      <JapanMapSvg />
     </StyledJapanMapContainer>
   );
 }
