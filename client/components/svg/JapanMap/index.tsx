@@ -91,9 +91,9 @@ const JapanMapSvg = () => {
             data-name="Tohoku"
             transform="translate(19.39 52.23)"
             fill="#26571f"
-            font-size="10"
-            font-family="Roboto-Black, Roboto"
-            font-weight="800"
+            fontSize="10"
+            fontFamily="Roboto-Black, Roboto"
+            fontWeight="800"
           >
             <tspan x="0" y="0">
               Tohoku
@@ -154,9 +154,9 @@ const JapanMapSvg = () => {
             data-name="Kanto"
             transform="translate(12.51 25.58)"
             fill="#26571f"
-            font-size="10"
-            font-family="Roboto-Black, Roboto"
-            font-weight="800"
+            fontSize="10"
+            fontFamily="Roboto-Black, Roboto"
+            fontWeight="800"
           >
             <tspan x="0" y="0">
               Kanto
@@ -181,9 +181,9 @@ const JapanMapSvg = () => {
             data-name="Hokkaido"
             transform="translate(43.79 71)"
             fill="#26571f"
-            font-size="10"
-            font-family="Roboto-Black, Roboto"
-            font-weight="800"
+            fontSize="10"
+            fontFamily="Roboto-Black, Roboto"
+            fontWeight="800"
           >
             <tspan x="0" y="0">
               Hokkaido
@@ -256,9 +256,9 @@ const JapanMapSvg = () => {
             data-name="Chubu"
             transform="translate(25.63 67.27)"
             fill="#26571f"
-            font-size="10"
-            font-family="Roboto-Black, Roboto"
-            font-weight="800"
+            fontSize="10"
+            fontFamily="Roboto-Black, Roboto"
+            fontWeight="800"
           >
             <tspan x="0" y="0">
               Chubu
@@ -319,9 +319,9 @@ const JapanMapSvg = () => {
             data-name="Kansai"
             transform="translate(14.2 41.91)"
             fill="#26571f"
-            font-size="10"
-            font-family="Roboto-Black, Roboto"
-            font-weight="800"
+            fontSize="10"
+            fontFamily="Roboto-Black, Roboto"
+            fontWeight="800"
           >
             <tspan x="0" y="0">
               Kansai
@@ -364,9 +364,9 @@ const JapanMapSvg = () => {
             data-name="Shikoku"
             transform="translate(11.4 20.07)"
             fill="#26571f"
-            font-size="10"
-            font-family="Roboto-Black, Roboto"
-            font-weight="800"
+            fontSize="10"
+            fontFamily="Roboto-Black, Roboto"
+            fontWeight="800"
           >
             <tspan x="0" y="0">
               Shikoku
@@ -415,9 +415,9 @@ const JapanMapSvg = () => {
             data-name="Chugoku"
             transform="translate(26.46 67.43)"
             fill="#26571f"
-            font-size="10"
-            font-family="Roboto-Black, Roboto"
-            font-weight="800"
+            fontSize="10"
+            fontFamily="Roboto-Black, Roboto"
+            fontWeight="800"
           >
             <tspan x="0" y="0">
               Chugoku
@@ -478,9 +478,9 @@ const JapanMapSvg = () => {
             data-name="Kyushu"
             transform="translate(32.72 45.37)"
             fill="#26571f"
-            font-size="10"
-            font-family="Roboto-Black, Roboto"
-            font-weight="800"
+            fontSize="10"
+            fontFamily="Roboto-Black, Roboto"
+            fontWeight="800"
           >
             <tspan x="0" y="0">
               Kyushu
@@ -505,9 +505,9 @@ const JapanMapSvg = () => {
             data-name="Okinawa"
             transform="translate(69 38.97)"
             fill="#26571f"
-            font-size="10"
-            font-family="Roboto-Black, Roboto"
-            font-weight="800"
+            fontSize="10"
+            fontFamily="Roboto-Black, Roboto"
+            fontWeight="800"
           >
             <tspan x="0" y="0">
               Okinawa
@@ -532,16 +532,16 @@ const JapanMapSvg = () => {
             transform="translate(5.5 3.5)"
             fill="none"
             stroke="#707070"
-            stroke-width="0.5"
+            strokeWidth="0.5"
           />
           <text
             id="Tokyo-2"
             data-name="Tokyo"
             transform="translate(31 6)"
             fill="#707070"
-            font-size="10"
-            font-family="Roboto-Black, Roboto"
-            font-weight="800"
+            fontSize="10"
+            fontFamily="Roboto-Black, Roboto"
+            fontWeight="800"
           >
             <tspan x="0" y="0">
               Tokyo
@@ -572,16 +572,16 @@ const JapanMapSvg = () => {
             transform="translate(2.25 7)"
             fill="none"
             stroke="#707070"
-            stroke-width="0.5"
+            strokeWidth="0.5"
           />
           <text
             id="Nagoya-2"
             data-name="Nagoya"
             transform="translate(3.75 30.5)"
             fill="#707070"
-            font-size="10"
-            font-family="Roboto-Black, Roboto"
-            font-weight="800"
+            fontSize="10"
+            fontFamily="Roboto-Black, Roboto"
+            fontWeight="800"
           >
             <tspan x="0" y="0">
               Nagoya
@@ -612,16 +612,16 @@ const JapanMapSvg = () => {
             transform="translate(2.25 7)"
             fill="none"
             stroke="#707070"
-            stroke-width="0.5"
+            strokeWidth="0.5"
           />
           <text
             id="Nara-2"
             data-name="Nara"
             transform="translate(3.75 41.5)"
             fill="#707070"
-            font-size="10"
-            font-family="Roboto-Black, Roboto"
-            font-weight="800"
+            fontSize="10"
+            fontFamily="Roboto-Black, Roboto"
+            fontWeight="800"
           >
             <tspan x="0" y="0">
               Nara
@@ -648,16 +648,16 @@ const JapanMapSvg = () => {
             transform="translate(6.5 7.5)"
             fill="none"
             stroke="#707070"
-            stroke-width="0.5"
+            strokeWidth="0.5"
           />
           <text
             id="Kyoto-2"
             data-name="Kyoto"
             transform="translate(-7 5)"
             fill="#707070"
-            font-size="10"
-            font-family="Roboto-Black, Roboto"
-            font-weight="800"
+            fontSize="10"
+            fontFamily="Roboto-Black, Roboto"
+            fontWeight="800"
           >
             <tspan x="0" y="0">
               Kyoto
@@ -684,7 +684,7 @@ const JapanMapSvg = () => {
             transform="translate(20.5 3.5)"
             fill="none"
             stroke="#707070"
-            stroke-width="0.5"
+            strokeWidth="0.5"
           />
           <line
             id="Line_6"
@@ -693,16 +693,16 @@ const JapanMapSvg = () => {
             transform="translate(15.5 3.5)"
             fill="none"
             stroke="#707070"
-            stroke-width="0.5"
+            strokeWidth="0.5"
           />
           <text
             id="Osaka-2"
             data-name="Osaka"
             transform="translate(-15 6)"
             fill="#707070"
-            font-size="10"
-            font-family="Roboto-Black, Roboto"
-            font-weight="800"
+            fontSize="10"
+            fontFamily="Roboto-Black, Roboto"
+            fontWeight="800"
           >
             <tspan x="0" y="0">
               Osaka
@@ -733,16 +733,16 @@ const JapanMapSvg = () => {
             transform="translate(11.5 7.5)"
             fill="none"
             stroke="#707070"
-            stroke-width="0.5"
+            strokeWidth="0.5"
           />
           <text
             id="Hiroshima-2"
             data-name="Hiroshima"
             transform="translate(-38 14)"
             fill="#707070"
-            font-size="10"
-            font-family="Roboto-Black, Roboto"
-            font-weight="800"
+            fontSize="10"
+            fontFamily="Roboto-Black, Roboto"
+            fontWeight="800"
           >
             <tspan x="0" y="0">
               Hiroshima
@@ -773,16 +773,16 @@ const JapanMapSvg = () => {
             transform="translate(22.5 3.5)"
             fill="none"
             stroke="#707070"
-            stroke-width="0.5"
+            strokeWidth="0.5"
           />
           <text
             id="Nagasaki-2"
             data-name="Nagasaki"
             transform="translate(-23 6)"
             fill="#707070"
-            font-size="10"
-            font-family="Roboto-Black, Roboto"
-            font-weight="800"
+            fontSize="10"
+            fontFamily="Roboto-Black, Roboto"
+            fontWeight="800"
           >
             <tspan x="0" y="0">
               Nagasaki
@@ -813,16 +813,16 @@ const JapanMapSvg = () => {
             transform="translate(11.5 7.5)"
             fill="none"
             stroke="#707070"
-            stroke-width="0.5"
+            strokeWidth="0.5"
           />
           <text
             id="Takayama-2"
             data-name="Takayama"
             transform="translate(-13 2)"
             fill="#707070"
-            font-size="10"
-            font-family="Roboto-Black, Roboto"
-            font-weight="800"
+            fontSize="10"
+            fontFamily="Roboto-Black, Roboto"
+            fontWeight="800"
           >
             <tspan x="0" y="0">
               Takayama
@@ -853,15 +853,15 @@ const JapanMapSvg = () => {
             transform="translate(6.25 3.5)"
             fill="none"
             stroke="#707070"
-            stroke-width="0.5"
+            strokeWidth="0.5"
           />
           <text
             id="Sendai"
             transform="translate(30.75 6)"
             fill="#707070"
-            font-size="10"
-            font-family="Roboto-Black, Roboto"
-            font-weight="800"
+            fontSize="10"
+            fontFamily="Roboto-Black, Roboto"
+            fontWeight="800"
           >
             <tspan x="0" y="0">
               Sendai
@@ -892,16 +892,16 @@ const JapanMapSvg = () => {
             transform="translate(20.5 3.5)"
             fill="none"
             stroke="#707070"
-            stroke-width="0.5"
+            strokeWidth="0.5"
           />
           <text
             id="Sapporo-2"
             data-name="Sapporo"
             transform="translate(-20 6)"
             fill="#707070"
-            font-size="10"
-            font-family="Roboto-Black, Roboto"
-            font-weight="800"
+            fontSize="10"
+            fontFamily="Roboto-Black, Roboto"
+            fontWeight="800"
           >
             <tspan x="0" y="0">
               Sapporo
@@ -928,7 +928,7 @@ const JapanMapSvg = () => {
             transform="translate(49.5 3.5)"
             fill="none"
             stroke="#707070"
-            stroke-width="0.5"
+            strokeWidth="0.5"
           />
           <line
             id="Line_13"
@@ -937,16 +937,16 @@ const JapanMapSvg = () => {
             transform="translate(17.5 3.5)"
             fill="none"
             stroke="#707070"
-            stroke-width="0.5"
+            strokeWidth="0.5"
           />
           <text
             id="Furano-2"
             data-name="Furano"
             transform="translate(-18 6)"
             fill="#707070"
-            font-size="10"
-            font-family="Roboto-Black, Roboto"
-            font-weight="800"
+            fontSize="10"
+            fontFamily="Roboto-Black, Roboto"
+            fontWeight="800"
           >
             <tspan x="0" y="0">
               Furano
