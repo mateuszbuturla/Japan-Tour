@@ -37,7 +37,7 @@ export default function Region({ region, highlighted }) {
               img="https://www.telegraph.co.uk/content/dam/Travel/2019/August/iStock-1047662500.jpg"
               description={item.description}
               key={index}
-              url={`/miasta/${item.name}`}
+              url={`/miasta/${item.key}`}
             />
           ))}
         </TilesContainer>
