@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 const StyledFooter = styled.footer`
-  width: 100vw;
+  width: 90vw;
   max-width: ${(props) => props.theme.maxWidth};
   margin: 0 auto;
   background-color: ${(props) => props.theme.colors.bg};
@@ -10,8 +10,7 @@ const StyledFooter = styled.footer`
 `;
 
 const StyledSectionsContainer = styled.div`
-  width: 90%;
-  margin: 0 auto;
+  width: 100%;
   display: flex;
   flex-direction: column;
 
@@ -42,8 +41,7 @@ const StyledSectionLink = styled.a`
 `;
 
 const StyledBottomBar = styled.div`
-  width: 90%;
-  margin: 0 auto;
+  width: 100%;
   font-size: ${(props) => props.theme.fontSize.text.small};
   padding: 10px 0px;
 
